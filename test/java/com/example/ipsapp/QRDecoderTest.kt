@@ -23,8 +23,8 @@ class QRDecoderTest {
         val keyString = "xRpkyjR4ElPHw7M27Wi_QDQTw_ofoSDv8xVdJQUOh_Q"
         val jwt = "eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIiwiY29udGVudFR5cGUiOiJhcHBsaWNhdGlvbi9zbWFydC1oZWFsdGgtY2FyZCJ9..2Jh7TJGW_0uZ1YzL.qC1qFN-zGOVx21LZtQcjXaxzKU1OHMS51giVk8RvGmaRaj-GRvnvhwvwRBxvZAZSBU42lBxj3cgXCnUgTv0DI3MBBIUCoRL7X-D3eFBZb_R3OhFlA1ckGYutLkN0UFvbOFMa72qKIJ0U7dEkrANcRgwgk7aoR__UfW4GRcEKCMcT-QBKi9SlD9-LVEhKgaUwwDBH8rsRxDLvWCN0FaBpUBMHeFxWpZTFEELKaQTQMspAYF7fPSHQllbP53ujWvBWZRUeqIvDNEzCnckjMD5hxhiUPgeOBdCjL5A6D0Zz-pOcQgDR5FnxTJIXqOsmaAbSiv4l-uXnlojmfrdypnJXyX9xM_nDmUtqZoNm4igKmNN7qTYZcfn6CNX3RXG1Y8SIL6HB9aqhMwLjpxXFf639GimRaheR85D2Ah_nW3jmBBiCkz5K8KGWKe7NM-KIpiQCCdjBodlYWciN-YZJKpl9NmABGI6TXWCkKuvo3uFjJp0x-ewp-9B4-l3FTagejwRbclUwDdFKE38tQRq5uOGD4fd0j4G3-tia9ioIrmVYx-Vs1flcSolFdwwn4AWa75wssMb145kWuHcRdrkKbWrhhkeyU9l2JA6xniVCy4yqfU1bJCgs1bRdCzaCmYij13avOTRQtc_lDr6fVw2Tl-gXb7ctw1qtlXXB3xBZNdyMB_q-XageqTCUpDpOqhqlNJJhRaJOjxs9snnTdrki_omnrur0bWnnqOBIohFXuccLoiIyPhefDst5zGknzQX5WxIsrQksC3AzDaXcQ_EAB9IkOAYqFWz-qcb7n9RBRS-xy2rTS2woz_2YgSnFuE6C-MCVrAIJm4GhpIgspCfN7FMeK_onsLpkKuRVw8i33EVLmiAY0ky_bzV-tkKWI1tFuaI61ohuatQ5GZ9bffpPO3iFcTJRbna1_LKWl_Fa7SG-dzvxowFwQBIZve9B0slsXP0el_mN_CCrHqTXqR24jVQobH3x2r-4.WVTlwLM45EmpXCrGa2jwcg"
 
-        // val payload = decodeJwt(jwt, keyString)
-        // println("Payload: $payload")
+        val payload = decodeJwt(jwt, keyString)
+        println("Payload: $payload")
     }
 
     @Test
