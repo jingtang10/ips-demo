@@ -57,6 +57,14 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.example.ipsapp.ViewSHL"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+
     </application>
 
     <uses-permission android:name="android.permission.CAMERA" />

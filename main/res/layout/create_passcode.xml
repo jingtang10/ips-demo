@@ -18,12 +18,18 @@
       android:layout_below="@+id/textView"
       android:hint="Enter Passcode" />
 
+  <CheckBox android:id="@+id/checkboxDate"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/passcode"
+      android:text="Do you want to include an expiration date?" />
+
   <DatePicker
       android:id="@+id/datePicker"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:datePickerMode="spinner"
-      android:layout_below="@+id/passcode"
+      android:layout_below="@+id/checkboxDate"
       android:calendarViewShown="false"/>
 
   <Button
@@ -31,7 +37,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_centerInParent="true"
-      android:layout_below="@+id/datePicker1"
+      android:layout_below="@+id/datePicker"
       android:text="Generate Smart Health Link" />
 
 </RelativeLayout>
