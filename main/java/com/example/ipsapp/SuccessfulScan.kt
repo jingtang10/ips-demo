@@ -15,6 +15,7 @@ import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.cli
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.HttpClients
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.util.EntityUtils
 import java.nio.charset.StandardCharsets
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -23,6 +24,8 @@ import org.json.JSONObject
 
 class SuccessfulScan : AppCompatActivity() {
 
+  val urlUtils = UrlUtils()
+
   @RequiresApi(Build.VERSION_CODES.O)
   override fun onCreate (savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -30,11 +33,11 @@ class SuccessfulScan : AppCompatActivity() {
 
 
     val scannedData:String = intent.getStringExtra("scannedData").toString()
-    val extractedJson = extractUrl(scannedData);
-    val decodedJson = decodeUrl(extractedJson);
+    val extractedJson = urlUtils.extractUrl(scannedData);
+    val decodedJson = urlUtils.decodeUrl(extractedJson);
 
     // this gets you the url needed for the POST request
-    val json = decodedJson?.let { String(it, StandardCharsets.UTF_8) }
+    val json = String(decodedJson, StandardCharsets.UTF_8)
     val jsonObject = JSONObject(json)
     val url = jsonObject.get("url")
     val key = jsonObject.get("key")
@@ -59,6 +62,7 @@ class SuccessfulScan : AppCompatActivity() {
 
 
   // Handles the POST request and passes the response body into the next activity
+  @OptIn(DelicateCoroutinesApi::class)
   private fun fetchData (url: String, recipient: String, passcode: String, key: String) {
     GlobalScope.launch(Dispatchers.IO) {
       val httpClient: CloseableHttpClient = HttpClients.createDefault()

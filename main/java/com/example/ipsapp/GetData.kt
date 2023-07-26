@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 
 class GetData : AppCompatActivity() {
 
+  val urlUtils = UrlUtils()
+
   // val fhirEngine = FhirApplication.fhirEngine(applicationContext)
   @RequiresApi(Build.VERSION_CODES.O)
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,17 +34,16 @@ class GetData : AppCompatActivity() {
       var healthData = ""
       // may be worth putting this loop in decodeShc?
       for (elem in embeddedArray) {
-        val decodedShc = decodeShc(elem, key)
+        val decodedShc = urlUtils.decodeShc(elem, key)
         textView.text = decodedShc
 
         if (decodedShc != null) {
-          val toDecode = extractVerifiableCredential(decodedShc)
+          val toDecode = urlUtils.extractVerifiableCredential(decodedShc)
           //so this gives you the JWT string to split, decode and decompress
-          if (toDecode != null) {
-            healthData = healthData + "\n" + decodeAndDecompressPayload(toDecode) + "\n"
-          }
-
-          toDecode?.let { decodeAndDecompressPayload(it) }?.let { Log.d(count.toString(), it) }
+          healthData = healthData + "\n" + urlUtils.decodeAndDecompressPayload(toDecode) + "\n"
+          Log.d("to extract vc", decodedShc)
+          Log.d("extracted", toDecode)
+          Log.d(count.toString(), urlUtils.decodeAndDecompressPayload(toDecode))
           count++
         }
       }

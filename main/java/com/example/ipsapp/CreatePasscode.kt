@@ -21,18 +21,20 @@ class CreatePasscode : Activity() {
     val datePicker = findViewById<DatePicker>(R.id.datePicker)
     var expirationDate = ""
 
-    // disables dates before today - can't set expiration date in the past
     // Do I need to include time with this?
-    // Put a checkbox next to this to indicate whether the user wants to include date or not
     val today: Calendar = Calendar.getInstance()
     datePicker.minDate = today.timeInMillis
 
     val submitResourcesButton = findViewById<Button>(R.id.generateSHL)
     val checkboxDate = findViewById<CheckBox>(R.id.checkboxDate)
 
+    /*
+     When the submit button is pressed, the state of the checkbox is checked, and the passcode
+     and expiration date are added to the intent to be passed into the next activity.
+     They are empty strings if they haven't been inputted
+    */
     submitResourcesButton.setOnClickListener {
       val i = Intent(this@CreatePasscode, ViewSHL::class.java)
-
 
       val passcodeField = findViewById<EditText>(R.id.passcode).text.toString()
       if (!checkboxDate.isChecked) {
@@ -47,15 +49,13 @@ class CreatePasscode : Activity() {
 
     // Set the initial state of the DatePicker based on the Checkbox state
     datePicker.isEnabled = checkboxDate.isChecked
-
     checkboxDate.setOnCheckedChangeListener { _, isChecked ->
       datePicker.isEnabled = isChecked
     }
 
+    // updates the variable to the selected date
     datePicker.setOnDateChangedListener { _, year, monthOfYear, dayOfMonth ->
-      // Handle the selected date here
       expirationDate = "$year-${monthOfYear + 1}-$dayOfMonth"
-      // Do something with the selectedDate
     }
   }
 }

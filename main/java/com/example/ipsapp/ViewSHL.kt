@@ -6,6 +6,9 @@ import android.widget.TextView
 
 class ViewSHL : Activity() {
 
+  // Need to encode and compress into JWE and JWT tokens here
+  // Also need to actually have the full file, not just the cut off thing I have right now
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.view_shl)
