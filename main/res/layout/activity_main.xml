@@ -10,5 +10,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="Open Camera" />
+        android:text="Scan QR" />
+
+    <Button
+        android:id="@+id/generateQRButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/openCameraButton"
+        android:text="Generate QR" />
 </RelativeLayout>

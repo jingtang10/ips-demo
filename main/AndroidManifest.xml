@@ -43,6 +43,20 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.example.ipsapp.SelectResources"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.example.ipsapp.CreatePasscode"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
+
     </application>
 
     <uses-permission android:name="android.permission.CAMERA" />

@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class GetData : AppCompatActivity() {
 
-  // val fhirEngine = FhirApplication.fhirEngine(application)
+  // val fhirEngine = FhirApplication.fhirEngine(applicationContext)
   @RequiresApi(Build.VERSION_CODES.O)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -19,8 +19,6 @@ class GetData : AppCompatActivity() {
     // set the text view value to the body of the response from the POST
     setContentView(R.layout.get_data)
     val embeddedArray: Array<out String>? = intent.getStringArrayExtra("embeddedArray")
-    val locationArray: Array<out String>? = intent.getStringArrayExtra("locationArray")
-
     val key = intent.getStringExtra("key").toString()
     val textView = findViewById<TextView>(R.id.textView)
     textView.movementMethod = ScrollingMovementMethod()
@@ -35,48 +33,46 @@ class GetData : AppCompatActivity() {
       // may be worth putting this loop in decodeShc?
       for (elem in embeddedArray) {
         val decodedShc = decodeShc(elem, key)
-
         textView.text = decodedShc
 
         if (decodedShc != null) {
           val toDecode = extractVerifiableCredential(decodedShc)
-
           //so this gives you the JWT string to split, decode and decompress
           if (toDecode != null) {
             healthData = healthData + "\n" + decodeAndDecompressPayload(toDecode) + "\n"
           }
 
-          // set the text view to the final outputted data
-
           toDecode?.let { decodeAndDecompressPayload(it) }?.let { Log.d(count.toString(), it) }
-
           count++
         }
       }
 
+      // set the text view to the final outputted data
       textView.text = healthData
-      for (i in 0 until healthData.length step 200) {
+      for (i in healthData.indices step 200) {
         val endIndex = if (i + 200 > healthData.length) healthData.length else i + 200
         println(healthData.substring(i, endIndex))
       }
 
-     /* Save something to the fhir engine here. Like this:
+      // Save something to the fhir engine here. Like this:
 
-      val patient = Patient().apply{
-        id = "19682646"
-        gender = Enumerations.AdministrativeGender.MALE
-        addName(
-          HumanName().apply {
-            addGiven("Lance")
-            addGiven("Thomas")
-            family = "East"
-          }
-        )
-      }
+      // val patient = Patient().apply{
+      //   id = "19682646"
+      //   gender = Enumerations.AdministrativeGender.MALE
+      //   addName(
+      //     HumanName().apply {
+      //       addGiven("Lance")
+      //       addGiven("Thomas")
+      //       family = "East"
+      //     }
+      //   )
+      // }
+      //
+      // CoroutineScope(Dispatchers.Main).launch {
+      //   fhirEngine.create(patient)
+      // }
 
-      fhirEngine.create(patient)
 
-      */
 
     }
 

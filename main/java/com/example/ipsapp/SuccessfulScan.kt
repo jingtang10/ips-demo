@@ -89,7 +89,6 @@ class SuccessfulScan : AppCompatActivity() {
       // create a string array and add the 'embedded' data to it
       // need to work out what to do when it has a location instead
       val embeddedList = ArrayList<String>()
-      val locationList = ArrayList<String>()
       for (i in 0 until filesArray.length()) {
         val fileObject = filesArray.getJSONObject(i)
         if (fileObject.has("embedded")) {
@@ -98,20 +97,15 @@ class SuccessfulScan : AppCompatActivity() {
         } else {
           val loc = fileObject.getString("location")
           getRequest(loc)?.let { embeddedList.add(it) }
-          //fetchData(loc, recipient, "", key)
-          // locationList.add(loc)
           Log.d("here", loc)
         }
       }
 
       val embeddedArray = embeddedList.toTypedArray()
-      val locationArray = locationList.toTypedArray()
-      //Log.d("embedded 2", embeddedArray[1])
 
       launch(Dispatchers.Main) {
         val i = Intent(this@SuccessfulScan, GetData::class.java)
         i.putExtra("embeddedArray", embeddedArray)
-        // i.putExtra("locationArray", locationArray)
         i.putExtra("key", key)
         startActivity(i)
       }
