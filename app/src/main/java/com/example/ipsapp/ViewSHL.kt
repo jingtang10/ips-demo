@@ -3,8 +3,6 @@ package com.example.ipsapp
 import android.app.Activity
 import android.os.Bundle
 import android.widget.TextView
-import com.example.IpsApp.R
-
 class ViewSHL : Activity() {
 
   // Need to encode and compress into JWE and JWT tokens here

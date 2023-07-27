@@ -10,7 +10,6 @@ import android.widget.CheckBox
 import android.widget.DatePicker
 import android.widget.EditText
 import androidx.annotation.RequiresApi
-import com.example.IpsApp.R
 import java.util.Calendar
 
 class CreatePasscode : Activity() {

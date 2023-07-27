@@ -8,7 +8,6 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.example.IpsApp.R
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpGet
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpPost
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.entity.StringEntity
@@ -44,13 +43,6 @@ class SuccessfulScan : AppCompatActivity() {
     val key = jsonObject.get("key")
     Log.d("url", url.toString())
     Log.d("key", key.toString())
-    /*
-    will eventually need to check for passcodes etc but just do simple POST for now:
-    curl -X POST "https://api.vaxx.link/api/shl/KTseQR32kkQ4Q04aIjM1niOuxDOn1jZ_vYQb5jfIqCs" -H "Content-Type: application/json" -d @test.json
-    where test.json = { "recipient": "anystring"}"
-    This will give you back a lot of data like:
-      {"files":[{"contentType":"application/smart-health-card","embedded":"eyJhbGciOiJkaXIiLCJ...
-    */
 
     // when button is pushed, the inputted data is passed into fetchData()
     val button = findViewById<Button>(R.id.getData)

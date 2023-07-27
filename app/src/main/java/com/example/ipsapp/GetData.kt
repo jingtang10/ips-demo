@@ -7,7 +7,6 @@ import android.util.Log
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.example.IpsApp.R
 
 
 class GetData : AppCompatActivity() {
