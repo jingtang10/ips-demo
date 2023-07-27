@@ -34,7 +34,6 @@ open class UrlUtils {
             // Assuming you want the first item from the array
             return verifiableCredentialArray.getString(0)
         }
-
         return ""
     }
 
@@ -71,11 +70,11 @@ open class UrlUtils {
     @RequiresApi(Build.VERSION_CODES.O)
     fun decodeShc(responseBody: String, key: String): String? {
         val decodedKey: ByteArray = Base64.getUrlDecoder().decode(key)
-        val key: Key = AesKey(decodedKey)
+        val jweKey: Key = AesKey(decodedKey)
 
         val jwe = JsonWebEncryption()
         jwe.compactSerialization = responseBody
-        jwe.key = key
+        jwe.key = jweKey
 
         return jwe.plaintextString
     }
