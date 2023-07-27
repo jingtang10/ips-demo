@@ -6,17 +6,17 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/openCameraButton"
+        android:id="@+id/scanQRButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="Scan QR" />
+        android:text="@string/scan_qr" />
 
     <Button
         android:id="@+id/generateQRButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_below="@+id/openCameraButton"
-        android:text="Generate QR" />
+        android:layout_below="@+id/scanQRButton"
+        android:text="@string/generate_qr" />
 </RelativeLayout>

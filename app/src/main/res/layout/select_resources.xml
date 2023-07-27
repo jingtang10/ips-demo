@@ -8,7 +8,7 @@
   <TextView android:id="@+id/textView"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="Select which data to include below. Maybe just retrieve data atm" />
+      android:text="@string/select_which_data_to_include_below_maybe_just_retrieve_data_atm" />
 
   <Button
       android:id="@+id/submitResourcesButton"
@@ -16,6 +16,6 @@
       android:layout_height="wrap_content"
       android:layout_centerInParent="true"
       android:layout_below="@+id/textView"
-      android:text="Submit Preferences" />
+      android:text="@string/submit_preferences" />
 
 </RelativeLayout>

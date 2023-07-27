@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">ipsApp</string>
+  <string name="scan_qr">Scan QR</string>
+  <string name="generate_qr">Generate QR</string>
+  <string name="optional_add_a_passcode_and_expiration_date">Optional: add a passcode and expiration date</string>
+  <string name="enter_passcode">Enter Passcode</string>
+  <string name="do_you_want_to_include_an_expiration_date">Do you want to include an expiration date?</string>
+  <string name="generate_smart_health_link">Generate Smart Health Link</string>
+  <string name="retrieving_data">Retrieving Data</string>
+  <string name="select_which_data_to_include_below_maybe_just_retrieve_data_atm">Select which data to include below. Maybe just retrieve data atm</string>
+  <string name="submit_preferences">Submit Preferences</string>
+  <string name="enter_your_name_and_the_passcode">Enter your name and the passcode</string>
+  <string name="enter_recipient">Enter Recipient</string>
+  <string name="get_data">Get Data</string>
+  <string name="the_shl_will_go_here">The SHL will go here:</string>
 </resources>

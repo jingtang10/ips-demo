@@ -9,14 +9,14 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:gravity="center"
-      android:text="Enter your name and the passcode" />
+      android:text="@string/enter_your_name_and_the_passcode" />
 
   <EditText
       android:id="@+id/recipient"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:layout_below="@+id/textView"
-      android:hint="Enter Recipient" />
+      android:hint="@string/enter_recipient" />
 
   <EditText
       android:id="@+id/passcode"
@@ -30,7 +30,7 @@
       android:layout_height="wrap_content"
       android:layout_centerInParent="true"
       android:layout_below="@+id/passcode"
-      android:text="Get Data" />
+      android:text="@string/get_data" />
 
 </RelativeLayout>
 
