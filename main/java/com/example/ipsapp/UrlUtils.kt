@@ -2,24 +2,30 @@ package com.example.ipsapp
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import java.io.ByteArrayOutputStream
 import java.security.Key
 import java.util.Base64
+import java.util.zip.DataFormatException
 import java.util.zip.Inflater
 import org.jose4j.jwe.JsonWebEncryption
 import org.jose4j.keys.AesKey
 import org.json.JSONObject
 
 open class UrlUtils {
+
+    // Extracts the part of the link after the 'shlink:/'
     fun extractUrl(scannedData: String): String {
         return scannedData.substringAfterLast("shlink:/")
     }
 
+    // Decodes the extracted url from Base64Url to a byte array
     @RequiresApi(Build.VERSION_CODES.O)
     fun decodeUrl(extractedUrl: String): ByteArray {
         return Base64.getUrlDecoder().decode(extractedUrl.toByteArray())
     }
 
 
+    // returns a string of the data in the verifiableCredential field in the returned JSON
     fun extractVerifiableCredential(jsonString: String): String {
         val jsonObject = JSONObject(jsonString)
         val verifiableCredentialArray = jsonObject.optJSONArray("verifiableCredential")
@@ -32,6 +38,7 @@ open class UrlUtils {
         return ""
     }
 
+    // Decodes and decompresses the payload in the JWE token
     @RequiresApi(Build.VERSION_CODES.O)
     fun decodeAndDecompressPayload(token: String): String {
         val tokenParts = token.split('.')
@@ -39,12 +46,26 @@ open class UrlUtils {
 
         val inflater = Inflater(true)
         inflater.setInput(decoded)
-        val decompressedBytes = ByteArray(4096)
-        val length = inflater.inflate(decompressedBytes)
+
+        val initialBufferSize = 100000
+        val decompressedBytes = ByteArrayOutputStream(initialBufferSize)
+        val buffer = ByteArray(8192) // You can adjust the buffer size as needed
+
+        try {
+            while (!inflater.finished()) {
+                val length = inflater.inflate(buffer)
+                decompressedBytes.write(buffer, 0, length)
+            }
+            decompressedBytes.close()
+            val finalDecompressedData = decompressedBytes.toByteArray()
+            // Use the finalDecompressedData as needed
+        } catch (e: DataFormatException) {
+            e.printStackTrace()
+        }
 
         inflater.end()
 
-        return decompressedBytes.copyOf(length).decodeToString()
+        return decompressedBytes.toByteArray().decodeToString()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
