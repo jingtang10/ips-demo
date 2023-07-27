@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import com.example.IpsApp.R
 
 //maybe some checkboxes with some resource options -- something like that??
 // and then a button like submit or something which goes to next screen, which can then encode and generate QR Code
