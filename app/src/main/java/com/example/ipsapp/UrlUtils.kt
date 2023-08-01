@@ -1,11 +1,13 @@
 package com.example.ipsapp
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import java.io.ByteArrayOutputStream
 import java.security.Key
 import java.util.Base64
 import java.util.zip.DataFormatException
+import java.util.zip.Deflater
 import java.util.zip.Inflater
 import org.jose4j.jwe.JsonWebEncryption
 import org.jose4j.keys.AesKey
@@ -77,5 +79,26 @@ open class UrlUtils {
         jwe.key = jweKey
 
         return jwe.plaintextString
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun encodeAndCompressPayload(payload: String): String {
+        val deflater = Deflater(Deflater.BEST_COMPRESSION, true)
+        deflater.setInput(payload.toByteArray(Charsets.UTF_8))
+        deflater.finish()
+
+        val initialBufferSize = 100000
+        val compressedBytes = ByteArrayOutputStream(initialBufferSize)
+        val buffer = ByteArray(8192) // You can adjust the buffer size as needed
+
+        while (!deflater.finished()) {
+            val length = deflater.deflate(buffer)
+            compressedBytes.write(buffer, 0, length)
+        }
+        deflater.end()
+
+        val encodedCompressedPayload = Base64.getUrlEncoder().encodeToString(compressedBytes.toByteArray())
+
+        return encodedCompressedPayload
     }
 }

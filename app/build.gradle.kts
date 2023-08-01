@@ -10,6 +10,7 @@ android {
     viewBinding = true
   }
 
+
   namespace = "com.example.ipsapp"
   namespace = "com.example.ipsapp"
   compileSdk = 33
@@ -52,6 +53,13 @@ dependencies {
   implementation ("org.bitbucket.b_c:jose4j:0.7.7")
   implementation("com.google.android.fhir:engine:0.1.0-beta03")
   implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.7")
+
+  implementation("com.google.zxing:core:3.4.1")
+  implementation("androidx.test:core-ktx:1.5.0")
+  implementation("androidx.test.ext:junit-ktx:1.1.5")
+  // implementation("com.google.zxing:android-core:3.4.1")
+  // implementation("com.google.zxing:android-integration:3.4.1")
+  implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.3.2")
 
   testImplementation("junit:junit:4.13.2")
   testImplementation("org.mockito:mockito-core:4.0.0")

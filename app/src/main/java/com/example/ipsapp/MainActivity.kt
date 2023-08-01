@@ -1,5 +1,6 @@
 package com.example.ipsapp
 
+
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -10,6 +11,9 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import java.nio.charset.StandardCharsets
+import java.util.Base64
+import org.json.JSONObject
 
 
 class MainActivity : AppCompatActivity() {
@@ -62,5 +66,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 }

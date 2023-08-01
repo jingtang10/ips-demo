@@ -1,9 +1,35 @@
 package com.example.ipsapp
 
 import android.app.Activity
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Matrix
+import android.graphics.Paint
+import android.os.Build
 import android.os.Bundle
+import android.util.Half.toFloat
+import android.util.Log
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.createBitmap
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.EncodeHintType
+import com.google.zxing.WriterException
+import com.google.zxing.qrcode.QRCodeWriter
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
+import java.nio.charset.StandardCharsets
+import java.util.Base64
+import java.util.EnumMap
+import org.json.JSONObject
+
+
 class ViewSHL : Activity() {
+
+  val urlUtils = UrlUtils()
 
   // Need to encode and compress into JWE and JWT tokens here
   val file = "{\n" +
@@ -47,9 +73,15 @@ class ViewSHL : Activity() {
     "  }\n" +
     "}"
 
+  @RequiresApi(Build.VERSION_CODES.O)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.view_shl)
+    val qrView = findViewById<ImageView>(R.id.qrCode)
+
+    // need to encode and compress the payload
+    val encodedPayload = urlUtils.encodeAndCompressPayload(file)
+    Log.d("MyTag", "Encoded Payload: $encodedPayload")
 
     val passcode:String = intent.getStringExtra("passcode").toString()
     val expirationDate:String = intent.getStringExtra("expirationDate").toString()
@@ -57,8 +89,108 @@ class ViewSHL : Activity() {
     val passcodeField = findViewById<TextView>(R.id.passcode)
     val expirationDateField = findViewById<TextView>(R.id.expirationDate)
     passcodeField.text = passcode
-    expirationDateField.text = expirationDate
+    // expirationDateField.text = expirationDate
 
+
+    // Look at this manifest url
+    val manifestUrl = "http://localhost:8080/fhir/Bundle"
+    val label = "Back-to-school immunizations for Oliver Brown"
+    val flags = ""
+    val key = "rxTgYlOaKJPFtcEd0qcceN8wEU4p94SqAwIWQe6uX7Q"
+
+    val shLinkPayload = constructSHLinkPayload(manifestUrl, label, flags, key)
+
+    // fix this link and put the logo in the middle
+    val shLink = "https://viewer.example.org#shlink:/${shLinkPayload}"
+    // val shLink = "shlink:/$shLinkPayload"
+
+    // println(shLink)
+
+    val shlLinkURI = shLink
+    val logoPath = "app/src/main/assets/smart-logo.png"
+    val logoScale = 0.06
+
+    // val drawableResource = R.drawable.smart_logo
+    // val drawable = ContextCompat.getDrawable(this, drawableResource)
+
+    // if (drawable != null) {
+
+      val qrCodeBitmap = generateQRCode(this, shlLinkURI, R.drawable.smart_logo)
+      if (qrCodeBitmap != null) {
+        qrView.setImageBitmap(qrCodeBitmap)
+      }
+    // }
   }
+  @RequiresApi(Build.VERSION_CODES.O)
+  fun constructSHLinkPayload(manifestUrl: String, label: String?, flags: String?, key: String): String {
+    val payloadObject = JSONObject()
+    payloadObject.put("url", manifestUrl)
+    payloadObject.put("key", key)
+
+    if (flags != null) {
+      payloadObject.put("flag", flags)
+    }
+
+    if (label != null) {
+      payloadObject.put("label", label)
+    }
+
+    val jsonPayload = payloadObject.toString()
+    val base64EncodedPayload = base64UrlEncode(jsonPayload)
+    // return "shlink:/$base64EncodedPayload"
+    return base64EncodedPayload
+  }
+
+  @RequiresApi(Build.VERSION_CODES.O)
+  fun base64UrlEncode(data: String): String {
+    val bytes = data.toByteArray(StandardCharsets.UTF_8)
+    return Base64.getUrlEncoder().withoutPadding().encodeToString(bytes)
+  }
+
+  fun generateQRCode(context: Context, content: String, logoDrawableId: Int): Bitmap? {
+    val logoScale = 6
+    try {
+      val hints = mutableMapOf<EncodeHintType, Any>()
+      hints[EncodeHintType.MARGIN] = 2 // Adjust QR code margin as needed
+
+      val qrCodeWriter = QRCodeWriter()
+      val bitMatrix = qrCodeWriter.encode(content, BarcodeFormat.QR_CODE, 512, 512, hints)
+      val width = bitMatrix.width
+      val height = bitMatrix.height
+      val qrCodeBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
+
+      for (x in 0 until width) {
+        for (y in 0 until height) {
+          qrCodeBitmap.setPixel(x, y, if (bitMatrix[x, y]) Color.BLACK else Color.WHITE)
+        }
+      }
+
+      return qrCodeBitmap
+    } catch (e: WriterException) {
+      e.printStackTrace()
+      return null
+    }
+  }
+
+  fun drawableToBitmap(context: Context, drawableId: Int): Bitmap {
+    return try {
+      val drawable = ContextCompat.getDrawable(context, drawableId)
+      val bitmap = Bitmap.createBitmap(
+        drawable!!.intrinsicWidth,
+        drawable.intrinsicHeight,
+        Bitmap.Config.ARGB_8888
+      )
+      val canvas = Canvas(bitmap)
+      drawable.setBounds(0, 0, canvas.width, canvas.height)
+      drawable.draw(canvas)
+      bitmap
+    } catch (e: Exception) {
+      e.printStackTrace()
+      createBitmap(0, 0)
+    }
+  }
+
+
+
 
 }
