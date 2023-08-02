@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.google.zxing.WriterException
 
 
 class GetData : AppCompatActivity() {
@@ -29,33 +30,39 @@ class GetData : AppCompatActivity() {
 
     // now need to base64Url decode the thing in here to get the fhir resource
     // go through each element of the responseBody and do this (somehow set different text views on the page to the data
-    // if (embeddedArray != null) {
-    //
-    //   var healthData = ""
-    //   // may be worth putting this loop in decodeShc?
-    //   for (elem in embeddedArray) {
-    //     val decodedShc = urlUtils.decodeShc(elem, key)
-    //     textView.text = decodedShc
-    //
-    //     if (decodedShc != null) {
-    //       val toDecode = urlUtils.extractVerifiableCredential(decodedShc)
-    //       //so this gives you the JWT string to split, decode and decompress
-    //       healthData = healthData + "\n" +
-    //         urlUtils.decodeAndDecompressPayload(toDecode) + "\n"
-    //       Log.d("to extract vc", decodedShc)
-    //       Log.d("extracted", toDecode)
-    //       Log.d(count.toString(), urlUtils.decodeAndDecompressPayload(toDecode))
-    //       count++
-    //     }
-    //   }
-    //
-    //   // set the text view to the final outputted data
-    //   textView.text = healthData
-    //   for (i in healthData.indices step 200) {
-    //     val endIndex = if (i + 200 > healthData.length) healthData.length else i + 200
-    //     println(healthData.substring(i, endIndex))
-    //   }
-    // }
+    if (embeddedArray != null) {
+
+      var healthData = ""
+      // may be worth putting this loop in decodeShc?
+      for (elem in embeddedArray) {
+
+            val decodedShc = urlUtils.decodeShc(elem, key)
+
+            if (decodedShc != "") {
+
+              if (decodedShc != null) {
+                val toDecode = urlUtils.extractVerifiableCredential(decodedShc)
+                //so this gives you the JWT string to split, decode and decompress
+                healthData = healthData + "\n" +
+                  urlUtils.decodeAndDecompressPayload(toDecode) + "\n"
+                Log.d("to extract vc", decodedShc)
+                Log.d("extracted", toDecode)
+                Log.d(count.toString(), urlUtils.decodeAndDecompressPayload(toDecode))
+                count++
+              }
+            }
+            else {
+              healthData = healthData + "\n" + elem + "\n"
+            }
+      }
+
+      // set the text view to the final outputted data
+      textView.text = healthData
+      for (i in healthData.indices step 200) {
+        val endIndex = if (i + 200 > healthData.length) healthData.length else i + 200
+        println(healthData.substring(i, endIndex))
+      }
+    }
 
       // Save something to the fhir engine here. Like this:
 
@@ -76,17 +83,17 @@ class GetData : AppCompatActivity() {
       // }
 
     // FOR GETTING NON ENCODED DATA
-    if (embeddedArray != null) {
-      var healthData = ""
-      for (elem in embeddedArray) {
-        healthData = healthData + "\n" + elem + "\n"
-      }
-      textView.text = healthData
-      for (i in healthData.indices step 200) {
-        val endIndex = if (i + 200 > healthData.length) healthData.length else i + 200
-        println(healthData.substring(i, endIndex))
-      }
-    }
+    // if (embeddedArray != null) {
+    //   var healthData = ""
+    //   for (elem in embeddedArray) {
+    //     healthData = healthData + "\n" + elem + "\n"
+    //   }
+    //   textView.text = healthData
+    //   for (i in healthData.indices step 200) {
+    //     val endIndex = if (i + 200 > healthData.length) healthData.length else i + 200
+    //     println(healthData.substring(i, endIndex))
+    //   }
+    // }
   }
 
 }

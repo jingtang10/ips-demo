@@ -83,10 +83,13 @@ open class UrlUtils {
         val jweKey: Key = AesKey(decodedKey)
 
         val jwe = JsonWebEncryption()
-        jwe.compactSerialization = responseBody
-        jwe.key = jweKey
-
-        return jwe.plaintextString
+        if (responseBody.split('.').size == 5) {
+            jwe.compactSerialization = responseBody
+            jwe.key = jweKey
+            return jwe.plaintextString
+        } else {
+            return ""
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
