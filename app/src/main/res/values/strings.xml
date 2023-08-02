@@ -13,4 +13,6 @@
   <string name="enter_recipient">Enter Recipient</string>
   <string name="get_data">Get Data</string>
   <string name="the_shl_will_go_here">The SHL will go here:</string>
+  <string name="enter_an_optional_label">Enter an optional label</string>
+  <string name="optionally_add_a_passcode_a_label_or_an_expiration_date">Optionally add a passcode, a label or an expiration date</string>
 </resources>

@@ -24,7 +24,7 @@ import org.json.JSONObject
 
 class SuccessfulScan : AppCompatActivity() {
 
-  val urlUtils = UrlUtils()
+  private val urlUtils = UrlUtils()
 
   @RequiresApi(Build.VERSION_CODES.O)
   override fun onCreate (savedInstanceState: Bundle?) {
@@ -33,8 +33,8 @@ class SuccessfulScan : AppCompatActivity() {
 
 
     val scannedData:String = intent.getStringExtra("scannedData").toString()
-    val extractedJson = urlUtils.extractUrl(scannedData);
-    val decodedJson = urlUtils.decodeUrl(extractedJson);
+    val extractedJson = urlUtils.extractUrl(scannedData)
+    val decodedJson = urlUtils.decodeUrl(extractedJson)
 
     // this gets you the url needed for the POST request
     val json = String(decodedJson, StandardCharsets.UTF_8)
@@ -59,15 +59,14 @@ class SuccessfulScan : AppCompatActivity() {
   private fun fetchData (url: String, recipient: String, passcode: String, key: String) {
     GlobalScope.launch(Dispatchers.IO) {
       val httpClient: CloseableHttpClient = HttpClients.createDefault()
-      val httpPost: HttpPost = HttpPost(url)
+      val httpPost = HttpPost(url)
       httpPost.addHeader("Content-Type", "application/smart-health-card")
 
       // Recipient and passcode entered by the user on this screen
-      var jsonData = ""
-      if (passcode == "") {
-        jsonData = "{\"recipient\":\"${recipient}\"}"
+      val jsonData : String = if (passcode == "") {
+        "{\"recipient\":\"${recipient}\"}"
       } else {
-        jsonData = "{\"passcode\":\"${passcode}\", \"recipient\":\"${recipient}\"}"
+        "{\"passcode\":\"${passcode}\", \"recipient\":\"${recipient}\"}"
       }
       val entity = StringEntity(jsonData)
 
@@ -81,6 +80,7 @@ class SuccessfulScan : AppCompatActivity() {
 
       val jsonObject = JSONObject(responseBody)
 
+      // throw error when passcode wrong
       val filesArray = jsonObject.getJSONArray("files")
 
       // create a string array and add the 'embedded' data to it
@@ -111,7 +111,7 @@ class SuccessfulScan : AppCompatActivity() {
 
   private fun getRequest(url: String): String? {
     val httpClient: CloseableHttpClient = HttpClients.createDefault()
-    val httpGet: HttpGet = HttpGet(url)
+    val httpGet = HttpGet(url)
 
     val response = httpClient.execute(httpGet)
 

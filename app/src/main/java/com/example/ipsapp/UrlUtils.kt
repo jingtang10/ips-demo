@@ -3,12 +3,21 @@ package com.example.ipsapp
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpPost
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.entity.StringEntity
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.CloseableHttpClient
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.HttpClients
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.util.EntityUtils
 import java.io.ByteArrayOutputStream
+import java.nio.charset.StandardCharsets
 import java.security.Key
 import java.util.Base64
 import java.util.zip.DataFormatException
 import java.util.zip.Deflater
 import java.util.zip.Inflater
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.jose4j.jwe.JsonWebEncryption
 import org.jose4j.keys.AesKey
 import org.json.JSONObject
@@ -58,8 +67,7 @@ open class UrlUtils {
                 decompressedBytes.write(buffer, 0, length)
             }
             decompressedBytes.close()
-            val finalDecompressedData = decompressedBytes.toByteArray()
-            // Use the finalDecompressedData as needed
+            // val finalDecompressedData = decompressedBytes.toByteArray()
         } catch (e: DataFormatException) {
             e.printStackTrace()
         }
@@ -97,8 +105,28 @@ open class UrlUtils {
         }
         deflater.end()
 
-        val encodedCompressedPayload = Base64.getUrlEncoder().encodeToString(compressedBytes.toByteArray())
+        return Base64.getUrlEncoder().encodeToString(compressedBytes.toByteArray())
+    }
 
-        return encodedCompressedPayload
+    fun getManifestUrl(): String {
+        var responseBody = ""
+        GlobalScope.launch(Dispatchers.IO) {
+            val httpClient: CloseableHttpClient = HttpClients.createDefault()
+            val httpPost = HttpPost("https://api.vaxx.link/api/shl")
+            httpPost.addHeader("Content-Type", "application/json")
+
+            // Recipient and passcode entered by the user on this screen
+            val jsonData = "{}"
+            val entity = StringEntity(jsonData)
+
+            httpPost.entity = entity
+            val response = httpClient.execute(httpPost)
+
+            responseBody = EntityUtils.toString(response.entity, StandardCharsets.UTF_8)
+            // Log.d("Response status: ", "${response.statusLine.statusCode}")
+            // Log.d("Response body: ", responseBody)
+            httpClient.close()
+        }
+        return responseBody
     }
 }

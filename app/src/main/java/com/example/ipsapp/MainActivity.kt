@@ -11,13 +11,10 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import java.nio.charset.StandardCharsets
-import java.util.Base64
-import org.json.JSONObject
 
 
 class MainActivity : AppCompatActivity() {
-    private val CAMERA_PERMISSION_REQUEST = 123
+    private val cameraPermissionRequest = 123
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +32,7 @@ class MainActivity : AppCompatActivity() {
                 ActivityCompat.requestPermissions(
                     this,
                     arrayOf(Manifest.permission.CAMERA),
-                    CAMERA_PERMISSION_REQUEST
+                    cameraPermissionRequest
                 )
             }
         }
@@ -60,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == CAMERA_PERMISSION_REQUEST) {
+        if (requestCode == cameraPermissionRequest) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openScanner()
             }

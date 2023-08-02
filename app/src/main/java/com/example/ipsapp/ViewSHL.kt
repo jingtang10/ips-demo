@@ -3,36 +3,40 @@ package com.example.ipsapp
 import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Matrix
-import android.graphics.Paint
 import android.os.Build
 import android.os.Bundle
-import android.util.Half.toFloat
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.createBitmap
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpPost
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.entity.StringEntity
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.CloseableHttpClient
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.HttpClients
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.util.EntityUtils
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import java.nio.charset.StandardCharsets
+import java.time.LocalDate
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 import java.util.Base64
-import java.util.EnumMap
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
 import org.json.JSONObject
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class ViewSHL : Activity() {
 
-  val urlUtils = UrlUtils()
+  private val urlUtils = UrlUtils()
 
   // Need to encode and compress into JWE and JWT tokens here
-  val file = "{\n" +
+  private val file = "{\n" +
     "  \"resourceType\" : \"AllergyIntolerance\",\n" +
     "  \"id\" : \"allergyintolerance-with-abatement\",\n" +
     "  \"text\" : {\n" +
@@ -77,68 +81,143 @@ class ViewSHL : Activity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.view_shl)
-    val qrView = findViewById<ImageView>(R.id.qrCode)
 
     // need to encode and compress the payload
-    val encodedPayload = urlUtils.encodeAndCompressPayload(file)
-    Log.d("MyTag", "Encoded Payload: $encodedPayload")
+    // val encodedPayload = urlUtils.encodeAndCompressPayload(file)
+    // Log.d("MyTag", "Encoded Payload: $encodedPayload")
 
     val passcode:String = intent.getStringExtra("passcode").toString()
+    val labelData:String = intent.getStringExtra("label").toString()
     val expirationDate:String = intent.getStringExtra("expirationDate").toString()
 
     val passcodeField = findViewById<TextView>(R.id.passcode)
     val expirationDateField = findViewById<TextView>(R.id.expirationDate)
     passcodeField.text = passcode
-    // expirationDateField.text = expirationDate
+    expirationDateField.text = expirationDate
 
-
-    // Look at this manifest url
-    val manifestUrl = "http://localhost:8080/fhir/Bundle"
-    val label = "Back-to-school immunizations for Oliver Brown"
-    val flags = ""
-    val key = "rxTgYlOaKJPFtcEd0qcceN8wEU4p94SqAwIWQe6uX7Q"
-
-    val shLinkPayload = constructSHLinkPayload(manifestUrl, label, flags, key)
-
-    // fix this link and put the logo in the middle
-    val shLink = "https://viewer.example.org#shlink:/${shLinkPayload}"
-    // val shLink = "shlink:/$shLinkPayload"
-
-    // println(shLink)
-
-    val shlLinkURI = shLink
-    val logoPath = "app/src/main/assets/smart-logo.png"
-    val logoScale = 0.06
-
-    // val drawableResource = R.drawable.smart_logo
-    // val drawable = ContextCompat.getDrawable(this, drawableResource)
-
-    // if (drawable != null) {
-
-      val qrCodeBitmap = generateQRCode(this, shlLinkURI, R.drawable.smart_logo)
-      if (qrCodeBitmap != null) {
-        qrView.setImageBitmap(qrCodeBitmap)
-      }
+    generatePayload(passcode, labelData, expirationDate);
     // }
   }
+
+  @OptIn(DelicateCoroutinesApi::class)
   @RequiresApi(Build.VERSION_CODES.O)
-  fun constructSHLinkPayload(manifestUrl: String, label: String?, flags: String?, key: String): String {
+  fun generatePayload(passcode: String, labelData: String, expirationDate: String) {
+    val qrView = findViewById<ImageView>(R.id.qrCode)
+
+    GlobalScope.launch(Dispatchers.IO) {
+      val httpClient: CloseableHttpClient = HttpClients.createDefault()
+      val httpPost = HttpPost("https://api.vaxx.link/api/shl")
+      httpPost.addHeader("Content-Type", "application/json")
+
+      // Recipient and passcode entered by the user on this screen
+      val jsonData = "{}"
+      val entity = StringEntity(jsonData)
+
+      httpPost.entity = entity
+      val response = httpClient.execute(httpPost)
+
+      val responseBody = EntityUtils.toString(response.entity, StandardCharsets.UTF_8)
+      Log.d("Response status: ", "${response.statusLine.statusCode}")
+      Log.d("Response body: ", responseBody)
+
+      httpClient.close()
+
+      val jsonPostRes = JSONObject(responseBody)
+
+
+      // Look at this manifest url
+      val manifestUrl = "https://api.vaxx.link/api/shl/${jsonPostRes.getString("id")}"
+      val label = labelData
+      var flags = ""
+      if (passcode != "") {
+        flags = "P"
+      }
+      val key = jsonPostRes.getString("managementToken")
+
+      var exp = ""
+      if (expirationDate != "") {
+        exp = dateStringToEpochSeconds(expirationDate).toString()
+      }
+
+      val shLinkPayload = constructSHLinkPayload(manifestUrl, label, flags, key, exp)
+
+      // fix this link and put the logo in the middle
+      // probably don't need the viewer
+      val shLink = "https://demo.vaxx.link/viewer#shlink:/${shLinkPayload}"
+      // val shLink = "shlink:/$shLinkPayload"
+
+      // val logoPath = "app/src/main/assets/smart-logo.png"
+      // val logoScale = 0.06
+
+      // val drawableResource = R.drawable.smart_logo
+      // val drawable = ContextCompat.getDrawable(this, drawableResource)
+
+      // if (drawable != null) {
+
+      val qrCodeBitmap = generateQRCode(this@ViewSHL, shLink, R.drawable.smart_logo)
+      if (qrCodeBitmap != null) {
+        runOnUiThread {
+          qrView.setImageBitmap(qrCodeBitmap)
+        }
+      }
+      println(shLinkPayload)
+
+      postPayload(manifestUrl, key)
+    }
+  }
+
+  @OptIn(DelicateCoroutinesApi::class)
+  private fun postPayload(manifestUrl: String, key: String) {
+      val httpClient: CloseableHttpClient = HttpClients.createDefault()
+      val httpPost = HttpPost("$manifestUrl/file")
+      httpPost.addHeader("Content-Type", "application/smart-health-card")
+      // httpPost.addHeader("Content-Length", file.length.toString())
+      httpPost.addHeader("Authorization", "Bearer $key")
+      val entity = StringEntity(file)
+
+      httpPost.entity = entity
+      val response = httpClient.execute(httpPost)
+
+      val responseBody = EntityUtils.toString(response.entity, StandardCharsets.UTF_8)
+      Log.d("Response status: ", "${response.statusLine.statusCode}")
+      Log.d("Response body: ", responseBody)
+      httpClient.close()
+  }
+
+  @RequiresApi(Build.VERSION_CODES.O)
+  fun constructSHLinkPayload(
+    manifestUrl: String,
+    label: String?,
+    flags: String?,
+    key: String,
+    exp: String?
+  ): String {
     val payloadObject = JSONObject()
     payloadObject.put("url", manifestUrl)
     payloadObject.put("key", key)
 
-    if (flags != null) {
+    if (flags != "") {
       payloadObject.put("flag", flags)
     }
 
-    if (label != null) {
+    if (label != "") {
       payloadObject.put("label", label)
     }
 
+    if (exp != "") {
+      payloadObject.put("exp", exp)
+    }
+
     val jsonPayload = payloadObject.toString()
-    val base64EncodedPayload = base64UrlEncode(jsonPayload)
-    // return "shlink:/$base64EncodedPayload"
-    return base64EncodedPayload
+    return base64UrlEncode(jsonPayload)
+  }
+
+  @RequiresApi(Build.VERSION_CODES.O)
+  fun dateStringToEpochSeconds(dateString: String): Long {
+    val formatter = DateTimeFormatter.ofPattern("yyyy-M-d")
+    val localDate = LocalDate.parse(dateString, formatter)
+    val zonedDateTime = localDate.atStartOfDay(ZoneOffset.UTC)
+    return zonedDateTime.toEpochSecond()
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
@@ -147,11 +226,11 @@ class ViewSHL : Activity() {
     return Base64.getUrlEncoder().withoutPadding().encodeToString(bytes)
   }
 
-  fun generateQRCode(context: Context, content: String, logoDrawableId: Int): Bitmap? {
-    val logoScale = 6
+  private fun generateQRCode(context: Context, content: String, logoDrawableId: Int): Bitmap? {
+    // val logoScale = 0.06
     try {
       val hints = mutableMapOf<EncodeHintType, Any>()
-      hints[EncodeHintType.MARGIN] = 2 // Adjust QR code margin as needed
+      hints[EncodeHintType.MARGIN] = 2
 
       val qrCodeWriter = QRCodeWriter()
       val bitMatrix = qrCodeWriter.encode(content, BarcodeFormat.QR_CODE, 512, 512, hints)
@@ -172,23 +251,24 @@ class ViewSHL : Activity() {
     }
   }
 
-  fun drawableToBitmap(context: Context, drawableId: Int): Bitmap {
-    return try {
-      val drawable = ContextCompat.getDrawable(context, drawableId)
-      val bitmap = Bitmap.createBitmap(
-        drawable!!.intrinsicWidth,
-        drawable.intrinsicHeight,
-        Bitmap.Config.ARGB_8888
-      )
-      val canvas = Canvas(bitmap)
-      drawable.setBounds(0, 0, canvas.width, canvas.height)
-      drawable.draw(canvas)
-      bitmap
-    } catch (e: Exception) {
-      e.printStackTrace()
-      createBitmap(0, 0)
-    }
-  }
+  // this is for putting the logo in the qr
+  // fun drawableToBitmap(context: Context, drawableId: Int): Bitmap {
+  //   return try {
+  //     val drawable = ContextCompat.getDrawable(context, drawableId)
+  //     val bitmap = Bitmap.createBitmap(
+  //       drawable!!.intrinsicWidth,
+  //       drawable.intrinsicHeight,
+  //       Bitmap.Config.ARGB_8888
+  //     )
+  //     val canvas = Canvas(bitmap)
+  //     drawable.setBounds(0, 0, canvas.width, canvas.height)
+  //     drawable.draw(canvas)
+  //     bitmap
+  //   } catch (e: Exception) {
+  //     e.printStackTrace()
+  //     createBitmap(0, 0)
+  //   }
+  // }
 
 
 

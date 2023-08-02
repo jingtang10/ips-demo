@@ -58,7 +58,7 @@ class Scanner : AppCompatActivity() {
       .setAutoFocusEnabled(true) //you should add this feature
       .build()
 
-    binding.cameraSurfaceView.getHolder().addCallback(object : SurfaceHolder.Callback {
+    binding.cameraSurfaceView.holder.addCallback(object : SurfaceHolder.Callback {
       @SuppressLint("MissingPermission")
       override fun surfaceCreated(holder: SurfaceHolder) {
         try {
