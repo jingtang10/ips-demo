@@ -15,20 +15,42 @@ import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.entity.S
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.CloseableHttpClient
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.HttpClients
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.util.EntityUtils
+import com.google.gson.Gson
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
+import com.nimbusds.jose.EncryptionMethod
+import com.nimbusds.jose.JWEAlgorithm
+import com.nimbusds.jose.JWEHeader
+import com.nimbusds.jose.crypto.AESEncrypter
+import com.nimbusds.jose.crypto.DirectEncrypter
+import com.nimbusds.jose.jwk.OctetSequenceKey
+import com.nimbusds.jose.util.Base64URL
+import com.nimbusds.jose.util.ByteUtils
+import com.nimbusds.jwt.EncryptedJWT
+import com.nimbusds.jwt.JWTClaimsSet
+import io.jsonwebtoken.JwtBuilder
+import io.jsonwebtoken.Jwts
+import io.jsonwebtoken.security.Keys
+// import io.jsonwebtoken.Jwts
+// import io.jsonwebtoken.SignatureAlgorithm
 import java.nio.charset.StandardCharsets
+import java.security.SecureRandom
+import java.security.Security
 import java.time.LocalDate
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Base64
+import javax.crypto.Cipher
+import javax.crypto.SecretKey
+import javax.crypto.spec.SecretKeySpec
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
-import org.json.JSONObject
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.json.JSONObject
+import org.bouncycastle.jce.provider.BouncyCastleProvider
 
 
 class ViewSHL : Activity() {
@@ -81,10 +103,6 @@ class ViewSHL : Activity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.view_shl)
-
-    // need to encode and compress the payload
-    // val encodedPayload = urlUtils.encodeAndCompressPayload(file)
-    // Log.d("MyTag", "Encoded Payload: $encodedPayload")
 
     val passcode:String = intent.getStringExtra("passcode").toString()
     val labelData:String = intent.getStringExtra("label").toString()
@@ -166,31 +184,72 @@ class ViewSHL : Activity() {
     }
   }
 
-  @OptIn(DelicateCoroutinesApi::class)
+  @RequiresApi(Build.VERSION_CODES.O)
   private fun postPayload(manifestUrl: String, key: String) {
-      val httpClient: CloseableHttpClient = HttpClients.createDefault()
-      val httpPost = HttpPost("$manifestUrl/file")
-      httpPost.addHeader("Content-Type", "application/smart-health-card")
-      // httpPost.addHeader("Content-Length", file.length.toString())
-      httpPost.addHeader("Authorization", "Bearer $key")
-      val entity = StringEntity(file)
 
-      httpPost.entity = entity
-      val response = httpClient.execute(httpPost)
+    // encode the file here (convert to JWE)
+    val encryptionKey = urlUtils.generateRandomKey()
+    // Log.d("enc key", encryptionKey)
 
-      val responseBody = EntityUtils.toString(response.entity, StandardCharsets.UTF_8)
-      Log.d("Response status: ", "${response.statusLine.statusCode}")
-      Log.d("Response body: ", responseBody)
-      httpClient.close()
+    // need to encode and compress the payload
+    // val encodedPayload = urlUtils.encodeAndCompressPayload(file, encryptionKey)
+
+    val contentJson = Gson().toJson(file)
+    val contentEncrypted = urlUtils.encryptContent(contentJson, encryptionKey)
+    Log.d("encrypted content", contentEncrypted)
+    Log.d("encryption key", encryptionKey)
+
+    val jwtHeader = "{\"zip\": \"DEF\", \"alg\": \"ES256\", \"kid\": \"${encryptionKey}\"}"
+    val finalContent = Base64.getUrlEncoder().withoutPadding()
+      .encodeToString(jwtHeader.toByteArray()) + "." + contentEncrypted
+    Log.d("final content", finalContent)
+
+    // val encryptedContent = encryptContent(JSONObject(file), encryptionKey)
+
+
+    val httpClient: CloseableHttpClient = HttpClients.createDefault()
+    val httpPost = HttpPost("$manifestUrl/file")
+    httpPost.addHeader("Content-Type", "application/smart-health-card")
+    // httpPost.addHeader("Content-Length", file.length.toString())
+    httpPost.addHeader("Authorization", "Bearer $key")
+
+    val entity = StringEntity(contentEncrypted)
+
+    httpPost.entity = entity
+    val response = httpClient.execute(httpPost)
+
+    val responseBody = EntityUtils.toString(response.entity, StandardCharsets.UTF_8)
+    Log.d("Response status: ", "${response.statusLine.statusCode}")
+    Log.d("Response body: ", responseBody)
+    httpClient.close()
+
+
+    // @RequiresApi(Build.VERSION_CODES.O)
+    // fun encryptContent(content: JSONObject, encryptionKey: OctetSequenceKey): String {
+    //   val contentString = content.toString()
+    //
+    //   val claimsSet: JWTClaimsSet = JWTClaimsSet.Builder().subject(contentString).build()
+    //
+    //   val dirJWK = OctetSequenceKey.parse(encryptionKey.toString())
+    //   Log.d("key legnth", dirJWK.size().toString())
+    //
+    //   // Create the JWEHeader with the desired algorithm and encryption method
+    //   val header = JWEHeader.Builder(JWEAlgorithm.DIR, EncryptionMethod.A256GCM).build()
+    //
+    //   val encryptedJWT = EncryptedJWT(header, claimsSet)
+    //   val dirEncrypter = DirectEncrypter(dirJWK)
+    //   encryptedJWT.encrypt(dirEncrypter)
+    //
+    //   return encryptedJWT.serialize()
+    // }
   }
-
   @RequiresApi(Build.VERSION_CODES.O)
   fun constructSHLinkPayload(
     manifestUrl: String,
     label: String?,
     flags: String?,
     key: String,
-    exp: String?
+    exp: String?,
   ): String {
     val payloadObject = JSONObject()
     payloadObject.put("url", manifestUrl)
