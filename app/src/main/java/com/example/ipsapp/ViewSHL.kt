@@ -188,18 +188,18 @@ class ViewSHL : Activity() {
   private fun postPayload(manifestUrl: String, key: String) {
 
     // encode the file here (convert to JWE)
-    val encryptionKey = urlUtils.generateRandomKey()
+    // val encryptionKey = urlUtils.generateRandomKey()
     // Log.d("enc key", encryptionKey)
 
     // need to encode and compress the payload
-    // val encodedPayload = urlUtils.encodeAndCompressPayload(file, encryptionKey)
+    val encodedPayload = urlUtils.encodeAndCompressPayload(file, key)
 
-    val contentJson = Gson().toJson(file)
-    val contentEncrypted = urlUtils.encryptContent(contentJson, encryptionKey)
+    val contentJson = Gson().toJson(encodedPayload)
+    val contentEncrypted = urlUtils.encryptContent(contentJson, key)
     Log.d("encrypted content", contentEncrypted)
-    Log.d("encryption key", encryptionKey)
+    // Log.d("encryption key", key)
 
-    val jwtHeader = "{\"zip\": \"DEF\", \"alg\": \"ES256\", \"kid\": \"${encryptionKey}\"}"
+    val jwtHeader = "{\"zip\": \"DEF\", \"alg\": \"ES256\", \"kid\": \"${key}\"}"
     val finalContent = Base64.getUrlEncoder().withoutPadding()
       .encodeToString(jwtHeader.toByteArray()) + "." + contentEncrypted
     Log.d("final content", finalContent)
