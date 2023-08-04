@@ -34,27 +34,31 @@ class GetData : AppCompatActivity() {
 
       var healthData = ""
       // may be worth putting this loop in decodeShc?
-      // for (elem in embeddedArray) {
-      //
-      //       val decodedShc = urlUtils.decodeShc(elem, key)
-      //
-      //       if (decodedShc != "") {
-      //
-      //         if (decodedShc != null) {
-      //           val toDecode = urlUtils.extractVerifiableCredential(decodedShc)
-      //           //so this gives you the JWT string to split, decode and decompress
-      //           healthData = healthData + "\n" +
-      //             urlUtils.decodeAndDecompressPayload(toDecode) + "\n"
-      //           Log.d("to extract vc", decodedShc)
-      //           Log.d("extracted", toDecode)
-      //           Log.d(count.toString(), urlUtils.decodeAndDecompressPayload(toDecode))
-      //           count++
-      //         }
-      //       }
-      //       else {
-      //         healthData = healthData + "\n" + elem + "\n"
-      //       }
-      // }
+      for (elem in embeddedArray) {
+
+            val decodedShc = urlUtils.decodeShc(elem, key)
+
+            if (decodedShc != "") {
+
+              if (decodedShc != null) {
+                val toDecode = urlUtils.extractVerifiableCredential(decodedShc)
+                if (toDecode == "") {
+                  healthData = decodedShc
+                  break
+                }
+                //so this gives you the JWT string to split, decode and decompress
+                healthData = healthData + "\n" +
+                  urlUtils.decodeAndDecompressPayload(toDecode) + "\n"
+                Log.d("to extract vc", decodedShc)
+                Log.d("extracted", toDecode)
+                Log.d(count.toString(), urlUtils.decodeAndDecompressPayload(toDecode))
+                count++
+              }
+            }
+            else {
+              healthData = healthData + "\n" + elem + "\n"
+            }
+      }
 
       // set the text view to the final outputted data
       textView.text = healthData

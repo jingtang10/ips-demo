@@ -20,32 +20,18 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
-import com.nimbusds.jose.EncryptionMethod
-import com.nimbusds.jose.JWEAlgorithm
-import com.nimbusds.jose.JWEHeader
-import com.nimbusds.jwt.EncryptedJWT
-import com.nimbusds.jwt.JWTClaimsSet
-import io.jsonwebtoken.JwtBuilder
-import io.jsonwebtoken.Jwts
-import io.jsonwebtoken.security.Keys
 // import io.jsonwebtoken.Jwts
 // import io.jsonwebtoken.SignatureAlgorithm
 import java.nio.charset.StandardCharsets
-import java.security.SecureRandom
-import java.security.Security
 import java.time.LocalDate
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Base64
-import javax.crypto.Cipher
-import javax.crypto.SecretKey
-import javax.crypto.spec.SecretKeySpec
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.json.JSONObject
-import org.bouncycastle.jce.provider.BouncyCastleProvider
 
 
 class ViewSHL : Activity() {
@@ -191,8 +177,8 @@ class ViewSHL : Activity() {
     // need to encode and compress the payload
     // val encodedPayload = urlUtils.encodeAndCompressPayload(file, key)
 
-    val contentJson = Gson().toJson(file)
-    val contentEncrypted = urlUtils.encrypt128(contentJson, key)
+    // val contentJson = Gson().toJson(file.trim())
+    val contentEncrypted = urlUtils.encrypt(file, key)
     Log.d("encrypted content", contentEncrypted)
     // Log.d("encryption key", key)
 

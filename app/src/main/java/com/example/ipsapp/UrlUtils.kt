@@ -44,11 +44,13 @@ open class UrlUtils {
     // returns a string of the data in the verifiableCredential field in the returned JSON
     fun extractVerifiableCredential(jsonString: String): String {
         val jsonObject = JSONObject(jsonString)
-        val verifiableCredentialArray = jsonObject.getJSONArray("verifiableCredential")
+        if (jsonObject.has("verifiableCredential")) {
+            val verifiableCredentialArray = jsonObject.getJSONArray("verifiableCredential")
 
-        if (verifiableCredentialArray.length() > 0) {
-            // Assuming you want the first item from the array
-            return verifiableCredentialArray.getString(0)
+            if (verifiableCredentialArray.length() > 0) {
+                // Assuming you want the first item from the array
+                return verifiableCredentialArray.getString(0)
+            }
         }
         return ""
     }
@@ -88,7 +90,7 @@ open class UrlUtils {
         val decodedKey: ByteArray = Base64.getUrlDecoder().decode(key)
         val decrypter: JWEDecrypter = DirectDecrypter(decodedKey)
         jweObject.decrypt(decrypter)
-        System.out.println(jweObject.getPayload().toString());
+        System.out.println(jweObject.getPayload().toString().trim());
         return jweObject.getPayload().toString()
     }
 
@@ -123,7 +125,7 @@ open class UrlUtils {
         return Base64.getUrlEncoder().encodeToString(keyBytes)
     }
     @RequiresApi(Build.VERSION_CODES.O)
-    fun encrypt128(data: String, key: String): String {
+    fun encrypt(data: String, key: String): String {
         val header = JWEHeader(JWEAlgorithm.DIR, EncryptionMethod.A256GCM)
         val jweObj = JWEObject(header, Payload(data))
         val decodedKey = Base64.getUrlDecoder().decode(key)
