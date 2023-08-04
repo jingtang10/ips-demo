@@ -72,7 +72,7 @@ dependencies {
   // implementation("com.google.zxing:android-core:3.4.1")
   // implementation("com.google.zxing:android-integration:3.4.1")
   implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.3.2")
-  implementation("com.nimbusds:nimbus-jose-jwt:9.30.2")
+  implementation("com.nimbusds:nimbus-jose-jwt:9.31")
 
   testImplementation("junit:junit:4.13.2")
   testImplementation("org.mockito:mockito-core:4.0.0")

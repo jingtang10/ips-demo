@@ -23,11 +23,6 @@ import com.google.zxing.qrcode.QRCodeWriter
 import com.nimbusds.jose.EncryptionMethod
 import com.nimbusds.jose.JWEAlgorithm
 import com.nimbusds.jose.JWEHeader
-import com.nimbusds.jose.crypto.AESEncrypter
-import com.nimbusds.jose.crypto.DirectEncrypter
-import com.nimbusds.jose.jwk.OctetSequenceKey
-import com.nimbusds.jose.util.Base64URL
-import com.nimbusds.jose.util.ByteUtils
 import com.nimbusds.jwt.EncryptedJWT
 import com.nimbusds.jwt.JWTClaimsSet
 import io.jsonwebtoken.JwtBuilder
@@ -145,12 +140,14 @@ class ViewSHL : Activity() {
 
       // Look at this manifest url
       val manifestUrl = "https://api.vaxx.link/api/shl/${jsonPostRes.getString("id")}"
+      Log.d("manifest", manifestUrl)
       val label = labelData
       var flags = ""
       if (passcode != "") {
         flags = "P"
       }
-      val key = jsonPostRes.getString("managementToken")
+      val key = urlUtils.generateRandomKey()
+      val managementToken = jsonPostRes.getString("managementToken")
 
       var exp = ""
       if (expirationDate != "") {
@@ -180,22 +177,22 @@ class ViewSHL : Activity() {
       }
       println(shLinkPayload)
 
-      postPayload(manifestUrl, key)
+      postPayload(manifestUrl, key, managementToken)
     }
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
-  private fun postPayload(manifestUrl: String, key: String) {
+  private fun postPayload(manifestUrl: String, key: String, managementToken: String) {
 
     // encode the file here (convert to JWE)
     // val encryptionKey = urlUtils.generateRandomKey()
     // Log.d("enc key", encryptionKey)
 
     // need to encode and compress the payload
-    val encodedPayload = urlUtils.encodeAndCompressPayload(file, key)
+    // val encodedPayload = urlUtils.encodeAndCompressPayload(file, key)
 
-    val contentJson = Gson().toJson(encodedPayload)
-    val contentEncrypted = urlUtils.encryptContent(contentJson, key)
+    val contentJson = Gson().toJson(file)
+    val contentEncrypted = urlUtils.encrypt128(contentJson, key)
     Log.d("encrypted content", contentEncrypted)
     // Log.d("encryption key", key)
 
@@ -208,10 +205,11 @@ class ViewSHL : Activity() {
 
 
     val httpClient: CloseableHttpClient = HttpClients.createDefault()
+    Log.d("manifest", manifestUrl)
     val httpPost = HttpPost("$manifestUrl/file")
     httpPost.addHeader("Content-Type", "application/smart-health-card")
     // httpPost.addHeader("Content-Length", file.length.toString())
-    httpPost.addHeader("Authorization", "Bearer $key")
+    httpPost.addHeader("Authorization", "Bearer $managementToken")
 
     val entity = StringEntity(contentEncrypted)
 

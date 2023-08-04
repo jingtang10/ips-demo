@@ -536,6 +536,21 @@ class QRDecoderTest {
 
     @Test
     fun canEncodeFhirResources() {
+        val encryptionKey = "Understandably-Salty-Passage-096"//urlUtilsMock.generateRandomKey()
+        // Log.d("enc key", encryptionKey)
+        println(encryptionKey)
+
+        // need to encode and compress the payload
+        // val encodedPayload = urlUtils.encodeAndCompressPayload(file, encryptionKey)
+
+        val contentJson = Gson().toJson(file)
+        val contentEncrypted = urlUtilsMock.encrypt128(file, encryptionKey)
+        println(contentEncrypted)
+        println(urlUtilsMock.decodeShc(contentEncrypted, "VW5kZXJzdGFuZGFibHktU2FsdHktUGFzc2FnZS0wOTY"))
+    }
+
+    @Test
+    fun canGenerateManifestUrl() {
         val encryptionKey = urlUtilsMock.generateRandomKey()
         // Log.d("enc key", encryptionKey)
         println(encryptionKey)
@@ -544,8 +559,23 @@ class QRDecoderTest {
         // val encodedPayload = urlUtils.encodeAndCompressPayload(file, encryptionKey)
 
         val contentJson = Gson().toJson(file)
-        val contentEncrypted = urlUtilsMock.encryptContent(contentJson, encryptionKey)
+        val contentEncrypted = urlUtilsMock.encrypt128(contentJson, encryptionKey)
         println(contentEncrypted)
     }
+
+    @Test
+    fun canDecodeJWE() {
+        val jwe = "eyJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0..OgGwTWbECJk9tQc4.PUxr0STCtKQ6DmdPqPtJtTowTBxdprFykeZ2WUOUw234_TtdGWLJ0hzfuWjZXDyBpa55TXwvSwobpcbut9Cdl2nATA0_j1nW0-A32uAwH0qEE1ELV5G0IQVT5AqKJRTCMGpy0mWH.qATmrk-UdwCOaT1TY6GEJg"
+        println(urlUtilsMock.decodeShc(jwe, "VmFndWVseS1FbmdhZ2luZy1QYXJhZG94LTA1NTktMDg"))
+    }
+
+    @Test
+    fun encryptWith128() {
+        val key = urlUtilsMock.generateRandomKey()
+        val a = urlUtilsMock.encrypt128(file2, "Vaguely-Engaging-Paradox-0559-08")
+
+        println(urlUtilsMock.decodeShc(a, "VmFndWVseS1FbmdhZ2luZy1QYXJhZG94LTA1NTktMDg"))
+    }
+
 
 }
