@@ -15,13 +15,10 @@ import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.entity.S
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.CloseableHttpClient
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.HttpClients
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.util.EntityUtils
-import com.google.gson.Gson
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
-// import io.jsonwebtoken.Jwts
-// import io.jsonwebtoken.SignatureAlgorithm
 import java.nio.charset.StandardCharsets
 import java.time.LocalDate
 import java.time.ZoneOffset
@@ -94,8 +91,7 @@ class ViewSHL : Activity() {
     passcodeField.text = passcode
     expirationDateField.text = expirationDate
 
-    generatePayload(passcode, labelData, expirationDate);
-    // }
+    generatePayload(passcode, labelData, expirationDate)
   }
 
   @OptIn(DelicateCoroutinesApi::class)
@@ -127,7 +123,6 @@ class ViewSHL : Activity() {
       // Look at this manifest url
       val manifestUrl = "https://api.vaxx.link/api/shl/${jsonPostRes.getString("id")}"
       Log.d("manifest", manifestUrl)
-      val label = labelData
       var flags = ""
       if (passcode != "") {
         flags = "P"
@@ -140,7 +135,7 @@ class ViewSHL : Activity() {
         exp = dateStringToEpochSeconds(expirationDate).toString()
       }
 
-      val shLinkPayload = constructSHLinkPayload(manifestUrl, label, flags, key, exp)
+      val shLinkPayload = constructSHLinkPayload(manifestUrl, labelData, flags, key, exp)
 
       // fix this link and put the logo in the middle
       // probably don't need the viewer

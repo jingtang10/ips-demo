@@ -55,7 +55,7 @@ class QRDecoderTest {
       "  }\n" +
       "}"
 
-    val file2 = "{\n" +
+    private val file2 = "{\n" +
       "  \"resourceType\" : \"Bundle\",\n" +
       "  \"id\" : \"bundle-minimal\",\n" +
       "  \"language\" : \"en-US\",\n" +
@@ -543,7 +543,7 @@ class QRDecoderTest {
         // need to encode and compress the payload
         // val encodedPayload = urlUtils.encodeAndCompressPayload(file, encryptionKey)
 
-        val contentJson = Gson().toJson(file)
+        Gson().toJson(file)
         val contentEncrypted = urlUtilsMock.encrypt(file, encryptionKey)
         println(contentEncrypted)
         println(urlUtilsMock.decodeShc(contentEncrypted, "VW5kZXJzdGFuZGFibHktU2FsdHktUGFzc2FnZS0wOTY"))
@@ -571,7 +571,7 @@ class QRDecoderTest {
 
     @Test
     fun encryptWith128() {
-        val key = urlUtilsMock.generateRandomKey()
+        urlUtilsMock.generateRandomKey()
         val a = urlUtilsMock.encrypt(file2, "Vaguely-Engaging-Paradox-0559-08")
 
         println(urlUtilsMock.decodeShc(a, "VmFndWVseS1FbmdhZ2luZy1QYXJhZG94LTA1NTktMDg"))

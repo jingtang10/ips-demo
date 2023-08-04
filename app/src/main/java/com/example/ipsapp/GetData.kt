@@ -7,7 +7,6 @@ import android.util.Log
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.google.zxing.WriterException
 
 
 class GetData : AppCompatActivity() {
@@ -40,20 +39,18 @@ class GetData : AppCompatActivity() {
 
             if (decodedShc != "") {
 
-              if (decodedShc != null) {
-                val toDecode = urlUtils.extractVerifiableCredential(decodedShc)
-                if (toDecode == "") {
-                  healthData = decodedShc
-                  break
-                }
-                //so this gives you the JWT string to split, decode and decompress
-                healthData = healthData + "\n" +
-                  urlUtils.decodeAndDecompressPayload(toDecode) + "\n"
-                Log.d("to extract vc", decodedShc)
-                Log.d("extracted", toDecode)
-                Log.d(count.toString(), urlUtils.decodeAndDecompressPayload(toDecode))
-                count++
+              val toDecode = urlUtils.extractVerifiableCredential(decodedShc)
+              if (toDecode == "") {
+                healthData = decodedShc
+                break
               }
+              //so this gives you the JWT string to split, decode and decompress
+              healthData = healthData + "\n" +
+                urlUtils.decodeAndDecompressPayload(toDecode) + "\n"
+              Log.d("to extract vc", decodedShc)
+              Log.d("extracted", toDecode)
+              Log.d(count.toString(), urlUtils.decodeAndDecompressPayload(toDecode))
+              count++
             }
             else {
               healthData = healthData + "\n" + elem + "\n"

@@ -21,6 +21,7 @@ import java.security.SecureRandom
 import java.util.Base64
 import java.util.zip.DataFormatException
 import java.util.zip.Inflater
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -85,15 +86,16 @@ open class UrlUtils {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun decodeShc(responseBody: String, key: String): String? {
+    fun decodeShc(responseBody: String, key: String): String {
         val jweObject = JWEObject.parse(responseBody)
         val decodedKey: ByteArray = Base64.getUrlDecoder().decode(key)
         val decrypter: JWEDecrypter = DirectDecrypter(decodedKey)
         jweObject.decrypt(decrypter)
-        System.out.println(jweObject.getPayload().toString().trim());
-        return jweObject.getPayload().toString()
+        println(jweObject.payload.toString().trim())
+        return jweObject.payload.toString()
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     fun getManifestUrl(): String {
         var responseBody = ""
         GlobalScope.launch(Dispatchers.IO) {
@@ -124,6 +126,7 @@ open class UrlUtils {
         println(keyBytes.toString())
         return Base64.getUrlEncoder().encodeToString(keyBytes)
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     fun encrypt(data: String, key: String): String {
         val header = JWEHeader(JWEAlgorithm.DIR, EncryptionMethod.A256GCM)
@@ -132,7 +135,6 @@ open class UrlUtils {
         val encrypter = DirectEncrypter(decodedKey)
 
         jweObj.encrypt(encrypter)
-        val jweString: String = jweObj.serialize()
-        return jweString
+        return jweObj.serialize()
     }
 }
