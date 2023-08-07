@@ -2,6 +2,7 @@ package com.example.ipsapp
 
 import com.example.ipsapp.fileExamples.file
 import com.google.gson.Gson
+import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import org.junit.Assert
 import org.junit.Test
@@ -28,6 +29,7 @@ class QRDecoderTest {
         Assert.assertEquals(decodedWithFunction, decodedBase64)
     }
 
+    // JSON mocking issue
     @Test
     fun extractVerifiableCredentialCorrectlyExtractsAToken() {
         // val extractedVCWithFunc = urlUtilsMock.extractVerifiableCredential(verifiableCredential)
@@ -43,43 +45,20 @@ class QRDecoderTest {
     }
 
     @Test
-    fun encodeAndCompress() {
-        // println(urlUtilsMock.encodeAndCompressPayload(file, encryptionKey))
+    fun postingToServerReturnsManifestIdAndToken() {
+        runBlocking {
+            val res = urlUtilsMock.getManifestUrl()
+            Assert.assertTrue(res.contains("id") && res.contains("managementToken") &&
+                                res.contains("active"))
+        }
     }
 
     @Test
-    fun testManifestPost() {
-        val res = urlUtilsMock.getManifestUrl()
-        println(res)
-    }
-
-    @Test
-    fun canEncodeFhirResources() {
-        val encryptionKey = "VW5kZXJzdGFuZGFibHktU2FsdHktUGFzc2FnZS0wOTY"//urlUtilsMock.generateRandomKey()
-        // Log.d("enc key", encryptionKey)
-        println(encryptionKey)
-
-        // need to encode and compress the payload
-        // val encodedPayload = urlUtils.encodeAndCompressPayload(file, encryptionKey)
-
-        Gson().toJson(file)
-        val contentEncrypted = urlUtilsMock.encrypt(file, encryptionKey)
-        println(contentEncrypted)
-        println(urlUtilsMock.decodeShc(contentEncrypted, "VW5kZXJzdGFuZGFibHktU2FsdHktUGFzc2FnZS0wOTY"))
-    }
-
-    @Test
-    fun canGenerateManifestUrl() {
+    fun canConvertFilesIntoJweTokens() {
         val encryptionKey = urlUtilsMock.generateRandomKey()
-        // Log.d("enc key", encryptionKey)
-        println(encryptionKey)
-
-        // need to encode and compress the payload
-        // val encodedPayload = urlUtils.encodeAndCompressPayload(file, encryptionKey)
-
         val contentJson = Gson().toJson(file)
         val contentEncrypted = urlUtilsMock.encrypt(contentJson, encryptionKey)
-        println(contentEncrypted)
+        Assert.assertEquals(contentEncrypted.split('.').size, 5)
     }
 
     @Test
@@ -89,11 +68,13 @@ class QRDecoderTest {
     }
 
     @Test
-    fun encryptWith128() {
-        urlUtilsMock.generateRandomKey()
-        val a = urlUtilsMock.encrypt(Gson().toJson(file), "VmFndWVseS1FbmdhZ2luZy1QYXJhZG94LTA1NTktMDg")
+    fun fileCanSuccessfullyBeEncryptedAndDecrypted() {
+        val key = urlUtilsMock.generateRandomKey()
+        val content = Gson().toJson(file)
 
-        println(urlUtilsMock.decodeShc(a, "VmFndWVseS1FbmdhZ2luZy1QYXJhZG94LTA1NTktMDg"))
+        val encrypted = urlUtilsMock.encrypt(content, key)
+        val decrypted = urlUtilsMock.decodeShc(encrypted, key)
+        Assert.assertEquals(content, decrypted)
     }
 
 

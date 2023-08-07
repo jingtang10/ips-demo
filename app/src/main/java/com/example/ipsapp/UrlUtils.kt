@@ -97,25 +97,20 @@ open class UrlUtils {
 
     @OptIn(DelicateCoroutinesApi::class)
     fun getManifestUrl(): String {
-        var responseBody = ""
-        GlobalScope.launch(Dispatchers.IO) {
-            val httpClient: CloseableHttpClient = HttpClients.createDefault()
-            val httpPost = HttpPost("https://api.vaxx.link/api/shl")
-            httpPost.addHeader("Content-Type", "application/json")
+        val httpClient: CloseableHttpClient = HttpClients.createDefault()
+        val httpPost = HttpPost("https://api.vaxx.link/api/shl")
+        httpPost.addHeader("Content-Type", "application/json")
 
-            // Recipient and passcode entered by the user on this screen
-            val jsonData = "{}"
-            val entity = StringEntity(jsonData)
+        // Recipient and passcode entered by the user on this screen
+        val jsonData = "{}"
+        val entity = StringEntity(jsonData)
 
-            httpPost.entity = entity
-            val response = httpClient.execute(httpPost)
+        httpPost.entity = entity
 
-            responseBody = EntityUtils.toString(response.entity, StandardCharsets.UTF_8)
-            // Log.d("Response status: ", "${response.statusLine.statusCode}")
-            // Log.d("Response body: ", responseBody)
-            httpClient.close()
+        return httpClient.execute(httpPost).use { response ->
+            val responseBody = EntityUtils.toString(response.entity, StandardCharsets.UTF_8)
+            responseBody
         }
-        return responseBody
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
