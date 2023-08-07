@@ -8,7 +8,7 @@
   <TextView android:id="@+id/textView"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/select_which_data_to_include_below_maybe_just_retrieve_data_atm" />
+      android:text="Select which data to include:" />
 
   <Button
       android:id="@+id/submitResourcesButton"
@@ -17,5 +17,12 @@
       android:layout_centerInParent="true"
       android:layout_below="@+id/textView"
       android:text="@string/submit_preferences" />
+
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/recyclerView"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@+id/submitResourcesButton"
+      android:scrollbars="vertical" />
 
 </RelativeLayout>

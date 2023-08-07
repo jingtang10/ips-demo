@@ -3,7 +3,10 @@ package com.example.ipsapp
 import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Matrix
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -150,7 +153,7 @@ class ViewSHL : Activity() {
 
       // if (drawable != null) {
 
-      val qrCodeBitmap = generateQRCode(this@ViewSHL, shLink, R.drawable.smart_logo)
+      val qrCodeBitmap = generateQRCode(this@ViewSHL, shLink)
       if (qrCodeBitmap != null) {
         runOnUiThread {
           qrView.setImageBitmap(qrCodeBitmap)
@@ -168,9 +171,6 @@ class ViewSHL : Activity() {
     // encode the file here (convert to JWE)
     // val encryptionKey = urlUtils.generateRandomKey()
     // Log.d("enc key", encryptionKey)
-
-    // need to encode and compress the payload
-    // val encodedPayload = urlUtils.encodeAndCompressPayload(file, key)
 
     // val contentJson = Gson().toJson(file.trim())
     val contentEncrypted = urlUtils.encrypt(file, key)
@@ -201,27 +201,8 @@ class ViewSHL : Activity() {
     Log.d("Response status: ", "${response.statusLine.statusCode}")
     Log.d("Response body: ", responseBody)
     httpClient.close()
-
-
-    // @RequiresApi(Build.VERSION_CODES.O)
-    // fun encryptContent(content: JSONObject, encryptionKey: OctetSequenceKey): String {
-    //   val contentString = content.toString()
-    //
-    //   val claimsSet: JWTClaimsSet = JWTClaimsSet.Builder().subject(contentString).build()
-    //
-    //   val dirJWK = OctetSequenceKey.parse(encryptionKey.toString())
-    //   Log.d("key legnth", dirJWK.size().toString())
-    //
-    //   // Create the JWEHeader with the desired algorithm and encryption method
-    //   val header = JWEHeader.Builder(JWEAlgorithm.DIR, EncryptionMethod.A256GCM).build()
-    //
-    //   val encryptedJWT = EncryptedJWT(header, claimsSet)
-    //   val dirEncrypter = DirectEncrypter(dirJWK)
-    //   encryptedJWT.encrypt(dirEncrypter)
-    //
-    //   return encryptedJWT.serialize()
-    // }
   }
+
   @RequiresApi(Build.VERSION_CODES.O)
   fun constructSHLinkPayload(
     manifestUrl: String,
@@ -250,6 +231,7 @@ class ViewSHL : Activity() {
     return base64UrlEncode(jsonPayload)
   }
 
+  // converts the inputted expiry date to epoch seconds
   @RequiresApi(Build.VERSION_CODES.O)
   fun dateStringToEpochSeconds(dateString: String): Long {
     val formatter = DateTimeFormatter.ofPattern("yyyy-M-d")
@@ -264,7 +246,7 @@ class ViewSHL : Activity() {
     return Base64.getUrlEncoder().withoutPadding().encodeToString(bytes)
   }
 
-  private fun generateQRCode(context: Context, content: String, logoDrawableId: Int): Bitmap? {
+  private fun generateQRCode(context: Context, content: String): Bitmap? {
     // val logoScale = 0.06
     try {
       val hints = mutableMapOf<EncodeHintType, Any>()
