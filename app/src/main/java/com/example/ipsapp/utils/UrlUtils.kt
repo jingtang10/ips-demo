@@ -1,4 +1,4 @@
-package com.example.ipsapp
+package com.example.ipsapp.utils
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -22,9 +22,6 @@ import java.util.Base64
 import java.util.zip.DataFormatException
 import java.util.zip.Inflater
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 

@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ipsapp.fileExamples.file
+import com.example.ipsapp.utils.DocumentUtils
 import org.json.JSONObject
 
 //maybe some checkboxes with some resource options -- something like that??
@@ -33,12 +34,18 @@ class SelectResources : Activity() {
     // set the text view value to the body of the response from the POST
     setContentView(R.layout.select_resources)
 
-    val list = documentUtils.getTitlesFromIpsDoc(JSONObject(file))
-    println(list)
+    val listTitles = documentUtils.getTitlesFromIpsDoc(JSONObject(file))
+    val listAllergies = documentUtils.getAllergiesFromDoc(JSONObject(file))
+    println(listTitles)
 
     val titleList: ArrayList<TitleItem> = ArrayList()
+    val allergiesList: ArrayList<TitleItem> = ArrayList()
 
-    for (item in list) {
+    for (item in listTitles) {
+      titleList.add(TitleItem(item))
+    }
+
+    for (item in listAllergies) {
       titleList.add(TitleItem(item))
     }
 

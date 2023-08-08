@@ -1,52 +1,32 @@
 package com.example.ipsapp
 
 import com.example.ipsapp.fileExamples.file
+import com.example.ipsapp.utils.DocumentUtils
 import junit.framework.TestCase.assertEquals
-import org.json.JSONArray
 import org.json.JSONObject
-import org.json.JSONTokener
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.anyInt
-import org.mockito.ArgumentMatchers.anyString
-import org.mockito.InjectMocks
-import org.mockito.Mock
-import org.mockito.junit.MockitoJUnitRunner
-import org.powermock.api.mockito.PowerMockito
-import org.powermock.core.classloader.annotations.PrepareForTest
+import org.mockito.Mockito
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 
 
-@RunWith(MockitoJUnitRunner::class)
-@PrepareForTest(JSONObject::class)
+@RunWith(RobolectricTestRunner::class)
+@Config(manifest=Config.NONE)
 class DocumentTest {
 
-  // private val docUtilsMock = Mockito.mock(DocumentUtils::class.java)
-  @InjectMocks
-  private lateinit var docUtilsMock: DocumentUtils
-
-  @Mock
-  private lateinit var jsonMock: JSONObject
-  val jsonArrMock = PowerMockito.mock(JSONArray::class.java)
-
-
-  @Before
-  fun setup() {
-
-  }
+  private val docUtilsMock = Mockito.mock(DocumentUtils::class.java)
 
   @Test
   fun getTitlesFromDoc() {
-
-    val jsonArray = JSONArray(JSONTokener(file))
-
-    PowerMockito.`when`(jsonMock.has(anyString())).thenReturn(true)
-    PowerMockito.`when`(jsonMock.getJSONArray(anyString())).thenReturn(jsonArray)
-    PowerMockito.`when`(jsonArrMock.length()).thenReturn(3)
-    PowerMockito.`when`(jsonArrMock.getJSONObject(anyInt())).thenReturn(jsonMock)
-
-    val list = docUtilsMock.getTitlesFromIpsDoc(jsonMock)
+    val list = docUtilsMock.getTitlesFromIpsDoc(JSONObject(file))
     assertEquals(3, list.size)
+  }
+
+  @Test
+  fun allergiesCanBeRetrievedFromDoc() {
+    val list = docUtilsMock.getAllergiesFromDoc(JSONObject(file))
+    println(list)
   }
 
 }
