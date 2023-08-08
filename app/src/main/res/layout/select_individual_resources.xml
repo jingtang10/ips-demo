@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SelectIndividualResources">
+  <TextView
+      android:id="@+id/selectedResourcesTextView"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Selected Resources:"
+      android:textSize="18sp"
+      android:padding="16dp"
+      android:textStyle="bold" />
+
+  <LinearLayout
+      android:id="@+id/containerLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/selectedResourcesTextView"
+      android:orientation="vertical"/>
+
+</RelativeLayout>

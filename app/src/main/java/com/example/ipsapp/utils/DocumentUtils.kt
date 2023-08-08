@@ -48,7 +48,30 @@ open class DocumentUtils {
         for (j in 0 until codingArray.length()) {
           val coding = codingArray.getJSONObject(j)
           val display = coding.getString("display")
-          println("Display value: $display")
+          displayList.add(display)
+        }
+      }
+    }
+    return displayList
+  }
+
+  fun getMedicationFromDoc(doc : JSONObject) : List<String> {
+    val entryArray = doc.getJSONArray("entry")
+
+    val displayList = ArrayList<String>()
+
+    // Iterate through the entry array and filter based on criteria
+    for (i in 0 until entryArray.length()) {
+      val entry = entryArray.getJSONObject(i)
+      val resource = entry.getJSONObject("resource")
+
+      val resourceType = resource.getString("resourceType")
+
+      if (resourceType == "Medication") {
+        val codingArray = resource.getJSONObject("code").getJSONArray("coding")
+        for (j in 0 until codingArray.length()) {
+          val coding = codingArray.getJSONObject(j)
+          val display = coding.getString("display")
           displayList.add(display)
         }
       }

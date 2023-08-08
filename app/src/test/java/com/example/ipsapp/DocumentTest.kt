@@ -29,4 +29,9 @@ class DocumentTest {
     println(list)
   }
 
+  @Test
+  fun medicationsCanBeRetrievedFromDoc() {
+    val list = docUtilsMock.getMedicationFromDoc(JSONObject(file))
+    println(list)
+  }
 }

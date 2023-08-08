@@ -5,30 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".CreatePasscode">
 
-  <TextView
-      android:id="@+id/selectedResourcesTextView"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="Selected Resources:"
-      android:textSize="18sp"
-      android:padding="16dp"
-      android:textStyle="bold" />
-
-  <ListView
-      android:id="@+id/selectedResourcesListView"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="1"
-      android:divider="@null"
-      android:dividerHeight="0dp"
-      android:paddingStart="16dp"
-      android:paddingEnd="16dp" />
-
   <TextView android:id="@+id/textView"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:gravity="center"
-      android:layout_below="@+id/selectedResourcesListView"
       android:text="@string/optionally_add_a_passcode_a_label_or_an_expiration_date" />
 
   <EditText

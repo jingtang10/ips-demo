@@ -14,10 +14,14 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.DatePicker
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import com.example.ipsapp.fileExamples.file
+import com.example.ipsapp.utils.DocumentUtils
 import java.util.Calendar
+import org.json.JSONObject
 
 class CreatePasscode : Activity() {
 
@@ -28,13 +32,6 @@ class CreatePasscode : Activity() {
 
     val datePicker = findViewById<DatePicker>(R.id.datePicker)
     var expirationDate = ""
-
-    val selectedTitles = intent.getStringArrayListExtra("selectedTitles") ?: emptyList()
-    val selectedResourcesTextView = findViewById<TextView>(R.id.selectedResourcesTextView)
-    val selectedResourcesListView = findViewById<ListView>(R.id.selectedResourcesListView)
-
-    selectedResourcesTextView.text = "Selected Resources:"
-    selectedResourcesListView.adapter = SelectedTitlesAdapter(this, selectedTitles)
 
 
     // Do I need to include time with this?
@@ -72,18 +69,6 @@ class CreatePasscode : Activity() {
     // updates the variable to the selected date
     datePicker.setOnDateChangedListener { _, year, monthOfYear, dayOfMonth ->
       expirationDate = "$year-${monthOfYear + 1}-$dayOfMonth"
-    }
-  }
-
-  inner class SelectedTitlesAdapter(context: Context, private val titles: List<String?>) :
-    ArrayAdapter<String?>(context, android.R.layout.simple_list_item_1, titles) {
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-      val title = titles[position]
-      val view = convertView ?: LayoutInflater.from(context)
-        .inflate(android.R.layout.simple_list_item_1, parent, false)
-      (view as TextView).text = title ?: "N/A"
-      return view
     }
   }
 }

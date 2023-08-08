@@ -35,17 +35,10 @@ class SelectResources : Activity() {
     setContentView(R.layout.select_resources)
 
     val listTitles = documentUtils.getTitlesFromIpsDoc(JSONObject(file))
-    val listAllergies = documentUtils.getAllergiesFromDoc(JSONObject(file))
-    println(listTitles)
 
     val titleList: ArrayList<TitleItem> = ArrayList()
-    val allergiesList: ArrayList<TitleItem> = ArrayList()
 
     for (item in listTitles) {
-      titleList.add(TitleItem(item))
-    }
-
-    for (item in listAllergies) {
       titleList.add(TitleItem(item))
     }
 
@@ -57,7 +50,7 @@ class SelectResources : Activity() {
     val submitResourcesButton = findViewById<Button>(R.id.submitResourcesButton)
     submitResourcesButton.setOnClickListener {
       val selectedTitles = titleList.filter { it.isChecked }.map { it.title }
-      val i = Intent(this@SelectResources, CreatePasscode::class.java)
+      val i = Intent(this@SelectResources, SelectIndividualResources::class.java)
       i.putStringArrayListExtra("selectedTitles", ArrayList(selectedTitles))
       startActivity(i)
     }
