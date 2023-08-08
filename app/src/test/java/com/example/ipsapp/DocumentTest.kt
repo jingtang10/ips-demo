@@ -1,6 +1,7 @@
 package com.example.ipsapp
 
 import com.example.ipsapp.fileExamples.file
+import com.example.ipsapp.fileExamples.immunizationBundle
 import com.example.ipsapp.utils.DocumentUtils
 import junit.framework.TestCase.assertEquals
 import org.json.JSONObject
@@ -18,9 +19,15 @@ class DocumentTest {
   private val docUtilsMock = Mockito.mock(DocumentUtils::class.java)
 
   @Test
-  fun getTitlesFromDoc() {
+  fun getTitlesFromMinBundleDoc() {
     val list = docUtilsMock.getTitlesFromIpsDoc(JSONObject(file))
     assertEquals(3, list.size)
+  }
+
+  @Test
+  fun getTitlesFromImmunizationBundle() {
+    val list = docUtilsMock.getTitlesFromIpsDoc(JSONObject(immunizationBundle))
+    println(list)
   }
 
   @Test
@@ -31,7 +38,17 @@ class DocumentTest {
 
   @Test
   fun medicationsCanBeRetrievedFromDoc() {
-    val list = docUtilsMock.getMedicationFromDoc(JSONObject(file))
+    val list = docUtilsMock.getMedicationFromDoc(JSONObject(immunizationBundle))
     println(list)
+  }
+
+  @Test
+  fun mapCanBeCreatedWithDataForEachTitle() {
+    val map = mutableMapOf<String, List<String>>()
+    val list = docUtilsMock.getTitlesFromIpsDoc(JSONObject(file))
+    for (item in list) {
+      docUtilsMock.getDataFromDoc(JSONObject(file), item, map)
+    }
+    println(map)
   }
 }

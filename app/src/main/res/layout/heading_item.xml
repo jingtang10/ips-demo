@@ -4,20 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="4dp"
+      android:background="#D1D1D1"/>
+
 <TextView
     android:id="@+id/headingText"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textSize="18sp"
     android:textStyle="bold"
+    android:textColor="@color/black"
     android:padding="8dp"/>
 
 <EditText
   android:id="@+id/filterEditText"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:hint="Filter by"
-  android:padding="8dp"
-  android:layout_below="@+id/headingText"/>
-
+  android:layout_width="200dp"
+  android:layout_height="30dp"
+  android:layout_marginTop="2dp"
+  android:background="@drawable/edit_text_border"
+  android:paddingLeft="5dp"
+    android:layout_below="@id/headingText"
+  android:hint="Filter by" />
 </RelativeLayout>

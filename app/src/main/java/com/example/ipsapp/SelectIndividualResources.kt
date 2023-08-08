@@ -34,18 +34,24 @@ class SelectIndividualResources : Activity() {
 
     val containerLayout: LinearLayout = findViewById(R.id.containerLayout)
 
+    val map = mutableMapOf<String, List<String>>()
+
     for (title in selectedTitles) {
       val headingView = layoutInflater.inflate(R.layout.heading_item, containerLayout, false) as RelativeLayout
       val headingText = headingView.findViewById<TextView>(R.id.headingText)
       headingText.text = title
       containerLayout.addView(headingView)
 
-      val data = fetchDataForTitle(title) // Replace this with your data fetching logic
+      docUtils.getDataFromDoc(JSONObject(file), title, map)
 
-      for (item in data) {
-        val checkBoxItem = layoutInflater.inflate(R.layout.checkbox_item, containerLayout, false) as CheckBox
-        checkBoxItem.text = item
-        containerLayout.addView(checkBoxItem)
+      val data = map.get(title) // Replace this with your data fetching logic
+
+      if (data != null) {
+        for (item in data) {
+          val checkBoxItem = layoutInflater.inflate(R.layout.checkbox_item, containerLayout, false) as CheckBox
+          checkBoxItem.text = item
+          containerLayout.addView(checkBoxItem)
+        }
       }
     }
   }

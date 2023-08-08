@@ -1,5 +1,13 @@
 package com.example.ipsapp.fileExamples
 
+import android.os.Build
+import androidx.annotation.RequiresApi
+import java.nio.file.Files
+import java.nio.file.Paths
+
+
+
+
 val file = "{\n" +
   "  \"resourceType\" : \"Bundle\",\n" +
   "  \"id\" : \"bundle-minimal\",\n" +
@@ -443,3 +451,5 @@ val file = "{\n" +
   "    }\n" +
   "  }]\n" +
   "}"
+
+var immunizationBundle = ClassLoader.getSystemResource("immunizationBundle.json").readText()
