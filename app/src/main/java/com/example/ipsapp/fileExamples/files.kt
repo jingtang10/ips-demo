@@ -4,11 +4,11 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import java.nio.file.Files
 import java.nio.file.Paths
+import kotlinx.coroutines.runBlocking
+import org.json.JSONObject
+import org.json.JSONStringer
 
-
-
-
-val file = "{\n" +
+const val file = "{\n" +
   "  \"resourceType\" : \"Bundle\",\n" +
   "  \"id\" : \"bundle-minimal\",\n" +
   "  \"language\" : \"en-US\",\n" +
@@ -452,4 +452,5 @@ val file = "{\n" +
   "  }]\n" +
   "}"
 
-var immunizationBundle = ClassLoader.getSystemResource("immunizationBundle.json").readText()
+
+  val immunizationBundle: String = ClassLoader.getSystemResource("immunizationBundle.json").readText()

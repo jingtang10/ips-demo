@@ -1,5 +1,6 @@
 package com.example.ipsapp.utils
 
+import android.content.Context
 import org.json.JSONObject
 
 open class DocumentUtils {
@@ -44,21 +45,59 @@ open class DocumentUtils {
       }
 
       val condition = getSearchingCondition(title, resourceType, type)
-      // println(title)
-      // println(resourceType)
-      // println(type)
-      println(condition)
+
       if (condition) {
-        val codingArray = resource.getJSONObject("code").getJSONArray("coding")
-        for (j in 0 until codingArray.length()) {
-          val coding = codingArray.getJSONObject(j)
-          val display = coding.getString("display")
-          displayList.add(display)
+
+        // gets Problems, Allergies, Medications, Results
+        if (resource.has("code") && resource.getJSONObject("code").has("coding")) {
+          val codingArray = resource.getJSONObject("code").getJSONArray("coding")
+          for (j in 0 until codingArray.length()) {
+            val coding = codingArray.getJSONObject(j)
+            val display = coding.getString("display")
+            displayList.add(display)
+          }
         }
+
+        // getting immunization target diseases
+        else if (title == "Immunizations") {
+          val protocolAppliedArray = resource.getJSONArray("protocolApplied")
+
+          for (i in 0 until protocolAppliedArray.length()) {
+            val targetDiseaseArray = protocolAppliedArray.getJSONObject(i).getJSONArray("targetDisease")
+
+            for (j in 0 until targetDiseaseArray.length()) {
+              val codingArray = targetDiseaseArray.getJSONObject(j).getJSONArray("coding")
+
+              for (k in 0 until codingArray.length()) {
+                val display = codingArray.getJSONObject(k).getString("display")
+                displayList.add(display)
+              }
+            }
+          }
+        }
+
+
       }
     }
     map[title] = displayList
     return map
+  }
+
+  fun getSearchingCondition(resource : String, resourceType : String, type : String) : Boolean {
+    return when (resource) {
+      "Allergies and Intolerances" -> resourceType == "AllergyIntolerance" && type == "allergy"
+      "Medication" -> resourceType == "Medication"
+      "Active Problems" -> resourceType == "Condition"
+      "Immunizations" -> resourceType == "Immunization"
+      "Results" -> resourceType == "Observation"
+      "History of Past Illness" -> false // inside div
+      "Plan of Treatment" -> false // inside div
+
+      // titles have to change
+      "procedure history" -> false
+      "medical devices" -> false
+      else -> false
+    }
   }
 
   fun getAllergiesFromDoc(doc : JSONObject) : List<String> {
@@ -113,20 +152,9 @@ open class DocumentUtils {
     return displayList
   }
 
-  fun getSearchingCondition(resource : String, resourceType : String, type : String) : Boolean {
-    return when (resource) {
-      "Allergies and Intolerances" -> resourceType == "AllergyIntolerance" && type == "allergy"
-      "Medication" -> resourceType == "Medication"
-      "Active Problems" -> resourceType == "Condition"
-      "Immunizations" -> resourceType == "Immunization"
-      "Results" -> resourceType == "Observation"
-      "History of Past Illness" -> false // inside div
-      "Plan of Treatment" -> false // inside div
-
-      // titles have to change
-      "procedure history" -> false
-      "medical devices" -> false
-      else -> false
+  fun readFileFromAssets(context: Context, filename: String): String {
+    return context.assets.open(filename).bufferedReader().use {
+      it.readText()
     }
   }
 }

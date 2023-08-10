@@ -14,15 +14,19 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.example.ipsapp.fileExamples.file
+import com.example.ipsapp.fileExamples.immunizationBundle
 import com.example.ipsapp.utils.DocumentUtils
 import org.json.JSONObject
 
 class SelectIndividualResources : Activity() {
 
   val docUtils = DocumentUtils()
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.select_individual_resources)
+
+    val doc = JSONObject(docUtils.readFileFromAssets(this, "immunizationBundle.json"))
 
 
     val selectedTitles = intent.getStringArrayListExtra("selectedTitles") ?: emptyList()
@@ -42,7 +46,7 @@ class SelectIndividualResources : Activity() {
       headingText.text = title
       containerLayout.addView(headingView)
 
-      docUtils.getDataFromDoc(JSONObject(file), title, map)
+      docUtils.getDataFromDoc(doc, title, map)
 
       val data = map.get(title) // Replace this with your data fetching logic
 
@@ -56,13 +60,13 @@ class SelectIndividualResources : Activity() {
     }
   }
 
-  private fun fetchDataForTitle(title: String?): List<String> {
-    return when (title) {
-      "Allergies and Intolerances" -> docUtils.getAllergiesFromDoc(JSONObject(file))
-      "Medication" -> docUtils.getMedicationFromDoc(JSONObject(file))
-      else -> emptyList()
-    }
-  }
+  // private fun fetchDataForTitle(title: String?): List<String> {
+  //   return when (title) {
+  //     "Allergies and Intolerances" -> docUtils.getAllergiesFromDoc(JSONObject(file))
+  //     "Medication" -> docUtils.getMedicationFromDoc(JSONObject(file))
+  //     else -> emptyList()
+  //   }
+  // }
 
   inner class SelectedTitlesAdapter(context: Context, private val titles: List<String?>) :
     ArrayAdapter<String?>(context, android.R.layout.simple_list_item_1, titles) {

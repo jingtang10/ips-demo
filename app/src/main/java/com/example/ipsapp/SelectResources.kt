@@ -1,6 +1,7 @@
 package com.example.ipsapp
 
 import android.app.Activity
+import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +12,9 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ipsapp.fileExamples.immunizationBundle
 import com.example.ipsapp.fileExamples.file
+// import com.example.ipsapp.fileExamples.immunizationBundle
 import com.example.ipsapp.utils.DocumentUtils
 import org.json.JSONObject
 
@@ -24,17 +27,20 @@ import org.json.JSONObject
 
 class SelectResources : Activity() {
 
-  val documentUtils = DocumentUtils()
+  val docUtils = DocumentUtils()
+
 
   data class TitleItem(val title: String, var isChecked: Boolean = false)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
+    val doc = JSONObject(docUtils.readFileFromAssets(this, "immunizationBundle.json"))
+
     // set the text view value to the body of the response from the POST
     setContentView(R.layout.select_resources)
 
-    val listTitles = documentUtils.getTitlesFromIpsDoc(JSONObject(file))
+    val listTitles = docUtils.getTitlesFromIpsDoc(doc)
 
     val titleList: ArrayList<TitleItem> = ArrayList()
 
@@ -55,7 +61,6 @@ class SelectResources : Activity() {
       startActivity(i)
     }
   }
-
   inner class TitleAdapter(private val titles: List<TitleItem>) :
     RecyclerView.Adapter<TitleAdapter.ViewHolder>() {
 
