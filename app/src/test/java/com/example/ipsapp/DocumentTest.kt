@@ -19,12 +19,12 @@ class DocumentTest {
 
   private val docUtilsMock = Mockito.mock(DocumentUtils::class.java)
 
-  val fileJson = JSONObject(file)
-  val immunizationJson = JSONObject(immunizationBundle)
+  private val fileJson = JSONObject(file)
+  private val immunizationJson = JSONObject(immunizationBundle)
 
   @Test
   fun getTitlesFromMinBundleDoc() {
-    val list = docUtilsMock.getTitlesFromIpsDoc(immunizationJson)
+    val list = docUtilsMock.getTitlesFromIpsDoc(fileJson)
     assertEquals(3, list.size)
   }
 

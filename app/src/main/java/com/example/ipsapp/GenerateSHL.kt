@@ -21,10 +21,6 @@ import com.google.zxing.EncodeHintType
 import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
 import java.nio.charset.StandardCharsets
-import java.time.LocalDate
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
-import java.util.Base64
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -32,7 +28,7 @@ import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 
-class ViewSHL : Activity() {
+class GenerateSHL : Activity() {
 
   private val urlUtils = UrlUtils()
 
@@ -133,7 +129,7 @@ class ViewSHL : Activity() {
 
       var exp = ""
       if (expirationDate != "") {
-        exp = dateStringToEpochSeconds(expirationDate).toString()
+        exp = urlUtils.dateStringToEpochSeconds(expirationDate).toString()
       }
 
       val shLinkPayload = constructSHLinkPayload(manifestUrl, labelData, flags, key, exp)
@@ -151,7 +147,7 @@ class ViewSHL : Activity() {
 
       // if (drawable != null) {
 
-      val qrCodeBitmap = generateQRCode(this@ViewSHL, shLink)
+      val qrCodeBitmap = generateQRCode(this@GenerateSHL, shLink)
       if (qrCodeBitmap != null) {
         runOnUiThread {
           qrView.setImageBitmap(qrCodeBitmap)
@@ -159,46 +155,8 @@ class ViewSHL : Activity() {
       }
       println(shLinkPayload)
 
-      postPayload(manifestUrl, key, managementToken)
+      urlUtils.postPayload(file, manifestUrl, key, managementToken)
     }
-  }
-
-  @RequiresApi(Build.VERSION_CODES.O)
-  private fun postPayload(manifestUrl: String, key: String, managementToken: String) {
-
-    // encode the file here (convert to JWE)
-    // val encryptionKey = urlUtils.generateRandomKey()
-    // Log.d("enc key", encryptionKey)
-
-    // val contentJson = Gson().toJson(file.trim())
-    val contentEncrypted = urlUtils.encrypt(file, key)
-    Log.d("encrypted content", contentEncrypted)
-    // Log.d("encryption key", key)
-
-    val jwtHeader = "{\"zip\": \"DEF\", \"alg\": \"ES256\", \"kid\": \"${key}\"}"
-    val finalContent = Base64.getUrlEncoder().withoutPadding()
-      .encodeToString(jwtHeader.toByteArray()) + "." + contentEncrypted
-    Log.d("final content", finalContent)
-
-    // val encryptedContent = encryptContent(JSONObject(file), encryptionKey)
-
-
-    val httpClient: CloseableHttpClient = HttpClients.createDefault()
-    Log.d("manifest", manifestUrl)
-    val httpPost = HttpPost("$manifestUrl/file")
-    httpPost.addHeader("Content-Type", "application/smart-health-card")
-    // httpPost.addHeader("Content-Length", file.length.toString())
-    httpPost.addHeader("Authorization", "Bearer $managementToken")
-
-    val entity = StringEntity(contentEncrypted)
-
-    httpPost.entity = entity
-    val response = httpClient.execute(httpPost)
-
-    val responseBody = EntityUtils.toString(response.entity, StandardCharsets.UTF_8)
-    Log.d("Response status: ", "${response.statusLine.statusCode}")
-    Log.d("Response body: ", responseBody)
-    httpClient.close()
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
@@ -226,22 +184,7 @@ class ViewSHL : Activity() {
     }
 
     val jsonPayload = payloadObject.toString()
-    return base64UrlEncode(jsonPayload)
-  }
-
-  // converts the inputted expiry date to epoch seconds
-  @RequiresApi(Build.VERSION_CODES.O)
-  fun dateStringToEpochSeconds(dateString: String): Long {
-    val formatter = DateTimeFormatter.ofPattern("yyyy-M-d")
-    val localDate = LocalDate.parse(dateString, formatter)
-    val zonedDateTime = localDate.atStartOfDay(ZoneOffset.UTC)
-    return zonedDateTime.toEpochSecond()
-  }
-
-  @RequiresApi(Build.VERSION_CODES.O)
-  fun base64UrlEncode(data: String): String {
-    val bytes = data.toByteArray(StandardCharsets.UTF_8)
-    return Base64.getUrlEncoder().withoutPadding().encodeToString(bytes)
+    return urlUtils.base64UrlEncode(jsonPayload)
   }
 
   private fun generateQRCode(context: Context, content: String): Bitmap? {

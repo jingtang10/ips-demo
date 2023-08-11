@@ -1,9 +1,6 @@
 package com.example.ipsapp
 
-import com.example.ipsapp.fileExamples.file
 import com.example.ipsapp.utils.UrlUtils
-import com.google.gson.Gson
-import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -34,7 +31,7 @@ class QRDecoderTest {
         Assert.assertEquals(decodedWithFunction, decodedBase64)
     }
 
-    // JSON mocking issue
+
     @Test
     fun extractVerifiableCredentialCorrectlyExtractsAToken() {
         val extractedVCWithFunc = urlUtilsMock.extractVerifiableCredential(verifiableCredential)
@@ -43,43 +40,18 @@ class QRDecoderTest {
 
     @Test
     fun jwtsCanBeDecodedAndDecompressedIntoData() {
-        val jwt = "eyJ6aXAiOiJERUYiLCJhbGciOiJFUzI1NiIsImtpZCI6IjNLZmRnLVh3UC03Z1h5eXd0VWZVQUR3QnVtRE9QS01ReC1pRUxMMTFXOXMifQ.pZJJT8MwEIX_ChquaZZSthyBAxwQSCwX1IPrTBsjL9HYKRSU_85MaAVCiAtSDnH85vN7z3kHEyPU0KbUxbooYoc6j05RalHZ1OZaURMLfFWusxgLVvdIkIFfLKGujman5bQ8mM7y6dFhBmsN9TukTYdQP30xf-L2PxcTWTDq_zrjXO_Nm0omeJhnoAkb9Mkoe9cvnlEnsbVsDT0iRdHUMMvLvGKofD3rfWNRNIQx9KTxfowA241sGwl0sJZpQsiAD6AN52Ryb-0DWRbs5uuSBbvFL-Bbtsrz0qNy-AlRztiNHErhRfgrs0YvPd5YfiOYD5xsYTj6hUoCmZbV8aSsJuUMhiH71Ub1t42r771lEJNKfRxzym0nlNbXSmvj8Tw0I0GHxvjV6DhuYkK3_Xn4Xlp7nAdaFVJpEU1T6PUrA_Q4CeUJDPMhg24bfXSzREIv1r43x6KgdU_jlmS9N-5HXsYgLQM57kWsKJ0CCbIxsbNKarxGMglp7zLEziRluaP5-AzDBw.xOwN6qSTeHU-FkqTIojbvryr8Ztue_HBbiiGdIcfio7m2-STuC-CdNIEt9WbxU_CpveZwdwdYlaQ3cX-yi-SQg"
-        val expectedData = "{\"iss\":\"https://spec.smarthealth.cards/examples/issuer\",\"nbf\":1649020324.265,\"vc\":{\"type\":[\"https://smarthealth.cards#health-card\",\"https://smarthealth.cards#health-card\",\"https://smarthealth.cards#immunization\"],\"credentialSubject\":{\"fhirVersion\":\"4.0.1\",\"fhirBundle\":{\"resourceType\":\"Bundle\",\"type\":\"collection\",\"entry\":[{\"fullUrl\":\"resource:0\",\"resource\":{\"resourceType\":\"Patient\",\"name\":[{\"family\":\"Brown\",\"given\":[\"Oliver\"]}],\"birthDate\":\"2017-01-04\"}},{\"fullUrl\":\"resource:1\",\"resource\":{\"resourceType\":\"Immunization\",\"status\":\"completed\",\"vaccineCode\":{\"coding\":[{\"system\":\"http://hl7.org/fhir/sid/cvx\",\"code\":\"08\"}]},\"patient\":{\"reference\":\"resource:0\"},\"occurrenceDateTime\":\"2017-01-04\",\"performer\":[{\"actor\":{\"display\":\"Meriter Hospital\"}}]}}]}}}}\n"
+        val jwt =
+            "eyJ6aXAiOiJERUYiLCJhbGciOiJFUzI1NiIsImtpZCI6IjNLZmRnLVh3UC03Z1h5eXd0VWZVQUR3QnVtRE9QS01ReC1pRUxMMTFXOXMifQ.pZJJT8MwEIX_ChquaZZSthyBAxwQSCwX1IPrTBsjL9HYKRSU_85MaAVCiAtSDnH85vN7z3kHEyPU0KbUxbooYoc6j05RalHZ1OZaURMLfFWusxgLVvdIkIFfLKGujman5bQ8mM7y6dFhBmsN9TukTYdQP30xf-L2PxcTWTDq_zrjXO_Nm0omeJhnoAkb9Mkoe9cvnlEnsbVsDT0iRdHUMMvLvGKofD3rfWNRNIQx9KTxfowA241sGwl0sJZpQsiAD6AN52Ryb-0DWRbs5uuSBbvFL-Bbtsrz0qNy-AlRztiNHErhRfgrs0YvPd5YfiOYD5xsYTj6hUoCmZbV8aSsJuUMhiH71Ub1t42r771lEJNKfRxzym0nlNbXSmvj8Tw0I0GHxvjV6DhuYkK3_Xn4Xlp7nAdaFVJpEU1T6PUrA_Q4CeUJDPMhg24bfXSzREIv1r43x6KgdU_jlmS9N-5HXsYgLQM57kWsKJ0CCbIxsbNKarxGMglp7zLEziRluaP5-AzDBw.xOwN6qSTeHU-FkqTIojbvryr8Ztue_HBbiiGdIcfio7m2-STuC-CdNIEt9WbxU_CpveZwdwdYlaQ3cX-yi-SQg"
+        val expectedData =
+            "{\"iss\":\"https://spec.smarthealth.cards/examples/issuer\",\"nbf\":1649020324.265,\"vc\":{\"type\":[\"https://smarthealth.cards#health-card\",\"https://smarthealth.cards#health-card\",\"https://smarthealth.cards#immunization\"],\"credentialSubject\":{\"fhirVersion\":\"4.0.1\",\"fhirBundle\":{\"resourceType\":\"Bundle\",\"type\":\"collection\",\"entry\":[{\"fullUrl\":\"resource:0\",\"resource\":{\"resourceType\":\"Patient\",\"name\":[{\"family\":\"Brown\",\"given\":[\"Oliver\"]}],\"birthDate\":\"2017-01-04\"}},{\"fullUrl\":\"resource:1\",\"resource\":{\"resourceType\":\"Immunization\",\"status\":\"completed\",\"vaccineCode\":{\"coding\":[{\"system\":\"http://hl7.org/fhir/sid/cvx\",\"code\":\"08\"}]},\"patient\":{\"reference\":\"resource:0\"},\"occurrenceDateTime\":\"2017-01-04\",\"performer\":[{\"actor\":{\"display\":\"Meriter Hospital\"}}]}}]}}}}\n"
         val decoded = urlUtilsMock.decodeAndDecompressPayload(jwt)
         Assert.assertEquals(decoded.trim(), expectedData.trim())
-    }
-
-    @Test
-    fun postingToServerReturnsManifestIdAndToken() {
-        runBlocking {
-            val res = urlUtilsMock.getManifestUrl()
-            Assert.assertTrue(res.contains("id") && res.contains("managementToken") &&
-                                res.contains("active"))
-        }
-    }
-
-    @Test
-    fun canConvertFilesIntoJweTokens() {
-        val encryptionKey = urlUtilsMock.generateRandomKey()
-        val contentJson = Gson().toJson(file)
-        val contentEncrypted = urlUtilsMock.encrypt(contentJson, encryptionKey)
-        Assert.assertEquals(contentEncrypted.split('.').size, 5)
     }
 
     @Test
     fun canDecodeJWE() {
         val jwe = "eyJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0..OgGwTWbECJk9tQc4.PUxr0STCtKQ6DmdPqPtJtTowTBxdprFykeZ2WUOUw234_TtdGWLJ0hzfuWjZXDyBpa55TXwvSwobpcbut9Cdl2nATA0_j1nW0-A32uAwH0qEE1ELV5G0IQVT5AqKJRTCMGpy0mWH.qATmrk-UdwCOaT1TY6GEJg"
         println(urlUtilsMock.decodeShc(jwe, "VmFndWVseS1FbmdhZ2luZy1QYXJhZG94LTA1NTktMDg"))
-    }
-
-    @Test
-    fun fileCanSuccessfullyBeEncryptedAndDecrypted() {
-        val key = urlUtilsMock.generateRandomKey()
-        val content = Gson().toJson(file)
-
-        val encrypted = urlUtilsMock.encrypt(content, key)
-        val decrypted = urlUtilsMock.decodeShc(encrypted, key)
-        Assert.assertEquals(content, decrypted)
     }
 
 

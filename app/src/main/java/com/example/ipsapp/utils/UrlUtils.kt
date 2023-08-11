@@ -1,6 +1,7 @@
 package com.example.ipsapp.utils
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpPost
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.entity.StringEntity
@@ -18,6 +19,9 @@ import com.nimbusds.jose.crypto.DirectEncrypter
 import java.io.ByteArrayOutputStream
 import java.nio.charset.StandardCharsets
 import java.security.SecureRandom
+import java.time.LocalDate
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 import java.util.Base64
 import java.util.zip.DataFormatException
 import java.util.zip.Inflater
@@ -92,7 +96,6 @@ open class UrlUtils {
         return jweObject.payload.toString()
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     fun getManifestUrl(): String {
         val httpClient: CloseableHttpClient = HttpClients.createDefault()
         val httpPost = HttpPost("https://api.vaxx.link/api/shl")
@@ -128,5 +131,58 @@ open class UrlUtils {
 
         jweObj.encrypt(encrypter)
         return jweObj.serialize()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun postPayload(file: String, manifestUrl: String, key: String, managementToken: String) {
+
+        // encode the file here (convert to JWE)
+        // val encryptionKey = urlUtils.generateRandomKey()
+        // Log.d("enc key", encryptionKey)
+
+        // val contentJson = Gson().toJson(file.trim())
+        val contentEncrypted = encrypt(file, key)
+        Log.d("encrypted content", contentEncrypted)
+        // Log.d("encryption key", key)
+
+        val jwtHeader = "{\"zip\": \"DEF\", \"alg\": \"ES256\", \"kid\": \"${key}\"}"
+        val finalContent = Base64.getUrlEncoder().withoutPadding()
+            .encodeToString(jwtHeader.toByteArray()) + "." + contentEncrypted
+        Log.d("final content", finalContent)
+
+        // val encryptedContent = encryptContent(JSONObject(file), encryptionKey)
+
+
+        val httpClient: CloseableHttpClient = HttpClients.createDefault()
+        Log.d("manifest", manifestUrl)
+        val httpPost = HttpPost("$manifestUrl/file")
+        httpPost.addHeader("Content-Type", "application/smart-health-card")
+        // httpPost.addHeader("Content-Length", file.length.toString())
+        httpPost.addHeader("Authorization", "Bearer $managementToken")
+
+        val entity = StringEntity(contentEncrypted)
+
+        httpPost.entity = entity
+        val response = httpClient.execute(httpPost)
+
+        val responseBody = EntityUtils.toString(response.entity, StandardCharsets.UTF_8)
+        Log.d("Response status: ", "${response.statusLine.statusCode}")
+        Log.d("Response body: ", responseBody)
+        httpClient.close()
+    }
+
+    // converts the inputted expiry date to epoch seconds
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun dateStringToEpochSeconds(dateString: String): Long {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-M-d")
+        val localDate = LocalDate.parse(dateString, formatter)
+        val zonedDateTime = localDate.atStartOfDay(ZoneOffset.UTC)
+        return zonedDateTime.toEpochSecond()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun base64UrlEncode(data: String): String {
+        val bytes = data.toByteArray(StandardCharsets.UTF_8)
+        return Base64.getUrlEncoder().withoutPadding().encodeToString(bytes)
     }
 }

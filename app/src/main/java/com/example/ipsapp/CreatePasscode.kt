@@ -47,7 +47,7 @@ class CreatePasscode : Activity() {
      They are empty strings if they haven't been inputted
     */
     submitResourcesButton.setOnClickListener {
-      val i = Intent(this@CreatePasscode, ViewSHL::class.java)
+      val i = Intent(this@CreatePasscode, GenerateSHL::class.java)
 
       val passcodeField = findViewById<EditText>(R.id.passcode).text.toString()
       val labelField = findViewById<EditText>(R.id.label).text.toString()
