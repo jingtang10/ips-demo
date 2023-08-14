@@ -11,4 +11,12 @@
       android:layout_height="wrap_content"
       android:orientation="vertical"/>
 
+  <Button
+      android:id="@+id/goToCreatePasscode"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      android:layout_below="@+id/containerLayout"
+      android:text="Generate Document" />
+
 </RelativeLayout>

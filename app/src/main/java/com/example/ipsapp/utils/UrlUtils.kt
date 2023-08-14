@@ -25,7 +25,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Base64
 import java.util.zip.DataFormatException
 import java.util.zip.Inflater
-import kotlinx.coroutines.DelicateCoroutinesApi
+import org.json.JSONArray
 import org.json.JSONObject
 
 
@@ -143,6 +143,7 @@ open class UrlUtils {
         // val contentJson = Gson().toJson(file.trim())
         val contentEncrypted = encrypt(file, key)
         Log.d("encrypted content", contentEncrypted)
+
         // Log.d("encryption key", key)
 
         val jwtHeader = "{\"zip\": \"DEF\", \"alg\": \"ES256\", \"kid\": \"${key}\"}"

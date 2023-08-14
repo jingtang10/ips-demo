@@ -2,12 +2,14 @@ package com.example.ipsapp
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.LinearLayout
@@ -57,6 +59,12 @@ class SelectIndividualResources : Activity() {
           containerLayout.addView(checkBoxItem)
         }
       }
+    }
+
+    val submitButton = findViewById<Button>(R.id.goToCreatePasscode)
+    submitButton.setOnClickListener {
+      val i = Intent(this@SelectIndividualResources,CreatePasscode::class.java)
+      startActivity(i)
     }
   }
 
