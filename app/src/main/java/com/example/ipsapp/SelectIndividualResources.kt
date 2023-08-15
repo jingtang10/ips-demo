@@ -33,6 +33,8 @@ class SelectIndividualResources : Activity() {
 
     val doc = JSONObject(docUtils.readFileFromAssets(this, "immunizationBundle.json"))
 
+    val checkBoxes = mutableListOf<CheckBox>()
+
 
     val selectedTitles = intent.getStringArrayListExtra("selectedTitles") ?: emptyList()
     // val selectedResourcesTextView = findViewById<TextView>(R.id.selectedResourcesTextView)
@@ -53,20 +55,26 @@ class SelectIndividualResources : Activity() {
 
       docUtils.getDataFromDoc(doc, title, map)
 
-      val data = map[title]?.left // Replace this with your data fetching logic
+      val data = map[title]?.left
 
       if (!data.isNullOrEmpty()) {
         for (item in data) {
           val checkBoxItem = layoutInflater.inflate(R.layout.checkbox_item, containerLayout, false) as CheckBox
           checkBoxItem.text = item
           containerLayout.addView(checkBoxItem)
+
+          checkBoxes.add(checkBoxItem)
         }
       }
     }
 
     val submitButton = findViewById<Button>(R.id.goToCreatePasscode)
     submitButton.setOnClickListener {
+      val selectedCheckedValues = checkBoxes.filter { it.isChecked }.map { it.text.toString() }
+      println("Selected Checked Values: $selectedCheckedValues")
+
       val i = Intent(this@SelectIndividualResources,CreatePasscode::class.java)
+      // i.putStringArrayListExtra("selectedCheckedValues", ArrayList(selectedCheckedValues))
       startActivity(i)
     }
   }
