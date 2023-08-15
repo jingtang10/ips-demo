@@ -1,6 +1,8 @@
 package com.example.ipsapp.utils
 
 import android.content.Context
+import org.apache.commons.lang3.tuple.MutablePair
+import org.json.JSONArray
 import org.json.JSONObject
 
 open class DocumentUtils {
@@ -28,10 +30,12 @@ open class DocumentUtils {
     return titleList
   }
 
-  fun getDataFromDoc(doc : JSONObject, title : String, map : MutableMap<String, List<String>>) : MutableMap<String, List<String>> {
+  fun getDataFromDoc(doc : JSONObject, title : String, map : MutableMap<String, MutablePair<List<String>, JSONObject>>) : MutableMap<String, MutablePair<List<String>, JSONObject>> {
     val entryArray = doc.getJSONArray("entry")
 
     val displayList = ArrayList<String>()
+
+    val pair = MutablePair<List<String>, JSONObject>()
 
     // Iterate through the entry array and filter based on criteria
     for (i in 0 until entryArray.length()) {
@@ -51,10 +55,12 @@ open class DocumentUtils {
         // gets Problems, Allergies, Medications, Results
         if (resource.has("code") && resource.getJSONObject("code").has("coding")) {
           val codingArray = resource.getJSONObject("code").getJSONArray("coding")
+          pair.right = resource.getJSONObject("code")
           for (j in 0 until codingArray.length()) {
             val coding = codingArray.getJSONObject(j)
             val display = coding.getString("display")
             displayList.add(display)
+            break;
           }
         }
 
@@ -79,7 +85,8 @@ open class DocumentUtils {
 
       }
     }
-    map[title] = displayList
+    pair.left = displayList
+    map[title] = pair
     return map
   }
 

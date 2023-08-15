@@ -5,18 +5,43 @@
     android:layout_height="match_parent"
     tools:context=".SelectIndividualResources">
 
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Select which resources you wish to include"
+      android:id="@+id/text"/>
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:id="@+id/scrollView"
+      android:layout_above="@+id/button"
+      android:layout_below="@+id/text">
+
   <LinearLayout
       android:id="@+id/containerLayout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:orientation="vertical"/>
+      android:orientation="vertical"
+      android:scrollbars="vertical" />
+
+  </ScrollView>
+
+  <LinearLayout
+      android:id="@+id/button"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:gravity="center"
+      android:layout_alignParentBottom="true">
 
   <Button
       android:id="@+id/goToCreatePasscode"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_centerInParent="true"
-      android:layout_below="@+id/containerLayout"
       android:text="Generate Document" />
+
+  </LinearLayout>
 
 </RelativeLayout>

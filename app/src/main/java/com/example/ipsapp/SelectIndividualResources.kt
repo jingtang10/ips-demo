@@ -18,7 +18,10 @@ import android.widget.TextView
 import com.example.ipsapp.fileExamples.file
 import com.example.ipsapp.fileExamples.immunizationBundle
 import com.example.ipsapp.utils.DocumentUtils
+import org.apache.commons.lang3.tuple.MutablePair
+import org.json.JSONArray
 import org.json.JSONObject
+import android.text.method.ScrollingMovementMethod
 
 class SelectIndividualResources : Activity() {
 
@@ -40,7 +43,7 @@ class SelectIndividualResources : Activity() {
 
     val containerLayout: LinearLayout = findViewById(R.id.containerLayout)
 
-    val map = mutableMapOf<String, List<String>>()
+    val map = mutableMapOf<String, MutablePair<List<String>, JSONObject>>()
 
     for (title in selectedTitles) {
       val headingView = layoutInflater.inflate(R.layout.heading_item, containerLayout, false) as RelativeLayout
@@ -50,9 +53,9 @@ class SelectIndividualResources : Activity() {
 
       docUtils.getDataFromDoc(doc, title, map)
 
-      val data = map.get(title) // Replace this with your data fetching logic
+      val data = map[title]?.left // Replace this with your data fetching logic
 
-      if (data != null) {
+      if (!data.isNullOrEmpty()) {
         for (item in data) {
           val checkBoxItem = layoutInflater.inflate(R.layout.checkbox_item, containerLayout, false) as CheckBox
           checkBoxItem.text = item
