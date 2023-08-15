@@ -50,7 +50,7 @@ class DocumentTest {
 
   @Test
   fun mapCanBeCreatedWithDataForEachTitle() {
-    val map = mutableMapOf<String, MutablePair<List<String>, JSONObject>>()
+    val map = mutableMapOf<String, MutablePair<List<String>, ArrayList<JSONObject>>>()
     val list = docUtilsMock.getTitlesFromIpsDoc(fileJson)
     for (item in list) {
       docUtilsMock.getDataFromDoc(fileJson, item, map)
@@ -60,7 +60,7 @@ class DocumentTest {
 
   @Test
   fun mapCanBeCreatedWithDataForEachTitleInImmunization() {
-    val map = mutableMapOf<String, MutablePair<List<String>, JSONObject>>()
+    val map = mutableMapOf<String, MutablePair<List<String>, ArrayList<JSONObject>>>()
     val list = docUtilsMock.getTitlesFromIpsDoc(immunizationJson)
     for (item in list) {
       docUtilsMock.getDataFromDoc(immunizationJson, item, map)

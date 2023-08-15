@@ -26,6 +26,7 @@ import android.text.method.ScrollingMovementMethod
 class SelectIndividualResources : Activity() {
 
   val docUtils = DocumentUtils()
+  var map = mutableMapOf<String, MutablePair<List<String>, ArrayList<JSONObject>>>()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -34,6 +35,7 @@ class SelectIndividualResources : Activity() {
     val doc = JSONObject(docUtils.readFileFromAssets(this, "immunizationBundle.json"))
 
     val checkBoxes = mutableListOf<CheckBox>()
+    val checkboxTitleMap = mutableMapOf<String, String>()
 
 
     val selectedTitles = intent.getStringArrayListExtra("selectedTitles") ?: emptyList()
@@ -45,15 +47,14 @@ class SelectIndividualResources : Activity() {
 
     val containerLayout: LinearLayout = findViewById(R.id.containerLayout)
 
-    val map = mutableMapOf<String, MutablePair<List<String>, JSONObject>>()
-
     for (title in selectedTitles) {
       val headingView = layoutInflater.inflate(R.layout.heading_item, containerLayout, false) as RelativeLayout
       val headingText = headingView.findViewById<TextView>(R.id.headingText)
       headingText.text = title
       containerLayout.addView(headingView)
 
-      docUtils.getDataFromDoc(doc, title, map)
+      this.map += docUtils.getDataFromDoc(doc, title, map)
+      println("THIS IS THE MAP AFTER A FUNCTION $map")
 
       val data = map[title]?.left
 
@@ -63,6 +64,7 @@ class SelectIndividualResources : Activity() {
           checkBoxItem.text = item
           containerLayout.addView(checkBoxItem)
 
+          checkboxTitleMap[item] = title
           checkBoxes.add(checkBoxItem)
         }
       }
@@ -70,8 +72,39 @@ class SelectIndividualResources : Activity() {
 
     val submitButton = findViewById<Button>(R.id.goToCreatePasscode)
     submitButton.setOnClickListener {
-      val selectedCheckedValues = checkBoxes.filter { it.isChecked }.map { it.text.toString() }
-      println("Selected Checked Values: $selectedCheckedValues")
+      val selectedCheckedValuesWithTitles = checkBoxes.filter { it.isChecked }
+        .map { checkBox ->
+          val title = checkboxTitleMap[checkBox.text.toString()]
+          val value = checkBox.text.toString()
+          Pair(title, value)
+        }
+
+      for ((title, value) in selectedCheckedValuesWithTitles) {
+        val objArray = map[title]?.right
+        if (objArray != null) {
+          val outputArray = mutableListOf<ArrayList<JSONObject>>()
+
+          for (obj in objArray) {
+            val codingArray = obj.getJSONObject("code")?.getJSONArray("coding")
+            if (codingArray != null && codingArray.length() > 0) {
+              for (i in 0 until codingArray.length()) {
+                val codingElement = codingArray.getJSONObject(i)
+                val displayValue = codingElement.optString("display")
+                println("display val $displayValue")
+                println("val $value")
+                if (displayValue.equals(value)) {
+                  map[title]?.right?.let { it1 -> outputArray.add(it1) }
+                  break
+                }
+                // }
+              }
+
+            }}
+            println("Title: $title, Value: $value")
+            println(outputArray)
+
+        }
+      }
 
       val i = Intent(this@SelectIndividualResources,CreatePasscode::class.java)
       // i.putStringArrayListExtra("selectedCheckedValues", ArrayList(selectedCheckedValues))
