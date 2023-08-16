@@ -90,8 +90,6 @@ open class DocumentUtils {
             }
           }
         }
-
-
       }
     }
     pair.left = displayList

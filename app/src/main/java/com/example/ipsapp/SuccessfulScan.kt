@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.annotation.RequiresApi
@@ -37,11 +38,23 @@ class SuccessfulScan : AppCompatActivity() {
     val extractedJson = urlUtils.extractUrl(scannedData)
     val decodedJson = urlUtils.decodeUrl(extractedJson)
 
+    val passcodeEditText = findViewById<EditText>(R.id.passcode)
+    passcodeEditText.visibility = View.INVISIBLE
+
     // this gets you the url needed for the POST request
     val json = String(decodedJson, StandardCharsets.UTF_8)
     val jsonObject = JSONObject(json)
+    println(jsonObject)
     val url = jsonObject.get("url")
     val key = jsonObject.get("key")
+    if (jsonObject.has("flag")) {
+      val flags : String = jsonObject.getString("flag")
+      for (i in flags.indices) {
+        if (flags[i] == 'P') {
+          passcodeEditText.visibility = View.VISIBLE
+        }
+      }
+    }
     Log.d("url", url.toString())
     Log.d("key", key.toString())
 
@@ -49,7 +62,7 @@ class SuccessfulScan : AppCompatActivity() {
     val button = findViewById<Button>(R.id.getData)
     button.setOnClickListener {
       val recipientField = findViewById<EditText>(R.id.recipient).text.toString()
-      val passcodeField = findViewById<EditText>(R.id.passcode).text.toString()
+      val passcodeField = passcodeEditText.text.toString()
       fetchData(url.toString(), recipientField, passcodeField, key.toString())
     }
   }

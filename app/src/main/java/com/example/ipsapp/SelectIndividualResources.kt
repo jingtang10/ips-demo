@@ -79,11 +79,11 @@ class SelectIndividualResources : Activity() {
           Pair(title, value)
         }
 
+      val outputArray = mutableListOf<ArrayList<JSONObject>>()
+
       for ((title, value) in selectedCheckedValuesWithTitles) {
         val objArray = map[title]?.right
         if (objArray != null) {
-          val outputArray = mutableListOf<ArrayList<JSONObject>>()
-
           for (obj in objArray) {
             val codingArray = obj.getJSONObject("code")?.getJSONArray("coding")
             if (codingArray != null && codingArray.length() > 0) {
@@ -107,6 +107,20 @@ class SelectIndividualResources : Activity() {
       }
 
       val i = Intent(this@SelectIndividualResources,CreatePasscode::class.java)
+      val stringArrayLists: ArrayList<ArrayList<String>> = ArrayList()
+      for (jsonArrayList in outputArray) {
+        val stringList = ArrayList<String>()
+        for (jsonObject in jsonArrayList) {
+          // Convert JSONObject to String and add it to the stringList
+          stringList.add(jsonObject.toString())
+        }
+        stringArrayLists.add(stringList)
+      }
+      val flattenedList: ArrayList<String> = ArrayList()
+      for (innerList in stringArrayLists) {
+        flattenedList.addAll(innerList)
+      }
+      i.putStringArrayListExtra("codingList", flattenedList)
       // i.putStringArrayListExtra("selectedCheckedValues", ArrayList(selectedCheckedValues))
       startActivity(i)
     }

@@ -157,7 +157,7 @@ open class UrlUtils {
         val httpClient: CloseableHttpClient = HttpClients.createDefault()
         Log.d("manifest", manifestUrl)
         val httpPost = HttpPost("$manifestUrl/file")
-        httpPost.addHeader("Content-Type", "application/smart-health-card")
+        httpPost.addHeader("Content-Type", "application/fhir+json")
         // httpPost.addHeader("Content-Length", file.length.toString())
         httpPost.addHeader("Authorization", "Bearer $managementToken")
 
