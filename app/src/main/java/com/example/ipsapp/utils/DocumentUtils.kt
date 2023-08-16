@@ -104,6 +104,7 @@ open class DocumentUtils {
       "Active Problems" -> resourceType == "Condition"
       "Immunizations" -> resourceType == "Immunization"
       "Results" -> resourceType == "Observation"
+
       "History of Past Illness" -> false // inside div
       "Plan of Treatment" -> false // inside div
 
