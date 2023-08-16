@@ -9,7 +9,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:gravity="center"
-      android:text="@string/enter_your_name_and_the_passcode" />
+      android:text="Enter the required fields below" />
 
   <EditText
       android:id="@+id/recipient"

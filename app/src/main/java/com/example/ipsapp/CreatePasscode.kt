@@ -33,6 +33,7 @@ class CreatePasscode : Activity() {
     val datePicker = findViewById<DatePicker>(R.id.datePicker)
     var expirationDate = ""
 
+    val codingList = intent.getStringArrayListExtra("codingList")
 
     // Do I need to include time with this?
     val today: Calendar = Calendar.getInstance()
@@ -57,6 +58,7 @@ class CreatePasscode : Activity() {
       i.putExtra("expirationDate", expirationDate)
       i.putExtra("passcode", passcodeField)
       i.putExtra("label", labelField)
+      i.putStringArrayListExtra("codingList", codingList)
       startActivity(i)
     }
 

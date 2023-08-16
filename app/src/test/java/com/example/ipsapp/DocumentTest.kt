@@ -5,6 +5,8 @@ import com.example.ipsapp.fileExamples.immunizationBundle
 // import com.example.ipsapp.fileExamples.immunizationBundle
 import com.example.ipsapp.utils.DocumentUtils
 import junit.framework.TestCase.assertEquals
+import org.apache.commons.lang3.tuple.MutablePair
+import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -48,7 +50,7 @@ class DocumentTest {
 
   @Test
   fun mapCanBeCreatedWithDataForEachTitle() {
-    val map = mutableMapOf<String, List<String>>()
+    val map = mutableMapOf<String, MutablePair<List<String>, ArrayList<JSONObject>>>()
     val list = docUtilsMock.getTitlesFromIpsDoc(fileJson)
     for (item in list) {
       docUtilsMock.getDataFromDoc(fileJson, item, map)
@@ -58,7 +60,7 @@ class DocumentTest {
 
   @Test
   fun mapCanBeCreatedWithDataForEachTitleInImmunization() {
-    val map = mutableMapOf<String, List<String>>()
+    val map = mutableMapOf<String, MutablePair<List<String>, ArrayList<JSONObject>>>()
     val list = docUtilsMock.getTitlesFromIpsDoc(immunizationJson)
     for (item in list) {
       docUtilsMock.getDataFromDoc(immunizationJson, item, map)

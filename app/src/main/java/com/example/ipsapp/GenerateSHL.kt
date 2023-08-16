@@ -3,13 +3,20 @@ package com.example.ipsapp
 import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Matrix
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import com.example.ipsapp.utils.UrlUtils
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpPost
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.entity.StringEntity
@@ -25,6 +32,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.json.JSONArray
 import org.json.JSONObject
 
 
@@ -82,18 +90,21 @@ class GenerateSHL : Activity() {
     val passcode:String = intent.getStringExtra("passcode").toString()
     val labelData:String = intent.getStringExtra("label").toString()
     val expirationDate:String = intent.getStringExtra("expirationDate").toString()
+    val codingList = intent.getStringArrayListExtra("codingList")
 
     val passcodeField = findViewById<TextView>(R.id.passcode)
     val expirationDateField = findViewById<TextView>(R.id.expirationDate)
     passcodeField.text = passcode
     expirationDateField.text = expirationDate
 
-    generatePayload(passcode, labelData, expirationDate)
+    if (codingList != null) {
+      generatePayload(passcode, labelData, expirationDate, codingList)
+    }
   }
 
   @OptIn(DelicateCoroutinesApi::class)
   @RequiresApi(Build.VERSION_CODES.O)
-  fun generatePayload(passcode: String, labelData: String, expirationDate: String) {
+  fun generatePayload(passcode: String, labelData: String, expirationDate: String, codingList : ArrayList<String>) {
     val qrView = findViewById<ImageView>(R.id.qrCode)
 
     GlobalScope.launch(Dispatchers.IO) {
@@ -102,7 +113,14 @@ class GenerateSHL : Activity() {
       httpPost.addHeader("Content-Type", "application/json")
 
       // Recipient and passcode entered by the user on this screen
-      val jsonData = "{}"
+      val jsonData : String
+      var flags = ""
+      if (passcode != "") {
+        flags = "P"
+        jsonData = "{\"passcode\" : \"$passcode\"}"
+      } else {
+        jsonData = "{}"
+      }
       val entity = StringEntity(jsonData)
 
       httpPost.entity = entity
@@ -120,10 +138,6 @@ class GenerateSHL : Activity() {
       // Look at this manifest url
       val manifestUrl = "https://api.vaxx.link/api/shl/${jsonPostRes.getString("id")}"
       Log.d("manifest", manifestUrl)
-      var flags = ""
-      if (passcode != "") {
-        flags = "P"
-      }
       val key = urlUtils.generateRandomKey()
       val managementToken = jsonPostRes.getString("managementToken")
 
@@ -155,7 +169,14 @@ class GenerateSHL : Activity() {
       }
       println(shLinkPayload)
 
-      urlUtils.postPayload(file, manifestUrl, key, managementToken)
+      val jsonArray = JSONArray()
+      for (item in codingList) {
+        jsonArray.put(item)
+      }
+
+      val jsonObject = org.json.JSONObject()
+      jsonObject.put("items", jsonArray)
+      urlUtils.postPayload(jsonObject.toString(), manifestUrl, key, managementToken)
     }
   }
 
@@ -171,9 +192,7 @@ class GenerateSHL : Activity() {
     payloadObject.put("url", manifestUrl)
     payloadObject.put("key", key)
 
-    if (flags != "") {
-      payloadObject.put("flag", flags)
-    }
+    payloadObject.put("flag", flags)
 
     if (label != "") {
       payloadObject.put("label", label)
@@ -188,7 +207,7 @@ class GenerateSHL : Activity() {
   }
 
   private fun generateQRCode(context: Context, content: String): Bitmap? {
-    // val logoScale = 0.06
+    val logoScale = 0.5
     try {
       val hints = mutableMapOf<EncodeHintType, Any>()
       hints[EncodeHintType.MARGIN] = 2
@@ -205,33 +224,40 @@ class GenerateSHL : Activity() {
         }
       }
 
-      return qrCodeBitmap
+      val logoDrawable = ContextCompat.getDrawable(context, R.drawable.smart_logo)
+      val logoAspectRatio = logoDrawable!!.intrinsicWidth.toFloat() / logoDrawable.intrinsicHeight.toFloat()
+
+      val logoWidth = (width * logoScale).toInt()
+      val logoHeight = (logoWidth / logoAspectRatio).toInt()
+
+      val logoBitmap = convertDrawableToBitmap(logoDrawable, logoWidth, logoHeight)
+
+
+      val backgroundBitmap = Bitmap.createBitmap(logoBitmap.width, logoBitmap.height, Bitmap.Config.RGB_565)
+      backgroundBitmap.eraseColor(Color.WHITE)
+
+      val canvas = Canvas(backgroundBitmap)
+      canvas.drawBitmap(logoBitmap, 0f, 0f, null)
+
+      val centerX = (width - logoBitmap.width) / 2
+      val centerY = (height - logoBitmap.height) / 2
+
+      val finalBitmap = Bitmap.createBitmap(qrCodeBitmap)
+      val finalCanvas = Canvas(finalBitmap)
+      finalCanvas.drawBitmap(backgroundBitmap, centerX.toFloat(), centerY.toFloat(), null)
+
+      return finalBitmap
     } catch (e: WriterException) {
       e.printStackTrace()
       return null
     }
   }
 
-  // this is for putting the logo in the qr
-  // fun drawableToBitmap(context: Context, drawableId: Int): Bitmap {
-  //   return try {
-  //     val drawable = ContextCompat.getDrawable(context, drawableId)
-  //     val bitmap = Bitmap.createBitmap(
-  //       drawable!!.intrinsicWidth,
-  //       drawable.intrinsicHeight,
-  //       Bitmap.Config.ARGB_8888
-  //     )
-  //     val canvas = Canvas(bitmap)
-  //     drawable.setBounds(0, 0, canvas.width, canvas.height)
-  //     drawable.draw(canvas)
-  //     bitmap
-  //   } catch (e: Exception) {
-  //     e.printStackTrace()
-  //     createBitmap(0, 0)
-  //   }
-  // }
-
-
-
-
+  private fun convertDrawableToBitmap(drawable: Drawable, width: Int, height: Int): Bitmap {
+    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+    val canvas = Canvas(bitmap)
+    drawable.setBounds(0, 0, canvas.width, canvas.height)
+    drawable.draw(canvas)
+    return bitmap
+  }
 }
