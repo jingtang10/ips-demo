@@ -18,13 +18,13 @@
     android:textColor="@color/black"
     android:padding="8dp"/>
 
-<EditText
-  android:id="@+id/filterEditText"
-  android:layout_width="200dp"
-  android:layout_height="30dp"
-  android:layout_marginTop="2dp"
-  android:background="@drawable/edit_text_border"
-  android:paddingLeft="5dp"
-    android:layout_below="@id/headingText"
-  android:hint="Filter by" />
+<!--<EditText-->
+<!--  android:id="@+id/filterEditText"-->
+<!--  android:layout_width="200dp"-->
+<!--  android:layout_height="30dp"-->
+<!--  android:layout_marginTop="2dp"-->
+<!--  android:background="@drawable/edit_text_border"-->
+<!--  android:paddingLeft="5dp"-->
+<!--    android:layout_below="@id/headingText"-->
+<!--  android:hint="Filter by" />-->
 </RelativeLayout>

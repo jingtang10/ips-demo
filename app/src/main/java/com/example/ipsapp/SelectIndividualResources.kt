@@ -23,6 +23,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import android.text.method.ScrollingMovementMethod
 
+
 class SelectIndividualResources : Activity() {
 
   val docUtils = DocumentUtils()
