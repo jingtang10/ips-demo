@@ -4,8 +4,14 @@ import android.content.Context
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
 import org.apache.commons.lang3.tuple.MutablePair
+import org.hl7.fhir.r4.hapi.ctx.FhirR4
+import org.hl7.fhir.r4.model.AllergyIntolerance
 import org.hl7.fhir.r4.model.Bundle
 import org.hl7.fhir.r4.model.Composition
+import org.hl7.fhir.r4.model.DomainResource
+import org.hl7.fhir.r4.model.Enumerations.FHIRDefinedType
+import org.hl7.fhir.r4.model.Medication
+import org.hl7.fhir.r4.model.Observation
 import org.hl7.fhir.r4.model.Resource
 import org.hl7.fhir.r4.model.ResourceType
 import org.json.JSONObject
@@ -20,78 +26,45 @@ class DocumentUtils {
     return composition.section.map { it.title }
   }
 
-  fun getDataFromDoc(doc : JSONObject, title : String, map : MutableMap<String, MutablePair<List<String>, ArrayList<JSONObject>>>) : MutableMap<String, MutablePair<List<String>, ArrayList<JSONObject>>> {
-    // val bundle = parser.parseResource(doc) as Bundle
-    val entryArray = doc.getJSONArray("entry")
+  fun getDataFromDoc(doc : String, title : String, map : MutableMap<String, MutablePair<List<String>, ArrayList<JSONObject>>>) : MutableMap<String, MutablePair<List<String>, ArrayList<JSONObject>>> {
+    val bundle = parser.parseResource(doc) as Bundle
+    val entryArray = bundle.entry.map { it.resource }
 
     val displayList = ArrayList<String>()
-
     val pair = MutablePair<List<String>, ArrayList<JSONObject>>()
 
     // Iterate through the entry array and filter based on criteria
-    for (i in 0 until entryArray.length()) {
-      val entry = entryArray.getJSONObject(i)
-      val resource = entry.getJSONObject("resource")
-
-      val resourceType = resource.getString("resourceType")
-      var type = ""
-      if (resource.has("type")) {
-        type = resource.getString("type")
+    entryArray.asSequence()
+      .filter { entry ->
+        val resourceType = entry.resourceType.toString()
+        getSearchingCondition(title, resourceType)
       }
+      .forEach { element ->
+        if (element.hasType("code")) {
+          val codingArray = (element as Medication).code.coding
 
-      val condition = getSearchingCondition(title, resourceType, type)
-
-      if (condition) {
-
-        // gets Problems, Allergies, Medications, Results
-        if (resource.has("code") && resource.getJSONObject("code").has("coding")) {
-          val codingArray = resource.getJSONObject("code").getJSONArray("coding")
-          println(codingArray)
-          println("Map $map")
-          if (pair.right != null && pair.right.isNotEmpty()) {
-            val list = pair.right
-            list.add(resource)
-            pair.right = list
-            println("list exists")
+          val resourceList = if (pair.right != null && pair.right.isNotEmpty()) {
+            pair.right.apply { add(element) }
           } else {
-            pair.right = arrayListOf<JSONObject>(resource)
+            arrayListOf(element)
           }
-          println("pair right: ${pair.right}")
-          for (j in 0 until codingArray.length()) {
-            val coding = codingArray.getJSONObject(j)
-            val display = coding.getString("display")
+          pair.right = resourceList
+
+          for (j in 0 until codingArray.size) {
+            val display = codingArray[j].display
             displayList.add(display)
             break
           }
         }
-
-        // getting immunization target diseases
-        else if (title == "Immunizations") {
-          val protocolAppliedArray = resource.getJSONArray("protocolApplied")
-
-          for (i in 0 until protocolAppliedArray.length()) {
-            val targetDiseaseArray = protocolAppliedArray.getJSONObject(i).getJSONArray("targetDisease")
-
-            for (j in 0 until targetDiseaseArray.length()) {
-              val codingArray = targetDiseaseArray.getJSONObject(j).getJSONArray("coding")
-
-              for (k in 0 until codingArray.length()) {
-                val display = codingArray.getJSONObject(k).getString("display")
-                displayList.add(display)
-              }
-            }
-          }
-        }
       }
-    }
     pair.left = displayList
     map[title] = pair
     return map
   }
 
-  fun getSearchingCondition(resource : String, resourceType : String, type : String) : Boolean {
+  private fun getSearchingCondition(resource : String, resourceType : String) : Boolean {
     return when (resource) {
-      "Allergies and Intolerances" -> resourceType == "AllergyIntolerance" && type == "allergy"
+      "Allergies and Intolerances" -> resourceType == "AllergyIntolerance"
       "Medication" -> resourceType == "Medication"
       "Active Problems" -> resourceType == "Condition"
       "Immunizations" -> resourceType == "Immunization"
@@ -105,6 +78,10 @@ class DocumentUtils {
       "medical devices" -> false
       else -> false
     }
+  }
+
+  private fun castToType(element : Resource) : Any {
+
   }
 
   fun getAllergiesFromDoc(doc : JSONObject) : List<String> {
