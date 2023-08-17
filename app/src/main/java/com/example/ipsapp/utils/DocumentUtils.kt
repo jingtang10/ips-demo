@@ -41,7 +41,7 @@ class DocumentUtils {
       }
       .forEach { element ->
         if (element.hasType("code")) {
-          val codingArray = (element as Medication).code.coding
+          val codingArray = (element as AllergyIntolerance).code.coding
 
           val resourceList = if (pair.right != null && pair.right.isNotEmpty()) {
             pair.right.apply { add(element) }
@@ -78,62 +78,6 @@ class DocumentUtils {
       "medical devices" -> false
       else -> false
     }
-  }
-
-  private fun castToType(element : Resource) : Any {
-
-  }
-
-  fun getAllergiesFromDoc(doc : JSONObject) : List<String> {
-    val entryArray = doc.getJSONArray("entry")
-
-    val displayList = ArrayList<String>()
-
-    // Iterate through the entry array and filter based on criteria
-    for (i in 0 until entryArray.length()) {
-      val entry = entryArray.getJSONObject(i)
-      val resource = entry.getJSONObject("resource")
-
-      val resourceType = resource.getString("resourceType")
-      var type = ""
-      if (resource.has("type")) {
-        type = resource.getString("type")
-      }
-
-      if (resourceType == "AllergyIntolerance" && type == "allergy") {
-        val codingArray = resource.getJSONObject("code").getJSONArray("coding")
-        for (j in 0 until codingArray.length()) {
-          val coding = codingArray.getJSONObject(j)
-          val display = coding.getString("display")
-          displayList.add(display)
-        }
-      }
-    }
-    return displayList
-  }
-
-  fun getMedicationFromDoc(doc : JSONObject) : List<String> {
-    val entryArray = doc.getJSONArray("entry")
-
-    val displayList = ArrayList<String>()
-
-    // Iterate through the entry array and filter based on criteria
-    for (i in 0 until entryArray.length()) {
-      val entry = entryArray.getJSONObject(i)
-      val resource = entry.getJSONObject("resource")
-
-      val resourceType = resource.getString("resourceType")
-
-      if (resourceType == "Medication") {
-        val codingArray = resource.getJSONObject("code").getJSONArray("coding")
-        for (j in 0 until codingArray.length()) {
-          val coding = codingArray.getJSONObject(j)
-          val display = coding.getString("display")
-          displayList.add(display)
-        }
-      }
-    }
-    return displayList
   }
 
   fun readFileFromAssets(context: Context, filename: String): String {

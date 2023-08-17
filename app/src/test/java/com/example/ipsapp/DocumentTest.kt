@@ -26,34 +26,22 @@ class DocumentTest {
 
   @Test
   fun getTitlesFromMinBundleDoc() {
-    val list = docUtilsMock.getTitlesFromIpsDoc(fileJson)
+    val list = docUtilsMock.getTitlesFromIpsDoc(file)
     assertEquals(3, list.size)
   }
 
   @Test
   fun getTitlesFromImmunizationBundle() {
-    val list = docUtilsMock.getTitlesFromIpsDoc(immunizationJson)
-    println(list)
-  }
-
-  @Test
-  fun allergiesCanBeRetrievedFromDoc() {
-    val list = docUtilsMock.getAllergiesFromDoc(fileJson)
-    println(list)
-  }
-
-  @Test
-  fun medicationsCanBeRetrievedFromDoc() {
-    val list = docUtilsMock.getMedicationFromDoc(immunizationJson)
+    val list = docUtilsMock.getTitlesFromIpsDoc(immunizationBundle)
     println(list)
   }
 
   @Test
   fun mapCanBeCreatedWithDataForEachTitle() {
     val map = mutableMapOf<String, MutablePair<List<String>, ArrayList<JSONObject>>>()
-    val list = docUtilsMock.getTitlesFromIpsDoc(fileJson)
+    val list = docUtilsMock.getTitlesFromIpsDoc(file)
     for (item in list) {
-      docUtilsMock.getDataFromDoc(fileJson, item, map)
+      docUtilsMock.getDataFromDoc(file, item, map)
     }
     println(map)
   }
@@ -61,9 +49,9 @@ class DocumentTest {
   @Test
   fun mapCanBeCreatedWithDataForEachTitleInImmunization() {
     val map = mutableMapOf<String, MutablePair<List<String>, ArrayList<JSONObject>>>()
-    val list = docUtilsMock.getTitlesFromIpsDoc(immunizationJson)
+    val list = docUtilsMock.getTitlesFromIpsDoc(immunizationBundle)
     for (item in list) {
-      docUtilsMock.getDataFromDoc(immunizationJson, item, map)
+      docUtilsMock.getDataFromDoc(immunizationBundle, item, map)
     }
     println(map)
   }
