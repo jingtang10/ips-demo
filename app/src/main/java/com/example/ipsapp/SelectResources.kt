@@ -12,10 +12,15 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ca.uhn.fhir.context.FhirContext
+import ca.uhn.fhir.context.FhirVersionEnum
 import com.example.ipsapp.fileExamples.immunizationBundle
 import com.example.ipsapp.fileExamples.file
 // import com.example.ipsapp.fileExamples.immunizationBundle
 import com.example.ipsapp.utils.DocumentUtils
+import org.hl7.fhir.r4.model.Composition
+import org.hl7.fhir.r4.model.Resource
+import org.hl7.fhir.r4.model.ResourceType
 import org.json.JSONObject
 
 //maybe some checkboxes with some resource options -- something like that??
@@ -24,6 +29,7 @@ import org.json.JSONObject
 
 // NEED TO ALSO ASK THEM FOR PASSCODE & EXPIRY DATE
 
+data class Title(val name: String)
 
 class SelectResources : Activity() {
 
@@ -35,16 +41,15 @@ class SelectResources : Activity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    val doc = JSONObject(docUtils.readFileFromAssets(this, "immunizationBundle.json"))
+    val doc = docUtils.readFileFromAssets(this, "immunizationBundle.json")
+    val titlesFromDoc = docUtils.getTitlesFromIpsDoc(doc)
 
     // set the text view value to the body of the response from the POST
     setContentView(R.layout.select_resources)
 
-    val listTitles = docUtils.getTitlesFromIpsDoc(doc)
-
     val titleList: ArrayList<TitleItem> = ArrayList()
 
-    for (item in listTitles) {
+    for (item in titlesFromDoc) {
       titleList.add(TitleItem(item))
     }
 

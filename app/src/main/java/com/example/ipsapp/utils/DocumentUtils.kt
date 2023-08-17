@@ -1,35 +1,27 @@
 package com.example.ipsapp.utils
 
 import android.content.Context
+import ca.uhn.fhir.context.FhirContext
+import ca.uhn.fhir.context.FhirVersionEnum
 import org.apache.commons.lang3.tuple.MutablePair
+import org.hl7.fhir.r4.model.Bundle
+import org.hl7.fhir.r4.model.Composition
+import org.hl7.fhir.r4.model.Resource
+import org.hl7.fhir.r4.model.ResourceType
 import org.json.JSONObject
 
-open class DocumentUtils {
+class DocumentUtils {
 
-  fun getTitlesFromIpsDoc(doc : JSONObject) : List<String> {
-    val titleList = ArrayList<String>()
+  private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
 
-    val entryArray = doc.getJSONArray("entry")
-
-    for (i in 0 until entryArray.length()) {
-      val entryObject = entryArray.getJSONObject(i)
-      val resourceObject = entryObject.getJSONObject("resource")
-
-      if (resourceObject.has("section")) {
-        val sectionArray = resourceObject.getJSONArray("section")
-
-        for (j in 0 until sectionArray.length()) {
-          val sectionObject = sectionArray.getJSONObject(j)
-          val title = sectionObject.getString("title")
-          titleList.add(title)
-        }
-      }
-    }
-    println(titleList)
-    return titleList
+  fun getTitlesFromIpsDoc(doc : String) : List<String> {
+    val bundle = parser.parseResource(doc) as Bundle
+    val composition = bundle.entry.firstOrNull { it.resource.resourceType == ResourceType.Composition }?.resource as Composition
+    return composition.section.map { it.title }
   }
 
   fun getDataFromDoc(doc : JSONObject, title : String, map : MutableMap<String, MutablePair<List<String>, ArrayList<JSONObject>>>) : MutableMap<String, MutablePair<List<String>, ArrayList<JSONObject>>> {
+    // val bundle = parser.parseResource(doc) as Bundle
     val entryArray = doc.getJSONArray("entry")
 
     val displayList = ArrayList<String>()
@@ -104,6 +96,7 @@ open class DocumentUtils {
       "Active Problems" -> resourceType == "Condition"
       "Immunizations" -> resourceType == "Immunization"
       "Results" -> resourceType == "Observation"
+
       "History of Past Illness" -> false // inside div
       "Plan of Treatment" -> false // inside div
 
