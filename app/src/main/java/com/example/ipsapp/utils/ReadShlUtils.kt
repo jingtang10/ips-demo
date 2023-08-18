@@ -28,7 +28,7 @@ import java.util.zip.Inflater
 import org.json.JSONObject
 
 
-open class ReadShlUtils {
+class ReadShlUtils {
 
     // Extracts the part of the link after the 'shlink:/'
     fun extractUrl(scannedData: String): String {

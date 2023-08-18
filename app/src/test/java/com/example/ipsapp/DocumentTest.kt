@@ -11,7 +11,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito
+import org.mockito.Mockito.mock
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
@@ -20,7 +20,7 @@ import org.robolectric.annotation.Config
 @Config(manifest=Config.NONE)
 class DocumentTest {
 
-  private val docUtilsMock = Mockito.mock(DocumentUtils::class.java)
+  private val docUtilsMock = DocumentUtils()
 
   private val fileJson = JSONObject(file)
   private val immunizationJson = JSONObject(immunizationBundle)

@@ -15,7 +15,7 @@ import org.robolectric.annotation.Config
 @Config(manifest= Config.NONE)
 class QRGeneratorTest {
 
-  private val readShlUtilsMock = Mockito.mock(ReadShlUtils::class.java)
+  private val readShlUtilsMock = ReadShlUtils()
 
   @Test
   fun postingToServerReturnsManifestIdAndToken() {

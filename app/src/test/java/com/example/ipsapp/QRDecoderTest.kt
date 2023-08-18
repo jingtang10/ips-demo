@@ -12,7 +12,7 @@ import org.robolectric.annotation.Config
 @Config(manifest= Config.NONE)
 class QRDecoderTest {
 
-    private val readShlUtilsMock = mock(ReadShlUtils::class.java)
+    private val readShlUtilsMock = ReadShlUtils()
 
     private var url = "https://smart-health-links-ips.cirg.washington.edu/ips#shlink:/eyJ1cmwiOiJodHRwczovL3NtYXJ0LWhlYWx0aC1saW5rcy1zZXJ2ZXIuY2lyZy53YXNoaW5ndG9uLmVkdS9hcGkvc2hsL3NzcFhkSHdrbmRQb3Z2bmNpbW1MS2xaS2pMR3FiUzFzQUtycmNDbDUzRTQiLCJmbGFnIjoiIiwia2V5IjoieUQ2VTQ1RjU4ZzJXOTRSUzRZVklMS0hoS0xpZ1lNdkRSQi0xenNGdjdMTSIsImxhYmVsIjoiU0hMIGZyb20gMjAyMy0wNy0xNyJ9"
     private var extracted = "eyJ1cmwiOiJodHRwczovL3NtYXJ0LWhlYWx0aC1saW5rcy1zZXJ2ZXIuY2lyZy53YXNoaW5ndG9uLmVkdS9hcGkvc2hsL3NzcFhkSHdrbmRQb3Z2bmNpbW1MS2xaS2pMR3FiUzFzQUtycmNDbDUzRTQiLCJmbGFnIjoiIiwia2V5IjoieUQ2VTQ1RjU4ZzJXOTRSUzRZVklMS0hoS0xpZ1lNdkRSQi0xenNGdjdMTSIsImxhYmVsIjoiU0hMIGZyb20gMjAyMy0wNy0xNyJ9"
