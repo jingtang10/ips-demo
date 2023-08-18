@@ -54,23 +54,14 @@ dependencies {
   implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.7")
 
   implementation("com.google.code.gson:gson:2.8.9")
-  // implementation("com.auth0.android:auth0:2.7.0")
-  // implementation("com.auth0.android:jwtdecode:2.0.1")
-  // implementation("com.auth0.android:auth0:2.+")
-
-  // implementation("com.nimbusds:nimbus-jose-jwt:10.15") // Replace with the latest version of nimbus-jose-jwt
-  implementation("org.bouncycastle:bcpkix-jdk15on:1.69") // Replace with the latest version of Bouncy Castle
+  implementation("org.bouncycastle:bcpkix-jdk15on:1.69")
 
   implementation("io.jsonwebtoken:jjwt-api:0.10.5")
-  // runtimeOnly("io.jsonwebtoken:jjwt-impl:0.10.5")
-  // runtimeOnly("io.jsonwebtoken:jjwt-orgjson:0.10.5") { }
 
 
   implementation("com.google.zxing:core:3.4.1")
   implementation("androidx.test:core-ktx:1.5.0")
   implementation("androidx.test.ext:junit-ktx:1.1.5")
-  // implementation("com.google.zxing:android-core:3.4.1")
-  // implementation("com.google.zxing:android-integration:3.4.1")
   implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.3.2")
   implementation("com.nimbusds:nimbus-jose-jwt:9.31")
 

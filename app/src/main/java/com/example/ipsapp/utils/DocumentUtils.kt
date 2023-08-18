@@ -4,19 +4,15 @@ import android.content.Context
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
 import org.apache.commons.lang3.tuple.MutablePair
-import org.hl7.fhir.r4.hapi.ctx.FhirR4
 import org.hl7.fhir.r4.model.AllergyIntolerance
 import org.hl7.fhir.r4.model.Bundle
 import org.hl7.fhir.r4.model.CodeableConcept
 import org.hl7.fhir.r4.model.Composition
 import org.hl7.fhir.r4.model.Condition
-import org.hl7.fhir.r4.model.DomainResource
-import org.hl7.fhir.r4.model.Enumerations.FHIRDefinedType
 import org.hl7.fhir.r4.model.Medication
 import org.hl7.fhir.r4.model.Observation
 import org.hl7.fhir.r4.model.Resource
 import org.hl7.fhir.r4.model.ResourceType
-import org.json.JSONObject
 
 class DocumentUtils {
 

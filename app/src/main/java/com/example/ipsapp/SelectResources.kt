@@ -1,7 +1,6 @@
 package com.example.ipsapp
 
 import android.app.Activity
-import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,16 +11,7 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ca.uhn.fhir.context.FhirContext
-import ca.uhn.fhir.context.FhirVersionEnum
-import com.example.ipsapp.fileExamples.immunizationBundle
-import com.example.ipsapp.fileExamples.file
-// import com.example.ipsapp.fileExamples.immunizationBundle
 import com.example.ipsapp.utils.DocumentUtils
-import org.hl7.fhir.r4.model.Composition
-import org.hl7.fhir.r4.model.Resource
-import org.hl7.fhir.r4.model.ResourceType
-import org.json.JSONObject
 
 //maybe some checkboxes with some resource options -- something like that??
 // and then a button like submit or something which goes to next screen, which can then encode and generate QR Code

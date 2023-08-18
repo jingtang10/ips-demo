@@ -1,27 +1,11 @@
 package com.example.ipsapp.utils
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpPost
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.entity.StringEntity
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.CloseableHttpClient
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.HttpClients
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.util.EntityUtils
-import com.nimbusds.jose.EncryptionMethod
-import com.nimbusds.jose.JWEAlgorithm
 import com.nimbusds.jose.JWEDecrypter
-import com.nimbusds.jose.JWEHeader
 import com.nimbusds.jose.JWEObject
-import com.nimbusds.jose.Payload
 import com.nimbusds.jose.crypto.DirectDecrypter
-import com.nimbusds.jose.crypto.DirectEncrypter
 import java.io.ByteArrayOutputStream
-import java.nio.charset.StandardCharsets
-import java.security.SecureRandom
-import java.time.LocalDate
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
 import java.util.Base64
 import java.util.zip.DataFormatException
 import java.util.zip.Inflater
