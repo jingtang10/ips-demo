@@ -53,8 +53,7 @@ dependencies {
   implementation("com.google.android.fhir:engine:0.1.0-beta03")
   implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.7")
 
-  implementation("com.google.code.gson:gson:2.8.9")
-  implementation("org.bouncycastle:bcpkix-jdk15on:1.69")
+  implementation("com.google.code.gson:gson:2.9.1")
 
   implementation("io.jsonwebtoken:jjwt-api:0.10.5")
 
@@ -66,7 +65,6 @@ dependencies {
   implementation("com.nimbusds:nimbus-jose-jwt:9.31")
 
   testImplementation("junit:junit:4.13.2")
-  testImplementation("org.mockito:mockito-core:4.0.0")
   androidTestImplementation("androidx.test.ext:junit:1.1.5")
   androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
