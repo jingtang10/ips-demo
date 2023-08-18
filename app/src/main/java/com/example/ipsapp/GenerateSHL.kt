@@ -13,7 +13,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import com.example.ipsapp.utils.UrlUtils
+import com.example.ipsapp.utils.ReadShlUtils
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpPost
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.entity.StringEntity
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.CloseableHttpClient
@@ -34,7 +34,7 @@ import org.json.JSONObject
 
 class GenerateSHL : Activity() {
 
-  private val urlUtils = UrlUtils()
+  private val readShlUtils = ReadShlUtils()
 
   @RequiresApi(Build.VERSION_CODES.O)
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,12 +92,12 @@ class GenerateSHL : Activity() {
       // Look at this manifest url
       val manifestUrl = "https://api.vaxx.link/api/shl/${jsonPostRes.getString("id")}"
       Log.d("manifest", manifestUrl)
-      val key = urlUtils.generateRandomKey()
+      val key = readShlUtils.generateRandomKey()
       val managementToken = jsonPostRes.getString("managementToken")
 
       var exp = ""
       if (expirationDate != "") {
-        exp = urlUtils.dateStringToEpochSeconds(expirationDate).toString()
+        exp = readShlUtils.dateStringToEpochSeconds(expirationDate).toString()
       }
 
       val shLinkPayload = constructSHLinkPayload(manifestUrl, labelData, flags, key, exp)
@@ -129,7 +129,7 @@ class GenerateSHL : Activity() {
         jsonArray.put(item)
         data = "$data\n\n $item"
       }
-      urlUtils.postPayload(data, manifestUrl, key, managementToken)
+      readShlUtils.postPayload(data, manifestUrl, key, managementToken)
     }
   }
 
@@ -156,7 +156,7 @@ class GenerateSHL : Activity() {
     }
 
     val jsonPayload = payloadObject.toString()
-    return urlUtils.base64UrlEncode(jsonPayload)
+    return readShlUtils.base64UrlEncode(jsonPayload)
   }
 
   private fun generateQRCode(context: Context, content: String): Bitmap? {

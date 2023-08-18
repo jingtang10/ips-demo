@@ -7,7 +7,9 @@ import org.apache.commons.lang3.tuple.MutablePair
 import org.hl7.fhir.r4.hapi.ctx.FhirR4
 import org.hl7.fhir.r4.model.AllergyIntolerance
 import org.hl7.fhir.r4.model.Bundle
+import org.hl7.fhir.r4.model.CodeableConcept
 import org.hl7.fhir.r4.model.Composition
+import org.hl7.fhir.r4.model.Condition
 import org.hl7.fhir.r4.model.DomainResource
 import org.hl7.fhir.r4.model.Enumerations.FHIRDefinedType
 import org.hl7.fhir.r4.model.Medication
@@ -20,18 +22,23 @@ class DocumentUtils {
 
   private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
 
-  fun getTitlesFromIpsDoc(doc : String) : List<String> {
+  fun getTitlesFromIpsDoc(doc: String): List<String> {
     val bundle = parser.parseResource(doc) as Bundle
-    val composition = bundle.entry.firstOrNull { it.resource.resourceType == ResourceType.Composition }?.resource as Composition
+    val composition =
+      bundle.entry.firstOrNull { it.resource.resourceType == ResourceType.Composition }?.resource as Composition
     return composition.section.map { it.title }
   }
 
-  fun getDataFromDoc(doc : String, title : String, map : MutableMap<String, MutablePair<List<String>, ArrayList<JSONObject>>>) : MutableMap<String, MutablePair<List<String>, ArrayList<JSONObject>>> {
+  fun getDataFromDoc(
+    doc: String,
+    title: String,
+    map: MutableMap<String, MutablePair<List<String>, ArrayList<Resource>>>
+  ): MutableMap<String, MutablePair<List<String>, ArrayList<Resource>>> {
     val bundle = parser.parseResource(doc) as Bundle
     val entryArray = bundle.entry.map { it.resource }
 
     val displayList = ArrayList<String>()
-    val pair = MutablePair<List<String>, ArrayList<JSONObject>>()
+    val pair = MutablePair<List<String>, ArrayList<Resource>>()
 
     // Iterate through the entry array and filter based on criteria
     entryArray.asSequence()
@@ -40,8 +47,9 @@ class DocumentUtils {
         getSearchingCondition(title, resourceType)
       }
       .forEach { element ->
-        if (element.hasType("code")) {
-          val codingArray = (element as AllergyIntolerance).code.coding
+        val code = element.hasCode()
+        if (code != null) {
+          val codingArray = code.coding
 
           val resourceList = if (pair.right != null && pair.right.isNotEmpty()) {
             pair.right.apply { add(element) }
@@ -62,7 +70,7 @@ class DocumentUtils {
     return map
   }
 
-  private fun getSearchingCondition(resource : String, resourceType : String) : Boolean {
+  private fun getSearchingCondition(resource: String, resourceType: String): Boolean {
     return when (resource) {
       "Allergies and Intolerances" -> resourceType == "AllergyIntolerance"
       "Medication" -> resourceType == "Medication"
@@ -84,5 +92,14 @@ class DocumentUtils {
     return context.assets.open(filename).bufferedReader().use {
       it.readText()
     }
+  }
+}
+fun Resource.hasCode() : CodeableConcept? {
+  return when(this.resourceType) {
+    ResourceType.AllergyIntolerance -> (this as AllergyIntolerance).code
+    ResourceType.Condition -> (this as Condition).code
+    ResourceType.Medication -> (this as Medication).code
+    ResourceType.Observation -> (this as Observation).code
+    else -> null
   }
 }

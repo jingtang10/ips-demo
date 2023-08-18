@@ -7,12 +7,12 @@ import android.util.Log
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.example.ipsapp.utils.UrlUtils
+import com.example.ipsapp.utils.ReadShlUtils
 
 
 class GetData : AppCompatActivity() {
 
-  private val urlUtils = UrlUtils()
+  private val readShlUtils = ReadShlUtils()
 
   // val fhirEngine = FhirApplication.fhirEngine(applicationContext)
   @RequiresApi(Build.VERSION_CODES.O)
@@ -36,21 +36,21 @@ class GetData : AppCompatActivity() {
       // may be worth putting this loop in decodeShc?
       for (elem in embeddedArray) {
 
-            val decodedShc = urlUtils.decodeShc(elem, key)
+            val decodedShc = readShlUtils.decodeShc(elem, key)
 
             if (decodedShc != "") {
 
-              val toDecode = urlUtils.extractVerifiableCredential(decodedShc)
+              val toDecode = readShlUtils.extractVerifiableCredential(decodedShc)
               if (toDecode == "") {
                 healthData = decodedShc
                 break
               }
               //so this gives you the JWT string to split, decode and decompress
               healthData = healthData + "\n" +
-                urlUtils.decodeAndDecompressPayload(toDecode) + "\n"
+                readShlUtils.decodeAndDecompressPayload(toDecode) + "\n"
               Log.d("to extract vc", decodedShc)
               Log.d("extracted", toDecode)
-              Log.d(count.toString(), urlUtils.decodeAndDecompressPayload(toDecode))
+              Log.d(count.toString(), readShlUtils.decodeAndDecompressPayload(toDecode))
               count++
             }
             else {

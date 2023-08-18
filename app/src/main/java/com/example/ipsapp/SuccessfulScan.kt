@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.example.ipsapp.utils.UrlUtils
+import com.example.ipsapp.utils.ReadShlUtils
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpGet
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpPost
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.entity.StringEntity
@@ -26,7 +26,7 @@ import org.json.JSONObject
 
 class SuccessfulScan : AppCompatActivity() {
 
-  private val urlUtils = UrlUtils()
+  private val readShlUtils = ReadShlUtils()
 
   @RequiresApi(Build.VERSION_CODES.O)
   override fun onCreate (savedInstanceState: Bundle?) {
@@ -35,8 +35,8 @@ class SuccessfulScan : AppCompatActivity() {
 
 
     val scannedData:String = intent.getStringExtra("scannedData").toString()
-    val extractedJson = urlUtils.extractUrl(scannedData)
-    val decodedJson = urlUtils.decodeUrl(extractedJson)
+    val extractedJson = readShlUtils.extractUrl(scannedData)
+    val decodedJson = readShlUtils.decodeUrl(extractedJson)
 
     val passcodeEditText = findViewById<EditText>(R.id.passcode)
     passcodeEditText.visibility = View.INVISIBLE

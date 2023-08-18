@@ -25,11 +25,10 @@ import java.time.format.DateTimeFormatter
 import java.util.Base64
 import java.util.zip.DataFormatException
 import java.util.zip.Inflater
-import org.json.JSONArray
 import org.json.JSONObject
 
 
-open class UrlUtils {
+open class ReadShlUtils {
 
     // Extracts the part of the link after the 'shlink:/'
     fun extractUrl(scannedData: String): String {
