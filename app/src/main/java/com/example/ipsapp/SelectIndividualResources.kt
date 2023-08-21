@@ -57,26 +57,20 @@ class SelectIndividualResources : Activity() {
           for (obj in objArray) {
             val code = obj.hasCode()
             if (code != null) {
-              val codingArray = code.coding
+              val codingArray = code.first?.coding
               if (codingArray != null && codingArray.size > 0) {
                 for (i in 0 until codingArray.size) {
                   val codingElement = codingArray[i]
                   val displayValue = codingElement.display
 
-
-                  val checkBoxItem = layoutInflater.inflate(R.layout.checkbox_item, containerLayout, false) as CheckBox
-                  checkBoxItem.text = displayValue
-                  containerLayout.addView(checkBoxItem)
-                  checkboxTitleMap[displayValue] = title.toString()
-                  checkBoxes.add(checkBoxItem)
-
-                  if (displayValue.equals(value)) {
-                    map[title].let { it1 ->
-                      if (it1 != null) {
-                        outputArray.add(it1)
-                      }
+                  println("display val $displayValue")
+                  println("val $value")
+                  if (displayValue != null) {
+                    if (displayValue.equals(value)) {
+                      map[title]?.right?.let { it1 -> outputArray.add(it1) }
+                      break
                     }
-                    break
+
                   }
                 }
               }
