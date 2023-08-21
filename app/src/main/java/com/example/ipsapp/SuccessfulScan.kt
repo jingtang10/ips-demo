@@ -34,8 +34,8 @@ class SuccessfulScan : AppCompatActivity() {
     setContentView(R.layout.successfulscan)
 
 
-    val scannedData:String = intent.getStringExtra("scannedData").toString()
-    val extractedJson = readShlUtils.extractUrl(scannedData)
+    val shlData = intent.getSerializableExtra("shlData") as SHLData
+    val extractedJson = readShlUtils.extractUrl(shlData.shl)
     val decodedJson = readShlUtils.decodeUrl(extractedJson)
 
     val passcodeEditText = findViewById<EditText>(R.id.passcode)
