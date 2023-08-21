@@ -28,42 +28,46 @@ class SuccessfulScan : AppCompatActivity() {
 
   private val readShlUtils = ReadShlUtils()
 
-  @RequiresApi(Build.VERSION_CODES.O)
   override fun onCreate (savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.successfulscan)
 
 
-    val shlData = intent.getSerializableExtra("shlData") as SHLData
-    val extractedJson = readShlUtils.extractUrl(shlData.shl)
-    val decodedJson = readShlUtils.decodeUrl(extractedJson)
+    val shlData = intent.getSerializableExtra("shlData", SHLData::class.java)
+    if (shlData != null) {
+      val extractedJson = readShlUtils.extractUrl(shlData.fullLink)
+      val decodedJson = readShlUtils.decodeUrl(extractedJson)
 
-    val passcodeEditText = findViewById<EditText>(R.id.passcode)
-    passcodeEditText.visibility = View.INVISIBLE
+      val passcodeEditText = findViewById<EditText>(R.id.passcode)
+      passcodeEditText.visibility = View.INVISIBLE
 
-    // this gets you the url needed for the POST request
-    val json = String(decodedJson, StandardCharsets.UTF_8)
-    val jsonObject = JSONObject(json)
-    println(jsonObject)
-    val url = jsonObject.get("url")
-    val key = jsonObject.get("key")
-    if (jsonObject.has("flag")) {
-      val flags : String = jsonObject.getString("flag")
-      for (i in flags.indices) {
-        if (flags[i] == 'P') {
-          passcodeEditText.visibility = View.VISIBLE
+      // this gets you the url needed for the POST request
+      val json = String(decodedJson, StandardCharsets.UTF_8)
+      val jsonObject = JSONObject(json)
+      println(jsonObject)
+      val url = jsonObject.get("url")
+      shlData.manifestUrl = url.toString()
+      val key = jsonObject.get("key")
+      shlData.key = key.toString()
+      if (jsonObject.has("flag")) {
+        val flags: String = jsonObject.getString("flag")
+        shlData.flag = flags.toString()
+        for (i in flags.indices) {
+          if (flags[i] == 'P') {
+            passcodeEditText.visibility = View.VISIBLE
+          }
         }
       }
-    }
-    Log.d("url", url.toString())
-    Log.d("key", key.toString())
+      Log.d("url", url.toString())
+      Log.d("key", key.toString())
 
-    // when button is pushed, the inputted data is passed into fetchData()
-    val button = findViewById<Button>(R.id.getData)
-    button.setOnClickListener {
-      val recipientField = findViewById<EditText>(R.id.recipient).text.toString()
-      val passcodeField = passcodeEditText.text.toString()
-      fetchData(url.toString(), recipientField, passcodeField, key.toString())
+      // when button is pushed, the inputted data is passed into fetchData()
+      val button = findViewById<Button>(R.id.getData)
+      button.setOnClickListener {
+        val recipientField = findViewById<EditText>(R.id.recipient).text.toString()
+        val passcodeField = passcodeEditText.text.toString()
+        fetchData(url.toString(), recipientField, passcodeField, key.toString())
+      }
     }
   }
 
