@@ -28,13 +28,11 @@ class DocumentUtils {
   fun getDataFromDoc(
     doc: String,
     title: String,
-    map: MutableMap<String, MutablePair<List<String>, ArrayList<Resource>>>
-  ): MutableMap<String, MutablePair<List<String>, ArrayList<Resource>>> {
+    map: MutableMap<String, ArrayList<Resource>>
+  ): MutableMap<String, ArrayList<Resource>> {
     val bundle = parser.parseResource(doc) as Bundle
     val entryArray = bundle.entry.map { it.resource }
-
-    val displayList = ArrayList<String>()
-    val pair = MutablePair<List<String>, ArrayList<Resource>>()
+    var resourceList = ArrayList<Resource>()
 
     // Iterate through the entry array and filter based on criteria
     entryArray.asSequence()
@@ -63,8 +61,7 @@ class DocumentUtils {
           }
         }
       }
-    pair.left = displayList
-    map[title] = pair
+    map[title] = resourceList
     return map
   }
 

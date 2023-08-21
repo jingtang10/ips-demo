@@ -17,29 +17,26 @@ import org.robolectric.annotation.Config
 @Config(manifest=Config.NONE)
 class DocumentTest {
 
-  private val docUtilsMock = DocumentUtils()
-
-  private val fileJson = JSONObject(file)
-  private val immunizationJson = JSONObject(immunizationBundle)
+  private val docUtils = DocumentUtils()
 
   @Test
   fun getTitlesFromMinBundleDoc() {
-    val list = docUtilsMock.getTitlesFromIpsDoc(file)
+    val list = docUtils.getTitlesFromIpsDoc(file)
     assertEquals(3, list.size)
   }
 
   @Test
   fun getTitlesFromImmunizationBundle() {
-    val list = docUtilsMock.getTitlesFromIpsDoc(immunizationBundle)
+    val list = docUtils.getTitlesFromIpsDoc(immunizationBundle)
     println(list)
   }
 
   @Test
   fun mapCanBeCreatedWithDataForEachTitle() {
     val map = mutableMapOf<String, MutablePair<List<String>, ArrayList<Resource>>>()
-    val list = docUtilsMock.getTitlesFromIpsDoc(file)
+    val list = docUtils.getTitlesFromIpsDoc(file)
     for (item in list) {
-      docUtilsMock.getDataFromDoc(file, item, map)
+      docUtils.getDataFromDoc(file, item, map)
     }
     println(map)
   }
@@ -47,9 +44,9 @@ class DocumentTest {
   @Test
   fun mapCanBeCreatedWithDataForEachTitleInImmunization() {
     val map = mutableMapOf<String, MutablePair<List<String>, ArrayList<Resource>>>()
-    val list = docUtilsMock.getTitlesFromIpsDoc(immunizationBundle)
+    val list = docUtils.getTitlesFromIpsDoc(immunizationBundle)
     for (item in list) {
-      docUtilsMock.getDataFromDoc(immunizationBundle, item, map)
+      docUtils.getDataFromDoc(immunizationBundle, item, map)
     }
     println(map)
   }
