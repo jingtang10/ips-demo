@@ -1,6 +1,7 @@
 package com.example.ipsapp.utils
 
 import android.content.Context
+import android.util.Log
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
 import org.apache.commons.lang3.tuple.MutablePair
@@ -53,10 +54,13 @@ class DocumentUtils {
           val codingArray = code.first!!.coding
 
           val resourceList = if (pair.right != null && pair.right.isNotEmpty()) {
-            if (code.second.equals("active")) {
-              pair.right.apply { add(element) }
-            } else {
+            if ((title == "History of Past Illness" && code.second.equals("active")) ||
+              (title == "Active Problems" && !code.second.equals("active"))) {
+              println(code.second)
+              println("title = $title")
               null
+            } else {
+              pair.right.apply { add(element) }
             }
           } else {
             arrayListOf(element)
@@ -64,6 +68,10 @@ class DocumentUtils {
           pair.right = resourceList
 
           for (j in 0 until codingArray.size) {
+            if ((title == "History of Past Illness" && code.second.equals("active")) ||
+              (title == "Active Problems" && !code.second.equals("active"))) {
+              break
+            }
             val display = codingArray[j].display
             displayList.add(display)
             break
@@ -83,7 +91,7 @@ class DocumentUtils {
       "Immunizations" -> resourceType == "Immunization"
       "Results" -> resourceType == "Observation"
 
-      "History of Past Illness" -> false // inside div
+      "History of Past Illness" -> resourceType == "Condition" // inside div
       "Plan of Treatment" -> false // inside div
 
       // titles have to change
