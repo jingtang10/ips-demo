@@ -17,7 +17,7 @@ import org.hl7.fhir.r4.model.Resource
 class SelectIndividualResources : Activity() {
 
   private val docUtils = DocumentUtils()
-  private var map = mutableMapOf<String, ArrayList<Resource>>()
+  private var map = mutableMapOf<String, MutablePair<List<String>, ArrayList<Resource>>>()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -52,7 +52,7 @@ class SelectIndividualResources : Activity() {
       val outputArray = mutableListOf<ArrayList<Resource>>()
 
       for ((title, value) in selectedCheckedValuesWithTitles) {
-        val objArray = map[title]
+        val objArray = map[title]?.right
         if (objArray != null) {
           for (obj in objArray) {
             val code = obj.hasCode()
