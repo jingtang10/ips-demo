@@ -17,7 +17,7 @@ import org.hl7.fhir.r4.model.Resource
 class SelectIndividualResources : Activity() {
 
   private val docUtils = DocumentUtils()
-  private var map = mutableMapOf<String, MutablePair<List<String>, ArrayList<Resource>>>()
+  private var map = mutableMapOf<String, ArrayList<Resource>>()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -38,19 +38,6 @@ class SelectIndividualResources : Activity() {
 
       this.map += docUtils.getDataFromDoc(doc, title, map)
       println("THIS IS THE MAP AFTER A FUNCTION $map")
-
-      val data = map[title]?.left
-
-      if (!data.isNullOrEmpty()) {
-        for (item in data) {
-          val checkBoxItem = layoutInflater.inflate(R.layout.checkbox_item, containerLayout, false) as CheckBox
-          checkBoxItem.text = item
-          containerLayout.addView(checkBoxItem)
-
-          checkboxTitleMap[item] = title
-          checkBoxes.add(checkBoxItem)
-        }
-      }
     }
 
     val submitButton = findViewById<Button>(R.id.goToCreatePasscode)
@@ -65,7 +52,7 @@ class SelectIndividualResources : Activity() {
       val outputArray = mutableListOf<ArrayList<Resource>>()
 
       for ((title, value) in selectedCheckedValuesWithTitles) {
-        val objArray = map[title]?.right
+        val objArray = map[title]
         if (objArray != null) {
           for (obj in objArray) {
             val code = obj.hasCode()
@@ -75,10 +62,20 @@ class SelectIndividualResources : Activity() {
                 for (i in 0 until codingArray.size) {
                   val codingElement = codingArray[i]
                   val displayValue = codingElement.display
-                  println("display val $displayValue")
-                  println("val $value")
+
+
+                  val checkBoxItem = layoutInflater.inflate(R.layout.checkbox_item, containerLayout, false) as CheckBox
+                  checkBoxItem.text = displayValue
+                  containerLayout.addView(checkBoxItem)
+                  checkboxTitleMap[displayValue] = title.toString()
+                  checkBoxes.add(checkBoxItem)
+
                   if (displayValue.equals(value)) {
-                    map[title]?.right?.let { it1 -> outputArray.add(it1) }
+                    map[title].let { it1 ->
+                      if (it1 != null) {
+                        outputArray.add(it1)
+                      }
+                    }
                     break
                   }
                 }
