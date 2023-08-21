@@ -1,24 +1,18 @@
 package com.example.ipsapp.utils
 
 import android.content.Context
-import android.util.Log
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
 import org.apache.commons.lang3.tuple.MutablePair
-import org.hl7.fhir.r4.hapi.ctx.FhirR4
 import org.hl7.fhir.r4.model.AllergyIntolerance
 import org.hl7.fhir.r4.model.Bundle
 import org.hl7.fhir.r4.model.CodeableConcept
-import org.hl7.fhir.r4.model.Coding
 import org.hl7.fhir.r4.model.Composition
 import org.hl7.fhir.r4.model.Condition
-import org.hl7.fhir.r4.model.DomainResource
-import org.hl7.fhir.r4.model.Enumerations.FHIRDefinedType
 import org.hl7.fhir.r4.model.Medication
 import org.hl7.fhir.r4.model.Observation
 import org.hl7.fhir.r4.model.Resource
 import org.hl7.fhir.r4.model.ResourceType
-import org.json.JSONObject
 
 class DocumentUtils {
 
@@ -52,29 +46,20 @@ class DocumentUtils {
         val code = element.hasCode()
         if (code.first != null) {
           val codingArray = code.first!!.coding
-
-          val resourceList = if (pair.right != null && pair.right.isNotEmpty()) {
-            if ((title == "History of Past Illness" && code.second.equals("active")) ||
-              (title == "Active Problems" && !code.second.equals("active"))) {
-              println(code.second)
-              println("title = $title")
-              null
-            } else {
+          if (!((title == "History of Past Illness" && code.second.equals("active")) ||
+            ((title == "Active Problems" || title == "Allergies and Intolerances") && !code.second.equals("active")))) {
+            val resourceList = if (pair.right != null && pair.right.isNotEmpty()) {
               pair.right.apply { add(element) }
+            } else {
+              arrayListOf(element)
             }
-          } else {
-            arrayListOf(element)
-          }
-          pair.right = resourceList
+            pair.right = resourceList
 
-          for (j in 0 until codingArray.size) {
-            if ((title == "History of Past Illness" && code.second.equals("active")) ||
-              (title == "Active Problems" && !code.second.equals("active"))) {
+            for (j in 0 until codingArray.size) {
+              val display = codingArray[j].display
+              displayList.add(display)
               break
             }
-            val display = codingArray[j].display
-            displayList.add(display)
-            break
           }
         }
       }
@@ -109,8 +94,8 @@ class DocumentUtils {
 }
 fun Resource.hasCode() : Pair<CodeableConcept?, String?> {
   return when(this.resourceType) {
-    ResourceType.AllergyIntolerance -> Pair((this as AllergyIntolerance).code, (this as AllergyIntolerance).clinicalStatus.coding[0].code)
-    ResourceType.Condition -> Pair((this as Condition).code, (this as Condition).clinicalStatus.coding[0].code)
+    ResourceType.AllergyIntolerance -> Pair((this as AllergyIntolerance).code, this.clinicalStatus.coding[0].code)
+    ResourceType.Condition -> Pair((this as Condition).code, this.clinicalStatus.coding[0].code)
     ResourceType.Medication -> Pair((this as Medication).code, null)
     ResourceType.Observation -> Pair((this as Observation).code, null)
     else -> Pair(null, null)
