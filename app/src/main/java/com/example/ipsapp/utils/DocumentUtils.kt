@@ -8,6 +8,7 @@ import org.hl7.fhir.r4.hapi.ctx.FhirR4
 import org.hl7.fhir.r4.model.AllergyIntolerance
 import org.hl7.fhir.r4.model.Bundle
 import org.hl7.fhir.r4.model.CodeableConcept
+import org.hl7.fhir.r4.model.Coding
 import org.hl7.fhir.r4.model.Composition
 import org.hl7.fhir.r4.model.Condition
 import org.hl7.fhir.r4.model.DomainResource
@@ -48,11 +49,15 @@ class DocumentUtils {
       }
       .forEach { element ->
         val code = element.hasCode()
-        if (code != null) {
-          val codingArray = code.coding
+        if (code.first != null) {
+          val codingArray = code.first!!.coding
 
           val resourceList = if (pair.right != null && pair.right.isNotEmpty()) {
-            pair.right.apply { add(element) }
+            if (code.second.equals("active")) {
+              pair.right.apply { add(element) }
+            } else {
+              null
+            }
           } else {
             arrayListOf(element)
           }
@@ -94,12 +99,12 @@ class DocumentUtils {
     }
   }
 }
-fun Resource.hasCode() : CodeableConcept? {
+fun Resource.hasCode() : Pair<CodeableConcept?, String?> {
   return when(this.resourceType) {
-    ResourceType.AllergyIntolerance -> (this as AllergyIntolerance).code
-    ResourceType.Condition -> (this as Condition).code
-    ResourceType.Medication -> (this as Medication).code
-    ResourceType.Observation -> (this as Observation).code
-    else -> null
+    ResourceType.AllergyIntolerance -> Pair((this as AllergyIntolerance).code, (this as AllergyIntolerance).clinicalStatus.coding[0].code)
+    ResourceType.Condition -> Pair((this as Condition).code, (this as Condition).clinicalStatus.coding[0].code)
+    ResourceType.Medication -> Pair((this as Medication).code, null)
+    ResourceType.Observation -> Pair((this as Observation).code, null)
+    else -> Pair(null, null)
   }
 }

@@ -70,7 +70,7 @@ class SelectIndividualResources : Activity() {
           for (obj in objArray) {
             val code = obj.hasCode()
             if (code != null) {
-              val codingArray = code.coding
+              val codingArray = code.first?.coding
               if (codingArray != null && codingArray.size > 0) {
                 for (i in 0 until codingArray.size) {
                   val codingElement = codingArray[i]
