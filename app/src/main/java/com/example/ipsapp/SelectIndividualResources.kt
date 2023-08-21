@@ -77,9 +77,11 @@ class SelectIndividualResources : Activity() {
                   val displayValue = codingElement.display
                   println("display val $displayValue")
                   println("val $value")
-                  if (displayValue.equals(value)) {
-                    map[title]?.right?.let { it1 -> outputArray.add(it1) }
-                    break
+                  if (displayValue != null) {
+                    if (displayValue.equals(value)) {
+                      map[title]?.right?.let { it1 -> outputArray.add(it1) }
+                      break
+                    }
                   }
                 }
               }
