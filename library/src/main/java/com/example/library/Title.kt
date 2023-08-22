@@ -1,4 +1,4 @@
-package com.example.ipsapp
+package com.example.library
 
 data class Title(
   var name : String,

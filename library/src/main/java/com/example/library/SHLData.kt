@@ -1,4 +1,4 @@
-package com.example.ipsapp
+package com.example.library
 
 import android.graphics.Bitmap
 import org.w3c.dom.Document
