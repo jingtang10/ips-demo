@@ -3,7 +3,7 @@ package com.example.library
 import org.hl7.fhir.r4.model.Bundle
 import org.hl7.fhir.r4.model.Patient
 
-data class IpsDocument(
+data class IPSDocument(
   var document : Bundle,
   var titles : ArrayList<Title>,
   var patient : Patient

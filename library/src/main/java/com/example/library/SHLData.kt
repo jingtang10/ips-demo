@@ -1,7 +1,6 @@
 package com.example.library
 
 import android.graphics.Bitmap
-import org.w3c.dom.Document
 
 data class SHLData(var shl : String,
                    var qrBitmap : Bitmap,
@@ -12,8 +11,8 @@ data class SHLData(var shl : String,
                    var passcode : String,
                    var exp : String,
                    var v : String,
-                   var ipsDoc : IpsDocument) {
-  constructor() : this("", Bitmap.createBitmap(0, 0,Bitmap.Config.ARGB_8888), "", "", "", "", "", "", "", IpsDocument())
-  constructor(shl : String, bitmap : Bitmap) : this(shl, bitmap, "", "", "", "", "", "", "", IpsDocument())
-  constructor(doc : IpsDocument) : this("", Bitmap.createBitmap(0, 0,Bitmap.Config.ARGB_8888), "", "", "", "", "", "", "", doc)
+                   var ipsDoc : IPSDocument) {
+  constructor() : this("", Bitmap.createBitmap(0, 0,Bitmap.Config.ARGB_8888), "", "", "", "", "", "", "", IPSDocument())
+  constructor(shl : String, bitmap : Bitmap) : this(shl, bitmap, "", "", "", "", "", "", "", IPSDocument())
+  constructor(doc : IPSDocument) : this("", Bitmap.createBitmap(0, 0, Bitmap.Config.ARGB_8888), "", "", "", "", "", "", "", doc)
 }
