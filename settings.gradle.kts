@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "IpsApp"
 include(":app")
+include(":library")

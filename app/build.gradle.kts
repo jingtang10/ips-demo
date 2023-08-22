@@ -52,6 +52,7 @@ dependencies {
   implementation ("org.bitbucket.b_c:jose4j:0.7.7")
   implementation("com.google.android.fhir:engine:0.1.0-beta03")
   implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.7")
+  implementation ("com.google.android.gms:play-services-maps:18.1.0")
 
   implementation("com.google.code.gson:gson:2.9.1")
 
@@ -68,4 +69,6 @@ dependencies {
   testImplementation("org.robolectric:robolectric:4.7.3")
   androidTestImplementation("androidx.test.ext:junit:1.1.5")
   androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+  implementation(project(":library"))
 }

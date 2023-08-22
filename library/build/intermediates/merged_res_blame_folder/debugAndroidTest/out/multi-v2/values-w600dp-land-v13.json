@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.library.test.library-mergeDebugAndroidTestResources-26:/values-w600dp-land-v13/values-w600dp-land-v13.xml",
+            "outputFile": "com.example.library.test.library-mergeDebugAndroidTestResources-36:/values-w600dp-land-v13/values-w600dp-land-v13.xml",
             "map": [
                 {
                     "source": "/usr/local/google/home/hugomilosz/.gradle/caches/transforms-3/4e1e44cb8b8682a3e68d7daf5072c78b/transformed/material-1.9.0/res/values-w600dp-land-v13/values-w600dp-land-v13.xml",

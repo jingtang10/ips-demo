@@ -43,7 +43,7 @@ class SelectIndividualResources : Activity() {
 
       resources?.forEach { obj ->
         val code = obj.hasCode()
-        val codingArray = code?.coding ?: emptyList()
+        val codingArray = code.first?.coding ?: emptyList()
 
         codingArray.firstOrNull { it.hasDisplay() }?.let { codingElement ->
           val displayValue = codingElement.display
@@ -69,7 +69,7 @@ class SelectIndividualResources : Activity() {
 
       val outputArray = selectedCheckedValuesWithTitles.mapNotNull { (title, value) ->
         map[title]?.filter { obj ->
-          obj.hasCode()?.coding?.any { it.display == value } == true
+          obj.hasCode().first?.coding?.any { it.display == value } == true
         }
       }
 
@@ -96,4 +96,3 @@ class SelectIndividualResources : Activity() {
     }
   }
 }
-

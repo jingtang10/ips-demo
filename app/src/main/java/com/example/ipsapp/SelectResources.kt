@@ -19,8 +19,6 @@ import com.example.ipsapp.utils.DocumentUtils
 
 // NEED TO ALSO ASK THEM FOR PASSCODE & EXPIRY DATE
 
-data class Title(val name: String)
-
 class SelectResources : Activity() {
 
   val docUtils = DocumentUtils()
