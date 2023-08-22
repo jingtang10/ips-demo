@@ -52,6 +52,7 @@ dependencies {
   implementation ("org.bitbucket.b_c:jose4j:0.7.7")
   implementation("com.google.android.fhir:engine:0.1.0-beta03")
   implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.7")
+  implementation ("com.google.android.gms:play-services-maps:18.1.0")
 
   implementation("com.google.code.gson:gson:2.9.1")
 

@@ -56,22 +56,20 @@ class SelectIndividualResources : Activity() {
         if (objArray != null) {
           for (obj in objArray) {
             val code = obj.hasCode()
-            if (code != null) {
-              val codingArray = code.first?.coding
-              if (codingArray != null && codingArray.size > 0) {
-                for (i in 0 until codingArray.size) {
-                  val codingElement = codingArray[i]
-                  val displayValue = codingElement.display
+            val codingArray = code.first?.coding
+            if (codingArray != null && codingArray.size > 0) {
+              for (i in 0 until codingArray.size) {
+                val codingElement = codingArray[i]
+                val displayValue = codingElement.display
 
-                  println("display val $displayValue")
-                  println("val $value")
-                  if (displayValue != null) {
-                    if (displayValue.equals(value)) {
-                      map[title]?.right?.let { it1 -> outputArray.add(it1) }
-                      break
-                    }
-
+                println("display val $displayValue")
+                println("val $value")
+                if (displayValue != null) {
+                  if (displayValue.equals(value)) {
+                    map[title]?.right?.let { it1 -> outputArray.add(it1) }
+                    break
                   }
+
                 }
               }
             }
