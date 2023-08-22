@@ -99,12 +99,12 @@ class Scanner : AppCompatActivity() {
         val barcodes = detections.detectedItems
         if (barcodes.size() == 1) {
           scannedValue = barcodes.valueAt(0).rawValue
+          val shlData = SHLData(scannedValue)
 
           runOnUiThread {
             cameraSource.stop()
             val i = Intent(this@Scanner, SuccessfulScan::class.java)
-            Log.d("Extracted Data", scannedValue)
-            i.putExtra("scannedData", scannedValue)
+            i.putExtra("shlData", shlData)
             startActivity(i)
           }
         }
