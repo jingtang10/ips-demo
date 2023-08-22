@@ -31,7 +31,8 @@ class SelectIndividualResources : Activity() {
     val containerLayout: LinearLayout = findViewById(R.id.containerLayout)
 
     for (title in selectedTitles) {
-      val headingView = layoutInflater.inflate(R.layout.heading_item, containerLayout, false) as RelativeLayout
+      val headingView =
+        layoutInflater.inflate(R.layout.heading_item, containerLayout, false) as RelativeLayout
       val headingText = headingView.findViewById<TextView>(R.id.headingText)
       headingText.text = title
       containerLayout.addView(headingView)
@@ -41,33 +42,22 @@ class SelectIndividualResources : Activity() {
 
       val resources = map[title]
 
-      if (resources != null) {
-        for (obj in resources) {
-          val code = obj.hasCode()
-          if (code != null) {
-            val codingArray = code.coding
-            if (codingArray != null && codingArray.size > 0) {
-              // for (i in 0 until codingArray.size) {
-                val codingElement = codingArray[0]
-                if (codingElement.hasDisplay()) {
-                  val displayValue = codingElement.display
+      resources?.forEach { obj ->
+        val code = obj.hasCode()
+        val codingArray = code?.coding ?: emptyList()
 
-                  val checkBoxItem = layoutInflater.inflate(
-                    R.layout.checkbox_item,
-                    containerLayout,
-                    false
-                  ) as CheckBox
-                  checkBoxItem.text = displayValue
-                  containerLayout.addView(checkBoxItem)
-                  checkboxTitleMap[displayValue] = title.toString()
-                  checkBoxes.add(checkBoxItem)
-                }
-              // }
-            }
-          }
+        codingArray.firstOrNull { it.hasDisplay() }?.let { codingElement ->
+          val displayValue = codingElement.display
+
+          val checkBoxItem = layoutInflater.inflate(R.layout.checkbox_item, containerLayout, false) as CheckBox
+          checkBoxItem.text = displayValue
+          containerLayout.addView(checkBoxItem)
+          checkboxTitleMap[displayValue] = title.toString()
+          checkBoxes.add(checkBoxItem)
         }
       }
     }
+
 
     val submitButton = findViewById<Button>(R.id.goToCreatePasscode)
     submitButton.setOnClickListener {
@@ -78,45 +68,17 @@ class SelectIndividualResources : Activity() {
           Pair(title, value)
         }
 
-      val outputArray = mutableListOf<ArrayList<Resource>>()
-
-      for ((title, value) in selectedCheckedValuesWithTitles) {
-        val objArray = map[title]
-        if (objArray != null) {
-          for (obj in objArray) {
-            val code = obj.hasCode()
-            if (code != null) {
-              val codingArray = code.coding
-              if (codingArray != null && codingArray.size > 0) {
-                for (i in 0 until codingArray.size) {
-                  val codingElement = codingArray[i]
-                  val displayValue = codingElement.display
-
-
-                  val checkBoxItem = layoutInflater.inflate(R.layout.checkbox_item, containerLayout, false) as CheckBox
-                  checkBoxItem.text = displayValue
-                  containerLayout.addView(checkBoxItem)
-                  checkboxTitleMap[displayValue] = title.toString()
-                  checkBoxes.add(checkBoxItem)
-
-                  if (displayValue.equals(value)) {
-                    map[title].let { it1 ->
-                      if (it1 != null) {
-                        outputArray.add(it1)
-                      }
-                    }
-                    break
-                  }
-                }
-              }
-            }
-          }
-          println("Title: $title, Value: $value")
-          println(outputArray)
+      val outputArray = selectedCheckedValuesWithTitles.mapNotNull { (title, value) ->
+        map[title]?.filter { obj ->
+          obj.hasCode()?.coding?.any { it.display == value } == true
         }
       }
 
-      val i = Intent(this@SelectIndividualResources,CreatePasscode::class.java)
+      println("Selected values with titles: $selectedCheckedValuesWithTitles")
+      println("Output array: $outputArray")
+
+
+      val i = Intent(this@SelectIndividualResources, CreatePasscode::class.java)
       val stringArrayLists: ArrayList<ArrayList<String>> = ArrayList()
       for (jsonArrayList in outputArray) {
         val stringList = ArrayList<String>()
@@ -135,3 +97,4 @@ class SelectIndividualResources : Activity() {
     }
   }
 }
+
