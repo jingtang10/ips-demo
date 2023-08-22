@@ -10,6 +10,7 @@ import android.widget.EditText
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ipsapp.utils.ReadShlUtils
+import com.example.library.SHLData
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpGet
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpPost
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.entity.StringEntity
@@ -28,14 +29,15 @@ class SuccessfulScan : AppCompatActivity() {
 
   private val readShlUtils = ReadShlUtils()
 
+  @RequiresApi(Build.VERSION_CODES.TIRAMISU)
   override fun onCreate (savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.successfulscan)
 
 
-    val shlData = intent.getSerializableExtra("shlData", SHLData::class.java)
-    if (shlData != null) {
-      val extractedJson = readShlUtils.extractUrl(shlData.fullLink)
+    val shlData = intent.getParcelableExtra("shlData", SHLData::class.java)
+    if (shlData?.fullLink != null) {
+      val extractedJson = readShlUtils.extractUrl(shlData.fullLink!!)
       val decodedJson = readShlUtils.decodeUrl(extractedJson)
 
       val passcodeEditText = findViewById<EditText>(R.id.passcode)

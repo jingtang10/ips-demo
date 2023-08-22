@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.SurfaceHolder
 import android.view.animation.Animation
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.ipsapp.databinding.ScannerBinding
+import com.example.library.SHLData
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.Detector.Detections
@@ -104,7 +106,7 @@ class Scanner : AppCompatActivity() {
           runOnUiThread {
             cameraSource.stop()
             val i = Intent(this@Scanner, SuccessfulScan::class.java)
-            i.putExtra("shlData", shlData)
+            i.putExtra("shlData", shlData as Parcelable)
             startActivity(i)
           }
         }
