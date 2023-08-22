@@ -33,7 +33,7 @@ class DocumentTest {
 
   @Test
   fun mapCanBeCreatedWithDataForEachTitle() {
-    val map = mutableMapOf<String, MutablePair<List<String>, ArrayList<Resource>>>()
+    val map = mutableMapOf<String, ArrayList<Resource>>()
     val list = docUtils.getTitlesFromIpsDoc(file)
     for (item in list) {
       docUtils.getDataFromDoc(file, item, map)
@@ -43,7 +43,7 @@ class DocumentTest {
 
   @Test
   fun mapCanBeCreatedWithDataForEachTitleInImmunization() {
-    val map = mutableMapOf<String, MutablePair<List<String>, ArrayList<Resource>>>()
+    val map = mutableMapOf<String, ArrayList<Resource>>()
     val list = docUtils.getTitlesFromIpsDoc(immunizationBundle)
     for (item in list) {
       docUtils.getDataFromDoc(immunizationBundle, item, map)

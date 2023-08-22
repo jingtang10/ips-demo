@@ -38,6 +38,35 @@ class SelectIndividualResources : Activity() {
 
       this.map += docUtils.getDataFromDoc(doc, title, map)
       println("THIS IS THE MAP AFTER A FUNCTION $map")
+
+      val resources = map[title]
+
+      if (resources != null) {
+        for (obj in resources) {
+          val code = obj.hasCode()
+          if (code != null) {
+            val codingArray = code.coding
+            if (codingArray != null && codingArray.size > 0) {
+              // for (i in 0 until codingArray.size) {
+                val codingElement = codingArray[0]
+                if (codingElement.hasDisplay()) {
+                  val displayValue = codingElement.display
+
+                  val checkBoxItem = layoutInflater.inflate(
+                    R.layout.checkbox_item,
+                    containerLayout,
+                    false
+                  ) as CheckBox
+                  checkBoxItem.text = displayValue
+                  containerLayout.addView(checkBoxItem)
+                  checkboxTitleMap[displayValue] = title.toString()
+                  checkBoxes.add(checkBoxItem)
+                }
+              // }
+            }
+          }
+        }
+      }
     }
 
     val submitButton = findViewById<Button>(R.id.goToCreatePasscode)
