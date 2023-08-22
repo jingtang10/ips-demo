@@ -46,5 +46,4 @@ class QRGeneratorTest {
     val decrypted = readShlUtilsMock.decodeShc(encrypted, key)
     Assert.assertEquals(content, decrypted)
   }
-
 }

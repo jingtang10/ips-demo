@@ -10,7 +10,6 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.example.ipsapp.utils.DocumentUtils
 import com.example.ipsapp.utils.hasCode
-import org.apache.commons.lang3.tuple.MutablePair
 import org.hl7.fhir.r4.model.Resource
 
 
