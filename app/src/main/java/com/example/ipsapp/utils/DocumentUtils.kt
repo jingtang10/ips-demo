@@ -57,8 +57,10 @@ class DocumentUtils {
 
             for (j in 0 until codingArray.size) {
               val display = codingArray[j].display
-              displayList.add(display)
-              break
+              if (display != null) {
+                displayList.add(display)
+                break
+              }
             }
           }
         }
