@@ -6,14 +6,14 @@ import org.hl7.fhir.r4.model.Bundle
 import org.hl7.fhir.r4.model.Patient
 
 data class IPSDocument(
-  var document : Bundle,
-  var titles : ArrayList<Title>,
-  var patient : Patient
+  var document : Bundle?,
+  var titles : ArrayList<Title>?,
+  var patient : Patient?
 ) : Parcelable {
   constructor(parcel: Parcel) : this(
-    TODO("document"),
-    TODO("titles"),
-    TODO("patient")
+    parcel.readParcelable(Bundle::class.java.classLoader),
+    parcel.createTypedArrayList(Title.CREATOR),
+    parcel.readParcelable(Patient::class.java.classLoader)
   ) {
   }
 
