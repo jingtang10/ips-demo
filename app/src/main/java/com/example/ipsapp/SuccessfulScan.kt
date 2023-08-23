@@ -39,6 +39,7 @@ class SuccessfulScan : AppCompatActivity() {
     if (shlData?.fullLink != null) {
       val extractedJson = readShlUtils.extractUrl(shlData.fullLink!!)
       val decodedJson = readShlUtils.decodeUrl(extractedJson)
+      shlData.shl = extractedJson
 
       val passcodeEditText = findViewById<EditText>(R.id.passcode)
       passcodeEditText.visibility = View.INVISIBLE
