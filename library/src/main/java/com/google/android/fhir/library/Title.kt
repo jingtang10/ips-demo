@@ -1,8 +1,7 @@
-package com.example.library
+package com.google.android.fhir.library
 
 import android.os.Parcel
 import android.os.Parcelable
-import org.hl7.fhir.r4.model.Resource
 
 data class Title(
   var name: String?,

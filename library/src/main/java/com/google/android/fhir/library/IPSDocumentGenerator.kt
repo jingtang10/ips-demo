@@ -1,4 +1,4 @@
-package com.example.library
+package com.google.android.fhir.library
 
 import org.hl7.fhir.r4.model.Resource
 

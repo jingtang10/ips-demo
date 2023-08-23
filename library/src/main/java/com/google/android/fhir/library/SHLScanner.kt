@@ -1,4 +1,4 @@
-package com.example.library
+package com.google.android.fhir.library
 
 interface SHLScanner {
   fun scanSHLQRCode() : SHLData

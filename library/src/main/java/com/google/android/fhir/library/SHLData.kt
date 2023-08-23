@@ -1,4 +1,4 @@
-package com.example.library
+package com.google.android.fhir.library
 
 import android.graphics.Bitmap
 import android.os.Parcel
@@ -35,7 +35,7 @@ data class SHLData(
   constructor() : this("", "", Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888), "", "", "", "", "", "", "", IPSDocument())
   constructor(fullLink : String, bitmap : Bitmap) : this(fullLink, "", bitmap, "", "", "", "", "", "", "", IPSDocument())
   constructor(fullLink: String) : this(fullLink, "", Bitmap.createBitmap(100, 100,Bitmap.Config.ARGB_8888), "", "", "", "", "", "", "", IPSDocument())
-  constructor(doc : IPSDocument) : this("","", Bitmap.createBitmap(100, 100,Bitmap.Config.ARGB_8888), "", "", "", "", "", "", "", doc)
+  constructor(doc : IPSDocument) : this("", "", Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888), "", "", "", "", "", "", "", doc)
 
   override fun writeToParcel(parcel: Parcel, flags: Int) {
     parcel.writeString(fullLink)

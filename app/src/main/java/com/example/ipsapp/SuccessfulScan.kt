@@ -10,7 +10,7 @@ import android.widget.EditText
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ipsapp.utils.ReadShlUtils
-import com.example.library.SHLData
+import com.google.android.fhir.library.SHLData
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpGet
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpPost
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.entity.StringEntity

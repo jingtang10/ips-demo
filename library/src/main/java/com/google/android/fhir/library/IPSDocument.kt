@@ -1,4 +1,4 @@
-package com.example.library
+package com.google.android.fhir.library
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -12,7 +12,7 @@ data class IPSDocument(
 ) : Parcelable {
   constructor(parcel: Parcel) : this(
     parcel.readParcelable(Bundle::class.java.classLoader),
-    parcel.createTypedArrayList(Title.CREATOR),
+    parcel.createTypedArrayList(Title),
     parcel.readParcelable(Patient::class.java.classLoader)
   ) {
   }

@@ -1,8 +1,8 @@
-package com.example.library.decode
+package com.google.android.fhir.library.decode
 
-import com.example.library.IPSDocument
-import com.example.library.SHLData
-import com.example.library.SHLDecoder
+import com.google.android.fhir.library.IPSDocument
+import com.google.android.fhir.library.SHLData
+import com.google.android.fhir.library.SHLDecoder
 
 class Decoder : SHLDecoder {
   override fun decodeSHLToDocument(shlData: SHLData): IPSDocument {
