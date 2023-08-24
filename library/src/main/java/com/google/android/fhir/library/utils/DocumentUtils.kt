@@ -41,7 +41,7 @@ class DocumentUtils {
         getSearchingCondition(title, resourceType)
       }
       .forEach { element ->
-        val code = utils.hasCode()
+        val code = element.hasCode()
         if (code != null) {
           if (!((title == "History of Past Illness" && code.second.equals("active")) ||
               ((title == "Active Problems" || title == "Allergies and Intolerances") && !code.second.equals("active")))) {
