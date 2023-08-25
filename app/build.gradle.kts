@@ -10,13 +10,13 @@ android {
     viewBinding = true
   }
 
-  namespace = "com.example.ipsapp"
-  namespace = "com.example.ipsapp"
+  namespace = "com.google.android.fhir.ipsapp"
+  namespace = "com.google.android.fhir.ipsapp"
   compileSdk = 33
 
   defaultConfig {
-    applicationId = "com.example.ipsapp"
-    minSdk = 24
+    applicationId = "com.google.android.fhir.ipsapp"
+    minSdk = 33
     targetSdk = 33
     versionCode = 1
     versionName = "1.0"

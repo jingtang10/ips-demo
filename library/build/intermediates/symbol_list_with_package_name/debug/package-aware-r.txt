@@ -1,0 +1,2 @@
+com.google.android.fhir.library
+anim scanner_animation

@@ -4,7 +4,12 @@ plugins {
 }
 
 android {
-  namespace = "com.example.library"
+
+  buildFeatures {
+    viewBinding = true
+  }
+
+  namespace = "com.google.android.fhir.library"
   compileSdk = 33
 
   defaultConfig {
@@ -31,10 +36,16 @@ android {
 
 dependencies {
 
-  implementation("androidx.core:core-ktx:1.9.0")
+  implementation("androidx.core:core-ktx:1.10.1")
   implementation("androidx.appcompat:appcompat:1.6.1")
   implementation("com.google.android.material:material:1.9.0")
+  implementation("com.google.firebase:firebase-ml-vision-barcode-model:16.1.2")
   testImplementation("junit:junit:4.13.2")
   androidTestImplementation("androidx.test.ext:junit:1.1.5")
   androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+  implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.8")
+  implementation("com.nimbusds:nimbus-jose-jwt:9.31")
+
+  implementation("com.google.android.fhir:engine:0.1.0-beta03")
 }
