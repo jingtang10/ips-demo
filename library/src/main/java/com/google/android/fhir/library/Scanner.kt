@@ -80,19 +80,35 @@ class Scanner(private val context: Context, private val surfaceHolder: SurfaceHo
       override fun release() {
         // Scanner has been closed
       }
-
+      var scanSucceeded = false
       override fun receiveDetections(detections: Detections<Barcode>) {
+
+        if (scanSucceeded) {
+          return
+        }
+
         val barcodes = detections.detectedItems
         if (barcodes.size() == 1) {
           val scannedValue = barcodes.valueAt(0).rawValue
           val shlData = SHLData(scannedValue)
           scanCallback?.invoke(shlData)
+          scanSucceeded = true
         }
       }
     })
   }
 
+  fun stopScanning() {
+    cameraSource.stop()
+  }
+
   private fun hasCameraPermission(): Boolean {
-    return context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)
+    return context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)
+  }
+
+  fun release() {
+    stopScanning()
+    cameraSource.release()
+    barcodeDetector.release()
   }
 }

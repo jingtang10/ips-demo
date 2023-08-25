@@ -1,6 +1,8 @@
 package com.google.android.fhir.ipsapp
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.SurfaceView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.fhir.library.Scanner
@@ -15,17 +17,25 @@ class ScannerActivity : AppCompatActivity() {
 
     val surfaceView = findViewById<SurfaceView>(R.id.cameraSurfaceView)
 
-    // Initialize the scanner
+    // Initialize the scanner and call scan
     scanner = Scanner(this, surfaceView.holder)
-
-    // Call the scan method with callbacks
     scanner.scan(
       callback = { shlData ->
         // Handle successful scan result
+        val i = Intent(this@ScannerActivity, SuccessfulScan::class.java)
+        i.putExtra("shlData", shlData as Parcelable)
+        startActivity(i)
       },
       failCallback = { error ->
         // Handle scan failure
+        println("fail")
       }
     )
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    // Release scanner resources when the activity is destroyed
+    scanner.release()
   }
 }

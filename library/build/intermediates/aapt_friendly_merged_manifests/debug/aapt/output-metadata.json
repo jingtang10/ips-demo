@@ -4,7 +4,7 @@
     "type": "AAPT_FRIENDLY_MERGED_MANIFESTS",
     "kind": "Directory"
   },
-  "applicationId": "com.example.library",
+  "applicationId": "com.google.android.fhir.library",
   "variantName": "debug",
   "elements": [
     {
