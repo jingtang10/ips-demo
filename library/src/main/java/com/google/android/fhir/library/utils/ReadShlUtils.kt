@@ -1,11 +1,17 @@
 package com.example.ipsapp.utils
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpGet
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.CloseableHttpClient
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.HttpClients
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.util.EntityUtils
 import com.nimbusds.jose.JWEDecrypter
 import com.nimbusds.jose.JWEObject
 import com.nimbusds.jose.crypto.DirectDecrypter
 import java.io.ByteArrayOutputStream
+import java.nio.charset.StandardCharsets
 import java.util.Base64
 import java.util.zip.DataFormatException
 import java.util.zip.Inflater
@@ -77,5 +83,19 @@ class ReadShlUtils {
         jweObject.decrypt(decrypter)
         println(jweObject.payload.toString().trim())
         return jweObject.payload.toString()
+    }
+
+    fun getRequest(url: String): String? {
+        val httpClient: CloseableHttpClient = HttpClients.createDefault()
+        val httpGet = HttpGet(url)
+
+        val response = httpClient.execute(httpGet)
+
+        val responseBody = EntityUtils.toString(response.entity, StandardCharsets.UTF_8)
+        Log.d("Response status: ", "${response.statusLine.statusCode}")
+        Log.d("Response body: ", responseBody)
+        httpClient.close()
+
+        return responseBody
     }
 }

@@ -19,6 +19,8 @@ data class IPSDocument(
 
   constructor() : this(Bundle(), ArrayList<Title>(), Patient())
 
+  constructor(bundle : Bundle) : this(bundle, ArrayList<Title>(), Patient())
+
   override fun writeToParcel(parcel: Parcel, flags: Int) {
 
   }
