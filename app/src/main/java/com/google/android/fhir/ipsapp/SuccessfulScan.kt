@@ -1,4 +1,4 @@
-package com.example.ipsapp
+package com.google.android.fhir.ipsapp
 
 import android.content.Intent
 import android.os.Build

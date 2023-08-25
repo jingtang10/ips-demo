@@ -1,10 +1,10 @@
 package com.google.android.fhir.library
 
+import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.view.SurfaceHolder
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.Detector.Detections
@@ -27,7 +27,6 @@ class Scanner(private val context: Context, private val surfaceHolder: SurfaceHo
     if (hasCameraPermission()) {
       setup()
     } else {
-      // Handle the case where camera permission is not granted
       val error = Error("Camera permission not granted")
       failCallback.invoke(error)
     }
@@ -47,6 +46,20 @@ class Scanner(private val context: Context, private val surfaceHolder: SurfaceHo
       override fun surfaceCreated(holder: SurfaceHolder) {
         try {
           // Start preview after 1s delay
+          if (ActivityCompat.checkSelfPermission(
+              context,
+              Manifest.permission.CAMERA
+            ) != PackageManager.PERMISSION_GRANTED
+          ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+          }
           cameraSource.start(holder)
         } catch (e: IOException) {
           e.printStackTrace()
@@ -73,8 +86,6 @@ class Scanner(private val context: Context, private val surfaceHolder: SurfaceHo
         if (barcodes.size() == 1) {
           val scannedValue = barcodes.valueAt(0).rawValue
           val shlData = SHLData(scannedValue)
-
-          // Notify the scan success callback
           scanCallback?.invoke(shlData)
         }
       }

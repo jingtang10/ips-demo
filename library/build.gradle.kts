@@ -39,5 +39,8 @@ dependencies {
   androidTestImplementation("androidx.test.ext:junit:1.1.5")
   androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
+  implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.7")
+  implementation("com.nimbusds:nimbus-jose-jwt:9.31")
+
   implementation("com.google.android.fhir:engine:0.1.0-beta03")
 }

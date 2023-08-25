@@ -1,4 +1,4 @@
-package com.example.ipsapp
+package com.google.android.fhir.ipsapp
 
 
 import android.Manifest
@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.fhir.library.Scanner
 
 
 class MainActivity : AppCompatActivity() {
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
     // when the button is pressed, go to the QR scanner activity
     private fun openScanner() {
-        val i = Intent(this@MainActivity, Scanner::class.java)
+        val i = Intent(this@MainActivity, ScannerActivity::class.java)
         startActivity(i)
     }
 
