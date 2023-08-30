@@ -75,7 +75,17 @@ class DocumentGenerator : IPSDocumentGenerator {
     val sections = mutableListOf<Composition.SectionComponent>()
     for (res in selectedResources) {
       val section = docGenUtils.createResourceSection(res)
-      if (section.title != null) {
+      val title = docGenUtils.getResourceTitle(res)
+
+      // Check if a section with the same title already exists
+      val existingSection = sections.find { it.title == title }
+
+      if (existingSection != null) {
+        // Replace the existing section with the new one
+        sections.remove(existingSection)
+        sections.add(section)
+      } else {
+        // Add the new section to the list
         sections.add(section)
       }
     }
@@ -84,12 +94,12 @@ class DocumentGenerator : IPSDocumentGenerator {
     // Add the Composition to the bundle
     bundle.addEntry(Bundle.BundleEntryComponent().apply {
       resource = composition
-      fullUrl = ""
+      fullUrl = "urn:uuid:${composition.id}"
     })
     for(res in selectedResources) {
       bundle.addEntry(Bundle.BundleEntryComponent().apply {
         resource = res
-        fullUrl = ""
+        fullUrl = "urn:uuid:${res.id}"
       })
     }
     return IPSDocument(bundle)

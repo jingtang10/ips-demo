@@ -11,6 +11,8 @@ import org.hl7.fhir.r4.model.ResourceType
 
 class DocumentGeneratorUtils {
 
+  private val addedResourcesByType: MutableMap<String, MutableList<Resource>> = mutableMapOf()
+
   fun createResourceSection(resource: Resource): SectionComponent {
     val section = SectionComponent()
 
@@ -20,8 +22,25 @@ class DocumentGeneratorUtils {
     section.code = getResourceCode(resource)
     section.text = getResourceText(resource)
 
-    // Set the reference to the FHIR resource within the section
-    section.entry.add(Reference().setReference(resource.idElement.toVersionless().toString()))
+    val resourceType = resource.resourceType.toString()
+
+    if (addedResourcesByType.containsKey(resourceType)) {
+      // If yes, add this resource to the existing list
+      val existingResourceList = addedResourcesByType[resourceType]
+      existingResourceList?.add(resource)
+    } else {
+      // If no, create a new list and add this resource to it
+      val newResourceList: MutableList<Resource> = mutableListOf(resource)
+      addedResourcesByType[resourceType] = newResourceList
+    }
+
+    // Clear existing entries and add references to unique resources of this type in the section
+    section.entry.clear()
+    addedResourcesByType[resourceType]?.distinctBy { it.idElement.toVersionless() }?.forEach { addedResource ->
+      section.entry.add(
+        Reference().setReference("${addedResource.resourceType}/${addedResource.idElement.toVersionless()}")
+      )
+    }
     return section
   }
 
@@ -85,7 +104,7 @@ class DocumentGeneratorUtils {
 
   }
 
-  private fun getResourceTitle(resource: Resource): String? {
+  fun getResourceTitle(resource: Resource): String? {
     return when(resource.resourceType) {
       ResourceType.AllergyIntolerance -> "Allergies and Intolerances"
       ResourceType.Condition -> "Active Problem"

@@ -63,6 +63,21 @@ class DocGenTest {
     // allergy.category = listOf(Enumeration(AllergyIntolerance.AllergyIntoleranceCategory.FOOD))
     resources.add(allergy)
 
+    val allergy2 = AllergyIntolerance()
+    allergy2.id = "78910"
+    allergy2.clinicalStatus = CodeableConcept().addCoding(
+      Coding()
+        .setSystem("http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical")
+        .setCode("active")
+        .setDisplay("allergy")
+    )
+    allergy2.type = AllergyIntolerance.AllergyIntoleranceType.ALLERGY
+    // allergy.category =
+    allergy2.patient = Reference(patient) // Link the allergy to the patient
+    allergy2.criticality = AllergyIntolerance.AllergyIntoleranceCriticality.HIGH
+    // allergy.category = listOf(Enumeration(AllergyIntolerance.AllergyIntoleranceCategory.FOOD))
+    resources.add(allergy2)
+
     // Create a Medication resource
     val medication = Medication()
     medication.id = "101"
