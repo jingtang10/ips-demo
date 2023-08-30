@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.fhir.library.SHLData
+import com.google.android.fhir.library.SuccessfulScanViewModel
+import com.google.android.fhir.library.SuccessfulScanViewModelFactory
 import kotlinx.coroutines.launch
 
 class SuccessfulScan : AppCompatActivity() {

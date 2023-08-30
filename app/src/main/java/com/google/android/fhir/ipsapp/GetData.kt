@@ -6,13 +6,11 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
-import com.example.ipsapp.utils.DocumentUtils
 import com.google.android.fhir.library.IPSDocument
 
 
 class GetData : AppCompatActivity() {
 
-  val docUtils = DocumentUtils()
   private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
   override fun onCreate(savedInstanceState: Bundle?) {
 
