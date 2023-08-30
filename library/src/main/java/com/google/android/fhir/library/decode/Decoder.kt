@@ -16,9 +16,7 @@ import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.cli
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.util.EntityUtils
 import java.nio.charset.StandardCharsets
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.coroutineScope
 import org.hl7.fhir.r4.model.Bundle
 import org.json.JSONObject
 
@@ -29,49 +27,50 @@ class Decoder(private val shlData: SHLData?) : SHLDecoder {
   private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
 
   @RequiresApi(Build.VERSION_CODES.O)
-  override fun decodeSHLToDocument(recipient: String): IPSDocument {
+  override suspend fun decodeSHLToDocument(recipient: String): IPSDocument {
     constructShlObj()
     val jsonData = "{\"recipient\":\"${recipient}\"}"
-    var bundle = Bundle()
-    postToServer(jsonData) {output ->
-      println(output)
-      bundle = output
-    }
-    println(bundle)
-    val doc = IPSDocument(bundle)
-    // Log.d("doc", doc.document?.entry?.get(0)?.fullUrl.toString())
-    // println(docUtils.getTitlesFromIpsDoc(doc.document.toString()))
+    val bundle = postToServer(jsonData)
     return IPSDocument(bundle)
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
-  override fun decodeSHLToDocument(recipient: String, passcode: String): IPSDocument {
+  override suspend fun decodeSHLToDocument(recipient: String, passcode: String): IPSDocument {
     constructShlObj()
     val jsonData = "{\"passcode\":\"${passcode}\", \"recipient\":\"${recipient}\"}"
-    var bundle = Bundle()
-    postToServer(jsonData) {output ->
-      bundle = output
-    }
+    val bundle = postToServer(jsonData)
     return IPSDocument(bundle)
+  }
+
+  override fun storeDocument(doc: IPSDocument) {
+    TODO("Not yet implemented")
+  }
+
+  override fun hasPasscode(): Boolean {
+    shlData?.flag?.forEach {
+      if (it == 'P') {
+        return true
+      }
+    }
+    return false
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
   @OptIn(DelicateCoroutinesApi::class)
-  private fun postToServer(jsonData: String, callback: (Bundle) -> Unit)  {
-    GlobalScope.launch(Dispatchers.IO) {
-      val httpClient: CloseableHttpClient = HttpClients.createDefault()
-      val httpPost = HttpPost(shlData?.manifestUrl)
-      httpPost.addHeader("Content-Type", "application/smart-health-card")
+  private suspend fun postToServer(jsonData: String): Bundle = coroutineScope {
+    val httpClient: CloseableHttpClient = HttpClients.createDefault()
+    val httpPost = HttpPost(shlData?.manifestUrl)
+    httpPost.addHeader("Content-Type", "application/smart-health-card")
 
-      val entity = StringEntity(jsonData)
+    val entity = StringEntity(jsonData)
 
-      httpPost.entity = entity
-      val response = httpClient.execute(httpPost)
+    httpPost.entity = entity
+    val response = httpClient.execute(httpPost)
 
-      val responseBody = EntityUtils.toString(response.entity, StandardCharsets.UTF_8)
-      httpClient.close()
+    val responseBody = EntityUtils.toString(response.entity, StandardCharsets.UTF_8)
+    httpClient.close()
 
-      val jsonObject = JSONObject(responseBody)
+    val jsonObject = JSONObject(responseBody)
 
       // throw error when passcode wrong
       val filesArray = jsonObject.getJSONArray("files")
@@ -91,9 +90,10 @@ class Decoder(private val shlData: SHLData?) : SHLDecoder {
       }
       val embeddedArray = embeddedList.toTypedArray()
       val bundle = decodeEmbeddedArray(embeddedArray)
-      callback(bundle)
+
+      return@coroutineScope bundle
     }
-  }
+
 
   @RequiresApi(Build.VERSION_CODES.O)
   fun decodeEmbeddedArray(embeddedArray : Array<String>) : Bundle {
@@ -149,18 +149,4 @@ class Decoder(private val shlData: SHLData?) : SHLDecoder {
       }
     }
   }
-
-  override fun storeDocument(doc: IPSDocument) {
-    TODO("Not yet implemented")
-  }
-
-  override fun hasPasscode(): Boolean {
-    shlData?.flag?.forEach {
-      if (it == 'P') {
-        return true
-      }
-    }
-    return false
-  }
-
 }

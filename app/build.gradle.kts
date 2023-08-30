@@ -48,15 +48,16 @@ dependencies {
   implementation("androidx.core:core-ktx:1.10.1")
   implementation("androidx.appcompat:appcompat:1.6.1")
   implementation("com.google.android.material:material:1.9.0")
-  implementation("com.google.android.gms:play-services-vision:20.1.3")
   implementation ("org.bitbucket.b_c:jose4j:0.7.7")
   implementation("com.google.android.fhir:engine:0.1.0-beta03")
-  implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.7")
-  implementation ("com.google.android.gms:play-services-maps:18.1.0")
+
 
   implementation("com.google.code.gson:gson:2.9.1")
 
   implementation("io.jsonwebtoken:jjwt-api:0.10.5")
+
+  implementation("androidx.lifecycle:lifecycle-viewmodel:2.6.1")
+  implementation("androidx.lifecycle:lifecycle-livedata:2.6.1")
 
 
   implementation("com.google.zxing:core:3.4.1")
@@ -64,6 +65,8 @@ dependencies {
   implementation("androidx.test.ext:junit-ktx:1.1.5")
   implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.3.2")
   implementation("com.nimbusds:nimbus-jose-jwt:9.31")
+  implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.9")
+  implementation("com.google.gms:google-services:4.3.10")
 
   testImplementation("junit:junit:4.13.2")
   testImplementation("org.robolectric:robolectric:4.7.3")

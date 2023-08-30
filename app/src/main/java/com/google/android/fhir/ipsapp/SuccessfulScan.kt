@@ -6,43 +6,50 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import com.example.ipsapp.utils.ReadShlUtils
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.google.android.fhir.library.SHLData
-import com.google.android.fhir.library.decode.Decoder
-
+import kotlinx.coroutines.launch
 
 class SuccessfulScan : AppCompatActivity() {
 
-  private val readShlUtils = ReadShlUtils()
+  private lateinit var viewModel: SuccessfulScanViewModel
 
-  override fun onCreate (savedInstanceState: Bundle?) {
+  override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.successfulscan)
 
     val shlData = intent.getParcelableExtra("shlData", SHLData::class.java)
 
-    val decoder = Decoder(shlData)
+    val viewModelFactory = SuccessfulScanViewModelFactory(shlData)
+    viewModel = ViewModelProvider(this, viewModelFactory).get(SuccessfulScanViewModel::class.java)
+
     val passcodeEditText = findViewById<EditText>(R.id.passcode)
-    val hasPasscode = decoder.hasPasscode()
+    val hasPasscode = viewModel.hasPasscode(shlData)
 
     if (!hasPasscode) {
       passcodeEditText.visibility = View.INVISIBLE
     }
 
-    // when button is pushed, the inputted data is passed into fetchData()
     val button = findViewById<Button>(R.id.getData)
     button.setOnClickListener {
       val recipientField = findViewById<EditText>(R.id.recipient).text.toString()
-      val doc = if (hasPasscode) {
-        val passcodeField = passcodeEditText.text.toString()
-        decoder.decodeSHLToDocument(recipientField, passcodeField)
-      } else {
-        decoder.decodeSHLToDocument(recipientField)
+      val passcodeField = passcodeEditText.text.toString()
+      lifecycleScope.launch {
+        fetchData(recipientField, passcodeField, hasPasscode)
       }
-      val i = Intent(this@SuccessfulScan, GetData::class.java)
-      i.putExtra("doc", doc)
-      startActivity(i)
     }
   }
 
+  private suspend fun fetchData(recipient: String, passcode: String, hasPasscode : Boolean) {
+    val doc = if (hasPasscode) {
+      viewModel.decodeSHLToDocument(recipient, passcode)
+    } else {
+      viewModel.decodeSHLToDocument(recipient)
+    }
+    // Handle the IPSDocument data here
+    val i = Intent(this@SuccessfulScan, GetData::class.java)
+    i.putExtra("doc", doc as java.io.Serializable)
+    startActivity(i)
+  }
 }
