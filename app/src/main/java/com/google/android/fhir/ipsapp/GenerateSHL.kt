@@ -50,6 +50,8 @@ class GenerateSHL : Activity() {
 
     if (codingList != null) {
       generatePayload(passcode, labelData, expirationDate, codingList)
+      val bundle = org.hl7.fhir.r4.model.Bundle()
+      bundle.type = org.hl7.fhir.r4.model.Bundle.BundleType.DOCUMENT
     }
   }
 

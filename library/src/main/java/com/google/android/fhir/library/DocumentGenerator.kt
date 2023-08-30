@@ -10,12 +10,20 @@ import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
 import com.example.ipsapp.utils.DocumentUtils
 import com.example.ipsapp.utils.hasCode
+import com.google.android.fhir.library.utils.DocumentGeneratorUtils
 import com.google.android.fhir.library.utils.TitleAdapter.TitleItem
+import org.hl7.fhir.r4.model.Bundle
+import org.hl7.fhir.r4.model.CodeableConcept
+import org.hl7.fhir.r4.model.Coding
 import org.hl7.fhir.r4.model.Composition
 import org.hl7.fhir.r4.model.Resource
 import org.hl7.fhir.r4.model.ResourceType
 
 class DocumentGenerator : IPSDocumentGenerator {
+
+  val docGenUtils = DocumentGeneratorUtils()
+  private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
+
   override fun getTitlesFromDoc(doc: IPSDocument): List<Title> {
     val bundle = doc.document
     val composition =
@@ -37,8 +45,37 @@ class DocumentGenerator : IPSDocumentGenerator {
     TODO("Not yet implemented")
   }
 
-  override fun generateIPS(selectedResources: List<Resource>) {
-    TODO("Not yet implemented")
+  override fun generateIPS(selectedResources: List<Resource>): IPSDocument {
+    val bundle = Bundle()
+    bundle.type = Bundle.BundleType.DOCUMENT
+
+    // Create a Composition resource to represent the IPS document
+    val composition = Composition()
+    composition.type = CodeableConcept().apply {
+      coding.add(Coding().apply {
+        system = "http://loinc.org"
+        code = "60591-5"
+        display = "Patient Summary Document"
+      })
+    }
+    // Set other properties of the Composition as needed
+    composition.title = "Patient Summary Document Title"
+    composition.status = Composition.CompositionStatus.FINAL
+
+    // Create sections for each resource and add them to the Composition
+    val sections = mutableListOf<Composition.SectionComponent>()
+    for (resource in selectedResources) {
+      val section = docGenUtils.createResourceSection(resource)
+      sections.add(section)
+    }
+    composition.section = sections
+
+    // Add the Composition to the bundle
+    bundle.addEntry(Bundle.BundleEntryComponent().apply {
+      resource = composition
+      fullUrl = ""
+    })
+    return IPSDocument(bundle)
   }
 
   override fun generateTitleAdapter(bundle: IPSDocument): ArrayList<TitleItem> {

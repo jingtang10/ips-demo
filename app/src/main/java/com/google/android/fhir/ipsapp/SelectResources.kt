@@ -15,8 +15,6 @@ import com.google.android.fhir.library.Title
 import com.google.android.fhir.library.utils.TitleAdapter
 import java.io.Serializable
 
-// NEED TO ALSO ASK THEM FOR PASSCODE & EXPIRY DATE
-
 class SelectResources : Activity() {
 
   private val docUtils = DocumentUtils()

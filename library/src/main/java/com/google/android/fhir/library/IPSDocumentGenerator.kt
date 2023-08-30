@@ -13,7 +13,7 @@ interface IPSDocumentGenerator {
 
   fun generateIPS(existingDoc : IPSDocument, selectedResources : List<Resource>) : IPSDocument
 
-  fun generateIPS(selectedResources : List<Resource>)
+  fun generateIPS(selectedResources : List<Resource>): IPSDocument
   fun generateTitleAdapter(bundle: IPSDocument): ArrayList<TitleItem>
   fun displayOptions(
     context : Context,
