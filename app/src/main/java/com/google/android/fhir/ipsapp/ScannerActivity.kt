@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.view.SurfaceView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.fhir.library.Scanner
+import com.google.android.fhir.library.scan.Scanner
 
 class ScannerActivity : AppCompatActivity() {
 

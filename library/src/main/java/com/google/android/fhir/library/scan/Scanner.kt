@@ -1,10 +1,11 @@
-package com.google.android.fhir.library
+package com.google.android.fhir.library.scan
 
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.view.SurfaceHolder
 import androidx.core.app.ActivityCompat
+import com.google.android.fhir.library.SHLData
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.Detector.Detections
@@ -98,7 +99,7 @@ class Scanner(private val context: Context, private val surfaceHolder: SurfaceHo
     })
   }
 
-  fun stopScanning() {
+  private fun stopScanning() {
     cameraSource.stop()
   }
 

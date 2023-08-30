@@ -2,6 +2,7 @@ package com.google.android.fhir.library
 
 import android.os.Parcel
 import android.os.Parcelable
+import java.io.Serializable
 import org.hl7.fhir.r4.model.Bundle
 import org.hl7.fhir.r4.model.Patient
 
@@ -9,7 +10,7 @@ data class IPSDocument(
   var document : Bundle?,
   var titles : ArrayList<Title>?,
   var patient : Patient?
-) : Parcelable {
+) : Serializable {
   constructor(parcel: Parcel) : this(
     parcel.readParcelable(Bundle::class.java.classLoader),
     parcel.createTypedArrayList(Title),
@@ -19,11 +20,15 @@ data class IPSDocument(
 
   constructor() : this(Bundle(), ArrayList<Title>(), Patient())
 
-  override fun writeToParcel(parcel: Parcel, flags: Int) {
+  constructor(bundle : Bundle) : this(bundle, ArrayList<Title>(), Patient())
 
+  fun writeToParcel(parcel: Parcel, flags: Int) {
+    // parcel.writeParcelable(document, flags)
+    // parcel.writeTypedList(titles)
+    // parcel.writeParcelable(patient, flags)
   }
 
-  override fun describeContents(): Int {
+  fun describeContents(): Int {
     return 0
   }
 

@@ -9,6 +9,11 @@ android {
     viewBinding = true
   }
 
+  packagingOptions {
+    exclude("META-INF/ASL-2.0.txt")
+    exclude("META-INF/LGPL-3.0.txt")
+  }
+
   namespace = "com.google.android.fhir.library"
   compileSdk = 33
 
@@ -39,7 +44,8 @@ dependencies {
   implementation("androidx.core:core-ktx:1.10.1")
   implementation("androidx.appcompat:appcompat:1.6.1")
   implementation("com.google.android.material:material:1.9.0")
-  implementation("com.google.firebase:firebase-ml-vision-barcode-model:16.1.2")
+  implementation("com.google.android.gms:play-services-vision-common:19.1.3")
+  implementation("com.google.android.gms:play-services-vision:20.1.3")
   testImplementation("junit:junit:4.13.2")
   androidTestImplementation("androidx.test.ext:junit:1.1.5")
   androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

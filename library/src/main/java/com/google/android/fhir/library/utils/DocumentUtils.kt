@@ -3,7 +3,6 @@ package com.example.ipsapp.utils
 import android.content.Context
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
-import org.apache.commons.lang3.tuple.MutablePair
 import org.hl7.fhir.r4.model.AllergyIntolerance
 import org.hl7.fhir.r4.model.Bundle
 import org.hl7.fhir.r4.model.CodeableConcept
@@ -42,12 +41,10 @@ class DocumentUtils {
       }
       .forEach { element ->
         val code = element.hasCode()
-        if (code != null) {
-          if (!((title == "History of Past Illness" && code.second.equals("active")) ||
-              ((title == "Active Problems" || title == "Allergies and Intolerances") && !code.second.equals("active")))) {
-            resourceList = (resourceList.takeIf { it.isNotEmpty() } ?: arrayListOf()).apply {
-              add(element)
-            }
+        if (!((title == "History of Past Illness" && code.second.equals("active")) ||
+            ((title == "Active Problems" || title == "Allergies and Intolerances") && !code.second.equals("active")))) {
+          resourceList = (resourceList.takeIf { it.isNotEmpty() } ?: arrayListOf()).apply {
+            add(element)
           }
         }
       }
