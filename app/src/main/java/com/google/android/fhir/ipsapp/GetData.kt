@@ -22,7 +22,7 @@ class GetData : AppCompatActivity() {
     textView.movementMethod = ScrollingMovementMethod()
 
     val doc = intent.getSerializableExtra("doc", IPSDocument::class.java)
-    textView.setText(parser.encodeResourceToString(doc?.document))
+    textView.text = parser.encodeResourceToString(doc?.document)
 
     println(doc.toString())
     println(doc?.document.toString())
