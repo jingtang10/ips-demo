@@ -1,5 +1,8 @@
 package com.google.android.fhir.library
 
+import android.content.Context
+import android.widget.CheckBox
+import android.widget.LinearLayout
 import com.google.android.fhir.library.utils.TitleAdapter.TitleItem
 import org.hl7.fhir.r4.model.Resource
 
@@ -12,5 +15,13 @@ interface IPSDocumentGenerator {
 
   fun generateIPS(selectedResources : List<Resource>)
   fun generateTitleAdapter(bundle: IPSDocument): ArrayList<TitleItem>
+  fun displayOptions(
+    context : Context,
+    bundle: IPSDocument?,
+    checkBoxes: MutableList<CheckBox>,
+    checkboxTitleMap: MutableMap<String, String>,
+    containerLayout: LinearLayout,
+    map: MutableMap<String, ArrayList<Resource>>,
+  )
 
 }

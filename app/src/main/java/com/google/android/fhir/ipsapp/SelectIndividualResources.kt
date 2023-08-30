@@ -6,10 +6,9 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
 import com.example.ipsapp.utils.DocumentUtils
 import com.example.ipsapp.utils.hasCode
+import com.google.android.fhir.library.DocumentGenerator
 import com.google.android.fhir.library.IPSDocument
 import org.hl7.fhir.r4.model.Resource
 
@@ -23,43 +22,14 @@ class SelectIndividualResources : Activity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.select_individual_resources)
 
-    val doc = docUtils.readFileFromAssets(this, "immunizationBundle.json")
+    val documentGenerator = DocumentGenerator()
 
     val checkBoxes = mutableListOf<CheckBox>()
     val checkboxTitleMap = mutableMapOf<String, String>()
     val bundle = intent.getSerializableExtra("ipsDoc", IPSDocument::class.java)
     val containerLayout: LinearLayout = findViewById(R.id.containerLayout)
 
-    for (title in bundle?.titles!!) {
-      if (title.name != null) {
-        val headingView =
-          layoutInflater.inflate(R.layout.heading_item, containerLayout, false) as RelativeLayout
-        val headingText = headingView.findViewById<TextView>(R.id.headingText)
-        headingText.text = title.name
-        containerLayout.addView(headingView)
-
-        this.map += docUtils.getDataFromDoc(doc, title.name!!, map)
-        println("THIS IS THE MAP AFTER A FUNCTION $map")
-
-        val resources = map[title.name]
-
-        resources?.forEach { obj ->
-          val code = obj.hasCode()
-          val codingArray = code.first?.coding ?: emptyList()
-
-          codingArray.firstOrNull { it.hasDisplay() }?.let { codingElement ->
-            val displayValue = codingElement.display
-
-            val checkBoxItem =
-              layoutInflater.inflate(com.google.android.fhir.library.R.layout.checkbox_item, containerLayout, false) as CheckBox
-            checkBoxItem.text = displayValue
-            containerLayout.addView(checkBoxItem)
-            checkboxTitleMap[displayValue] = title.toString()
-            checkBoxes.add(checkBoxItem)
-          }
-        }
-      }
-    }
+    documentGenerator.displayOptions(this, bundle, checkBoxes, checkboxTitleMap, containerLayout, map)
 
 
     val submitButton = findViewById<Button>(R.id.goToCreatePasscode)
