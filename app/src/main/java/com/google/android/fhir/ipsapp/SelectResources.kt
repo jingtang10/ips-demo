@@ -11,6 +11,7 @@ import ca.uhn.fhir.context.FhirVersionEnum
 import com.example.ipsapp.utils.DocumentUtils
 import com.google.android.fhir.library.DocumentGenerator
 import com.google.android.fhir.library.IPSDocument
+import com.google.android.fhir.library.Title
 import com.google.android.fhir.library.utils.TitleAdapter
 // NEED TO ALSO ASK THEM FOR PASSCODE & EXPIRY DATE
 
@@ -38,8 +39,9 @@ class SelectResources : Activity() {
     val submitResourcesButton = findViewById<Button>(R.id.submitResourcesButton)
     submitResourcesButton.setOnClickListener {
       val selectedTitles = titleList.filter { it.isChecked }.map { it.title }
+      bundle.titles = ArrayList(selectedTitles.map { Title(it) })
       val i = Intent(this@SelectResources, SelectIndividualResources::class.java)
-      i.putStringArrayListExtra("selectedTitles", ArrayList(selectedTitles))
+      i.putExtra("ipsDoc", bundle)
       startActivity(i)
     }
   }

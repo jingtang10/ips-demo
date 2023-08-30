@@ -14,6 +14,7 @@ data class Title(
   }
 
   constructor() : this("", ArrayList<ParcelableResourceWrapper>())
+  constructor(name: String?) : this(name, ArrayList())
 
   override fun describeContents(): Int {
     TODO("Not yet implemented")
