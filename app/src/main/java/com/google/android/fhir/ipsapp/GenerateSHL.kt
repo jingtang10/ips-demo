@@ -6,12 +6,10 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import com.example.ipsapp.utils.GenerateShlUtils
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpPost
@@ -36,7 +34,6 @@ class GenerateSHL : Activity() {
 
   private val generateShlUtils = GenerateShlUtils()
 
-  @RequiresApi(Build.VERSION_CODES.O)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.view_shl)
@@ -57,7 +54,6 @@ class GenerateSHL : Activity() {
   }
 
   @OptIn(DelicateCoroutinesApi::class)
-  @RequiresApi(Build.VERSION_CODES.O)
   fun generatePayload(passcode: String, labelData: String, expirationDate: String, codingList : ArrayList<String>) {
     val qrView = findViewById<ImageView>(R.id.qrCode)
 
@@ -133,7 +129,6 @@ class GenerateSHL : Activity() {
     }
   }
 
-  @RequiresApi(Build.VERSION_CODES.O)
   fun constructSHLinkPayload(
     manifestUrl: String,
     label: String?,
