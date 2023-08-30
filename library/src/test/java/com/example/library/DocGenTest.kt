@@ -45,9 +45,9 @@ class DocGenTest {
     resources.add(observation)
 
     // Add more resources here as needed...
-
     return resources
   }
+
   @Test
   fun testDocGen() {
     val doc = docGenerator.generateIPS(createSampleResources())

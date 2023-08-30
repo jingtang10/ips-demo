@@ -6,6 +6,7 @@ import org.hl7.fhir.r4.model.Composition.SectionComponent
 import org.hl7.fhir.r4.model.Narrative
 import org.hl7.fhir.r4.model.Reference
 import org.hl7.fhir.r4.model.Resource
+import org.hl7.fhir.r4.model.ResourceType
 
 class DocumentGeneratorUtils {
   fun createResourceSection(resource: Resource): SectionComponent {
@@ -17,19 +18,19 @@ class DocumentGeneratorUtils {
     section.text = getResourceText(resource)
 
     // Set the reference to the FHIR resource within the section
-    section.entry.add(Reference().setReference(resource.idElement.toVersionless().toString()))
-
+    if (section.text != null) {
+      section.entry.add(Reference().setReference(resource.idElement.toVersionless().toString()))
+    }
     return section
   }
 
-  private fun getResourceText(resource: Resource): Narrative? {
+  private fun getResourceText(resource: Resource): Narrative {
     val narrative = Narrative()
-    // Set the text value for the narrative based on your resource
-    narrative.divAsString = "aaaaa"
+    narrative.statusAsString = "generated"
     return narrative
   }
 
-  private fun getResourceCode(resource: Resource): CodeableConcept? {
+  private fun getResourceCode(resource: Resource): CodeableConcept {
     val codeableConcept = CodeableConcept()
     // Create and set coding information within the codeableConcept
     val coding = Coding()
@@ -41,6 +42,16 @@ class DocumentGeneratorUtils {
   }
 
   private fun getResourceTitle(resource: Resource): String? {
-    return "title"
+    return when(resource.resourceType) {
+      ResourceType.AllergyIntolerance -> "Allergies and Intolerances"
+      ResourceType.Condition -> "Active Problem"
+      ResourceType.Medication -> "Medication"
+      ResourceType.Immunization -> "Immunizations"
+      ResourceType.Observation -> "Results"
+      else -> null
+      // "History of Past Illness"
+      // "Plan of Treatment"
+
+    }
   }
 }

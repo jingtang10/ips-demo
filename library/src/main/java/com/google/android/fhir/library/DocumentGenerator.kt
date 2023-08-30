@@ -12,10 +12,13 @@ import com.example.ipsapp.utils.DocumentUtils
 import com.example.ipsapp.utils.hasCode
 import com.google.android.fhir.library.utils.DocumentGeneratorUtils
 import com.google.android.fhir.library.utils.TitleAdapter.TitleItem
+import java.util.Date
 import org.hl7.fhir.r4.model.Bundle
 import org.hl7.fhir.r4.model.CodeableConcept
 import org.hl7.fhir.r4.model.Coding
 import org.hl7.fhir.r4.model.Composition
+import org.hl7.fhir.r4.model.DateTimeType
+import org.hl7.fhir.r4.model.Reference
 import org.hl7.fhir.r4.model.Resource
 import org.hl7.fhir.r4.model.ResourceType
 
@@ -61,6 +64,12 @@ class DocumentGenerator : IPSDocumentGenerator {
     // Set other properties of the Composition as needed
     composition.title = "Patient Summary Document Title"
     composition.status = Composition.CompositionStatus.FINAL
+
+    val currentDate = Date()
+    val currentDateTime = DateTimeType(currentDate)
+    composition.dateElement = currentDateTime
+    composition.title = "Patient Summary"
+    composition.author.add(Reference("Practitioner/12345"))
 
     // Create sections for each resource and add them to the Composition
     val sections = mutableListOf<Composition.SectionComponent>()
