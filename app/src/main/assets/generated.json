@@ -1,0 +1,105 @@
+{
+  "resourceType": "Bundle",
+  "type": "document",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Composition",
+        "status": "final",
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "60591-5",
+              "display": "Patient Summary Document"
+            }
+          ]
+        },
+        "date": "2023-08-30T17:27:10+00:00",
+        "author": [
+          {
+            "reference": "Practitioner/12345"
+          }
+        ],
+        "title": "Patient Summary",
+        "section": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://your-coding-system-url.com",
+                  "code": "12345",
+                  "display": "Display Text"
+                }
+              ]
+            },
+            "text": {
+              "status": "generated"
+            },
+            "entry": [
+              {
+                "reference": "123"
+              }
+            ]
+          },
+          {
+            "title": "Results",
+            "code": {
+              "coding": [
+                {
+                  "system": "http://your-coding-system-url.com",
+                  "code": "12345",
+                  "display": "Display Text"
+                }
+              ]
+            },
+            "text": {
+              "status": "generated"
+            },
+            "entry": [
+              {
+                "reference": "456"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "123",
+        "identifier": [
+          {
+            "system": "http://example.com",
+            "value": "12345"
+          }
+        ],
+        "name": [
+          {
+            "family": "Doe",
+            "given": [
+              "John"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "456",
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "12345",
+              "display": "Example Observation"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

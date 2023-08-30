@@ -73,9 +73,11 @@ class DocumentGenerator : IPSDocumentGenerator {
 
     // Create sections for each resource and add them to the Composition
     val sections = mutableListOf<Composition.SectionComponent>()
-    for (resource in selectedResources) {
-      val section = docGenUtils.createResourceSection(resource)
-      sections.add(section)
+    for (res in selectedResources) {
+      val section = docGenUtils.createResourceSection(res)
+      if (section.title != null) {
+        sections.add(section)
+      }
     }
     composition.section = sections
 
@@ -84,6 +86,12 @@ class DocumentGenerator : IPSDocumentGenerator {
       resource = composition
       fullUrl = ""
     })
+    for(res in selectedResources) {
+      bundle.addEntry(Bundle.BundleEntryComponent().apply {
+        resource = res
+        fullUrl = ""
+      })
+    }
     return IPSDocument(bundle)
   }
 
