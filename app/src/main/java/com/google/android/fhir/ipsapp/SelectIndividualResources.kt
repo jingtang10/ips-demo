@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.LinearLayout
-import com.example.ipsapp.utils.DocumentUtils
 import com.example.ipsapp.utils.hasCode
 import com.google.android.fhir.library.DocumentGenerator
 import com.google.android.fhir.library.IPSDocument
@@ -15,7 +14,6 @@ import org.hl7.fhir.r4.model.Resource
 
 class SelectIndividualResources : Activity() {
 
-  private val docUtils = DocumentUtils()
   private var map = mutableMapOf<String, ArrayList<Resource>>()
 
   override fun onCreate(savedInstanceState: Bundle?) {

@@ -13,6 +13,8 @@ import com.google.android.fhir.library.DocumentGenerator
 import com.google.android.fhir.library.IPSDocument
 import com.google.android.fhir.library.Title
 import com.google.android.fhir.library.utils.TitleAdapter
+import java.io.Serializable
+
 // NEED TO ALSO ASK THEM FOR PASSCODE & EXPIRY DATE
 
 class SelectResources : Activity() {
@@ -41,7 +43,7 @@ class SelectResources : Activity() {
       val selectedTitles = titleList.filter { it.isChecked }.map { it.title }
       bundle.titles = ArrayList(selectedTitles.map { Title(it) })
       val i = Intent(this@SelectResources, SelectIndividualResources::class.java)
-      i.putExtra("ipsDoc", bundle)
+      i.putExtra("ipsDoc", bundle as Serializable)
       startActivity(i)
     }
   }

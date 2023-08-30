@@ -2,11 +2,12 @@ package com.google.android.fhir.library
 
 import android.os.Parcel
 import android.os.Parcelable
+import java.io.Serializable
 
 data class Title(
   var name: String?,
   var dataEntries: ArrayList<ParcelableResourceWrapper>
-) : Parcelable {
+) : Serializable {
   constructor(parcel: Parcel) : this(
     parcel.readString(),
     parcel.createTypedArrayList(ParcelableResourceWrapper) ?: ArrayList()
@@ -15,14 +16,6 @@ data class Title(
 
   constructor() : this("", ArrayList<ParcelableResourceWrapper>())
   constructor(name: String?) : this(name, ArrayList())
-
-  override fun describeContents(): Int {
-    TODO("Not yet implemented")
-  }
-
-  override fun writeToParcel(p0: Parcel, p1: Int) {
-    TODO("Not yet implemented")
-  }
 
   companion object CREATOR : Parcelable.Creator<Title> {
     override fun createFromParcel(parcel: Parcel): Title {
