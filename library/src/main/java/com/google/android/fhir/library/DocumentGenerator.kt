@@ -94,12 +94,12 @@ class DocumentGenerator : IPSDocumentGenerator {
     // Add the Composition to the bundle
     bundle.addEntry(Bundle.BundleEntryComponent().apply {
       resource = composition
-      fullUrl = "urn:uuid:${composition.id}"
+      fullUrl = "urn:uuid:${composition.idBase}"
     })
     for(res in selectedResources) {
       bundle.addEntry(Bundle.BundleEntryComponent().apply {
         resource = res
-        fullUrl = "urn:uuid:${res.id}"
+        fullUrl = "urn:uuid:${res.idElement.idPart}"
       })
     }
     return IPSDocument(bundle)

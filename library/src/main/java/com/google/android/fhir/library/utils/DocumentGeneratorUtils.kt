@@ -38,7 +38,7 @@ class DocumentGeneratorUtils {
     section.entry.clear()
     addedResourcesByType[resourceType]?.distinctBy { it.idElement.toVersionless() }?.forEach { addedResource ->
       section.entry.add(
-        Reference().setReference("${addedResource.resourceType}/${addedResource.idElement.toVersionless()}")
+        Reference().setReference("${addedResource.idElement.toVersionless()}")
       )
     }
     return section

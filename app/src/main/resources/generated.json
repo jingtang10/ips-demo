@@ -16,7 +16,7 @@
             }
           ]
         },
-        "date": "2023-08-30T22:41:35+00:00",
+        "date": "2023-08-31T16:29:57+00:00",
         "author": [
           {
             "reference": "Practitioner/12345"
@@ -24,25 +24,6 @@
         ],
         "title": "Patient Summary",
         "section": [
-          {
-            "code": {
-              "coding": [
-                {
-                  "system": "http://your-coding-system-url.com",
-                  "code": "12345",
-                  "display": "Display Text"
-                }
-              ]
-            },
-            "text": {
-              "status": "generated"
-            },
-            "entry": [
-              {
-                "reference": "Patient/123"
-              }
-            ]
-          },
           {
             "title": "Results",
             "code": {
@@ -59,50 +40,7 @@
             },
             "entry": [
               {
-                "reference": "Observation/456"
-              }
-            ]
-          },
-          {
-            "title": "Allergies and Intolerances",
-            "code": {
-              "coding": [
-                {
-                  "system": "http://loinc.org",
-                  "code": "48765-2",
-                  "display": "Allergies and adverse reactions Document"
-                }
-              ]
-            },
-            "text": {
-              "status": "generated"
-            },
-            "entry": [
-              {
-                "reference": "AllergyIntolerance/789"
-              },
-              {
-                "reference": "AllergyIntolerance/78910"
-              }
-            ]
-          },
-          {
-            "title": "Medication",
-            "code": {
-              "coding": [
-                {
-                  "system": "http://loinc.org",
-                  "code": "10160-0",
-                  "display": "History of Medication"
-                }
-              ]
-            },
-            "text": {
-              "status": "generated"
-            },
-            "entry": [
-              {
-                "reference": "Medication/101"
+                "reference": "Observation/b4916505-a06b-460c-9be8-011609282457"
               }
             ]
           }
@@ -110,96 +48,49 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:123",
-      "resource": {
-        "resourceType": "Patient",
-        "id": "123",
-        "identifier": [
-          {
-            "system": "http://example.com",
-            "value": "12345"
-          }
-        ],
-        "name": [
-          {
-            "family": "Doe",
-            "given": [
-              "John"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:456",
+      "fullUrl": "urn:uuid:b4916505-a06b-460c-9be8-011609282457",
       "resource": {
         "resourceType": "Observation",
-        "id": "456",
+        "id": "b4916505-a06b-460c-9be8-011609282457",
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"b4916505-a06b-460c-9be8-011609282457\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;b4916505-a06b-460c-9be8-011609282457&quot; </p></div><p><b>status</b>: final</p><p><b>category</b>: Laboratory <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-observation-category.html\">Observation Category Codes</a>#laboratory)</span></p><p><b>code</b>: E Ab [Presence] in Serum or Plasma <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#1018-1)</span></p><p><b>subject</b>: <a href=\"#Patient_2b90dd2b-2dab-4c75-9bb9-a355e07401e8\">See above (Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8)</a></p><p><b>effective</b>: 2015-10-10 09:35:00+0100</p><p><b>performer</b>: <a href=\"#Organization_45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7\">See above (Organization/45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7)</a></p><p><b>value</b>: Positive <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#10828004)</span></p></div>"
+        },
         "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
         "code": {
           "coding": [
             {
               "system": "http://loinc.org",
-              "code": "12345",
-              "display": "Example Observation"
-            }
-          ]
-        }
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:789",
-      "resource": {
-        "resourceType": "AllergyIntolerance",
-        "id": "789",
-        "clinicalStatus": {
-          "coding": [
-            {
-              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
-              "code": "active",
-              "display": "allergy"
+              "code": "1018-1",
+              "display": "E Ab [Presence] in Serum or Plasma"
             }
           ]
         },
-        "type": "allergy",
-        "criticality": "high",
-        "patient": {
-          "reference": "Patient/123"
-        }
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:78910",
-      "resource": {
-        "resourceType": "AllergyIntolerance",
-        "id": "78910",
-        "clinicalStatus": {
-          "coding": [
-            {
-              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
-              "code": "active",
-              "display": "allergy"
-            }
-          ]
+        "subject": {
+          "reference": "Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8"
         },
-        "type": "allergy",
-        "criticality": "high",
-        "patient": {
-          "reference": "Patient/123"
-        }
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:101",
-      "resource": {
-        "resourceType": "Medication",
-        "id": "101",
-        "code": {
+        "effectiveDateTime": "2015-10-10T09:35:00+01:00",
+        "performer": [
+          {
+            "reference": "Organization/45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7"
+          }
+        ],
+        "valueCodeableConcept": {
           "coding": [
             {
-              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-              "code": "198103",
-              "display": "Aspirin 81 MG Oral Tablet"
+              "system": "http://snomed.info/sct",
+              "code": "10828004",
+              "display": "Positive"
             }
           ]
         }
