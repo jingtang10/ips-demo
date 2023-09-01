@@ -6,26 +6,36 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.LinearLayout
+import ca.uhn.fhir.context.FhirContext
+import ca.uhn.fhir.context.FhirVersionEnum
+import com.example.ipsapp.utils.DocumentUtils
 import com.example.ipsapp.utils.hasCode
 import com.google.android.fhir.library.DocumentGenerator
 import com.google.android.fhir.library.IPSDocument
+import com.google.android.fhir.library.Title
 import org.hl7.fhir.r4.model.Resource
 
 
 class SelectIndividualResources : Activity() {
 
   private var map = mutableMapOf<String, ArrayList<Resource>>()
+  private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.select_individual_resources)
 
     val documentGenerator = DocumentGenerator()
+    val docUtils = DocumentUtils()
 
     val checkBoxes = mutableListOf<CheckBox>()
     val checkboxTitleMap = mutableMapOf<String, String>()
-    val bundle = intent.getSerializableExtra("ipsDoc", IPSDocument::class.java)
+    // val bundle = intent.getSerializableExtra("ipsDoc", IPSDocument::class.java)
     val containerLayout: LinearLayout = findViewById(R.id.containerLayout)
+
+    val doc = docUtils.readFileFromAssets(this, "immunizationBundle.json")
+    val bundle = IPSDocument(parser.parseResource(doc) as org.hl7.fhir.r4.model.Bundle)
+    bundle.titles = ArrayList(docUtils.getTitlesFromIpsDoc(doc).map { Title(it) })
 
     documentGenerator.displayOptions(this, bundle, checkBoxes, checkboxTitleMap, containerLayout, map)
 
