@@ -14,7 +14,6 @@ import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.cli
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.HttpClients
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.util.EntityUtils
 import java.nio.charset.StandardCharsets
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.coroutineScope
 import org.hl7.fhir.r4.model.Bundle
 import org.json.JSONObject
@@ -54,7 +53,6 @@ class Decoder(private val shlData: SHLData?) : SHLDecoder {
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
-  @OptIn(DelicateCoroutinesApi::class)
   private suspend fun postToServer(jsonData: String): Bundle = coroutineScope {
     val httpClient: CloseableHttpClient = HttpClients.createDefault()
     val httpPost = HttpPost(shlData?.manifestUrl)

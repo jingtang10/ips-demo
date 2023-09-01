@@ -31,20 +31,20 @@ class SelectIndividualResources : Activity() {
 
     val checkBoxes = mutableListOf<CheckBox>()
     val checkboxTitleMap = mutableMapOf<String, String>()
-    // val bundle = intent.getSerializableExtra("ipsDoc", IPSDocument::class.java)
     val containerLayout: LinearLayout = findViewById(R.id.containerLayout)
 
     val doc = docUtils.readFileFromAssets(this, "immunizationBundle.json")
     val bundle = IPSDocument(parser.parseResource(doc) as org.hl7.fhir.r4.model.Bundle)
     bundle.titles = ArrayList(docUtils.getTitlesFromIpsDoc(doc).map { Title(it) })
 
-    documentGenerator.displayOptions(this, bundle, checkBoxes, checkboxTitleMap, containerLayout, map)
+    documentGenerator.displayOptions(
+      this, bundle, checkBoxes, checkboxTitleMap, containerLayout, map
+    )
 
 
     val submitButton = findViewById<Button>(R.id.goToCreatePasscode)
     submitButton.setOnClickListener {
-      val selectedCheckedValuesWithTitles = checkBoxes.filter { it.isChecked }
-        .map { checkBox ->
+      val selectedCheckedValuesWithTitles = checkBoxes.filter { it.isChecked }.map { checkBox ->
           val title = checkboxTitleMap[checkBox.text.toString()]
           val value = checkBox.text.toString()
           Pair(title, value)
@@ -61,31 +61,8 @@ class SelectIndividualResources : Activity() {
 
       println("output array $outputArray")
 
-      // val outputArray = selectedCheckedValuesWithTitles.mapNotNull { (title, value) ->
-      //   map[title]?.filter { obj ->
-      //     obj.hasCode().first?.coding?.any { it.display == value } == true
-      //   }
-      // }
-      //
-      // println("Selected values with titles: $selectedCheckedValuesWithTitles")
-      // println("Output array: $outputArray")
-
       val ipsDoc = documentGenerator.generateIPS(outputArray)
       val i = Intent(this@SelectIndividualResources, CreatePasscode::class.java)
-      // val stringArrayLists: ArrayList<ArrayList<String>> = ArrayList()
-      // for (jsonArrayList in outputArray) {
-      //   println(jsonArrayList)
-      //   val stringList = ArrayList<String>()
-      //   for (jsonObject in jsonArrayList) {
-      //     // Convert JSONObject to String and add it to the stringList
-      //     stringList.add(jsonObject.toString())
-      //   }
-      //   stringArrayLists.add(stringList)
-      // }
-      // val flattenedList: ArrayList<String> = ArrayList()
-      // for (innerList in stringArrayLists) {
-      //   flattenedList.addAll(innerList)
-      // }
       i.putExtra("ipsDoc", ipsDoc as Serializable)
       startActivity(i)
     }

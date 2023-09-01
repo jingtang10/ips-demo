@@ -19,18 +19,15 @@ class ScannerActivity : AppCompatActivity() {
 
     // Initialize the scanner and call scan
     scanner = Scanner(this, surfaceView.holder)
-    scanner.scan(
-      callback = { shlData ->
-        // Handle successful scan result
-        val i = Intent(this@ScannerActivity, SuccessfulScan::class.java)
-        i.putExtra("shlData", shlData as Parcelable)
-        startActivity(i)
-      },
-      failCallback = { error ->
-        // Handle scan failure
-        println("fail")
-      }
-    )
+    scanner.scan(callback = { shlData ->
+      // Handle successful scan result
+      val i = Intent(this@ScannerActivity, SuccessfulScan::class.java)
+      i.putExtra("shlData", shlData as Parcelable)
+      startActivity(i)
+    }, failCallback = { error ->
+      // Handle scan failure
+      println("fail")
+    })
   }
 
   // Release scanner resources when the activity is destroyed

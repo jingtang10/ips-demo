@@ -24,13 +24,13 @@ class SuccessfulScan : AppCompatActivity() {
     // get shlData from previous activity and intialise the view model with it
     val shlData = intent.getParcelableExtra("shlData", SHLData::class.java)
     val viewModelFactory = SuccessfulScanViewModelFactory(shlData)
-    viewModel = ViewModelProvider(this, viewModelFactory).get(SuccessfulScanViewModel::class.java)
+    viewModel = ViewModelProvider(this, viewModelFactory)[SuccessfulScanViewModel::class.java]
 
 
     viewModel.constructSHL()
     // only display the passscode field if one is required
     val passcodeEditText = findViewById<EditText>(R.id.passcode)
-    val hasPasscode = viewModel.hasPasscode(shlData)
+    val hasPasscode = viewModel.hasPasscode()
     println(shlData)
     println("has passcode $hasPasscode")
     if (!hasPasscode) {

@@ -42,9 +42,9 @@ class GenerateSHL : Activity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.view_shl)
 
-    val passcode:String = intent.getStringExtra("passcode").toString()
-    val labelData:String = intent.getStringExtra("label").toString()
-    val expirationDate:String = intent.getStringExtra("expirationDate").toString()
+    val passcode: String = intent.getStringExtra("passcode").toString()
+    val labelData: String = intent.getStringExtra("label").toString()
+    val expirationDate: String = intent.getStringExtra("expirationDate").toString()
     // val codingList = intent.getStringArrayListExtra("codingList")
 
     val ipsDoc = intent.getSerializableExtra("ipsDoc", IPSDocument::class.java)
@@ -57,12 +57,22 @@ class GenerateSHL : Activity() {
     expirationDateField.text = expirationDate
 
     if (ipsDoc?.document != null) {
-      generatePayload(passcode, labelData, expirationDate, arrayListOf(parser.encodeResourceToString(ipsDoc.document)))
+      generatePayload(
+        passcode,
+        labelData,
+        expirationDate,
+        arrayListOf(parser.encodeResourceToString(ipsDoc.document))
+      )
     }
   }
 
   @OptIn(DelicateCoroutinesApi::class)
-  fun generatePayload(passcode: String, labelData: String, expirationDate: String, codingList : ArrayList<String>) {
+  fun generatePayload(
+    passcode: String,
+    labelData: String,
+    expirationDate: String,
+    codingList: ArrayList<String>,
+  ) {
     val qrView = findViewById<ImageView>(R.id.qrCode)
 
     GlobalScope.launch(Dispatchers.IO) {
@@ -71,7 +81,7 @@ class GenerateSHL : Activity() {
       httpPost.addHeader("Content-Type", "application/json")
 
       // Recipient and passcode entered by the user on this screen
-      val jsonData : String
+      val jsonData: String
       var flags = ""
       if (passcode != "") {
         flags = "P"
@@ -138,7 +148,7 @@ class GenerateSHL : Activity() {
     }
   }
 
-  fun constructSHLinkPayload(
+  private fun constructSHLinkPayload(
     manifestUrl: String,
     label: String?,
     flags: String?,
@@ -182,7 +192,8 @@ class GenerateSHL : Activity() {
       }
 
       val logoDrawable = ContextCompat.getDrawable(context, R.drawable.smart_logo)
-      val logoAspectRatio = logoDrawable!!.intrinsicWidth.toFloat() / logoDrawable.intrinsicHeight.toFloat()
+      val logoAspectRatio =
+        logoDrawable!!.intrinsicWidth.toFloat() / logoDrawable.intrinsicHeight.toFloat()
 
       val logoWidth = (width * logoScale).toInt()
       val logoHeight = (logoWidth / logoAspectRatio).toInt()
@@ -190,7 +201,8 @@ class GenerateSHL : Activity() {
       val logoBitmap = convertDrawableToBitmap(logoDrawable, logoWidth, logoHeight)
 
 
-      val backgroundBitmap = Bitmap.createBitmap(logoBitmap.width, logoBitmap.height, Bitmap.Config.RGB_565)
+      val backgroundBitmap =
+        Bitmap.createBitmap(logoBitmap.width, logoBitmap.height, Bitmap.Config.RGB_565)
       backgroundBitmap.eraseColor(Color.WHITE)
 
       val canvas = Canvas(backgroundBitmap)

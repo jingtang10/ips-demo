@@ -2,19 +2,16 @@ package com.google.android.fhir.ipsapp
 
 import android.app.Activity
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.DatePicker
 import android.widget.EditText
-import androidx.annotation.RequiresApi
 import com.google.android.fhir.library.IPSDocument
 import java.util.Calendar
 
 class CreatePasscode : Activity() {
 
-  @RequiresApi(Build.VERSION_CODES.O)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.create_passcode)
