@@ -13,6 +13,7 @@ import com.example.ipsapp.utils.hasCode
 import com.google.android.fhir.library.utils.DocumentGeneratorUtils
 import com.google.android.fhir.library.utils.TitleAdapter.TitleItem
 import java.util.Date
+import java.util.UUID
 import org.hl7.fhir.r4.model.Bundle
 import org.hl7.fhir.r4.model.CodeableConcept
 import org.hl7.fhir.r4.model.Coding
@@ -54,6 +55,7 @@ class DocumentGenerator : IPSDocumentGenerator {
 
     // Create a Composition resource to represent the IPS document
     val composition = Composition()
+    composition.id = UUID.randomUUID().toString()
     composition.type = CodeableConcept().apply {
       coding.add(Coding().apply {
         system = "http://loinc.org"
@@ -89,6 +91,8 @@ class DocumentGenerator : IPSDocumentGenerator {
         sections.add(section)
       }
     }
+    val (missingSections, missingResources) = docGenUtils.checkSections(sections)
+    sections.addAll(missingSections)
     composition.section = sections
 
     // Add the Composition to the bundle
@@ -97,6 +101,12 @@ class DocumentGenerator : IPSDocumentGenerator {
       fullUrl = "urn:uuid:${composition.idBase}"
     })
     for(res in selectedResources) {
+      bundle.addEntry(Bundle.BundleEntryComponent().apply {
+        resource = res
+        fullUrl = "urn:uuid:${res.idElement.idPart}"
+      })
+    }
+    for(res in missingResources) {
       bundle.addEntry(Bundle.BundleEntryComponent().apply {
         resource = res
         fullUrl = "urn:uuid:${res.idElement.idPart}"
