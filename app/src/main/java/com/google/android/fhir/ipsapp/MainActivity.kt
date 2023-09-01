@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         val generateQRButton = findViewById<Button>(R.id.generateQRButton)
         generateQRButton.setOnClickListener {
             val i = Intent(this@MainActivity, SelectIndividualResources::class.java)
-            // val i = Intent(this@MainActivity, CreatePasscode::class.java)
             startActivity(i)
         }
     }
