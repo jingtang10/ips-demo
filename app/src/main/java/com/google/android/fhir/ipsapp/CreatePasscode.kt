@@ -9,6 +9,7 @@ import android.widget.CheckBox
 import android.widget.DatePicker
 import android.widget.EditText
 import androidx.annotation.RequiresApi
+import com.google.android.fhir.library.IPSDocument
 import java.util.Calendar
 
 class CreatePasscode : Activity() {
@@ -21,7 +22,7 @@ class CreatePasscode : Activity() {
     val datePicker = findViewById<DatePicker>(R.id.datePicker)
     var expirationDate = ""
 
-    val codingList = intent.getStringArrayListExtra("codingList")
+    val ipsDoc = intent.getSerializableExtra("ipsDoc", IPSDocument::class.java)
 
     // Do I need to include time with this?
     val today: Calendar = Calendar.getInstance()
@@ -46,7 +47,7 @@ class CreatePasscode : Activity() {
       i.putExtra("expirationDate", expirationDate)
       i.putExtra("passcode", passcodeField)
       i.putExtra("label", labelField)
-      i.putStringArrayListExtra("codingList", codingList)
+      i.putExtra("ipsDoc", ipsDoc)
       startActivity(i)
     }
 

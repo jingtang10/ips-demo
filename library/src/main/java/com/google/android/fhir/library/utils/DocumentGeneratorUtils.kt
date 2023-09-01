@@ -94,7 +94,7 @@ class DocumentGeneratorUtils {
     return when (resource.resourceType) {
       ResourceType.AllergyIntolerance -> {
         val allergy = resource as AllergyIntolerance
-        when (allergy.clinicalStatus.coding[0].code) {
+        when (allergy.clinicalStatus.coding.firstOrNull()?.code) {
           "active" -> "Allergies and Intolerances"
           else -> "History of Past Illness"
         }
