@@ -112,6 +112,7 @@ class DocumentGenerator : IPSDocumentGenerator {
         fullUrl = "urn:uuid:${res.idElement.idPart}"
       })
     }
+    println(parser.encodeResourceToString(bundle))
     return IPSDocument(bundle)
   }
 
@@ -156,10 +157,10 @@ class DocumentGenerator : IPSDocumentGenerator {
             val displayValue = codingElement.display
 
             val checkBoxItem =
-              layoutInflater.inflate(com.google.android.fhir.library.R.layout.checkbox_item, containerLayout, false) as CheckBox
+              layoutInflater.inflate(R.layout.checkbox_item, containerLayout, false) as CheckBox
             checkBoxItem.text = displayValue
             containerLayout.addView(checkBoxItem)
-            checkboxTitleMap[displayValue] = title.toString()
+            checkboxTitleMap[displayValue] = title.name.toString()
             checkBoxes.add(checkBoxItem)
           }
         }

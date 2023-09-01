@@ -49,6 +49,8 @@ class GenerateSHL : Activity() {
 
     val ipsDoc = intent.getSerializableExtra("ipsDoc", IPSDocument::class.java)
 
+    println("generation ${parser.encodeResourceToString(ipsDoc?.document)}")
+
     val passcodeField = findViewById<TextView>(R.id.passcode)
     val expirationDateField = findViewById<TextView>(R.id.expirationDate)
     passcodeField.text = passcode
@@ -56,8 +58,6 @@ class GenerateSHL : Activity() {
 
     if (ipsDoc?.document != null) {
       generatePayload(passcode, labelData, expirationDate, arrayListOf(parser.encodeResourceToString(ipsDoc.document)))
-      val bundle = org.hl7.fhir.r4.model.Bundle()
-      bundle.type = org.hl7.fhir.r4.model.Bundle.BundleType.DOCUMENT
     }
   }
 
@@ -133,6 +133,7 @@ class GenerateSHL : Activity() {
         jsonArray.put(item)
         data = "$data\n\n $item"
       }
+      println("datttttttttaaaaa $data")
       generateShlUtils.postPayload(data, manifestUrl, key, managementToken)
     }
   }
