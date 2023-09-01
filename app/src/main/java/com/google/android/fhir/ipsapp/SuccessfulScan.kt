@@ -21,18 +21,23 @@ class SuccessfulScan : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.successfulscan)
 
+    // get shlData from previous activity and intialise the view model with it
     val shlData = intent.getParcelableExtra("shlData", SHLData::class.java)
-
     val viewModelFactory = SuccessfulScanViewModelFactory(shlData)
     viewModel = ViewModelProvider(this, viewModelFactory).get(SuccessfulScanViewModel::class.java)
 
+
+    viewModel.constructSHL()
+    // only display the passscode field if one is required
     val passcodeEditText = findViewById<EditText>(R.id.passcode)
     val hasPasscode = viewModel.hasPasscode(shlData)
-
+    println(shlData)
+    println("has passcode $hasPasscode")
     if (!hasPasscode) {
       passcodeEditText.visibility = View.INVISIBLE
     }
 
+    // when the button is pressed fetch the data using the user entered data
     val button = findViewById<Button>(R.id.getData)
     button.setOnClickListener {
       val recipientField = findViewById<EditText>(R.id.recipient).text.toString()

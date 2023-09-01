@@ -23,9 +23,6 @@ class GetData : AppCompatActivity() {
 
     val doc = intent.getSerializableExtra("doc", IPSDocument::class.java)
     textView.text = parser.encodeResourceToString(doc?.document)
-
-    println(doc.toString())
-    println(doc?.document.toString())
   }
 
 }

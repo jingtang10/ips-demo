@@ -1,13 +1,5 @@
 package com.example.ipsapp.fileExamples
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-import java.nio.file.Files
-import java.nio.file.Paths
-import kotlinx.coroutines.runBlocking
-import org.json.JSONObject
-import org.json.JSONStringer
-
 const val file = "{\n" +
   "  \"resourceType\" : \"Bundle\",\n" +
   "  \"id\" : \"bundle-minimal\",\n" +
@@ -454,3 +446,4 @@ const val file = "{\n" +
 
 
   val immunizationBundle: String = ClassLoader.getSystemResource("immunizationBundle.json").readText()
+val generated: String = ClassLoader.getSystemResource("generated.json").readText()

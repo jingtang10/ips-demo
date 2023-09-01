@@ -1,0 +1,182 @@
+{
+  "resourceType": "Bundle",
+  "type": "document",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:f9093a2c-9d69-471b-aa4a-d1c0cfb120c7",
+      "resource": {
+        "resourceType": "Composition",
+        "id": "f9093a2c-9d69-471b-aa4a-d1c0cfb120c7",
+        "status": "final",
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "60591-5",
+              "display": "Patient Summary Document"
+            }
+          ]
+        },
+        "date": "2023-09-01T10:58:39+01:00",
+        "author": [
+          {
+            "reference": "Practitioner/12345"
+          }
+        ],
+        "title": "Patient Summary",
+        "section": [
+          {
+            "title": "Medication",
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "10160-0",
+                  "display": "History of Medication"
+                }
+              ]
+            },
+            "text": {
+              "status": "generated"
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:8adc0999-9468-4ac9-9557-680fa133d626"
+              }
+            ]
+          },
+          {
+            "title": "History of Past Illness",
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "11450-4",
+                  "display": "Problem list Reported"
+                }
+              ]
+            },
+            "text": {
+              "status": "generated"
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:c4597aa2-688a-401b-a658-70acc6de28c6"
+              }
+            ]
+          },
+          {
+            "title": "Results",
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "30954-2",
+                  "display": "Test Results"
+                }
+              ]
+            },
+            "text": {
+              "status": "generated"
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:b4916505-a06b-460c-9be8-011609282457"
+              }
+            ]
+          },
+          {
+            "title": "History of Past Illness",
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48765-2",
+                  "display": "Allergies and adverse reactions Document"
+                }
+              ]
+            },
+            "text": {
+              "status": "generated"
+            },
+            "entry": [
+              {
+                "reference": "c01a5a96-8f8e-49c9-a1fe-6d0f3577f017"
+              }
+            ]
+          },
+          {
+            "title": "History of Past Illness",
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "11450-4",
+                  "display": "Problem list Reported"
+                }
+              ]
+            },
+            "text": {
+              "status": "generated"
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:c4597aa2-688a-401b-a658-70acc6de28c6"
+              },
+              {
+                "reference": "0d495867-b483-402d-bfea-c4754c3e6508"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:urn:uuid:8adc0999-9468-4ac9-9557-680fa133d626",
+      "resource": {
+        "resourceType": "Medication",
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Medication</b><a name=\"8adc0999-9468-4ac9-9557-680fa133d626\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Medication &quot;8adc0999-9468-4ac9-9557-680fa133d626&quot; </p></div><p><b>code</b>: Black Cohosh Extract herbal supplement <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#412588001 &quot;Cimicifuga racemosa extract (substance)&quot;; <a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-v3-WC.html\">WHO ATC</a>#G02CX04 &quot;Cimicifugae rhizoma&quot;)</span></p></div>"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "412588001",
+              "display": "Cimicifuga racemosa extract (substance)",
+              "_display": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/translation",
+                    "extension": [
+                      {
+                        "url": "lang",
+                        "valueCode": "nl-NL"
+                      },
+                      {
+                        "url": "content",
+                        "valueString": "Zwarte Cohosh Extract"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "system": "http://www.whocc.no/atc",
+              "code": "G02CX04",
+              "display": "Cimicifugae rhizoma"
+            }
+          ],
+          "text": "Black Cohosh Extract herbal supplement"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:urn:uuid:c4597aa2-688a-401b-a658-70acc6de28c6",
+      "resource": {
+        "resourceType": "Condition",
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Condition</b><a name=\"c4597aa2-688a-401b-a658-70acc6de28c6\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Condition &quot;c4597aa2-688a-401b-a658-70acc6de28c6&quot; </p></div><p><b>identifier</b>: id: 66d4a8c7-9081-43e0-a63f-489c2ae6edd6</p><p><b>clinicalStatus</b>: Remission <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-condition-clinical.html\">Condition Clinical Status Codes</a>#remission)</span></p><p><b>verificationStatus</b>: Confirmed <span style=\"background: LightGoldenRodYellow; margin: 4px;

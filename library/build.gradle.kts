@@ -52,6 +52,7 @@ dependencies {
 
   implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.8")
   implementation("com.nimbusds:nimbus-jose-jwt:9.31")
+  // implementation("ca.uhn.hapi.fhir:hapi-fhir-jpaserver-model:1.0.0")
 
   implementation("com.google.android.fhir:engine:0.1.0-beta03")
 }

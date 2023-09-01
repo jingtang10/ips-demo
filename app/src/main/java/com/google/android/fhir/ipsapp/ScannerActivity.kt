@@ -33,9 +33,9 @@ class ScannerActivity : AppCompatActivity() {
     )
   }
 
+  // Release scanner resources when the activity is destroyed
   override fun onDestroy() {
     super.onDestroy()
-    // Release scanner resources when the activity is destroyed
     scanner.release()
   }
 }

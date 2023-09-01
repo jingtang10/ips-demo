@@ -1,11 +1,11 @@
 package com.example.ipsapp
 
 import com.example.ipsapp.fileExamples.file
+import com.example.ipsapp.fileExamples.generated
 import com.example.ipsapp.fileExamples.immunizationBundle
 import com.example.ipsapp.utils.DocumentUtils
 import junit.framework.TestCase.assertEquals
 import org.hl7.fhir.r4.model.Resource
-import org.json.JSONObject
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -31,6 +31,12 @@ class DocumentTest {
   }
 
   @Test
+  fun getTitlesFromGeneratedDoc() {
+    val list = docUtils.getTitlesFromIpsDoc(generated)
+    assertEquals(3, list.size)
+  }
+
+  @Test
   fun mapCanBeCreatedWithDataForEachTitle() {
     val map = mutableMapOf<String, ArrayList<Resource>>()
     val list = docUtils.getTitlesFromIpsDoc(file)
@@ -46,6 +52,16 @@ class DocumentTest {
     val list = docUtils.getTitlesFromIpsDoc(immunizationBundle)
     for (item in list) {
       docUtils.getDataFromDoc(immunizationBundle, item, map)
+    }
+    println(map)
+  }
+
+  @Test
+  fun mapCanBeCreatedWithDataForEachTitleInGenerated() {
+    val map = mutableMapOf<String, ArrayList<Resource>>()
+    val list = docUtils.getTitlesFromIpsDoc(generated)
+    for (item in list) {
+      docUtils.getDataFromDoc(generated, item, map)
     }
     println(map)
   }

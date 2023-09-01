@@ -1,2 +1,8 @@
 com.google.android.fhir.library
 anim scanner_animation
+id checkBox
+id headingText
+id titleTextView
+layout checkbox_item
+layout heading_item
+layout item_title_checkbox

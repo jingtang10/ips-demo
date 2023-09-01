@@ -6,14 +6,15 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import ca.uhn.fhir.context.FhirContext
+import ca.uhn.fhir.context.FhirVersionEnum
 import com.example.ipsapp.utils.GenerateShlUtils
+import com.google.android.fhir.library.IPSDocument
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpPost
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.entity.StringEntity
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.CloseableHttpClient
@@ -35,8 +36,8 @@ import org.json.JSONObject
 class GenerateSHL : Activity() {
 
   private val generateShlUtils = GenerateShlUtils()
+  private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
 
-  @RequiresApi(Build.VERSION_CODES.O)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.view_shl)
@@ -44,20 +45,23 @@ class GenerateSHL : Activity() {
     val passcode:String = intent.getStringExtra("passcode").toString()
     val labelData:String = intent.getStringExtra("label").toString()
     val expirationDate:String = intent.getStringExtra("expirationDate").toString()
-    val codingList = intent.getStringArrayListExtra("codingList")
+    // val codingList = intent.getStringArrayListExtra("codingList")
+
+    val ipsDoc = intent.getSerializableExtra("ipsDoc", IPSDocument::class.java)
+
+    println("generation ${parser.encodeResourceToString(ipsDoc?.document)}")
 
     val passcodeField = findViewById<TextView>(R.id.passcode)
     val expirationDateField = findViewById<TextView>(R.id.expirationDate)
     passcodeField.text = passcode
     expirationDateField.text = expirationDate
 
-    if (codingList != null) {
-      generatePayload(passcode, labelData, expirationDate, codingList)
+    if (ipsDoc?.document != null) {
+      generatePayload(passcode, labelData, expirationDate, arrayListOf(parser.encodeResourceToString(ipsDoc.document)))
     }
   }
 
   @OptIn(DelicateCoroutinesApi::class)
-  @RequiresApi(Build.VERSION_CODES.O)
   fun generatePayload(passcode: String, labelData: String, expirationDate: String, codingList : ArrayList<String>) {
     val qrView = findViewById<ImageView>(R.id.qrCode)
 
@@ -129,11 +133,11 @@ class GenerateSHL : Activity() {
         jsonArray.put(item)
         data = "$data\n\n $item"
       }
+      println("datttttttttaaaaa $data")
       generateShlUtils.postPayload(data, manifestUrl, key, managementToken)
     }
   }
 
-  @RequiresApi(Build.VERSION_CODES.O)
   fun constructSHLinkPayload(
     manifestUrl: String,
     label: String?,
