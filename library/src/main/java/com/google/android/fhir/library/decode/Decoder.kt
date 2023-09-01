@@ -126,7 +126,7 @@ class Decoder(private val shlData: SHLData?) : SHLDecoder {
         }
       }
       // set the text view to the final outputted data
-      return Bundle()
+      return parser.parseResource(healthData) as Bundle
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
