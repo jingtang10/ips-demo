@@ -4,7 +4,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
-import com.example.ipsapp.utils.DocumentUtils
 import com.example.ipsapp.utils.ReadShlUtils
 import com.google.android.fhir.library.IPSDocument
 import com.google.android.fhir.library.SHLData
@@ -23,7 +22,6 @@ import org.json.JSONObject
 class Decoder(private val shlData: SHLData?) : SHLDecoder {
 
   private val readShlUtils = ReadShlUtils()
-  val docUtils = DocumentUtils()
   private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
 
   @RequiresApi(Build.VERSION_CODES.O)

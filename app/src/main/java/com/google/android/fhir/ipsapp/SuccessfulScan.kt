@@ -26,9 +26,13 @@ class SuccessfulScan : AppCompatActivity() {
     val viewModelFactory = SuccessfulScanViewModelFactory(shlData)
     viewModel = ViewModelProvider(this, viewModelFactory).get(SuccessfulScanViewModel::class.java)
 
+
+    viewModel.constructSHL()
     // only display the passscode field if one is required
     val passcodeEditText = findViewById<EditText>(R.id.passcode)
     val hasPasscode = viewModel.hasPasscode(shlData)
+    println(shlData)
+    println("has passcode $hasPasscode")
     if (!hasPasscode) {
       passcodeEditText.visibility = View.INVISIBLE
     }

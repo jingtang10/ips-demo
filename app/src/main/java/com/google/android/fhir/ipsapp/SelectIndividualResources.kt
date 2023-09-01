@@ -50,11 +50,15 @@ class SelectIndividualResources : Activity() {
           Pair(title, value)
         }
 
+      println(selectedCheckedValuesWithTitles)
+
       val outputArray = selectedCheckedValuesWithTitles.flatMap { (title, value) ->
         map[title]?.filter { obj ->
           obj.hasCode().first?.coding?.any { it.display == value } == true
         } ?: emptyList()
       }
+
+      println("output array $outputArray")
 
       // val outputArray = selectedCheckedValuesWithTitles.mapNotNull { (title, value) ->
       //   map[title]?.filter { obj ->

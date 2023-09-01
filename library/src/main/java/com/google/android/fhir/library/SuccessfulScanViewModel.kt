@@ -35,4 +35,9 @@ class SuccessfulScanViewModel(shlData: SHLData?) : ViewModel() {
   fun hasPasscode(shlData: SHLData?): Boolean {
     return decoder.hasPasscode()
   }
+
+  @RequiresApi(Build.VERSION_CODES.O)
+  fun constructSHL() {
+    decoder.constructShlObj()
+  }
 }
