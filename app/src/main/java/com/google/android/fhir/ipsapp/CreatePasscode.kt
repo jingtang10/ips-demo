@@ -3,12 +3,11 @@ package com.google.android.fhir.ipsapp
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.DatePicker
 import android.widget.EditText
-import com.google.android.fhir.library.SHLData
+import com.google.android.fhir.library.IPSDocument
 import java.util.Calendar
 
 class CreatePasscode : Activity() {
@@ -20,7 +19,7 @@ class CreatePasscode : Activity() {
     val datePicker = findViewById<DatePicker>(R.id.datePicker)
     var expirationDate = ""
 
-    val shlData = intent.getParcelableExtra("shlData", SHLData::class.java)
+    val ipsDoc = intent.getSerializableExtra("ipsDoc", IPSDocument::class.java)
 
     // Do I need to include time with this?
     val today: Calendar = Calendar.getInstance()
@@ -42,11 +41,10 @@ class CreatePasscode : Activity() {
       if (!checkboxDate.isChecked) {
         expirationDate = ""
       }
-      shlData?.exp = expirationDate
-      shlData?.label = labelField
-
+      i.putExtra("expirationDate", expirationDate)
       i.putExtra("passcode", passcodeField)
-      i.putExtra("shlData", shlData as Parcelable)
+      i.putExtra("label", labelField)
+      i.putExtra("ipsDoc", ipsDoc)
       startActivity(i)
     }
 
