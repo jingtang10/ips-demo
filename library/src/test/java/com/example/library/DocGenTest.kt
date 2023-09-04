@@ -309,7 +309,7 @@ class DocGenTest {
     "      }\n" +
     "    }"
 
-  val list = listOf<Resource>(parser.parseResource(res1) as Resource, parser.parseResource(res2) as Resource, parser.parseResource(res3) as Resource, parser.parseResource(res4) as Resource, parser.parseResource(res5) as Resource)
+  val list = listOf<Resource>(parser.parseResource(res1) as Resource, parser.parseResource(res2) as Resource, parser.parseResource(res3) as Resource, parser.parseResource(res3) as Resource, parser.parseResource(res5) as Resource)
   fun createSampleResources(): List<Resource> {
     val resources = mutableListOf<Resource>()
 
@@ -375,7 +375,6 @@ class DocGenTest {
     )
     resources.add(medication)
 
-    // Add more resources here as needed...
     return resources
   }
 

@@ -3,7 +3,6 @@ package com.google.android.fhir.library
 import android.content.Context
 import android.widget.CheckBox
 import android.widget.LinearLayout
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
@@ -18,7 +17,6 @@ class SelectIndividualResourcesViewModel : ViewModel() {
 
   val checkBoxes = mutableListOf<CheckBox>()
   val checkboxTitleMap = mutableMapOf<String, String>()
-  val selectedCheckedValuesWithTitles = MutableLiveData<List<Pair<String?, String>>>()
 
   fun initializeData(context: Context, containerLayout: LinearLayout) {
     val docUtils = DocumentUtils()
@@ -31,19 +29,14 @@ class SelectIndividualResourcesViewModel : ViewModel() {
     )
   }
 
-  fun onCheckBoxSelected() {
-    // Handle checkbox selection and update selectedCheckedValuesWithTitles
+  fun generateIPSDocument(): IPSDocument {
+    // Generate IPS document based on selected values
     val selectedValues = checkBoxes.filter { it.isChecked }.map { checkBox ->
       val title = checkboxTitleMap[checkBox.text.toString()]
       val value = checkBox.text.toString()
       Pair(title, value)
     }
-    selectedCheckedValuesWithTitles.value = selectedValues
-  }
 
-  fun generateIPSDocument(): IPSDocument {
-    // Generate IPS document based on selected values
-    val selectedValues = selectedCheckedValuesWithTitles.value ?: emptyList()
     val outputArray = selectedValues.flatMap { (title, value) ->
       map[title]?.filter { obj ->
         obj.hasCode().first?.coding?.any { it.display == value } == true

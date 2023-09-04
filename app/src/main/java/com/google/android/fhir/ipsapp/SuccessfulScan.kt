@@ -21,7 +21,7 @@ class SuccessfulScan : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.successfulscan)
 
-    // get shlData from previous activity and intialise the view model with it
+    // get shlData from previous activity and initialise the view model with it
     val shlData = intent.getParcelableExtra("shlData", SHLData::class.java)
     val viewModelFactory = SuccessfulScanViewModelFactory(shlData)
     viewModel = ViewModelProvider(this, viewModelFactory)[SuccessfulScanViewModel::class.java]
