@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
 import com.example.ipsapp.utils.GenerateShlUtils
-import com.google.android.fhir.library.SHLData
+import com.google.android.fhir.library.IPSDocument
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpPost
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.entity.StringEntity
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.CloseableHttpClient
@@ -42,20 +42,25 @@ class GenerateSHL : Activity() {
     setContentView(R.layout.view_shl)
 
     val passcode: String = intent.getStringExtra("passcode").toString()
+    val labelData: String = intent.getStringExtra("label").toString()
+    val expirationDate: String = intent.getStringExtra("expirationDate").toString()
+    // val codingList = intent.getStringArrayListExtra("codingList")
 
-    val shlData = intent.getParcelableExtra("shlData", SHLData::class.java)
+    val ipsDoc = intent.getSerializableExtra("ipsDoc", IPSDocument::class.java)
 
-    println("generation ${parser.encodeResourceToString(shlData?.ipsDoc?.document)}")
+    println("generation ${parser.encodeResourceToString(ipsDoc?.document)}")
 
     val passcodeField = findViewById<TextView>(R.id.passcode)
     val expirationDateField = findViewById<TextView>(R.id.expirationDate)
     passcodeField.text = passcode
-    expirationDateField.text = shlData?.exp
+    expirationDateField.text = expirationDate
 
-    if (shlData?.ipsDoc?.document != null) {
+    if (ipsDoc?.document != null) {
       generatePayload(
         passcode,
-        shlData
+        labelData,
+        expirationDate,
+        ipsDoc.document!!
       )
     }
   }
@@ -63,13 +68,13 @@ class GenerateSHL : Activity() {
   @OptIn(DelicateCoroutinesApi::class)
   fun generatePayload(
     passcode: String,
-    shlData: SHLData
+    labelData: String,
+    expirationDate: String,
+    bundle: org.hl7.fhir.r4.model.Bundle
   ) {
     val qrView = findViewById<ImageView>(R.id.qrCode)
 
     GlobalScope.launch(Dispatchers.IO) {
-      val expirationDate = shlData.exp!!
-      val labelData = shlData.label!!
       val httpClient: CloseableHttpClient = HttpClients.createDefault()
       val httpPost = HttpPost("https://api.vaxx.link/api/shl")
       httpPost.addHeader("Content-Type", "application/json")
@@ -110,9 +115,9 @@ class GenerateSHL : Activity() {
 
       val shLinkPayload = constructSHLinkPayload(manifestUrl, labelData, flags, key, exp)
 
-
+      // fix this link and put the logo in the middle
+      // probably don't need the viewer
       val shLink = "https://demo.vaxx.link/viewer#shlink:/${shLinkPayload}"
-
 
       val qrCodeBitmap = generateQRCode(this@GenerateSHL, shLink)
       if (qrCodeBitmap != null) {
@@ -122,7 +127,8 @@ class GenerateSHL : Activity() {
       }
       println(shLinkPayload)
 
-      val data = parser.encodeResourceToString(shlData.ipsDoc?.document)
+      var data = ""
+      data = parser.encodeResourceToString(bundle)
       generateShlUtils.postPayload(data, manifestUrl, key, managementToken)
     }
   }
