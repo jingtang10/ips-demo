@@ -31,8 +31,6 @@ class SuccessfulScan : AppCompatActivity() {
     // only display the passscode field if one is required
     val passcodeEditText = findViewById<EditText>(R.id.passcode)
     val hasPasscode = viewModel.hasPasscode()
-    println(shlData)
-    println("has passcode $hasPasscode")
     if (!hasPasscode) {
       passcodeEditText.visibility = View.INVISIBLE
     }
@@ -48,7 +46,11 @@ class SuccessfulScan : AppCompatActivity() {
     }
   }
 
-  private suspend fun fetchData(recipient: String, passcode: String, hasPasscode : Boolean) {
+  suspend fun fetchData(
+    recipient: String,
+    passcode: String,
+    hasPasscode: Boolean,
+  ) {
     val doc = if (hasPasscode) {
       viewModel.decodeSHLToDocument(recipient, passcode)
     } else {
@@ -59,4 +61,5 @@ class SuccessfulScan : AppCompatActivity() {
     i.putExtra("doc", doc as java.io.Serializable)
     startActivity(i)
   }
+
 }
