@@ -2,10 +2,10 @@ package com.google.android.fhir.ipsapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.SurfaceView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.fhir.library.scan.Scanner
+import java.io.Serializable
 
 class ScannerActivity : AppCompatActivity() {
 
@@ -22,7 +22,7 @@ class ScannerActivity : AppCompatActivity() {
     scanner.scan(callback = { shlData ->
       // Handle successful scan result
       val i = Intent(this@ScannerActivity, SuccessfulScan::class.java)
-      i.putExtra("shlData", shlData as Parcelable)
+      i.putExtra("shlData", shlData as Serializable)
       startActivity(i)
     }, failCallback = { error ->
       // Handle scan failure

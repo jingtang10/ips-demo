@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
 import com.google.android.fhir.library.R
+import com.google.android.fhir.library.SHLData
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpPost
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.entity.StringEntity
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.CloseableHttpClient
@@ -141,13 +142,13 @@ class GenerateShlUtils {
   @OptIn(DelicateCoroutinesApi::class)
   fun generatePayload(
     passcode: String,
-    labelData: String,
-    expirationDate: String,
-    bundle: org.hl7.fhir.r4.model.Bundle,
+    shlData: SHLData,
     qrView : ImageView,
     context: Context
   ) {
-
+    val expirationDate = shlData.exp!!
+    val labelData = shlData.label!!
+    val bundle = shlData.ipsDoc!!.document
     GlobalScope.launch(Dispatchers.IO) {
       val httpClient: CloseableHttpClient = HttpClients.createDefault()
       val httpPost = HttpPost("https://api.vaxx.link/api/shl")

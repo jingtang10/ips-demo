@@ -31,7 +31,8 @@ class SelectIndividualResources : AppCompatActivity() {
       val shlData = SHLData()
       shlData.ipsDoc = ipsDoc
       val i = Intent(this@SelectIndividualResources, CreatePasscode::class.java)
-      i.putExtra("ipsDoc", ipsDoc as Serializable)
+      i.putExtra("shlData", shlData as Serializable)
+
       startActivity(i)
     }
   }

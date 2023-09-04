@@ -7,7 +7,8 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.DatePicker
 import android.widget.EditText
-import com.google.android.fhir.library.IPSDocument
+import com.google.android.fhir.library.SHLData
+import java.io.Serializable
 import java.util.Calendar
 
 class CreatePasscode : Activity() {
@@ -18,8 +19,7 @@ class CreatePasscode : Activity() {
 
     val datePicker = findViewById<DatePicker>(R.id.datePicker)
     var expirationDate = ""
-
-    val ipsDoc = intent.getSerializableExtra("ipsDoc", IPSDocument::class.java)
+    val shlData = intent.getSerializableExtra("shlData", SHLData::class.java)
 
     // Do I need to include time with this?
     val today: Calendar = Calendar.getInstance()
@@ -37,14 +37,13 @@ class CreatePasscode : Activity() {
       val i = Intent(this@CreatePasscode, GenerateSHL::class.java)
 
       val passcodeField = findViewById<EditText>(R.id.passcode).text.toString()
-      val labelField = findViewById<EditText>(R.id.label).text.toString()
+      shlData?.label = findViewById<EditText>(R.id.label).text.toString()
       if (!checkboxDate.isChecked) {
         expirationDate = ""
       }
-      i.putExtra("expirationDate", expirationDate)
+      shlData?.exp = expirationDate
       i.putExtra("passcode", passcodeField)
-      i.putExtra("label", labelField)
-      i.putExtra("ipsDoc", ipsDoc)
+      i.putExtra("shlData", shlData as Serializable)
       startActivity(i)
     }
 

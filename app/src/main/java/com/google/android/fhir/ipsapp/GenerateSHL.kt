@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
 import com.example.ipsapp.utils.GenerateShlUtils
-import com.google.android.fhir.library.IPSDocument
+import com.google.android.fhir.library.SHLData
 
 
 class GenerateSHL : AppCompatActivity() {
@@ -19,23 +19,17 @@ class GenerateSHL : AppCompatActivity() {
     setContentView(R.layout.view_shl)
 
     val passcode: String = intent.getStringExtra("passcode").toString()
-    val labelData: String = intent.getStringExtra("label").toString()
-    val expirationDate: String = intent.getStringExtra("expirationDate").toString()
-    val ipsDoc = intent.getSerializableExtra("ipsDoc", IPSDocument::class.java)
-
-    println("generation ${parser.encodeResourceToString(ipsDoc?.document)}")
+    val shlData = intent.getSerializableExtra("shlData", SHLData::class.java)
 
     val passcodeField = findViewById<TextView>(R.id.passcode)
     val expirationDateField = findViewById<TextView>(R.id.expirationDate)
     passcodeField.text = passcode
-    expirationDateField.text = expirationDate
+    expirationDateField.text = shlData?.exp
 
-    if (ipsDoc?.document != null) {
+    if (shlData?.ipsDoc?.document != null) {
       generateShlUtils.generatePayload(
         passcode,
-        labelData,
-        expirationDate,
-        ipsDoc.document!!,
+        shlData,
         findViewById(R.id.qrCode),
         this
       )
