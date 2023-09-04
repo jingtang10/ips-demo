@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.fhir.library.SHLData
 import com.google.android.fhir.library.SelectIndividualResourcesViewModel
 import java.io.Serializable
 
@@ -27,6 +28,8 @@ class SelectIndividualResources : AppCompatActivity() {
     val submitButton = findViewById<Button>(R.id.goToCreatePasscode)
     submitButton.setOnClickListener {
       val ipsDoc = viewModel.generateIPSDocument()
+      val shlData = SHLData()
+      shlData.ipsDoc = ipsDoc
       val i = Intent(this@SelectIndividualResources, CreatePasscode::class.java)
       i.putExtra("ipsDoc", ipsDoc as Serializable)
       startActivity(i)

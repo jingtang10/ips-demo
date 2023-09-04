@@ -26,7 +26,7 @@ class Decoder(private val shlData: SHLData?) : SHLDecoder {
   @RequiresApi(Build.VERSION_CODES.O)
   override suspend fun decodeSHLToDocument(recipient: String): IPSDocument {
     constructShlObj()
-    val jsonData = "{\"recipient\":\"${recipient}\"}"
+    val jsonData = "{\"recipient\":\"${recipient}\", \"embeddedLengthMax\":10}"
     val bundle = postToServer(jsonData)
     return IPSDocument(bundle)
   }
@@ -68,27 +68,28 @@ class Decoder(private val shlData: SHLData?) : SHLDecoder {
 
     val jsonObject = JSONObject(responseBody)
 
-      // throw error when passcode wrong
-      val filesArray = jsonObject.getJSONArray("files")
+    // throw error when passcode wrong
+    val filesArray = jsonObject.getJSONArray("files")
 
-      // create a string array and add the 'embedded' data to it
-      // need to work out what to do when it has a location instead
-      val embeddedList = ArrayList<String>()
-      for (i in 0 until filesArray.length()) {
-        val fileObject = filesArray.getJSONObject(i)
-        if (fileObject.has("embedded")) {
-          val embeddedValue = fileObject.getString("embedded")
-          embeddedList.add(embeddedValue)
-        } else {
-          val loc = fileObject.getString("location")
-          readShlUtils.getRequest(loc)?.let { embeddedList.add(it) }
-        }
+    // create a string array and add the 'embedded' data to it
+    // need to work out what to do when it has a location instead
+    val embeddedList = ArrayList<String>()
+    for (i in 0 until filesArray.length()) {
+      val fileObject = filesArray.getJSONObject(i)
+      if (fileObject.has("embedded")) {
+        val embeddedValue = fileObject.getString("embedded")
+        embeddedList.add(embeddedValue)
+        println("embedded $embeddedValue")
+      } else {
+        val loc = fileObject.getString("location")
+        println("location $loc")
+        readShlUtils.getRequest(loc)?.let { embeddedList.add(it) }
       }
-      val embeddedArray = embeddedList.toTypedArray()
-      val bundle = decodeEmbeddedArray(embeddedArray)
-
-      return@coroutineScope bundle
     }
+    val embeddedArray = embeddedList.toTypedArray()
+
+    return@coroutineScope decodeEmbeddedArray(embeddedArray)
+  }
 
 
   @RequiresApi(Build.VERSION_CODES.O)
