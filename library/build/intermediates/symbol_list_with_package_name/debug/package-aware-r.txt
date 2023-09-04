@@ -1,5 +1,6 @@
 com.google.android.fhir.library
 anim scanner_animation
+drawable smart_logo
 id checkBox
 id headingText
 id titleTextView

@@ -42,6 +42,7 @@ android {
 dependencies {
 
   implementation("androidx.core:core-ktx:1.10.1")
+  implementation("com.google.zxing:core:3.4.1")
   implementation("androidx.appcompat:appcompat:1.6.1")
   implementation("com.google.android.material:material:1.9.0")
   implementation("com.google.android.gms:play-services-vision-common:19.1.3")
