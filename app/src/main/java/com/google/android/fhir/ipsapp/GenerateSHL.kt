@@ -43,7 +43,7 @@ class GenerateSHL : Activity() {
 
     val passcode: String = intent.getStringExtra("passcode").toString()
 
-    val shlData = intent.getSerializableExtra("shlData", SHLData::class.java)
+    val shlData = intent.getParcelableExtra("shlData", SHLData::class.java)
 
     println("generation ${parser.encodeResourceToString(shlData?.ipsDoc?.document)}")
 

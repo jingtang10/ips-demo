@@ -3,12 +3,12 @@ package com.google.android.fhir.ipsapp
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.DatePicker
 import android.widget.EditText
 import com.google.android.fhir.library.SHLData
-import java.io.Serializable
 import java.util.Calendar
 
 class CreatePasscode : Activity() {
@@ -20,7 +20,7 @@ class CreatePasscode : Activity() {
     val datePicker = findViewById<DatePicker>(R.id.datePicker)
     var expirationDate = ""
 
-    val shlData = intent.getSerializableExtra("shlData", SHLData::class.java)
+    val shlData = intent.getParcelableExtra("shlData", SHLData::class.java)
 
     // Do I need to include time with this?
     val today: Calendar = Calendar.getInstance()
@@ -46,7 +46,7 @@ class CreatePasscode : Activity() {
       shlData?.label = labelField
 
       i.putExtra("passcode", passcodeField)
-      i.putExtra("shlData", shlData as Serializable)
+      i.putExtra("shlData", shlData as Parcelable)
       startActivity(i)
     }
 
