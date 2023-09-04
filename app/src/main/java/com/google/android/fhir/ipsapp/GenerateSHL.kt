@@ -29,7 +29,6 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.json.JSONArray
 import org.json.JSONObject
 
 
@@ -61,7 +60,7 @@ class GenerateSHL : Activity() {
         passcode,
         labelData,
         expirationDate,
-        arrayListOf(parser.encodeResourceToString(ipsDoc.document))
+        ipsDoc.document!!
       )
     }
   }
@@ -71,7 +70,7 @@ class GenerateSHL : Activity() {
     passcode: String,
     labelData: String,
     expirationDate: String,
-    codingList: ArrayList<String>,
+    bundle: org.hl7.fhir.r4.model.Bundle
   ) {
     val qrView = findViewById<ImageView>(R.id.qrCode)
 
@@ -119,15 +118,6 @@ class GenerateSHL : Activity() {
       // fix this link and put the logo in the middle
       // probably don't need the viewer
       val shLink = "https://demo.vaxx.link/viewer#shlink:/${shLinkPayload}"
-      // val shLink = "shlink:/$shLinkPayload"
-
-      // val logoPath = "app/src/main/assets/smart-logo.png"
-      // val logoScale = 0.06
-
-      // val drawableResource = R.drawable.smart_logo
-      // val drawable = ContextCompat.getDrawable(this, drawableResource)
-
-      // if (drawable != null) {
 
       val qrCodeBitmap = generateQRCode(this@GenerateSHL, shLink)
       if (qrCodeBitmap != null) {
@@ -137,13 +127,8 @@ class GenerateSHL : Activity() {
       }
       println(shLinkPayload)
 
-      val jsonArray = JSONArray()
       var data = ""
-      for (item in codingList) {
-        jsonArray.put(item)
-        data = "$data\n\n $item"
-      }
-      println("datttttttttaaaaa $data")
+      data = parser.encodeResourceToString(bundle)
       generateShlUtils.postPayload(data, manifestUrl, key, managementToken)
     }
   }
