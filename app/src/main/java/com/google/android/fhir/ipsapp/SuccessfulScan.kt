@@ -41,25 +41,12 @@ class SuccessfulScan : AppCompatActivity() {
       val recipientField = findViewById<EditText>(R.id.recipient).text.toString()
       val passcodeField = passcodeEditText.text.toString()
       lifecycleScope.launch {
-        fetchData(recipientField, passcodeField, hasPasscode)
+        val doc = viewModel.fetchData(recipientField, passcodeField, hasPasscode)
+        val i = Intent(this@SuccessfulScan, GetData::class.java)
+        i.putExtra("doc", doc as java.io.Serializable)
+        startActivity(i)
       }
     }
-  }
-
-  suspend fun fetchData(
-    recipient: String,
-    passcode: String,
-    hasPasscode: Boolean,
-  ) {
-    val doc = if (hasPasscode) {
-      viewModel.decodeSHLToDocument(recipient, passcode)
-    } else {
-      viewModel.decodeSHLToDocument(recipient)
-    }
-    // Handle the IPSDocument data here
-    val i = Intent(this@SuccessfulScan, GetData::class.java)
-    i.putExtra("doc", doc as java.io.Serializable)
-    startActivity(i)
   }
 
 }

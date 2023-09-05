@@ -3,8 +3,6 @@ package com.google.android.fhir.ipsapp
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import ca.uhn.fhir.context.FhirContext
-import ca.uhn.fhir.context.FhirVersionEnum
 import com.example.ipsapp.utils.GenerateShlUtils
 import com.google.android.fhir.library.SHLData
 
@@ -12,7 +10,6 @@ import com.google.android.fhir.library.SHLData
 class GenerateSHL : AppCompatActivity() {
 
   private val generateShlUtils = GenerateShlUtils()
-  private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
