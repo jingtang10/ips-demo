@@ -91,14 +91,9 @@ class Decoder(private val shlData: SHLData?) : SHLDecoder {
     return@coroutineScope decodeEmbeddedArray(embeddedArray)
   }
 
-
   @RequiresApi(Build.VERSION_CODES.O)
   fun decodeEmbeddedArray(embeddedArray : Array<String>) : Bundle {
-    // now need to base64Url decode the thing in here to get the fhir resource
-    // go through each element of the responseBody and do this (somehow set different text views on the page to the data
-
       var healthData = ""
-      // may be worth putting this loop in decodeShc?
       for (elem in embeddedArray) {
         println("for loop")
         val decodedShc = shlData?.key?.let { readShlUtils.decodeShc(elem, it) }
