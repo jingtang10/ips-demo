@@ -20,7 +20,6 @@ class CreatePasscode : Activity() {
     val datePicker = findViewById<DatePicker>(R.id.datePicker)
     val shlData = intent.getSerializableExtra("shlData", SHLData::class.java)
 
-    // Do I need to include time with this?
     val today: Calendar = Calendar.getInstance()
     datePicker.minDate = today.timeInMillis
 

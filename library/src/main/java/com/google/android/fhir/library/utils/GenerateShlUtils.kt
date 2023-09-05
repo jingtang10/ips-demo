@@ -143,8 +143,8 @@ class GenerateShlUtils {
   fun generatePayload(
     passcode: String,
     shlData: SHLData,
-    qrView : ImageView,
-    context: Context
+    qrView: ImageView,
+    context: Context,
   ) {
     val expirationDate = shlData.exp!!
     val labelData = shlData.label!!
