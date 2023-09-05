@@ -18,7 +18,6 @@ class CreatePasscode : Activity() {
     setContentView(R.layout.create_passcode)
 
     val datePicker = findViewById<DatePicker>(R.id.datePicker)
-    var expirationDate = ""
     val shlData = intent.getSerializableExtra("shlData", SHLData::class.java)
 
     // Do I need to include time with this?
@@ -27,6 +26,8 @@ class CreatePasscode : Activity() {
 
     val submitResourcesButton = findViewById<Button>(R.id.generateSHL)
     val checkboxDate = findViewById<CheckBox>(R.id.checkboxDate)
+    val passcodeField = findViewById<EditText>(R.id.passcode)
+    val labelField = findViewById<EditText>(R.id.label)
 
     /*
      When the submit button is pressed, the state of the checkbox is checked, and the passcode
@@ -36,13 +37,17 @@ class CreatePasscode : Activity() {
     submitResourcesButton.setOnClickListener {
       val i = Intent(this@CreatePasscode, GenerateSHL::class.java)
 
-      val passcodeField = findViewById<EditText>(R.id.passcode).text.toString()
-      shlData?.label = findViewById<EditText>(R.id.label).text.toString()
-      if (!checkboxDate.isChecked) {
-        expirationDate = ""
+      val passcode = passcodeField.text.toString()
+      shlData?.label = labelField.text.toString()
+      shlData?.exp = if (checkboxDate.isChecked) {
+        val year = datePicker.year
+        val month = datePicker.month + 1
+        val dayOfMonth = datePicker.dayOfMonth
+        "$year-$month-$dayOfMonth"
+      } else {
+        ""
       }
-      shlData?.exp = expirationDate
-      i.putExtra("passcode", passcodeField)
+      i.putExtra("passcode", passcode)
       i.putExtra("shlData", shlData as Serializable)
       startActivity(i)
     }
@@ -51,11 +56,6 @@ class CreatePasscode : Activity() {
     datePicker.isEnabled = checkboxDate.isChecked
     checkboxDate.setOnCheckedChangeListener { _, isChecked ->
       datePicker.isEnabled = isChecked
-    }
-
-    // updates the variable to the selected date
-    datePicker.setOnDateChangedListener { _, year, monthOfYear, dayOfMonth ->
-      expirationDate = "$year-${monthOfYear + 1}-$dayOfMonth"
     }
   }
 }
