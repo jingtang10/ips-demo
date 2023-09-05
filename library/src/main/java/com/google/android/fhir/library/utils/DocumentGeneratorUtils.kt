@@ -47,7 +47,7 @@ class DocumentGeneratorUtils {
 
   private fun getResourceText(resource: Resource): Narrative {
     val narrative = Narrative()
-    narrative.statusAsString = "generated"
+    // narrative.statusAsString = "generated"
     return narrative
   }
 
