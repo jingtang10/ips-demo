@@ -28,11 +28,9 @@ class SelectIndividualResources : AppCompatActivity() {
     val submitButton = findViewById<Button>(R.id.goToCreatePasscode)
     submitButton.setOnClickListener {
       val ipsDoc = viewModel.generateIPSDocument()
-      val shlData = SHLData()
-      shlData.ipsDoc = ipsDoc
+      val shlData = SHLData(ipsDoc)
       val i = Intent(this@SelectIndividualResources, CreatePasscode::class.java)
       i.putExtra("shlData", shlData as Serializable)
-
       startActivity(i)
     }
   }
