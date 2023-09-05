@@ -1,5 +1,6 @@
 package com.google.android.fhir.ipsapp
 
+import android.content.ComponentName
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -9,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.fhir.library.SHLData
 import com.google.android.fhir.library.SelectIndividualResourcesViewModel
 import java.io.Serializable
-
 
 class SelectIndividualResources : AppCompatActivity() {
 
@@ -29,7 +29,8 @@ class SelectIndividualResources : AppCompatActivity() {
     submitButton.setOnClickListener {
       val ipsDoc = viewModel.generateIPSDocument()
       val shlData = SHLData(ipsDoc)
-      val i = Intent(this@SelectIndividualResources, CreatePasscode::class.java)
+      val i = Intent()
+      i.component = ComponentName(this@SelectIndividualResources, CreatePasscode::class.java)
       i.putExtra("shlData", shlData as Serializable)
       startActivity(i)
     }

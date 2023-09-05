@@ -1,5 +1,6 @@
 package com.google.android.fhir.ipsapp
 
+import android.content.ComponentName
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -42,7 +43,8 @@ class SuccessfulScan : AppCompatActivity() {
       val passcodeField = passcodeEditText.text.toString()
       lifecycleScope.launch {
         val doc = viewModel.fetchData(recipientField, passcodeField, hasPasscode)
-        val i = Intent(this@SuccessfulScan, GetData::class.java)
+        val i = Intent()
+        i.component = ComponentName(this@SuccessfulScan, GetData::class.java)
         i.putExtra("doc", doc as java.io.Serializable)
         startActivity(i)
       }
