@@ -6,24 +6,15 @@ import ca.uhn.fhir.context.FhirVersionEnum
 import org.hl7.fhir.r4.model.AllergyIntolerance
 import org.hl7.fhir.r4.model.Bundle
 import org.hl7.fhir.r4.model.CodeableConcept
-import org.hl7.fhir.r4.model.Composition
 import org.hl7.fhir.r4.model.Condition
 import org.hl7.fhir.r4.model.Immunization
 import org.hl7.fhir.r4.model.Medication
 import org.hl7.fhir.r4.model.Observation
 import org.hl7.fhir.r4.model.Resource
-import org.hl7.fhir.r4.model.ResourceType
 
 class DocumentUtils {
 
   private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
-
-  fun getTitlesFromIpsDoc(doc: String): List<String> {
-    val bundle = parser.parseResource(doc) as Bundle
-    val composition =
-      bundle.entry.firstOrNull { it.resource.resourceType == ResourceType.Composition }?.resource as Composition
-    return composition.section.map { it.title }
-  }
 
   fun getDataFromDoc(
     doc: String,

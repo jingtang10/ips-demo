@@ -5,7 +5,6 @@ import java.io.Serializable
 data class SHLData(
                   var fullLink : String?,
                   var shl : String?,
-                  // var qrBitmap : Bitmap?,
                   var manifestUrl : String?,
                   var key : String?,
                   var label : String?,

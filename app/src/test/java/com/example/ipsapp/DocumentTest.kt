@@ -24,27 +24,27 @@ class DocumentTest {
     assertEquals(3, list.size)
   }
 
-  @Test
-  fun getTitlesFromImmunizationBundle() {
-    val list = docUtils.getTitlesFromIpsDoc(immunizationBundle)
-    println(list)
-  }
-
-  @Test
-  fun getTitlesFromGeneratedDoc() {
-    val list = docUtils.getTitlesFromIpsDoc(generated)
-    assertEquals(3, list.size)
-  }
-
-  @Test
-  fun mapCanBeCreatedWithDataForEachTitle() {
-    val map = mutableMapOf<String, ArrayList<Resource>>()
-    val list = docUtils.getTitlesFromIpsDoc(file)
-    for (item in list) {
-      docUtils.getDataFromDoc(file, item, map)
-    }
-    println(map)
-  }
+  // @Test
+  // fun getTitlesFromImmunizationBundle() {
+  //   val list = docUtils.getTitlesFromIpsDoc(immunizationBundle)
+  //   println(list)
+  // }
+  //
+  // @Test
+  // fun getTitlesFromGeneratedDoc() {
+  //   val list = docUtils.getTitlesFromIpsDoc(generated)
+  //   assertEquals(3, list.size)
+  // }
+  //
+  // @Test
+  // fun mapCanBeCreatedWithDataForEachTitle() {
+  //   val map = mutableMapOf<String, ArrayList<Resource>>()
+  //   val list = docUtils.getTitlesFromIpsDoc(file)
+  //   for (item in list) {
+  //     docUtils.getDataFromDoc(file, item, map)
+  //   }
+  //   println(map)
+  // }
 
   @Test
   fun mapCanBeCreatedWithDataForEachTitleInImmunization() {

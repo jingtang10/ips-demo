@@ -75,12 +75,11 @@ class DocumentGenerator : IPSDocumentGenerator {
       // Check if a section with the same title already exists
       val existingSection = sections.find { it.title == title }
 
+      // Replace the existing section with the new one
       if (existingSection != null) {
-        // Replace the existing section with the new one
         sections.remove(existingSection)
         sections.add(section)
       } else {
-        // Add the new section to the list
         sections.add(section)
       }
     }
@@ -138,10 +137,8 @@ class DocumentGenerator : IPSDocumentGenerator {
         containerLayout.addView(headingView)
 
         map += docUtils.getDataFromDoc(parser.encodeResourceToString(bundle.document), title.name!!, map)
-        println("THIS IS THE MAP AFTER A FUNCTION $map")
 
         val resources = map[title.name]
-
         resources?.forEach { obj ->
           val code = obj.hasCode()
           val codingArray = code.first?.coding ?: emptyList()

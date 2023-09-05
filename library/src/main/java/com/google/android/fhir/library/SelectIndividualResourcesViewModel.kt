@@ -21,11 +21,11 @@ class SelectIndividualResourcesViewModel : ViewModel() {
   fun initializeData(context: Context, containerLayout: LinearLayout) {
     val docUtils = DocumentUtils()
     val doc = docUtils.readFileFromAssets(context, "immunizationBundle.json")
-    val bundle = IPSDocument(parser.parseResource(doc) as org.hl7.fhir.r4.model.Bundle)
-    bundle.titles = ArrayList(docUtils.getTitlesFromIpsDoc(doc).map { Title(it) })
+    val ipsDoc = IPSDocument(parser.parseResource(doc) as org.hl7.fhir.r4.model.Bundle)
+    ipsDoc.titles = ArrayList(documentGenerator.getTitlesFromDoc(ipsDoc))
 
     documentGenerator.displayOptions(
-      context, bundle, checkBoxes, checkboxTitleMap, containerLayout, map
+      context, ipsDoc, checkBoxes, checkboxTitleMap, containerLayout, map
     )
   }
 
