@@ -1,6 +1,7 @@
 R_DEF: Internal format may change without notice
 local
 anim scanner_animation
+drawable smart_logo
 id checkBox
 id headingText
 id titleTextView

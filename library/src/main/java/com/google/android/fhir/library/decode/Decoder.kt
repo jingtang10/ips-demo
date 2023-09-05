@@ -14,7 +14,6 @@ import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.cli
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.impl.client.HttpClients
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.util.EntityUtils
 import java.nio.charset.StandardCharsets
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.coroutineScope
 import org.hl7.fhir.r4.model.Bundle
 import org.json.JSONObject
@@ -54,7 +53,6 @@ class Decoder(private val shlData: SHLData?) : SHLDecoder {
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
-  @OptIn(DelicateCoroutinesApi::class)
   private suspend fun postToServer(jsonData: String): Bundle = coroutineScope {
     val httpClient: CloseableHttpClient = HttpClients.createDefault()
     val httpPost = HttpPost(shlData?.manifestUrl)
@@ -70,27 +68,28 @@ class Decoder(private val shlData: SHLData?) : SHLDecoder {
 
     val jsonObject = JSONObject(responseBody)
 
-      // throw error when passcode wrong
-      val filesArray = jsonObject.getJSONArray("files")
+    // throw error when passcode wrong
+    val filesArray = jsonObject.getJSONArray("files")
 
-      // create a string array and add the 'embedded' data to it
-      // need to work out what to do when it has a location instead
-      val embeddedList = ArrayList<String>()
-      for (i in 0 until filesArray.length()) {
-        val fileObject = filesArray.getJSONObject(i)
-        if (fileObject.has("embedded")) {
-          val embeddedValue = fileObject.getString("embedded")
-          embeddedList.add(embeddedValue)
-        } else {
-          val loc = fileObject.getString("location")
-          readShlUtils.getRequest(loc)?.let { embeddedList.add(it) }
-        }
+    // create a string array and add the 'embedded' data to it
+    // need to work out what to do when it has a location instead
+    val embeddedList = ArrayList<String>()
+    for (i in 0 until filesArray.length()) {
+      val fileObject = filesArray.getJSONObject(i)
+      if (fileObject.has("embedded")) {
+        val embeddedValue = fileObject.getString("embedded")
+        embeddedList.add(embeddedValue)
+        println("embedded $embeddedValue")
+      } else {
+        val loc = fileObject.getString("location")
+        println("location $loc")
+        readShlUtils.getRequest(loc)?.let { embeddedList.add(it) }
       }
-      val embeddedArray = embeddedList.toTypedArray()
-      val bundle = decodeEmbeddedArray(embeddedArray)
-
-      return@coroutineScope bundle
     }
+    val embeddedArray = embeddedList.toTypedArray()
+
+    return@coroutineScope decodeEmbeddedArray(embeddedArray)
+  }
 
 
   @RequiresApi(Build.VERSION_CODES.O)

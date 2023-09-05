@@ -1,1117 +1,3646 @@
 {
-  "resourceType" : "Bundle",
-  "id" : "IPS-examples-Bundle-with-immunization",
-  "language" : "en-GB",
-  "identifier" : {
-    "system" : "urn:oid:2.16.724.4.8.10.200.10",
-    "value" : "175bd032-8b00-4728-b2dc-748bb1501aed"
+  "resourceType": "Bundle",
+  "id": "NZ-IPS-20230902221950",
+  "language": "en-NZ",
+  "identifier": {
+    "system": "urn:oid:2.16.724.4.8.10.200.10",
+    "value": "472fb8a3-b58b-4b24-bdd1-e655fe66c3fe"
   },
-  "type" : "document",
-  "timestamp" : "2017-12-11T14:30:00+01:00",
-  "entry" : [{
-    "fullUrl" : "urn:uuid:30551ce1-5a28-4356-b684-1e639094ad4d",
-    "resource" : {
-      "resourceType" : "Composition",
-      "id" : "30551ce1-5a28-4356-b684-1e639094ad4d",
-      "text" : {
-        "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative</b></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource &quot;30551ce1-5a28-4356-b684-1e639094ad4d&quot; </p></div><p><b>identifier</b>: id: 3f69e0a5-2177-4540-baab-7a5d0877428f</p><p><b>status</b>: final</p><p><b>type</b>: Patient summary Document <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#60591-5)</span></p><p><b>date</b>: 2017-12-11 02:30:00+0100</p><p><b>author</b>: Beetje van Hulp, MD</p><p><b>title</b>: Patient Summary as of December 11, 2017 14:30</p><p><b>confidentiality</b>: N</p><blockquote><p><b>attester</b></p><p><b>mode</b>: legal</p><p><b>time</b>: 2017-12-11 02:30:00+0100</p><p><b>party</b>: Beetje van Hulp, MD</p></blockquote><blockquote><p><b>attester</b></p><p><b>mode</b>: legal</p><p><b>time</b>: 2017-12-11 02:30:00+0100</p><p><b>party</b>: Anorg Aniza Tion BV</p></blockquote><p><b>custodian</b>: Anorg Aniza Tion BV</p><h3>RelatesTos</h3><table class=\"grid\"><tr><td>-</td><td><b>Code</b></td><td><b>Target[x]</b></td></tr><tr><td>*</td><td>appends</td><td>id: c2277753-9f90-4a95-8ddb-a0b3f6e7d292</td></tr></table><h3>Events</h3><table class=\"grid\"><tr><td>-</td><td><b>Code</b></td><td><b>Period</b></td></tr><tr><td>*</td><td>care provision <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/3.1.0/CodeSystem-v3-ActClass.html\">ActClass</a>#PCPR)</span></td><td>?? --&gt; 2017-12-11 02:30:00+0100</td></tr></table></div>"
-      },
-      "identifier" : {
-        "system" : "urn:oid:2.16.724.4.8.10.200.10",
-        "value" : "3f69e0a5-2177-4540-baab-7a5d0877428f"
-      },
-      "status" : "final",
-      "type" : {
-        "coding" : [{
-          "system" : "http://loinc.org",
-          "code" : "60591-5",
-          "display" : "Patient summary Document"
-        }]
-      },
-      "subject" : {
-        "reference" : "Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8"
-      },
-      "date" : "2017-12-11T14:30:00+01:00",
-      "author" : [{
-        "reference" : "Practitioner/1c616b24-3895-48c4-9a02-9a64110351ef"
-      }],
-      "title" : "Patient Summary as of December 11, 2017 14:30",
-      "confidentiality" : "N",
-      "attester" : [{
-        "mode" : "legal",
-        "time" : "2017-12-11T14:30:00+01:00",
-        "party" : {
-          "reference" : "Practitioner/1c616b24-3895-48c4-9a02-9a64110351ef"
-        }
-      },
-      {
-        "mode" : "legal",
-        "time" : "2017-12-11T14:30:00+01:00",
-        "party" : {
-          "reference" : "Organization/890751f4-2924-4636-bab7-efffc7f3cf15"
-        }
-      }],
-      "custodian" : {
-        "reference" : "Organization/890751f4-2924-4636-bab7-efffc7f3cf15"
-      },
-      "relatesTo" : [{
-        "code" : "appends",
-        "targetIdentifier" : {
-          "system" : "urn:oid:2.16.724.4.8.10.200.10",
-          "value" : "c2277753-9f90-4a95-8ddb-a0b3f6e7d292"
-        }
-      }],
-      "event" : [{
-        "code" : [{
-          "coding" : [{
-            "system" : "http://terminology.hl7.org/CodeSystem/v3-ActClass",
-            "code" : "PCPR"
-          }]
-        }],
-        "period" : {
-          "end" : "2017-12-11T14:30:00+01:00"
-        }
-      }],
-      "section" : [{
-        "title" : "Active Problems",
-        "code" : {
-          "coding" : [{
-            "system" : "http://loinc.org",
-            "code" : "11450-4",
-            "display" : "Problem list Reported"
-          }]
+  "type": "document",
+  "timestamp": "2023-09-02T22:19:50.7621481+00:00",
+  "entry": [
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Composition/cb1d2a97-c13f-45b3-81e3-76b43fa70446",
+      "resource": {
+        "resourceType": "Composition",
+        "id": "cb1d2a97-c13f-45b3-81e3-76b43fa70446",
+        "meta": {
+          "versionId": "1"
         },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\">Hot flushes</div>"
+        "language": "en-NZ",
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns='http://www.w3.org/1999/xhtml' lang='en-NZ' xml:lang='en-NZ'>International Patient Summary for PETER KEITH JONES</div>"
         },
-        "entry" : [{
-          "reference" : "Condition/c64139e7-f02d-409c-bf34-75e8bf23bc80"
-        }]
-      },
-      {
-        "title" : "Medication",
-        "code" : {
-          "coding" : [{
-            "system" : "http://loinc.org",
-            "code" : "10160-0",
-            "display" : "History of Medication use Narrative"
-          }]
+        "identifier": {
+          "system": "urn:oid:2.16.840.1.113883.2.18.7.2",
+          "value": "472fb8a3-b58b-4b24-bdd1-e655fe66c3fe"
         },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\">\n\t\t\t\t\t\t\t<table>\n\t\t\t\t\t\t\t\t<thead>\n\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t<th>Medication</th>\n\t\t\t\t\t\t\t\t\t\t<th>Strength</th>\n\t\t\t\t\t\t\t\t\t\t<th>Form</th>\n\t\t\t\t\t\t\t\t\t\t<th>Dosage</th>\n\t\t\t\t\t\t\t\t\t\t<th>Comment</th>\n\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t</thead>\n\t\t\t\t\t\t\t\t<tbody>\n\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t<td>Anastrozole</td>\n\t\t\t\t\t\t\t\t\t\t<td>1 mg</td>\n\t\t\t\t\t\t\t\t\t\t<td>tablet</td>\n\t\t\t\t\t\t\t\t\t\t<td>once daily</td>\n\t\t\t\t\t\t\t\t\t\t<td>treatment for breast cancer</td>\n\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t<td>Black Cohosh Extract</td>\n\t\t\t\t\t\t\t\t\t\t<td> </td>\n\t\t\t\t\t\t\t\t\t\t<td>pil</td>\n\t\t\t\t\t\t\t\t\t\t<td> </td>\n\t\t\t\t\t\t\t\t\t\t<td>herbal supplement</td>\n\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t</tbody>\n\t\t\t\t\t\t\t</table>\n\t\t\t\t\t\t</div>"
+        "status": "final",
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "60591-5",
+              "display": "Patient summary Document"
+            }
+          ]
         },
-        "entry" : [{
-          "reference" : "MedicationStatement/c220e36c-eb67-4fc4-9ba1-2fabc52acec6"
+        "subject": {
+          "reference": "Patient/NNJ9186"
         },
-        {
-          "reference" : "MedicationStatement/47524493-846a-4a26-bae2-4ab03e60f02e"
-        }]
-      },
-      {
-        "title" : "Allergies and Intolerances",
-        "code" : {
-          "coding" : [{
-            "system" : "http://loinc.org",
-            "code" : "48765-2",
-            "display" : "Allergies and adverse reactions Document"
-          }]
+        "date": "2023-04-28",
+        "author": [
+          {
+            "reference": "Organization/54fbf766-7d0a-4b30-8abc-b62f3206c494"
+          }
+        ],
+        "title": "International Patient Summary",
+        "confidentiality": "N",
+        "attester": [
+          {
+            "mode": "professional",
+            "time": "2023-04-28",
+            "party": {
+              "reference": "PractitionerRole/d1fcc57e-43ad-4318-b0b8-9d7a994272f9"
+            }
+          }
+        ],
+        "custodian": {
+          "reference": "Organization/be5fc70e-210a-4648-85a8-ffc26d175c4d"
         },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\">Allergy to penicillin, high criticality, active\n\t\t\t\t\t\t\tNo known food allergies\n\t\t\t\t\t\t</div>"
-        },
-        "entry" : [{
-          "reference" : "AllergyIntolerance/72884cad-ebe6-4f43-a51a-2f978275f132"
-        },
-        {
-          "reference" : "AllergyIntolerance/c7781f44-6df8-4a8b-9e06-0b34263a47c5"
-        }]
-      },
-      {
-        "title" : "History of Past Illness",
-        "code" : {
-          "coding" : [{
-            "system" : "http://loinc.org",
-            "code" : "11348-0",
-            "display" : "Hx of Past illness"
-          }]
-        },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\">Breast cancer Stage II with no evidence of recurrence following treatment</div>"
-        },
-        "entry" : [{
-          "reference" : "Condition/c4597aa2-688a-401b-a658-70acc6de28c6"
-        }]
-      },
-      {
-        "title" : "Plan of Treatment",
-        "code" : {
-          "coding" : [{
-            "system" : "http://loinc.org",
-            "code" : "18776-5",
-            "display" : "Plan of care note"
-          }]
-        },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\">Continue hormone medication with Anastrozole for total of 5 years and monitor for potential breast cancer recurrence</div>"
-        }
-      },
-      {
-        "title" : "Results",
-        "code" : {
-          "coding" : [{
-            "system" : "http://loinc.org",
-            "code" : "30954-2",
-            "display" : "Relevant diagnostic tests/laboratory data Narrative"
-          }]
-        },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\">\n\t\t\t\t\t\t\t<table>\n\t\t\t\t\t\t\t\t<thead>\n\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t<th colspan=\"3\">Blood typing</th>\n\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t</thead>\n\t\t\t\t\t\t\t\t<tbody>\n\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t<td>Blood group</td>\n\t\t\t\t\t\t\t\t\t\t<td>A+</td>\n\t\t\t\t\t\t\t\t\t\t<td/>\n\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t<td>C Ab [Presence] in Serum or Plasma</td>\n\t\t\t\t\t\t\t\t\t\t<td>Positive</td>\n\t\t\t\t\t\t\t\t\t\t<td/>\n\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t<td>E Ab [Presence] in Serum or Plasma</td>\n\t\t\t\t\t\t\t\t\t\t<td>Positive</td>\n\t\t\t\t\t\t\t\t\t\t<td/>\n\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t<td>Little c Ab [Presence] in Serum or Plasma</td>\n\t\t\t\t\t\t\t\t\t\t<td>Negative</td>\n\t\t\t\t\t\t\t\t\t\t<td/>\n\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t</tbody>\n\t\t\t\t\t\t\t</table>\n\t\t\t\t\t\t\t<table>\n\t\t\t\t\t\t\t\t<thead>\n\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t<th colspan=\"3\">Hemoglobin A1c monitoring</th>\n\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t</thead>\n\t\t\t\t\t\t\t\t<tbody>\n\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t<td>Hemoglobin A1c/Hemoglobin.total in Blood by HPLC</td>\n\t\t\t\t\t\t\t\t\t\t<td>7.5 %</td>\n\t\t\t\t\t\t\t\t\t\t<td/>\n\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t</tbody>\n\t\t\t\t\t\t\t</table>\n\t\t\t\t\t\t\t<table>\n\t\t\t\t\t\t\t\t<thead>\n\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t<th colspan=\"3\">Bacteriology</th>\n\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t</thead>\n\t\t\t\t\t\t\t\t<tbody>\n\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t<td colspan=\"3\">Methicillin resistant Staphylococcus aureus</td>\n\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t<td colspan=\"3\">Healthy carrier of MRSA</td>\n\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t</tbody>\n\t\t\t\t\t\t\t</table>\n\t\t\t\t\t\t</div>"
-        },
-        "entry" : [{
-          "reference" : "Observation/2639657a-c19a-48e2-82cc-471e13b8ad94"
-        },
-        {
-          "reference" : "Observation/cc354e00-a419-47ea-8b6c-1768b2a01646"
-        },
-        {
-          "reference" : "Observation/26bee0a9-5997-4557-ab9d-c6adbb05b572"
-        }]
-      },
-      {
-        "title" : "Immunizations",
-        "code" : {
-          "coding" : [{
-            "system" : "http://loinc.org",
-            "code" : "11369-6",
-            "display" : "History of Immunization Narrative"
-          }]
-        },
-        "text" : {
-          "status" : "generated",
-          "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"fr-LU\" lang=\"fr-LU\">\n\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t<b>Marie Lux-Brennard</b>\n\t\t\t\t\t\t\t(Apr 17, 1998)\n\t\t\t\t\t\t</p>\n\t\t\t\t\t\t<p>Vaccin anti diphtérie-coqueluche-tétanos-poliomyélite, Jun 3, 1998, 10:00:00 PM</p>\n\t\t\t\t\t\t<p>Voie intramusculaire, Cuisse droite</p>\n\t\t\t\t\t</div>"
-        },
-        "entry" : [{
-          "reference" : "Immunization/40b7b6a0-c043-423a-9959-be3707e728b2"
-        }]
-      }]
-    }
-  },
-  {
-    "fullUrl" : "urn:uuid:2b90dd2b-2dab-4c75-9bb9-a355e07401e8",
-    "resource" : {
-      "resourceType" : "Patient",
-      "id" : "2b90dd2b-2dab-4c75-9bb9-a355e07401e8",
-      "text" : {
-        "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Patient</b><a name=\"2b90dd2b-2dab-4c75-9bb9-a355e07401e8\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Patient &quot;2b90dd2b-2dab-4c75-9bb9-a355e07401e8&quot; </p></div><p><b>identifier</b>: id: 574687583</p><p><b>active</b>: true</p><p><b>name</b>: Martha DeLarosa </p><p><b>telecom</b>: <a href=\"tel:+31788700800\">+31788700800</a></p><p><b>gender</b>: female</p><p><b>birthDate</b>: 1972-05-01</p><p><b>address</b>: Laan Van Europa 1600 Dordrecht 3317 DB NL </p><h3>Contacts</h3><table class=\"grid\"><tr><td>-</td><td><b>Relationship</b></td><td><b>Name</b></td><td><b>Telecom</b></td><td><b>Address</b></td></tr><tr><td>*</td><td>mother <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-v3-RoleCode.html\">RoleCode</a>#MTH)</span></td><td>Martha Mum </td><td><a href=\"tel:+33-555-20036\">+33-555-20036</a></td><td>Promenade des Anglais 111 Lyon 69001 FR </td></tr></table></div>"
-      },
-      "identifier" : [{
-        "system" : "urn:oid:2.16.840.1.113883.2.4.6.3",
-        "value" : "574687583"
-      }],
-      "active" : true,
-      "name" : [{
-        "family" : "DeLarosa",
-        "given" : ["Martha"]
-      }],
-      "telecom" : [{
-        "system" : "phone",
-        "value" : "+31788700800",
-        "use" : "home"
-      }],
-      "gender" : "female",
-      "birthDate" : "1972-05-01",
-      "address" : [{
-        "line" : ["Laan Van Europa 1600"],
-        "city" : "Dordrecht",
-        "postalCode" : "3317 DB",
-        "country" : "NL"
-      }],
-      "contact" : [{
-        "relationship" : [{
-          "coding" : [{
-            "system" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
-            "code" : "MTH"
-          }]
-        }],
-        "name" : {
-          "family" : "Mum",
-          "given" : ["Martha"]
-        },
-        "telecom" : [{
-          "system" : "phone",
-          "value" : "+33-555-20036",
-          "use" : "home"
-        }],
-        "address" : {
-          "line" : ["Promenade des Anglais 111"],
-          "city" : "Lyon",
-          "postalCode" : "69001",
-          "country" : "FR"
-        }
-      }]
-    }
-  },
-  {
-    "fullUrl" : "urn:uuid:1c616b24-3895-48c4-9a02-9a64110351ef",
-    "resource" : {
-      "resourceType" : "Practitioner",
-      "id" : "1c616b24-3895-48c4-9a02-9a64110351ef",
-      "text" : {
-        "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Practitioner</b><a name=\"1c616b24-3895-48c4-9a02-9a64110351ef\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Practitioner &quot;1c616b24-3895-48c4-9a02-9a64110351ef&quot; </p></div><p><b>identifier</b>: id: 129854633</p><p><b>active</b>: true</p><p><b>name</b>: Beetje van Hulp </p><h3>Qualifications</h3><table class=\"grid\"><tr><td>-</td><td><b>Code</b></td></tr><tr><td>*</td><td>Doctor of Medicine <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (v2-0360|2.7#MD)</span></td></tr></table></div>"
-      },
-      "identifier" : [{
-        "system" : "urn:oid:2.16.528.1.1007.3.1",
-        "value" : "129854633",
-        "assigner" : {
-          "display" : "CIBG"
-        }
-      }],
-      "active" : true,
-      "name" : [{
-        "family" : "van Hulp",
-        "given" : ["Beetje"]
-      }],
-      "qualification" : [{
-        "code" : {
-          "coding" : [{
-            "system" : "http://terminology.hl7.org/CodeSystem/v2-0360|2.7",
-            "code" : "MD",
-            "display" : "Doctor of Medicine"
-          }]
-        }
-      }]
-    }
-  },
-  {
-    "fullUrl" : "urn:uuid:890751f4-2924-4636-bab7-efffc7f3cf15",
-    "resource" : {
-      "resourceType" : "Organization",
-      "id" : "890751f4-2924-4636-bab7-efffc7f3cf15",
-      "text" : {
-        "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Organization</b><a name=\"890751f4-2924-4636-bab7-efffc7f3cf15\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Organization &quot;890751f4-2924-4636-bab7-efffc7f3cf15&quot; </p></div><p><b>identifier</b>: id: 564738757</p><p><b>active</b>: true</p><p><b>name</b>: Anorg Aniza Tion BV / The best custodian ever</p><p><b>telecom</b>: <a href=\"tel:+31-51-34343400\">+31-51-34343400</a></p><p><b>address</b>: Houttuinen 27 Dordrecht 3311 CE NL (WORK)</p></div>"
-      },
-      "identifier" : [{
-        "system" : "urn:oid:2.16.528.1.1007.3.3",
-        "value" : "564738757"
-      }],
-      "active" : true,
-      "name" : "Anorg Aniza Tion BV / The best custodian ever",
-      "telecom" : [{
-        "system" : "phone",
-        "value" : "+31-51-34343400",
-        "use" : "work"
-      }],
-      "address" : [{
-        "use" : "work",
-        "line" : ["Houttuinen 27"],
-        "city" : "Dordrecht",
-        "postalCode" : "3311 CE",
-        "country" : "NL"
-      }]
-    }
-  },
-  {
-    "fullUrl" : "urn:uuid:c64139e7-f02d-409c-bf34-75e8bf23bc80",
-    "resource" : {
-      "resourceType" : "Condition",
-      "id" : "c64139e7-f02d-409c-bf34-75e8bf23bc80",
-      "text" : {
-        "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Condition</b><a name=\"c64139e7-f02d-409c-bf34-75e8bf23bc80\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Condition &quot;c64139e7-f02d-409c-bf34-75e8bf23bc80&quot; </p></div><p><b>identifier</b>: id: c87bf51c-e53c-4bfe-b8b7-aa62bdd93002</p><p><b>clinicalStatus</b>: Active <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-condition-clinical.html\">Condition Clinical Status Codes</a>#active)</span></p><p><b>verificationStatus</b>: Confirmed <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-condition-ver-status.html\">ConditionVerificationStatus</a>#confirmed)</span></p><p><b>category</b>: Problem <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#75326-9)</span></p><p><b>severity</b>: Moderate <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#LA6751-7)</span></p><p><b>code</b>: Menopausal flushing (finding) <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#198436008; <a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-icd10.html\">ICD-10</a>#N95.1 &quot;Menopausal and female climacteric states&quot;)</span></p><p><b>subject</b>: <a href=\"#Patient_2b90dd2b-2dab-4c75-9bb9-a355e07401e8\">See above (Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8)</a></p><p><b>onset</b>: 2015</p><p><b>recordedDate</b>: 2016-10</p></div>"
-      },
-      "identifier" : [{
-        "system" : "urn:oid:1.2.3.999",
-        "value" : "c87bf51c-e53c-4bfe-b8b7-aa62bdd93002"
-      }],
-      "clinicalStatus" : {
-        "coding" : [{
-          "system" : "http://terminology.hl7.org/CodeSystem/condition-clinical",
-          "code" : "active"
-        }]
-      },
-      "verificationStatus" : {
-        "coding" : [{
-          "system" : "http://terminology.hl7.org/CodeSystem/condition-ver-status",
-          "code" : "confirmed"
-        }]
-      },
-      "category" : [{
-        "coding" : [{
-          "system" : "http://loinc.org",
-          "code" : "75326-9",
-          "display" : "Problem"
-        }]
-      }],
-      "severity" : {
-        "coding" : [{
-          "system" : "http://loinc.org",
-          "code" : "LA6751-7",
-          "display" : "Moderate"
-        }]
-      },
-      "code" : {
-        "coding" : [{
-          "system" : "http://snomed.info/sct",
-          "code" : "198436008",
-          "display" : "Menopausal flushing (finding)",
-          "_display" : {
-            "extension" : [{
-              "url" : "http://hl7.org/fhir/StructureDefinition/translation",
-              "extension" : [{
-                "url" : "lang",
-                "valueCode" : "nl-NL"
-              },
+        "relatesTo": [
+          {
+            "code": "transforms",
+            "targetIdentifier": {
+              "system": "urn:oid:2.16.840.1.113883.2.18.7.2",
+              "value": "472fb8a3-b58b-4b24-bdd1-e655fe66c3fe"
+            }
+          }
+        ],
+        "event": [
+          {
+            "code": [
               {
-                "url" : "content",
-                "valueString" : "opvliegers"
-              }]
-            }]
+                "coding": [
+                  {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ActClass",
+                    "code": "PCPR"
+                  }
+                ]
+              }
+            ],
+            "period": {
+              "end": "2023-04-28"
+            }
           }
-        },
-        {
-          "system" : "http://hl7.org/fhir/sid/icd-10",
-          "code" : "N95.1",
-          "display" : "Menopausal and female climacteric states"
-        }]
-      },
-      "subject" : {
-        "reference" : "Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8"
-      },
-      "onsetDateTime" : "2015",
-      "recordedDate" : "2016-10"
-    }
-  },
-  {
-    "fullUrl" : "urn:uuid:c220e36c-eb67-4fc4-9ba1-2fabc52acec6",
-    "resource" : {
-      "resourceType" : "MedicationStatement",
-      "id" : "c220e36c-eb67-4fc4-9ba1-2fabc52acec6",
-      "text" : {
-        "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: MedicationStatement</b><a name=\"c220e36c-eb67-4fc4-9ba1-2fabc52acec6\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource MedicationStatement &quot;c220e36c-eb67-4fc4-9ba1-2fabc52acec6&quot; </p></div><p><b>identifier</b>: id: b75f92cb-61d4-469a-9387-df5ef70d25f0</p><p><b>status</b>: active</p><p><b>medication</b>: <a href=\"#Medication_976d0804-cae0-45ae-afe3-a19f3ceba6bc\">See above (Medication/976d0804-cae0-45ae-afe3-a19f3ceba6bc)</a></p><p><b>subject</b>: <a href=\"#Patient_2b90dd2b-2dab-4c75-9bb9-a355e07401e8\">See above (Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8)</a></p><p><b>effective</b>: 2015-03 --&gt; (ongoing)</p><blockquote><p><b>dosage</b></p><p><b>timing</b>: Count 1 times, Do Once</p><p><b>route</b>: Oral use <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (standardterms.edqm.eu#20053000)</span></p></blockquote></div>"
-      },
-      "identifier" : [{
-        "system" : "urn:oid:1.2.3.999",
-        "value" : "b75f92cb-61d4-469a-9387-df5ef70d25f0"
-      }],
-      "status" : "active",
-      "medicationReference" : {
-        "reference" : "Medication/976d0804-cae0-45ae-afe3-a19f3ceba6bc"
-      },
-      "subject" : {
-        "reference" : "Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8"
-      },
-      "effectivePeriod" : {
-        "start" : "2015-03"
-      },
-      "dosage" : [{
-        "timing" : {
-          "repeat" : {
-            "count" : 1,
-            "periodUnit" : "d"
-          }
-        },
-        "route" : {
-          "coding" : [{
-            "system" : "http://standardterms.edqm.eu",
-            "code" : "20053000",
-            "display" : "Oral use"
-          }]
-        },
-        "doseAndRate" : [{
-          "type" : {
-            "coding" : [{
-              "system" : "http://terminology.hl7.org/CodeSystem/dose-rate-type",
-              "code" : "ordered",
-              "display" : "Ordered"
-            }]
-          },
-          "doseQuantity" : {
-            "value" : 1,
-            "unit" : "tablet",
-            "system" : "http://unitsofmeasure.org",
-            "code" : "1"
-          }
-        }]
-      }]
-    }
-  },
-  {
-    "fullUrl" : "urn:uuid:47524493-846a-4a26-bae2-4ab03e60f02e",
-    "resource" : {
-      "resourceType" : "MedicationStatement",
-      "id" : "47524493-846a-4a26-bae2-4ab03e60f02e",
-      "text" : {
-        "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: MedicationStatement</b><a name=\"47524493-846a-4a26-bae2-4ab03e60f02e\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource MedicationStatement &quot;47524493-846a-4a26-bae2-4ab03e60f02e&quot; </p></div><p><b>identifier</b>: id: 9e312d6b-c6b6-439a-a730-6efaa5dcf8bc</p><p><b>status</b>: active</p><p><b>medication</b>: <a href=\"#Medication_8adc0999-9468-4ac9-9557-680fa133d626\">See above (Medication/8adc0999-9468-4ac9-9557-680fa133d626)</a></p><p><b>subject</b>: <a href=\"#Patient_2b90dd2b-2dab-4c75-9bb9-a355e07401e8\">See above (Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8)</a></p><p><b>effective</b>: 2016-01 --&gt; (ongoing)</p><h3>Dosages</h3><table class=\"grid\"><tr><td>-</td><td><b>Route</b></td></tr><tr><td>*</td><td>Oral use <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (standardterms.edqm.eu#20053000)</span></td></tr></table></div>"
-      },
-      "identifier" : [{
-        "system" : "urn:oid:1.2.3.999",
-        "value" : "9e312d6b-c6b6-439a-a730-6efaa5dcf8bc"
-      }],
-      "status" : "active",
-      "medicationReference" : {
-        "reference" : "Medication/8adc0999-9468-4ac9-9557-680fa133d626"
-      },
-      "subject" : {
-        "reference" : "Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8"
-      },
-      "effectivePeriod" : {
-        "start" : "2016-01"
-      },
-      "dosage" : [{
-        "route" : {
-          "coding" : [{
-            "system" : "http://standardterms.edqm.eu",
-            "code" : "20053000",
-            "display" : "Oral use"
-          }]
-        }
-      }]
-    }
-  },
-  {
-    "fullUrl" : "urn:uuid:976d0804-cae0-45ae-afe3-a19f3ceba6bc",
-    "resource" : {
-      "resourceType" : "Medication",
-      "id" : "976d0804-cae0-45ae-afe3-a19f3ceba6bc",
-      "text" : {
-        "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Medication</b><a name=\"976d0804-cae0-45ae-afe3-a19f3ceba6bc\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Medication &quot;976d0804-cae0-45ae-afe3-a19f3ceba6bc&quot; </p></div><p><b>code</b>: Product containing anastrozole (medicinal product) <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#108774000; unknown#99872 &quot;ANASTROZOL 1MG TABLET&quot;; unknown#2076667 &quot;ANASTROZOL CF TABLET FILMOMHULD 1MG&quot;; <a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-v3-WC.html\">WHO ATC</a>#L02BG03 &quot;anastrozole&quot;)</span></p></div>"
-      },
-      "code" : {
-        "coding" : [{
-          "system" : "http://snomed.info/sct",
-          "code" : "108774000",
-          "display" : "Product containing anastrozole (medicinal product)"
-        },
-        {
-          "system" : "urn:oid:2.16.840.1.113883.2.4.4.1",
-          "code" : "99872",
-          "display" : "ANASTROZOL 1MG TABLET"
-        },
-        {
-          "system" : "urn:oid:2.16.840.1.113883.2.4.4.7",
-          "code" : "2076667",
-          "display" : "ANASTROZOL CF TABLET FILMOMHULD 1MG"
-        },
-        {
-          "system" : "http://www.whocc.no/atc",
-          "code" : "L02BG03",
-          "display" : "anastrozole"
-        }]
-      }
-    }
-  },
-  {
-    "fullUrl" : "urn:uuid:8adc0999-9468-4ac9-9557-680fa133d626",
-    "resource" : {
-      "resourceType" : "Medication",
-      "id" : "8adc0999-9468-4ac9-9557-680fa133d626",
-      "text" : {
-        "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Medication</b><a name=\"8adc0999-9468-4ac9-9557-680fa133d626\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Medication &quot;8adc0999-9468-4ac9-9557-680fa133d626&quot; </p></div><p><b>code</b>: Black Cohosh Extract herbal supplement <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#412588001 &quot;Cimicifuga racemosa extract (substance)&quot;; <a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-v3-WC.html\">WHO ATC</a>#G02CX04 &quot;Cimicifugae rhizoma&quot;)</span></p></div>"
-      },
-      "code" : {
-        "coding" : [{
-          "system" : "http://snomed.info/sct",
-          "code" : "412588001",
-          "display" : "Cimicifuga racemosa extract (substance)",
-          "_display" : {
-            "extension" : [{
-              "url" : "http://hl7.org/fhir/StructureDefinition/translation",
-              "extension" : [{
-                "url" : "lang",
-                "valueCode" : "nl-NL"
-              },
+        ],
+        "section": [
+          {
+            "title": "Allergies and Intolerances",
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "48765-2",
+                  "display": "Allergies and adverse reactions Document"
+                }
+              ]
+            },
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">\r\n  <table>\r\n    <thead>\r\n      <tr>\r\n        <th>Code</th>\r\n        <th>Type</th>\r\n        <th>Recorded On</th>\r\n        <th>Asserted By</th>\r\n        <th>Clinical Status</th>\r\n        <th>Verification Status</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr>\r\n        <td>No known allergies</td>\r\n        <td>Allergy</td>\r\n        <td />\r\n        <td>Patient/NNJ9186</td>\r\n        <td>active</td>\r\n        <td>confirmed</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>"
+            },
+            "entry": [
               {
-                "url" : "content",
-                "valueString" : "Zwarte Cohosh Extract"
-              }]
-            }]
-          }
-        },
-        {
-          "system" : "http://www.whocc.no/atc",
-          "code" : "G02CX04",
-          "display" : "Cimicifugae rhizoma"
-        }],
-        "text" : "Black Cohosh Extract herbal supplement"
-      }
-    }
-  },
-  {
-    "fullUrl" : "urn:uuid:72884cad-ebe6-4f43-a51a-2f978275f132",
-    "resource" : {
-      "resourceType" : "AllergyIntolerance",
-      "id" : "72884cad-ebe6-4f43-a51a-2f978275f132",
-      "text" : {
-        "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: AllergyIntolerance</b><a name=\"72884cad-ebe6-4f43-a51a-2f978275f132\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource AllergyIntolerance &quot;72884cad-ebe6-4f43-a51a-2f978275f132&quot; </p></div><p><b>identifier</b>: id: 3a462598-009c-484a-965c-d6b24a821424</p><p><b>clinicalStatus</b>: Active <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-allergyintolerance-clinical.html\">AllergyIntolerance Clinical Status Codes</a>#active)</span></p><p><b>verificationStatus</b>: Confirmed <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-allergyintolerance-verification.html\">AllergyIntolerance Verification Status</a>#confirmed)</span></p><p><b>type</b>: allergy</p><p><b>category</b>: medication</p><p><b>criticality</b>: high</p><p><b>code</b>: Substance with penicillin structure and antibacterial mechanism of action (substance) <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#373270004)</span></p><p><b>patient</b>: <a href=\"#Patient_2b90dd2b-2dab-4c75-9bb9-a355e07401e8\">See above (Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8)</a></p><p><b>onset</b>: 2010</p></div>"
-      },
-      "identifier" : [{
-        "system" : "urn:oid:1.2.3.999",
-        "value" : "3a462598-009c-484a-965c-d6b24a821424"
-      }],
-      "clinicalStatus" : {
-        "coding" : [{
-          "system" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
-          "code" : "active"
-        }]
-      },
-      "verificationStatus" : {
-        "coding" : [{
-          "system" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
-          "code" : "confirmed"
-        }]
-      },
-      "type" : "allergy",
-      "category" : ["medication"],
-      "criticality" : "high",
-      "code" : {
-        "coding" : [{
-          "system" : "http://snomed.info/sct",
-          "code" : "373270004",
-          "display" : "Substance with penicillin structure and antibacterial mechanism of action (substance)"
-        }]
-      },
-      "patient" : {
-        "reference" : "Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8"
-      },
-      "onsetDateTime" : "2010"
-    }
-  },
-  {
-    "fullUrl" : "urn:uuid:c4597aa2-688a-401b-a658-70acc6de28c6",
-    "resource" : {
-      "resourceType" : "Condition",
-      "id" : "c4597aa2-688a-401b-a658-70acc6de28c6",
-      "text" : {
-        "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Condition</b><a name=\"c4597aa2-688a-401b-a658-70acc6de28c6\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Condition &quot;c4597aa2-688a-401b-a658-70acc6de28c6&quot; </p></div><p><b>identifier</b>: id: 66d4a8c7-9081-43e0-a63f-489c2ae6edd6</p><p><b>clinicalStatus</b>: Remission <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-condition-clinical.html\">Condition Clinical Status Codes</a>#remission)</span></p><p><b>verificationStatus</b>: Confirmed <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-condition-ver-status.html\">ConditionVerificationStatus</a>#confirmed)</span></p><p><b>category</b>: Problem <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#75326-9)</span></p><p><b>severity</b>: Severe <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#LA6750-9)</span></p><p><b>code</b>: Malignant tumor of breast <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#254837009; <a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-icd-o-3.html\">International Classification of Diseases for Oncology, version 3.</a>#8500/3 &quot;Infiltrating duct carcinoma, NOS&quot;)</span></p><p><b>subject</b>: <a href=\"#Patient_2b90dd2b-2dab-4c75-9bb9-a355e07401e8\">See above (Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8)</a></p><p><b>onset</b>: 2015-01</p><p><b>abatement</b>: 2015-03</p></div>"
-      },
-      "identifier" : [{
-        "system" : "urn:oid:1.2.3.999",
-        "value" : "66d4a8c7-9081-43e0-a63f-489c2ae6edd6"
-      }],
-      "clinicalStatus" : {
-        "coding" : [{
-          "system" : "http://terminology.hl7.org/CodeSystem/condition-clinical",
-          "code" : "remission"
-        }]
-      },
-      "verificationStatus" : {
-        "coding" : [{
-          "system" : "http://terminology.hl7.org/CodeSystem/condition-ver-status",
-          "code" : "confirmed"
-        }]
-      },
-      "category" : [{
-        "coding" : [{
-          "system" : "http://loinc.org",
-          "code" : "75326-9",
-          "display" : "Problem"
-        }]
-      }],
-      "severity" : {
-        "coding" : [{
-          "system" : "http://loinc.org",
-          "code" : "LA6750-9",
-          "display" : "Severe"
-        }]
-      },
-      "code" : {
-        "coding" : [{
-          "system" : "http://snomed.info/sct",
-          "code" : "254837009",
-          "display" : "Malignant tumor of breast",
-          "_display" : {
-            "extension" : [{
-              "url" : "http://hl7.org/fhir/StructureDefinition/translation",
-              "extension" : [{
-                "url" : "lang",
-                "valueCode" : "nl-NL"
-              },
-              {
-                "url" : "content",
-                "valueString" : "Borstkanker stadium II zonder aanwijzingen van recidieven na behandeling"
-              }]
-            }]
-          }
-        },
-        {
-          "system" : "http://terminology.hl7.org/CodeSystem/icd-o-3",
-          "code" : "8500/3",
-          "display" : "Infiltrating duct carcinoma, NOS"
-        }]
-      },
-      "subject" : {
-        "reference" : "Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8"
-      },
-      "onsetDateTime" : "2015-01",
-      "abatementDateTime" : "2015-03"
-    }
-  },
-  {
-    "fullUrl" : "urn:uuid:45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7",
-    "resource" : {
-      "resourceType" : "Organization",
-      "id" : "45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7",
-      "text" : {
-        "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Organization</b><a name=\"45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Organization &quot;45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7&quot; </p></div><p><b>active</b>: true</p><p><b>type</b>: Other <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-organization-type.html\">Organization type</a>#other)</span></p><p><b>name</b>: Laboratoire de charme</p></div>"
-      },
-      "active" : true,
-      "type" : [{
-        "coding" : [{
-          "system" : "http://terminology.hl7.org/CodeSystem/organization-type",
-          "code" : "other"
-        }]
-      }],
-      "name" : "Laboratoire de charme"
-    }
-  },
-  {
-    "fullUrl" : "urn:uuid:aa11a2be-3e36-4be7-b58a-6fc3dace2741",
-    "resource" : {
-      "resourceType" : "Observation",
-      "id" : "aa11a2be-3e36-4be7-b58a-6fc3dace2741",
-      "text" : {
-        "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"aa11a2be-3e36-4be7-b58a-6fc3dace2741\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;aa11a2be-3e36-4be7-b58a-6fc3dace2741&quot; </p></div><p><b>status</b>: final</p><p><b>category</b>: Laboratory <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-observation-category.html\">Observation Category Codes</a>#laboratory)</span></p><p><b>code</b>: ABO and Rh group [Type] in Blood <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#882-1)</span></p><p><b>subject</b>: <a href=\"#Patient_2b90dd2b-2dab-4c75-9bb9-a355e07401e8\">See above (Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8)</a></p><p><b>effective</b>: 2015-10-10 09:15:00+0100</p><p><b>performer</b>: <a href=\"#Organization_45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7\">See above (Organization/45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7)</a></p><p><b>value</b>: Blood group A Rh(D) positive <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#278149003)</span></p></div>"
-      },
-      "status" : "final",
-      "category" : [{
-        "coding" : [{
-          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
-          "code" : "laboratory"
-        }]
-      }],
-      "code" : {
-        "coding" : [{
-          "system" : "http://loinc.org",
-          "code" : "882-1",
-          "display" : "ABO and Rh group [Type] in Blood"
-        }]
-      },
-      "subject" : {
-        "reference" : "Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8"
-      },
-      "effectiveDateTime" : "2015-10-10T09:15:00+01:00",
-      "performer" : [{
-        "reference" : "Organization/45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7"
-      }],
-      "valueCodeableConcept" : {
-        "coding" : [{
-          "system" : "http://snomed.info/sct",
-          "code" : "278149003",
-          "display" : "Blood group A Rh(D) positive"
-        }]
-      }
-    }
-  },
-  {
-    "fullUrl" : "urn:uuid:6e39ccf3-f997-4a2b-8f28-b4b71c778c70",
-    "resource" : {
-      "resourceType" : "Observation",
-      "id" : "6e39ccf3-f997-4a2b-8f28-b4b71c778c70",
-      "text" : {
-        "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"6e39ccf3-f997-4a2b-8f28-b4b71c778c70\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;6e39ccf3-f997-4a2b-8f28-b4b71c778c70&quot; </p></div><p><b>status</b>: final</p><p><b>category</b>: Laboratory <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-observation-category.html\">Observation Category Codes</a>#laboratory)</span></p><p><b>code</b>: C Ab [Presence] in Serum or Plasma <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#945-6)</span></p><p><b>subject</b>: <a href=\"#Patient_2b90dd2b-2dab-4c75-9bb9-a355e07401e8\">See above (Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8)</a></p><p><b>effective</b>: 2015-10-10 09:35:00+0100</p><p><b>performer</b>: <a href=\"#Organization_45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7\">See above (Organization/45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7)</a></p><p><b>value</b>: Positive <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#10828004)</span></p></div>"
-      },
-      "status" : "final",
-      "category" : [{
-        "coding" : [{
-          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
-          "code" : "laboratory"
-        }]
-      }],
-      "code" : {
-        "coding" : [{
-          "system" : "http://loinc.org",
-          "code" : "945-6",
-          "display" : "C Ab [Presence] in Serum or Plasma"
-        }]
-      },
-      "subject" : {
-        "reference" : "Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8"
-      },
-      "effectiveDateTime" : "2015-10-10T09:35:00+01:00",
-      "performer" : [{
-        "reference" : "Organization/45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7"
-      }],
-      "valueCodeableConcept" : {
-        "coding" : [{
-          "system" : "http://snomed.info/sct",
-          "code" : "10828004",
-          "display" : "Positive"
-        }]
-      }
-    }
-  },
-  {
-    "fullUrl" : "urn:uuid:b4916505-a06b-460c-9be8-011609282457",
-    "resource" : {
-      "resourceType" : "Observation",
-      "id" : "b4916505-a06b-460c-9be8-011609282457",
-      "text" : {
-        "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"b4916505-a06b-460c-9be8-011609282457\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;b4916505-a06b-460c-9be8-011609282457&quot; </p></div><p><b>status</b>: final</p><p><b>category</b>: Laboratory <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-observation-category.html\">Observation Category Codes</a>#laboratory)</span></p><p><b>code</b>: E Ab [Presence] in Serum or Plasma <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#1018-1)</span></p><p><b>subject</b>: <a href=\"#Patient_2b90dd2b-2dab-4c75-9bb9-a355e07401e8\">See above (Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8)</a></p><p><b>effective</b>: 2015-10-10 09:35:00+0100</p><p><b>performer</b>: <a href=\"#Organization_45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7\">See above (Organization/45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7)</a></p><p><b>value</b>: Positive <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#10828004)</span></p></div>"
-      },
-      "status" : "final",
-      "category" : [{
-        "coding" : [{
-          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
-          "code" : "laboratory"
-        }]
-      }],
-      "code" : {
-        "coding" : [{
-          "system" : "http://loinc.org",
-          "code" : "1018-1",
-          "display" : "E Ab [Presence] in Serum or Plasma"
-        }]
-      },
-      "subject" : {
-        "reference" : "Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8"
-      },
-      "effectiveDateTime" : "2015-10-10T09:35:00+01:00",
-      "performer" : [{
-        "reference" : "Organization/45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7"
-      }],
-      "valueCodeableConcept" : {
-        "coding" : [{
-          "system" : "http://snomed.info/sct",
-          "code" : "10828004",
-          "display" : "Positive"
-        }]
-      }
-    }
-  },
-  {
-    "fullUrl" : "urn:uuid:a6a5a1d5-c896-4c7e-b922-888fcc7e6ae4",
-    "resource" : {
-      "resourceType" : "Observation",
-      "id" : "a6a5a1d5-c896-4c7e-b922-888fcc7e6ae4",
-      "text" : {
-        "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"a6a5a1d5-c896-4c7e-b922-888fcc7e6ae4\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;a6a5a1d5-c896-4c7e-b922-888fcc7e6ae4&quot; </p></div><p><b>status</b>: final</p><p><b>category</b>: Laboratory <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-observation-category.html\">Observation Category Codes</a>#laboratory)</span></p><p><b>code</b>: little c Ab [Presence] in Serum or Plasma <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#1156-9)</span></p><p><b>subject</b>: <a href=\"#Patient_2b90dd2b-2dab-4c75-9bb9-a355e07401e8\">See above (Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8)</a></p><p><b>effective</b>: 2015-10-10 09:35:00+0100</p><p><b>performer</b>: <a href=\"#Organization_45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7\">See above (Organization/45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7)</a></p><p><b>value</b>: Negative <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#260385009)</span></p></div>"
-      },
-      "status" : "final",
-      "category" : [{
-        "coding" : [{
-          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
-          "code" : "laboratory"
-        }]
-      }],
-      "code" : {
-        "coding" : [{
-          "system" : "http://loinc.org",
-          "code" : "1156-9",
-          "display" : "little c Ab [Presence] in Serum or Plasma"
-        }]
-      },
-      "subject" : {
-        "reference" : "Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8"
-      },
-      "effectiveDateTime" : "2015-10-10T09:35:00+01:00",
-      "performer" : [{
-        "reference" : "Organization/45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7"
-      }],
-      "valueCodeableConcept" : {
-        "coding" : [{
-          "system" : "http://snomed.info/sct",
-          "code" : "260385009",
-          "display" : "Negative"
-        }]
-      }
-    }
-  },
-  {
-    "fullUrl" : "urn:uuid:2639657a-c19a-48e2-82cc-471e13b8ad94",
-    "resource" : {
-      "resourceType" : "Observation",
-      "id" : "2639657a-c19a-48e2-82cc-471e13b8ad94",
-      "text" : {
-        "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"2639657a-c19a-48e2-82cc-471e13b8ad94\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;2639657a-c19a-48e2-82cc-471e13b8ad94&quot; </p></div><p><b>status</b>: final</p><p><b>category</b>: Laboratory <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-observation-category.html\">Observation Category Codes</a>#laboratory)</span></p><p><b>code</b>: Blood typing <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> ()</span></p><p><b>subject</b>: <a href=\"#Patient_2b90dd2b-2dab-4c75-9bb9-a355e07401e8\">See above (Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8)</a></p><p><b>effective</b>: 2015-10-10</p><p><b>performer</b>: <a href=\"#Organization_45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7\">See above (Organization/45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7)</a></p><p><b>hasMember</b>: </p><ul><li><a href=\"#Observation_aa11a2be-3e36-4be7-b58a-6fc3dace2741\">See above (Observation/aa11a2be-3e36-4be7-b58a-6fc3dace2741)</a></li><li><a href=\"#Observation_6e39ccf3-f997-4a2b-8f28-b4b71c778c70\">See above (Observation/6e39ccf3-f997-4a2b-8f28-b4b71c778c70)</a></li><li><a href=\"#Observation_b4916505-a06b-460c-9be8-011609282457\">See above (Observation/b4916505-a06b-460c-9be8-011609282457)</a></li><li><a href=\"#Observation_a6a5a1d5-c896-4c7e-b922-888fcc7e6ae4\">See above (Observation/a6a5a1d5-c896-4c7e-b922-888fcc7e6ae4)</a></li></ul></div>"
-      },
-      "status" : "final",
-      "category" : [{
-        "coding" : [{
-          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
-          "code" : "laboratory"
-        }]
-      }],
-      "code" : {
-        "text" : "Blood typing"
-      },
-      "subject" : {
-        "reference" : "Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8"
-      },
-      "effectiveDateTime" : "2015-10-10",
-      "performer" : [{
-        "reference" : "Organization/45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7"
-      }],
-      "hasMember" : [{
-        "reference" : "Observation/aa11a2be-3e36-4be7-b58a-6fc3dace2741"
-      },
-      {
-        "reference" : "Observation/6e39ccf3-f997-4a2b-8f28-b4b71c778c70"
-      },
-      {
-        "reference" : "Observation/b4916505-a06b-460c-9be8-011609282457"
-      },
-      {
-        "reference" : "Observation/a6a5a1d5-c896-4c7e-b922-888fcc7e6ae4"
-      }]
-    }
-  },
-  {
-    "fullUrl" : "urn:uuid:cc354e00-a419-47ea-8b6c-1768b2a01646",
-    "resource" : {
-      "resourceType" : "Observation",
-      "id" : "cc354e00-a419-47ea-8b6c-1768b2a01646",
-      "text" : {
-        "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"cc354e00-a419-47ea-8b6c-1768b2a01646\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;cc354e00-a419-47ea-8b6c-1768b2a01646&quot; </p></div><p><b>status</b>: final</p><p><b>category</b>: Laboratory <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-observation-category.html\">Observation Category Codes</a>#laboratory)</span></p><p><b>code</b>: Hemoglobin A1c/Hemoglobin.total in Blood by HPLC <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#17856-6)</span></p><p><b>subject</b>: <a href=\"#Patient_2b90dd2b-2dab-4c75-9bb9-a355e07401e8\">See above (Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8)</a></p><p><b>effective</b>: 2017-11-10 08:20:00+0100</p><p><b>performer</b>: <a href=\"#Organization_45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7\">See above (Organization/45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7)</a></p><p><b>value</b>: 7.5 %<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM code % = '%')</span></p><p><b>note</b>: Above stated goal of 7.0 %</p></div>"
-      },
-      "status" : "final",
-      "category" : [{
-        "coding" : [{
-          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
-          "code" : "laboratory"
-        }]
-      }],
-      "code" : {
-        "coding" : [{
-          "system" : "http://loinc.org",
-          "code" : "17856-6",
-          "display" : "Hemoglobin A1c/Hemoglobin.total in Blood by HPLC"
-        }]
-      },
-      "subject" : {
-        "reference" : "Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8"
-      },
-      "effectiveDateTime" : "2017-11-10T08:20:00+01:00",
-      "performer" : [{
-        "reference" : "Organization/45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7"
-      }],
-      "valueQuantity" : {
-        "value" : 7.5,
-        "unit" : "%",
-        "system" : "http://unitsofmeasure.org",
-        "code" : "%"
-      },
-      "note" : [{
-        "text" : "Above stated goal of 7.0 %"
-      }]
-    }
-  },
-  {
-    "fullUrl" : "urn:uuid:26bee0a9-5997-4557-ab9d-c6adbb05b572",
-    "resource" : {
-      "resourceType" : "Observation",
-      "id" : "26bee0a9-5997-4557-ab9d-c6adbb05b572",
-      "text" : {
-        "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b><a name=\"26bee0a9-5997-4557-ab9d-c6adbb05b572\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation &quot;26bee0a9-5997-4557-ab9d-c6adbb05b572&quot; </p></div><p><b>status</b>: final</p><p><b>category</b>: Laboratory <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-observation-category.html\">Observation Category Codes</a>#laboratory)</span></p><p><b>code</b>: Bacteria identified in Isolate <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#42803-7)</span></p><p><b>subject</b>: <a href=\"#Patient_2b90dd2b-2dab-4c75-9bb9-a355e07401e8\">See above (Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8)</a></p><p><b>effective</b>: 2017-12-10 08:20:00+0100</p><p><b>performer</b>: <a href=\"#Organization_45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7\">See above (Organization/45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7)</a></p><p><b>value</b>: Methicillin resistant Staphylococcus aureus <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#115329001)</span></p><p><b>note</b>: Healthy carrier of MRSA</p></div>"
-      },
-      "status" : "final",
-      "category" : [{
-        "coding" : [{
-          "system" : "http://terminology.hl7.org/CodeSystem/observation-category",
-          "code" : "laboratory"
-        }]
-      }],
-      "code" : {
-        "coding" : [{
-          "system" : "http://loinc.org",
-          "code" : "42803-7",
-          "display" : "Bacteria identified in Isolate"
-        }]
-      },
-      "subject" : {
-        "reference" : "Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8"
-      },
-      "effectiveDateTime" : "2017-12-10T08:20:00+01:00",
-      "performer" : [{
-        "reference" : "Organization/45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7"
-      }],
-      "valueCodeableConcept" : {
-        "coding" : [{
-          "system" : "http://snomed.info/sct",
-          "code" : "115329001",
-          "display" : "Methicillin resistant Staphylococcus aureus"
-        }]
-      },
-      "note" : [{
-        "text" : "Healthy carrier of MRSA"
-      }]
-    }
-  },
-  {
-    "fullUrl" : "urn:uuid:c7781f44-6df8-4a8b-9e06-0b34263a47c5",
-    "resource" : {
-      "resourceType" : "AllergyIntolerance",
-      "id" : "c7781f44-6df8-4a8b-9e06-0b34263a47c5",
-      "text" : {
-        "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: AllergyIntolerance</b><a name=\"c7781f44-6df8-4a8b-9e06-0b34263a47c5\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource AllergyIntolerance &quot;c7781f44-6df8-4a8b-9e06-0b34263a47c5&quot; </p></div><p><b>clinicalStatus</b>: Active <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-allergyintolerance-clinical.html\">AllergyIntolerance Clinical Status Codes</a>#active)</span></p><p><b>code</b>: No known food allergies <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"CodeSystem-absent-unknown-uv-ips.html\">Absent and Unknown Data - IPS</a>#no-known-food-allergies)</span></p><p><b>patient</b>: <a href=\"#Patient_2b90dd2b-2dab-4c75-9bb9-a355e07401e8\">See above (Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8)</a></p></div>"
-      },
-      "clinicalStatus" : {
-        "coding" : [{
-          "system" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
-          "code" : "active"
-        }]
-      },
-      "code" : {
-        "coding" : [{
-          "system" : "http://hl7.org/fhir/uv/ips/CodeSystem/absent-unknown-uv-ips",
-          "code" : "no-known-food-allergies"
-        }]
-      },
-      "patient" : {
-        "reference" : "Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8"
-      }
-    }
-  },
-  {
-    "fullUrl" : "urn:uuid:40b7b6a0-c043-423a-9959-be3707e728b2",
-    "resource" : {
-      "resourceType" : "Immunization",
-      "id" : "40b7b6a0-c043-423a-9959-be3707e728b2",
-      "language" : "fr-LU",
-      "text" : {
-        "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"fr-LU\" lang=\"fr-LU\">\n\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t<b>Marie Lux-Brennard</b>\n\t\t\t\t\t\t\t(Apr 17, 1998)\n\t\t\t\t\t\t</p>\n\t\t\t\t\t\t<p>Vaccin anti diphtérie-coqueluche-tétanos-poliomyélite, Jun 3, 1998, 10:00:00 PM</p>\n\t\t\t\t\t\t<p>Voie intramusculaire, Cuisse droite</p>\n\t\t\t\t\t</div>"
-      },
-      "status" : "completed",
-      "vaccineCode" : {
-        "coding" : [{
-          "system" : "http://snomed.info/sct",
-          "code" : "836508001",
-          "display" : "Bordetella pertussis and Clostridium tetani and Corynebacterium diphtheriae and Human poliovirus antigens-containing vaccine product",
-          "_display" : {
-            "extension" : [{
-              "url" : "http://hl7.org/fhir/StructureDefinition/translation",
-              "extension" : [{
-                "url" : "lang",
-                "valueCode" : "fr-LU"
-              },
-              {
-                "url" : "content",
-                "valueString" : "Vaccin anti diphtérie-coqueluche-tétanos-poliomyélite"
-              }]
-            }]
-          }
-        },
-        {
-          "system" : "http://www.whocc.no/atc",
-          "code" : "J07CA02",
-          "display" : "diphtheria-pertussis-poliomyelitis-tetanus",
-          "_display" : {
-            "extension" : [{
-              "url" : "http://hl7.org/fhir/StructureDefinition/translation",
-              "extension" : [{
-                "url" : "lang",
-                "valueCode" : "fr-LU"
-              },
-              {
-                "url" : "content",
-                "valueString" : "DIPHTERIE - COQUELUCHE - POLIOMYELITE - TETANOS"
-              }]
-            }]
-          }
-        }],
-        "text" : "Vaccin anti diphtérie-coqueluche-tétanos-poliomyélite"
-      },
-      "patient" : {
-        "reference" : "Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8"
-      },
-      "occurrenceDateTime" : "1998-06-04T00:00:00+02:00",
-      "primarySource" : true,
-      "lotNumber" : "AXK23RWERS",
-      "expirationDate" : "2000-06-01",
-      "site" : {
-        "coding" : [{
-          "system" : "http://snomed.info/sct",
-          "code" : "11207009",
-          "display" : "Right thigh",
-          "_display" : {
-            "extension" : [{
-              "url" : "http://hl7.org/fhir/StructureDefinition/translation",
-              "extension" : [{
-                "url" : "lang",
-                "valueCode" : "fr-LU"
-              },
-              {
-                "url" : "content",
-                "valueString" : "Cuisse droite"
-              }]
-            }]
-          }
-        }],
-        "text" : "Cuisse droite"
-      },
-      "route" : {
-        "coding" : [{
-          "system" : "http://standardterms.edqm.eu",
-          "code" : "20035000",
-          "display" : "Intramuscular use",
-          "_display" : {
-            "extension" : [{
-              "url" : "http://hl7.org/fhir/StructureDefinition/translation",
-              "extension" : [{
-                "url" : "lang",
-                "valueCode" : "fr-LU"
-              },
-              {
-                "url" : "content",
-                "valueString" : "Voie intramusculaire"
-              }]
-            }]
-          }
-        }],
-        "text" : "Voie intramusculaire"
-      },
-      "protocolApplied" : [{
-        "targetDisease" : [{
-          "coding" : [{
-            "system" : "http://snomed.info/sct",
-            "code" : "27836007",
-            "display" : "Pertussis"
+                "reference": "AllergyIntolerance/c61ab6dd-2665-42e6-928c-28c8373d2592"
+              }
+            ]
           },
           {
-            "system" : "http://snomed.info/sct",
-            "code" : "76902006",
-            "display" : "Tetanus"
+            "title": "Problem List",
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "11450-4",
+                  "display": "Problem list - Reported"
+                }
+              ]
+            },
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">\r\n  <table>\r\n    <thead>\r\n      <tr>\r\n        <th>Condition</th>\r\n        <th>Category</th>\r\n        <th>Recorded On</th>\r\n        <th>Clinical Status</th>\r\n        <th>Verification Status</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr>\r\n        <td>Gout</td>\r\n        <td>Problem List Item</td>\r\n        <td>2020-10-01</td>\r\n        <td>active</td>\r\n        <td>confirmed</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Essential hypertension</td>\r\n        <td>Problem List Item</td>\r\n        <td>2016-05-25</td>\r\n        <td>active</td>\r\n        <td>confirmed</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>"
+            },
+            "entry": [
+              {
+                "reference": "Condition/2d3b1089-8058-4fc5-864b-7cf52b24577d"
+              },
+              {
+                "reference": "Condition/64804e76-ef83-4b7c-8987-3c0040124020"
+              }
+            ]
           },
           {
-            "system" : "http://snomed.info/sct",
-            "code" : "398102009",
-            "display" : "Acute poliomyelitis"
+            "title": "Medication Summary",
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "10160-0",
+                  "display": "History of Medication use Narrative"
+                }
+              ]
+            },
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">\r\n  <table>\r\n    <thead>\r\n      <tr>\r\n        <th>Drug</th>\r\n        <th>Status</th>\r\n        <th>Effective</th>\r\n        <th>Instructions</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr>\r\n        <td>cilazapril 500 microgram tablet, 90</td>\r\n        <td>Active</td>\r\n        <td>2023-02-23</td>\r\n        <td>Take 1 daily</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>"
+            },
+            "entry": [
+              {
+                "reference": "MedicationStatement/6caed120-2333-4465-9434-bdf3e75f0ef8"
+              }
+            ]
           },
           {
-            "system" : "http://snomed.info/sct",
-            "code" : "397430003",
-            "display" : "Diphtheria caused by Corynebacterium diphtheriae"
-          }]
-        }],
-        "doseNumberPositiveInt" : 1
-      }]
+            "title": "Immunizations",
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "11369-6",
+                  "display": "History of Immunization Narrative"
+                }
+              ]
+            },
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">\r\n  <table>\r\n    <thead>\r\n      <tr>\r\n        <th>Vaccine</th>\r\n        <th>Status</th>\r\n        <th>Occurance</th>\r\n        <th>Route</th>\r\n        <th>Dose #</th>\r\n        <th>Series</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr>\r\n        <td>Influenza, seasonal, injectable</td>\r\n        <td>Completed</td>\r\n        <td>2023-04-12</td>\r\n        <td>Injection, intramuscular</td>\r\n        <td>1</td>\r\n        <td>1 (Over 65 years (Influenza))</td>\r\n      </tr>\r\n      <tr>\r\n        <td>SARS-COV-2 (COVID-19) vaccine, mRNA, spike protein, LNP, preservative free, 30 mcg/0.3mL dose</td>\r\n        <td>Completed</td>\r\n        <td>2022-08-01</td>\r\n        <td>Injection, intramuscular</td>\r\n        <td>4</td>\r\n        <td>12 (At risk, no previous history)</td>\r\n      </tr>\r\n      <tr>\r\n        <td>zoster vaccine, live</td>\r\n        <td>Completed</td>\r\n        <td>2022-07-13</td>\r\n        <td>Injection, intramuscular</td>\r\n        <td>1</td>\r\n        <td>65Y (65 years)</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Influenza, seasonal, injectable</td>\r\n        <td>Completed</td>\r\n        <td>2022-06-01</td>\r\n        <td>Injection, intramuscular</td>\r\n        <td>1</td>\r\n        <td>1 (Over 65 years (Influenza))</td>\r\n      </tr>\r\n      <tr>\r\n        <td>SARS-COV-2 (COVID-19) vaccine, mRNA, spike protein, LNP, preservative free, 30 mcg/0.3mL dose</td>\r\n        <td>Completed</td>\r\n        <td>2022-01-13</td>\r\n        <td>Injection, intramuscular</td>\r\n        <td>3</td>\r\n        <td>12 (At risk, no previous history)</td>\r\n      </tr>\r\n      <tr>\r\n        <td>SARS-COV-2 (COVID-19) vaccine, mRNA, spike protein, LNP, preservative free, 30 mcg/0.3mL dose</td>\r\n        <td>Completed</td>\r\n        <td>2021-08-27</td>\r\n        <td>Injection, intramuscular</td>\r\n        <td>2</td>\r\n        <td>12 (At risk, no previous history)</td>\r\n      </tr>\r\n      <tr>\r\n        <td>SARS-COV-2 (COVID-19) vaccine, mRNA, spike protein, LNP, preservative free, 30 mcg/0.3mL dose</td>\r\n        <td>Completed</td>\r\n        <td>2021-08-05</td>\r\n        <td>Injection, intramuscular</td>\r\n        <td>1</td>\r\n        <td>12 (At risk, no previous history)</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>"
+            },
+            "entry": [
+              {
+                "reference": "Immunization/3c61952a-5a18-4bba-bcf8-7a30ef5d3dab"
+              },
+              {
+                "reference": "Immunization/21e34790-bb8b-489e-b5e3-971ba975b1d7"
+              },
+              {
+                "reference": "Immunization/08b987cf-16b6-4c68-bc6b-b156bd49adf0"
+              },
+              {
+                "reference": "Immunization/b80bebe5-3f3a-4158-9891-ba2d449a2475"
+              },
+              {
+                "reference": "Immunization/33813294-6572-422b-957d-467b6101d08e"
+              },
+              {
+                "reference": "Immunization/4c0789c2-191d-4f5b-bd83-3e9011c10749"
+              },
+              {
+                "reference": "Immunization/b33dd362-1e0a-4c3d-a696-3f7dcfb155f3"
+              }
+            ]
+          },
+          {
+            "title": "Results",
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "30954-2",
+                  "display": "Relevant diagnostic tests/laboratory data Narrative"
+                }
+              ]
+            },
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns='http://www.w3.org/1999/xhtml' xml:lang='en-NZ'><table>        <tbody>          <tr>            <th>Result Group:</th>            <td>GENERAL CHEM....</td>            <th>Result Date:</th>            <td>01 Mar 2023 15:06</td>            <th>Result Status:</th>            <td>completed</td>          </tr>        </tbody>      </table>      <table xmlns=\"http://www.w3.org/1999/xhtml\">        <thead>          <tr>            <th>Result Name</th>            <th>Value</th>            <th>Reference Range</th>            <th>Abnormal Indicator</th>            <th>Comments</th>                                  </tr>        </thead>        <tbody>          <tr>            <td>Uric Acid</td>            <td>0.36 mmol/L</td>            <td>0.23-0.42</td>                                                          </tr>        </tbody>      </table>            <table>        <tbody>          <tr>            <th>Result Group:</th>            <td>LIPIDS..........</td>            <th>Result Date:</th>            <td>23 Feb 2023 14:35</td>            <th>Result Status:</th>            <td>completed</td>          </tr>        </tbody>      </table>      <table xmlns=\"http://www.w3.org/1999/xhtml\">        <thead>          <tr>            <th>Result Name</th>            <th>Value</th>            <th>Reference Range</th>            <th>Abnormal Indicator</th>            <th>Comments</th>                                  </tr>        </thead>        <tbody>          <tr>            <td>Total/HDL Chol Ratio</td>            <td>2.2 NoUnit</td>            <td>NA</td>                                                          </tr>          <tr>            <td>Triglyceride</td>            <td>1.5 mmol/L</td>            <td>NA</td>                                                          </tr>          <tr>            <td>Lipid Comments.</td>            <td>A combined CVD risk of which lipids is one component should be estimated to guide CVD risk management decisions. If lipid modifying medication is considered suggest checking first for treatable secondary causes of dyslipidaemia. </td>            <td>NA</td>                                                          </tr>          <tr>            <td>HDL Cholesterol</td>            <td>1.38 mmol/L</td>            <td>NA</td>                                                          </tr>          <tr>            <td>LDL Chol - calculated</td>            <td>1.0 mmol/L</td>            <td>NA</td>                                                          </tr>          <tr>            <td>Cholesterol</td>            <td>3.0 mmol/L</td>            <td>NA</td>                                                          </tr>        </tbody>      </table>            <table>        <tbody>          <tr>            <th>Result Group:</th>            <td>Iron Studies</td>            <th>Result Date:</th>            <td>20 Oct 2022 13:05</td>            <th>Result Status:</th>            <td>completed</td>          </tr>        </tbody>      </table>      <table xmlns=\"http://www.w3.org/1999/xhtml\">        <thead>          <tr>            <th>Result Name</th>            <th>Value</th>            <th>Reference Range</th>            <th>Abnormal Indicator</th>            <th>Comments</th>                                  </tr>        </thead>        <tbody>          <tr>            <td>Ferritin</td>            <td>280 ug/L</td>            <td>20-450</td>                                                          </tr>        </tbody>      </table>            <table>        <tbody>          <tr>            <th>Result Group:</th>            <td>GENERAL CHEM....</td>            <th>Result Date:</th>            <td>20 Oct 2022 13:05</td>            <th>Result Status:</th>            <td>completed</td>          </tr>        </tbody>      </table>      <table xmlns=\"http://www.w3.org/1999/xhtml\">        <thead>          <tr>            <th>Result Name</th>            <th>Value</th>            <th>Reference Range</th>            <th>Abnormal Indicator</th>            <th>Comments</th>                                  </tr>        </thead>        <tbody>          <tr>            <td>Sodium</td>            <td>141 mmol/L</td>            <td>135-145</td>                                                          </tr>          <tr>            <td>Creatinine</td>            <td>79 umol/L</td>            <td>60-105</td>                                                          </tr>          <tr>            <td>Uric Acid</td>            <td>0.43 mmol/L</td>            <td>0.23-0.42</td>            <td>H</td>            <td>The urate target level for gout management is &lt;0.36 mmol/L</td>                                  </tr>          <tr>            <td>eGFR</td>            <td>89 mL/min</td>            <td>&gt;60</td>                                                          </tr>          <tr>            <td>Potassium</td>            <td>3.9 mmol/L</td>            <td>3.5-5.2</td>                                                          </tr>        </tbody>      </table>            <table>        <tbody>          <tr>            <th>Result Group:</th>            <td>CALCIUM.........</td>            <th>Result Date:</th>            <td>20 Oct 2022 13:05</td>            <th>Result Status:</th>            <td>completed</td>          </tr>        </tbody>      </table>      <table xmlns=\"http://www.w3.org/1999/xhtml\">        <thead>          <tr>            <th>Result Name</th>            <th>Value</th>            <th>Reference Range</th>            <th>Abnormal Indicator</th>            <th>Comments</th>                                  </tr>        </thead>        <tbody>          <tr>            <td>Calcium (adjusted for Albumin)</td>            <td>2.25 mmol/L</td>            <td>2.10-2.55</td>                                                          </tr>          <tr>            <td>Phosphorus</td>            <td>1.00 mmol/L</td>            <td>0.70-1.50</td>                                                          </tr>          <tr>            <td>Calcium</td>            <td>2.26 mmol/L</td>            <td>2.10-2.55</td>                                                          </tr>        </tbody>      </table>            <table>        <tbody>          <tr>            <th>Result Group:</th>            <td>B12 and folate</td>            <th>Result Date:</th>            <td>20 Oct 2022 13:05</td>            <th>Result Status:</th>            <td>completed</td>          </tr>        </tbody>      </table>      <table xmlns=\"http://www.w3.org/1999/xhtml\">        <thead>          <tr>            <th>Result Name</th>            <th>Value</th>            <th>Reference Range</th>            <th>Abnormal Indicator</th>            <th>Comments</th>                                  </tr>        </thead>        <tbody>          <tr>            <td>Folate</td>            <td>10.2 nmol/L</td>            <td>7.0-45.0</td>                                                          </tr>          <tr>            <td>Vitamin B12</td>            <td>208 pmol/L</td>            <td>110-650</td>                                                          </tr>        </tbody>      </table>            <table>        <tbody>          <tr>            <th>Result Group:</th>            <td>TFTs............</td>            <th>Result Date:</th>            <td>20 Oct 2022 13:05</td>            <th>Result Status:</th>            <td>completed</td>          </tr>        </tbody>      </table>      <table xmlns=\"http://www.w3.org/1999/xhtml\">        <thead>          <tr>            <th>Result Name</th>            <th>Value</th>            <th>Reference Range</th>            <th>Abnormal Indicator</th>            <th>Comments</th>                                  </tr>        </thead>        <tbody>          <tr>            <td>TSH</td>            <td>1.80 mU/L</td>            <td>0.3-5.0</td>                                                          </tr>        </tbody>      </table>            <table>        <tbody>          <tr>            <th>Result Group:</th>            <td>Liver Function Tests</td>            <th>Result Date:</th>            <td>20 Oct 2022 13:05</td>            <th>Result Status:</th>            <td>completed</td>          </tr>        </tbody>      </table>      <table xmlns=\"http://www.w3.org/1999/xhtml\">        <thead>          <tr>            <th>Result Name</th>            <th>Value</th>            <th>Reference Range</th>            <th>Abnormal Indicator</th>            <th>Comments</th>                                  </tr>        </thead>        <tbody>          <tr>            <td>GGT</td>            <td>18 U/L</td>            <td>0-60</td>                                                          </tr>          <tr>            <td>ALT</td>            <td>16 U/L</td>            <td>0-55</td>                                                          </tr>          <tr>            <td>Globulin</td>            <td>30 g/L</td>            <td>25-35</td>                                                          </tr>          <tr>            <td>Alk Phosphatase</td>            <td>63 U/L</td>            <td>40-130</td>                                                          </tr>          <tr>            <td>Bilirubin total</td>            <td>9 umol/L</td>            <td>0-20</td>                                                          </tr>          <tr>            <td>Albumin</td>            <td>38 g/L</td>            <td>34-48</td>                                                          </tr>          <tr>            <td>Total Protein</td>            <td>68 g/L</td>            <td>60-80</td>                                                          </tr>        </tbody>      </table>            <table>        <tbody>          <tr>            <th>Result Group:</th>            <td>LIPIDS..........</td>            <th>Result Date:</th>            <td>20 Oct 2022 13:05</td>            <th>Result Status:</th>            <td>completed</td>          </tr>        </tbody>      </table>      <table xmlns=\"http://www.w3.org/1999/xhtml\">        <thead>          <tr>            <th>Result Name</th>            <th>Value</th>            <th>Reference Range</th>            <th>Abnormal Indicator</th>            <th>Comments</th>                                  </tr>        </thead>        <tbody>          <tr>            <td>HDL Cholesterol</td>            <td>1.19 mmol/L</td>            <td>NA</td>                                                          </tr>          <tr>            <td>Total/HDL Chol Ratio</td>            <td>5.0 NoUnit</td>            <td>NA</td>                                                          </tr>          <tr>            <td>LDL Chol - calculated</td>            <td>4.1 mmol/L</td>            <td>NA</td>                                                          </tr>          <tr>            <td>Cholesterol</td>            <td>5.9 mmol/L</td>            <td>NA</td>                                                          </tr>          <tr>            <td>Lipid Comments.</td>            <td>A combined CVD risk of which lipids is one component should be estimated to guide CVD risk management decisions. If lipid modifying medication is considered suggest checking first for treatable secondary causes of dyslipidaemia. </td>            <td>NA</td>                                                          </tr>          <tr>            <td>Triglyceride</td>            <td>1.5 mmol/L</td>            <td>NA</td>                                                          </tr>        </tbody>      </table>            <table>        <tbody>          <tr>            <th>Result Group:</th>            <td>HBA1c</td>            <th>Result Date:</th>            <td>20 Oct 2022 12:35</td>            <th>Result Status:</th>            <td>completed</td>          </tr>        </tbody>      </table>      <table xmlns=\"http://www.w3.org/1999/xhtml\">        <thead>          <tr>            <th>Result Name</th>            <th>Value</th>            <th>Reference Range</th>            <th>Abnormal Indicator</th>            <th>Comments</th>                                  </tr>        </thead>        <tbody>          <tr>            <td>HbA1c (IFCC)</td>            <td>32 mmol/mol</td>            <td>0-40</td>                        <td>(&lt;41)  If used as a screening test, diabetes is virtually</td>                                  </tr>        </tbody>      </table>            <table>        <tbody>          <tr>            <th>Result Group:</th>            <td>CBC</td>            <th>Result Date:</th>            <td>20 Oct 2022 12:05</td>            <th>Result Status:</th>            <td>completed</td>          </tr>        </tbody>      </table>      <table xmlns=\"http://www.w3.org/1999/xhtml\">        <thead>          <tr>            <th>Result Name</th>            <th>Value</th>            <th>Reference Range</th>            <th>Abnormal Indicator</th>            <th>Comments</th>                                  </tr>        </thead>        <tbody>          <tr>            <td>MCH</td>            <td>31 pg</td>            <td>27-33</td>                                                          </tr>          <tr>            <td>HAEMOGLOBIN</td>            <td>146 g/L</td>            <td>130-175</td>                                                          </tr>          <tr>            <td>Differential: Monocyte</td>            <td>0.3 x10E9/L</td>            <td>0.2-1.0</td>                                                          </tr>          <tr>            <td>Differential: Lymphocyte</td>            <td>1.5 x10E9/L</td>            <td>1.0-4.0</td>                                                          </tr>          <tr>            <td>Differential: Basophil</td>            <td>0.1 x10E9/L</td>            <td>0-0.2</td>                                                          </tr>          <tr>            <td>Differential: Eosinophil</td>            <td>0.2 x10E9/L</td>            <td>0.0-0.5</td>                                                          </tr>          <tr>            <td>PLATELET COUNT</td>            <td>209 x10E9/L</td>            <td>150-400</td>                                                          </tr>          <tr>            <td>WBC</td>            <td>4.8 x10E9/L</td>            <td>4.0-11.0</td>                                                          </tr>          <tr>            <td>HCT</td>            <td>0.43 L/L</td>            <td>0.40-0.52</td>                                                          </tr>          <tr>            <td>Differential: Neut Seg</td>            <td>2.7 x10E9/L</td>            <td>1.9-7.5</td>                                                          </tr>          <tr>            <td>MCV</td>            <td>92 fL</td>            <td>80-99</td>                                                          </tr>        </tbody>      </table>    </div>"
+            },
+            "entry": [
+              {
+                "reference": "Observation/0c4b96b7-ba7f-4d49-b561-d682d1144c41"
+              },
+              {
+                "reference": "DiagnosticReport/9aca0eac-13d2-47df-80b0-62a97433782b"
+              },
+              {
+                "reference": "Observation/0b990e91-4528-4c5a-b993-fa8dc1ec88a6"
+              },
+              {
+                "reference": "Observation/b66931ca-bbc8-44f2-801d-3e6928dac867"
+              },
+              {
+                "reference": "Observation/bbddc5ad-4243-4be5-a3cd-e26c44e5bd48"
+              },
+              {
+                "reference": "Observation/492e691e-ce1c-4ad0-9cea-e8752dcb7062"
+              },
+              {
+                "reference": "Observation/65d02e2a-4f9d-4cdf-a948-2003c754ade0"
+              },
+              {
+                "reference": "DiagnosticReport/fcd07131-a7c8-4831-bece-032523c9f89d"
+              },
+              {
+                "reference": "Observation/eb134877-37a7-41cc-b293-1978f21ce328"
+              },
+              {
+                "reference": "DiagnosticReport/16813df4-55b3-469f-9704-ad2e83113f9a"
+              },
+              {
+                "reference": "Observation/d795cc01-aa96-4780-9a1f-4dde41b4fd62"
+              },
+              {
+                "reference": "Observation/6363d9e1-56ab-4767-9fac-cd379fd714c8"
+              },
+              {
+                "reference": "Observation/cb6bacf4-fe08-4f91-be06-b61bc19225b4"
+              },
+              {
+                "reference": "DiagnosticReport/1a31b67e-d1a9-4aac-9335-c503e3d18f65"
+              },
+              {
+                "reference": "Observation/ba83a85a-75ee-4a83-bfbf-baf5a00b5b89"
+              },
+              {
+                "reference": "Observation/10e337a2-143e-4257-b155-c960c6bff750"
+              },
+              {
+                "reference": "Observation/097a54c1-6dea-4e88-b995-289729d34845"
+              },
+              {
+                "reference": "Observation/78c906e9-3569-4fda-a272-8abca002bf38"
+              },
+              {
+                "reference": "Observation/24464ad0-43fe-43df-968b-177416441a8b"
+              },
+              {
+                "reference": "Observation/53bc6e0a-a5f8-402a-97e0-5c00a9f02bd2"
+              },
+              {
+                "reference": "Observation/6e6451f9-b168-45f5-bca4-7a2e71e784ea"
+              },
+              {
+                "reference": "Observation/e949a1f9-1412-4651-8d52-b86d5b601e86"
+              },
+              {
+                "reference": "Observation/b9ef4437-f48b-46c4-808d-ddc14e0ac742"
+              },
+              {
+                "reference": "Observation/03763af1-69a7-4505-9b3c-72ed8626731d"
+              },
+              {
+                "reference": "Observation/8d8b5125-d2d9-4bf8-bb14-634cdfab4f6b"
+              },
+              {
+                "reference": "DiagnosticReport/71ef7778-f528-4999-b069-344621769a1a"
+              },
+              {
+                "reference": "Observation/a8559d1e-a64b-4e24-b922-989a2a35bbd2"
+              },
+              {
+                "reference": "DiagnosticReport/772a27e9-8693-4331-811b-ea55c0bd6f36"
+              },
+              {
+                "reference": "Observation/7772da1a-ff8f-402c-8819-9ed8c53185f8"
+              },
+              {
+                "reference": "Observation/d9c9c946-bf55-4756-b8db-5fb708d27600"
+              },
+              {
+                "reference": "DiagnosticReport/cad9a153-d9f9-49bf-abd3-1186b21ab6c0"
+              },
+              {
+                "reference": "Observation/6a0393ea-02c7-497f-bb79-5a19ddd58bef"
+              },
+              {
+                "reference": "DiagnosticReport/6692363d-44ec-434f-ab05-3ea2685d3714"
+              },
+              {
+                "reference": "Observation/526ed8b5-d6fc-416a-a6f6-bab8963c78df"
+              },
+              {
+                "reference": "Observation/f8aa1cc8-c840-461b-a080-eb313fac8b7b"
+              },
+              {
+                "reference": "Observation/d3090ad0-1877-4fbc-a334-6b884777fb9c"
+              },
+              {
+                "reference": "Observation/8d1d3950-af6b-4734-bdb2-787706d48303"
+              },
+              {
+                "reference": "Observation/afbced4b-f41c-4619-85a8-49346f87bf3b"
+              },
+              {
+                "reference": "Observation/6f4b5f58-13fc-4670-84f5-738da36fc0cc"
+              },
+              {
+                "reference": "DiagnosticReport/d4781f8f-f1d8-4569-80fb-92a33d0bcb09"
+              },
+              {
+                "reference": "Observation/b77a49cb-f443-4a90-a877-256cbcae53f7"
+              },
+              {
+                "reference": "Observation/799a879e-47f8-427c-a510-81a4e4fb9290"
+              },
+              {
+                "reference": "Observation/6833528f-5d67-49c9-bafb-c9b59f757e07"
+              },
+              {
+                "reference": "Observation/91cda3d9-eea9-433d-992d-f92d7af5f3f2"
+              },
+              {
+                "reference": "Observation/e50c36a6-c92d-436a-9e70-1fa1606ad53f"
+              },
+              {
+                "reference": "Observation/ce7bd7c1-c563-4fbe-a266-97ee85b3710d"
+              },
+              {
+                "reference": "Observation/580225f7-2af2-4d23-bae9-b1b97fb4ee34"
+              },
+              {
+                "reference": "DiagnosticReport/03489a0f-b9da-4ca6-8b1b-4b84937dbe53"
+              },
+              {
+                "reference": "Observation/aca2f51d-23ed-459d-8ba0-e558f521ca87"
+              },
+              {
+                "reference": "Observation/0d576d22-a6df-47ec-93f4-c18f3d00622e"
+              },
+              {
+                "reference": "Observation/3fca955f-38eb-4013-8432-1e83f4e839df"
+              },
+              {
+                "reference": "Observation/df829a25-03e4-42e3-8455-30a1e9310f58"
+              },
+              {
+                "reference": "Observation/e518d1b5-3458-4bfa-ad9f-6ac5606d6e9f"
+              },
+              {
+                "reference": "Observation/fd38b7e4-af86-4e50-86aa-b87b169a78a7"
+              },
+              {
+                "reference": "DiagnosticReport/48f8279f-6f0f-4e5f-90ac-7d82a32f210b"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Patient/NNJ9186",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "NNJ9186",
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns='http://www.w3.org/1999/xhtml' xml:lang='en-NZ'>Name: PETER KEITH JONES</div>"
+        },
+        "identifier": [
+          {
+            "system": "https://standards.digital.health.nz/ns/nhi-id",
+            "value": "NNJ9186"
+          }
+        ],
+        "name": [
+          {
+            "use": "usual",
+            "family": "JONES",
+            "given": [
+              "PETER KEITH"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "other",
+            "value": "+6421758834",
+            "use": "mobile"
+          },
+          {
+            "system": "other",
+            "value": "+6478533279",
+            "use": "home"
+          },
+          {
+            "system": "other",
+            "value": "+6478533279",
+            "use": "work"
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1956-09-30",
+        "address": [
+          {
+            "use": "home",
+            "type": "physical",
+            "line": [
+              "3",
+              "Worcester Drive",
+              "Rototuna North"
+            ],
+            "city": "Hamilton",
+            "postalCode": "3210",
+            "country": "NZ"
+          }
+        ],
+        "maritalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+              "code": "M",
+              "display": "Married"
+            }
+          ]
+        },
+        "contact": [
+          {
+            "relationship": [
+              {
+                "coding": [
+                  {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0131",
+                    "code": "C",
+                    "display": "Emergency Contact"
+                  }
+                ]
+              }
+            ],
+            "name": {
+              "use": "usual",
+              "family": "JONES",
+              "given": [
+                "Vicki",
+                "JONES"
+              ]
+            },
+            "telecom": [
+              {
+                "system": "phone",
+                "value": "21884820",
+                "use": "mobile"
+              },
+              {
+                "system": "phone",
+                "value": "853 3279",
+                "use": "work"
+              }
+            ],
+            "address": {
+              "use": "home",
+              "type": "physical",
+              "line": [
+                "3 Worcester Drive",
+                "Rototuna North"
+              ],
+              "city": "Hamilton"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Organization/54fbf766-7d0a-4b30-8abc-b62f3206c494",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "54fbf766-7d0a-4b30-8abc-b62f3206c494",
+        "identifier": [
+          {
+            "system": "https://standards.digital.health.nz/ns/hpi-facility-id",
+            "value": "F2N000-J"
+          }
+        ],
+        "name": "NorthCare Pukete Road-Thomas Road"
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/PractitionerRole/d1fcc57e-43ad-4318-b0b8-9d7a994272f9",
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "d1fcc57e-43ad-4318-b0b8-9d7a994272f9",
+        "practitioner": {
+          "reference": "Practitioner/4d838dd9-df1e-44cc-a5b6-7d0c5bbcb2da"
+        },
+        "code": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "158965000",
+                "display": "Doctor"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Practitioner/4d838dd9-df1e-44cc-a5b6-7d0c5bbcb2da",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "4d838dd9-df1e-44cc-a5b6-7d0c5bbcb2da",
+        "name": [
+          {
+            "use": "usual",
+            "family": "COORAY",
+            "given": [
+              "Hashira",
+              "COORAY"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "07 850 9900",
+            "use": "work"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Organization/be5fc70e-210a-4648-85a8-ffc26d175c4d",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "be5fc70e-210a-4648-85a8-ffc26d175c4d",
+        "identifier": [
+          {
+            "system": "https://standards.digital.health.nz/ns/hpi-facility-id",
+            "value": "F2N000-J"
+          }
+        ],
+        "name": "NorthCare Pukete Road-Thomas Road"
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/AllergyIntolerance/c61ab6dd-2665-42e6-928c-28c8373d2592",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "c61ab6dd-2665-42e6-928c-28c8373d2592",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "type": "allergy",
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/uv/ips/CodeSystem/absent-unknown-uv-ips",
+              "code": "no-known-allergies",
+              "display": "No known allergies"
+            }
+          ]
+        },
+        "patient": {
+          "reference": "Patient/NNJ9186"
+        },
+        "onsetDateTime": "2020-11-12",
+        "asserter": {
+          "reference": "Patient/NNJ9186"
+        }
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Condition/2d3b1089-8058-4fc5-864b-7cf52b24577d",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "2d3b1089-8058-4fc5-864b-7cf52b24577d",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "90560007",
+              "display": "Gout"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "recordedDate": "2020-10-01"
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Condition/64804e76-ef83-4b7c-8987-3c0040124020",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "64804e76-ef83-4b7c-8987-3c0040124020",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "59621000",
+              "display": "Essential hypertension"
+            }
+          ],
+          "text": "G20.. (Essential hypertension)"
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "recordedDate": "2016-05-25",
+        "asserter": {
+          "reference": "Practitioner/4d838dd9-df1e-44cc-a5b6-7d0c5bbcb2da"
+        }
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/MedicationStatement/6caed120-2333-4465-9434-bdf3e75f0ef8",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "6caed120-2333-4465-9434-bdf3e75f0ef8",
+        "status": "active",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "318913001",
+              "display": "Product containing cilazapril (medicinal product)"
+            }
+          ],
+          "text": "cilazapril 500 microgram tablet, 90"
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2023-02-23",
+        "informationSource": {
+          "reference": "Organization/be5fc70e-210a-4648-85a8-ffc26d175c4d"
+        },
+        "dosage": [
+          {
+            "text": "Take 1 daily",
+            "doseAndRate": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/dose-rate-type",
+                      "code": "ordered",
+                      "display": "Ordered"
+                    }
+                  ]
+                },
+                "doseQuantity": {
+                  "value": 1,
+                  "unit": "tablet",
+                  "system": "http://snomed.info/sct",
+                  "code": "385055001"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Immunization/3c61952a-5a18-4bba-bcf8-7a30ef5d3dab",
+      "resource": {
+        "resourceType": "Immunization",
+        "id": "3c61952a-5a18-4bba-bcf8-7a30ef5d3dab",
+        "status": "completed",
+        "vaccineCode": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/cvx",
+              "code": "141",
+              "display": "Influenza, seasonal, injectable"
+            }
+          ]
+        },
+        "patient": {
+          "reference": "Patient/NNJ9186"
+        },
+        "occurrenceDateTime": "2023-04-12",
+        "lotNumber": "358899",
+        "site": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "16217661000119109",
+              "display": "Structure of right deltoid muscle"
+            }
+          ]
+        },
+        "route": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-RouteOfAdministration",
+              "code": "IM",
+              "display": "Injection, intramuscular"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "actor": {
+              "reference": "Organization/be5fc70e-210a-4648-85a8-ffc26d175c4d"
+            }
+          }
+        ],
+        "protocolApplied": [
+          {
+            "series": "1 (Over 65 years (Influenza))",
+            "doseNumberPositiveInt": 1
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Immunization/21e34790-bb8b-489e-b5e3-971ba975b1d7",
+      "resource": {
+        "resourceType": "Immunization",
+        "id": "21e34790-bb8b-489e-b5e3-971ba975b1d7",
+        "status": "completed",
+        "vaccineCode": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/cvx",
+              "code": "208",
+              "display": "SARS-COV-2 (COVID-19) vaccine, mRNA, spike protein, LNP, preservative free, 30 mcg/0.3mL dose"
+            }
+          ]
+        },
+        "patient": {
+          "reference": "Patient/NNJ9186"
+        },
+        "occurrenceDateTime": "2022-08-01",
+        "lotNumber": "PCB0008-07",
+        "site": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "16217701000119102",
+              "display": "Structure of left deltoid muscle"
+            }
+          ]
+        },
+        "route": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-RouteOfAdministration",
+              "code": "IM",
+              "display": "Injection, intramuscular"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "actor": {
+              "reference": "Organization/be5fc70e-210a-4648-85a8-ffc26d175c4d"
+            }
+          }
+        ],
+        "protocolApplied": [
+          {
+            "series": "12 (At risk, no previous history)",
+            "doseNumberPositiveInt": 4
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Immunization/08b987cf-16b6-4c68-bc6b-b156bd49adf0",
+      "resource": {
+        "resourceType": "Immunization",
+        "id": "08b987cf-16b6-4c68-bc6b-b156bd49adf0",
+        "status": "completed",
+        "vaccineCode": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/cvx",
+              "code": "121",
+              "display": "zoster vaccine, live"
+            }
+          ]
+        },
+        "patient": {
+          "reference": "Patient/NNJ9186"
+        },
+        "occurrenceDateTime": "2022-07-13",
+        "lotNumber": "U021248",
+        "site": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "72098002",
+              "display": "Entire left upper arm"
+            }
+          ]
+        },
+        "route": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-RouteOfAdministration",
+              "code": "IM",
+              "display": "Injection, intramuscular"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "actor": {
+              "reference": "Organization/be5fc70e-210a-4648-85a8-ffc26d175c4d"
+            }
+          }
+        ],
+        "protocolApplied": [
+          {
+            "series": "65Y (65 years)",
+            "doseNumberPositiveInt": 1
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Immunization/b80bebe5-3f3a-4158-9891-ba2d449a2475",
+      "resource": {
+        "resourceType": "Immunization",
+        "id": "b80bebe5-3f3a-4158-9891-ba2d449a2475",
+        "status": "completed",
+        "vaccineCode": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/cvx",
+              "code": "141",
+              "display": "Influenza, seasonal, injectable"
+            }
+          ]
+        },
+        "patient": {
+          "reference": "Patient/NNJ9186"
+        },
+        "occurrenceDateTime": "2022-06-01",
+        "lotNumber": "P100421221",
+        "site": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "16217701000119102",
+              "display": "Structure of left deltoid muscle"
+            }
+          ]
+        },
+        "route": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-RouteOfAdministration",
+              "code": "IM",
+              "display": "Injection, intramuscular"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "actor": {
+              "reference": "Organization/be5fc70e-210a-4648-85a8-ffc26d175c4d"
+            }
+          }
+        ],
+        "protocolApplied": [
+          {
+            "series": "1 (Over 65 years (Influenza))",
+            "doseNumberPositiveInt": 1
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Immunization/33813294-6572-422b-957d-467b6101d08e",
+      "resource": {
+        "resourceType": "Immunization",
+        "id": "33813294-6572-422b-957d-467b6101d08e",
+        "status": "completed",
+        "vaccineCode": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/cvx",
+              "code": "208",
+              "display": "SARS-COV-2 (COVID-19) vaccine, mRNA, spike protein, LNP, preservative free, 30 mcg/0.3mL dose"
+            }
+          ]
+        },
+        "patient": {
+          "reference": "Patient/NNJ9186"
+        },
+        "occurrenceDateTime": "2022-01-13",
+        "lotNumber": "FL1072-025",
+        "route": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-RouteOfAdministration",
+              "code": "IM",
+              "display": "Injection, intramuscular"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "actor": {
+              "reference": "Organization/be5fc70e-210a-4648-85a8-ffc26d175c4d"
+            }
+          }
+        ],
+        "protocolApplied": [
+          {
+            "series": "12 (At risk, no previous history)",
+            "doseNumberPositiveInt": 3
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Immunization/4c0789c2-191d-4f5b-bd83-3e9011c10749",
+      "resource": {
+        "resourceType": "Immunization",
+        "id": "4c0789c2-191d-4f5b-bd83-3e9011c10749",
+        "status": "completed",
+        "vaccineCode": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/cvx",
+              "code": "208",
+              "display": "SARS-COV-2 (COVID-19) vaccine, mRNA, spike protein, LNP, preservative free, 30 mcg/0.3mL dose"
+            }
+          ]
+        },
+        "patient": {
+          "reference": "Patient/NNJ9186"
+        },
+        "occurrenceDateTime": "2021-08-27",
+        "lotNumber": "FE8163-007",
+        "site": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "16217701000119102",
+              "display": "Structure of left deltoid muscle"
+            }
+          ]
+        },
+        "route": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-RouteOfAdministration",
+              "code": "IM",
+              "display": "Injection, intramuscular"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "actor": {
+              "reference": "Organization/be5fc70e-210a-4648-85a8-ffc26d175c4d"
+            }
+          }
+        ],
+        "protocolApplied": [
+          {
+            "series": "12 (At risk, no previous history)",
+            "doseNumberPositiveInt": 2
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Immunization/b33dd362-1e0a-4c3d-a696-3f7dcfb155f3",
+      "resource": {
+        "resourceType": "Immunization",
+        "id": "b33dd362-1e0a-4c3d-a696-3f7dcfb155f3",
+        "status": "completed",
+        "vaccineCode": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/cvx",
+              "code": "208",
+              "display": "SARS-COV-2 (COVID-19) vaccine, mRNA, spike protein, LNP, preservative free, 30 mcg/0.3mL dose"
+            }
+          ]
+        },
+        "patient": {
+          "reference": "Patient/NNJ9186"
+        },
+        "occurrenceDateTime": "2021-08-05",
+        "lotNumber": "FF8871-001",
+        "site": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "16217701000119102",
+              "display": "Structure of left deltoid muscle"
+            }
+          ]
+        },
+        "route": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-RouteOfAdministration",
+              "code": "IM",
+              "display": "Injection, intramuscular"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "actor": {
+              "reference": "Organization/be5fc70e-210a-4648-85a8-ffc26d175c4d"
+            }
+          }
+        ],
+        "protocolApplied": [
+          {
+            "series": "12 (At risk, no previous history)",
+            "doseNumberPositiveInt": 1
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/DiagnosticReport/9aca0eac-13d2-47df-80b0-62a97433782b",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "9aca0eac-13d2-47df-80b0-62a97433782b",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "LAB",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "0170 (Iron Studies)"
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "result": [
+          {
+            "reference": "Observation/0c4b96b7-ba7f-4d49-b561-d682d1144c41"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/DiagnosticReport/fcd07131-a7c8-4831-bece-032523c9f89d",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "fcd07131-a7c8-4831-bece-032523c9f89d",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "LAB",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "0055 (GENERAL CHEM....)"
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "result": [
+          {
+            "reference": "Observation/0b990e91-4528-4c5a-b993-fa8dc1ec88a6"
+          },
+          {
+            "reference": "Observation/b66931ca-bbc8-44f2-801d-3e6928dac867"
+          },
+          {
+            "reference": "Observation/bbddc5ad-4243-4be5-a3cd-e26c44e5bd48"
+          },
+          {
+            "reference": "Observation/492e691e-ce1c-4ad0-9cea-e8752dcb7062"
+          },
+          {
+            "reference": "Observation/65d02e2a-4f9d-4cdf-a948-2003c754ade0"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/DiagnosticReport/16813df4-55b3-469f-9704-ad2e83113f9a",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "16813df4-55b3-469f-9704-ad2e83113f9a",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "LAB",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "0055 (GENERAL CHEM....)"
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2023-03-01T15:06:00+00:00",
+        "result": [
+          {
+            "reference": "Observation/eb134877-37a7-41cc-b293-1978f21ce328"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/DiagnosticReport/1a31b67e-d1a9-4aac-9335-c503e3d18f65",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "1a31b67e-d1a9-4aac-9335-c503e3d18f65",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "LAB",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "0320 (CALCIUM.........)"
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "result": [
+          {
+            "reference": "Observation/d795cc01-aa96-4780-9a1f-4dde41b4fd62"
+          },
+          {
+            "reference": "Observation/6363d9e1-56ab-4767-9fac-cd379fd714c8"
+          },
+          {
+            "reference": "Observation/cb6bacf4-fe08-4f91-be06-b61bc19225b4"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/DiagnosticReport/71ef7778-f528-4999-b069-344621769a1a",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "71ef7778-f528-4999-b069-344621769a1a",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "LAB",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "4014 (CBC)"
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T12:05:00+00:00",
+        "result": [
+          {
+            "reference": "Observation/ba83a85a-75ee-4a83-bfbf-baf5a00b5b89"
+          },
+          {
+            "reference": "Observation/10e337a2-143e-4257-b155-c960c6bff750"
+          },
+          {
+            "reference": "Observation/097a54c1-6dea-4e88-b995-289729d34845"
+          },
+          {
+            "reference": "Observation/78c906e9-3569-4fda-a272-8abca002bf38"
+          },
+          {
+            "reference": "Observation/24464ad0-43fe-43df-968b-177416441a8b"
+          },
+          {
+            "reference": "Observation/53bc6e0a-a5f8-402a-97e0-5c00a9f02bd2"
+          },
+          {
+            "reference": "Observation/6e6451f9-b168-45f5-bca4-7a2e71e784ea"
+          },
+          {
+            "reference": "Observation/e949a1f9-1412-4651-8d52-b86d5b601e86"
+          },
+          {
+            "reference": "Observation/b9ef4437-f48b-46c4-808d-ddc14e0ac742"
+          },
+          {
+            "reference": "Observation/03763af1-69a7-4505-9b3c-72ed8626731d"
+          },
+          {
+            "reference": "Observation/8d8b5125-d2d9-4bf8-bb14-634cdfab4f6b"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/DiagnosticReport/772a27e9-8693-4331-811b-ea55c0bd6f36",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "772a27e9-8693-4331-811b-ea55c0bd6f36",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "LAB",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "0063 (HBA1c)"
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T12:35:00+00:00",
+        "result": [
+          {
+            "reference": "Observation/a8559d1e-a64b-4e24-b922-989a2a35bbd2"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/DiagnosticReport/cad9a153-d9f9-49bf-abd3-1186b21ab6c0",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "cad9a153-d9f9-49bf-abd3-1186b21ab6c0",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "LAB",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "1960 (B12 and folate)"
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "result": [
+          {
+            "reference": "Observation/7772da1a-ff8f-402c-8819-9ed8c53185f8"
+          },
+          {
+            "reference": "Observation/d9c9c946-bf55-4756-b8db-5fb708d27600"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/DiagnosticReport/6692363d-44ec-434f-ab05-3ea2685d3714",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "6692363d-44ec-434f-ab05-3ea2685d3714",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "LAB",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "1540 (TFTs............)"
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "result": [
+          {
+            "reference": "Observation/6a0393ea-02c7-497f-bb79-5a19ddd58bef"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/DiagnosticReport/d4781f8f-f1d8-4569-80fb-92a33d0bcb09",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "d4781f8f-f1d8-4569-80fb-92a33d0bcb09",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "LAB",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "1080 (LIPIDS..........)"
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2023-02-23T14:35:00+00:00",
+        "result": [
+          {
+            "reference": "Observation/526ed8b5-d6fc-416a-a6f6-bab8963c78df"
+          },
+          {
+            "reference": "Observation/f8aa1cc8-c840-461b-a080-eb313fac8b7b"
+          },
+          {
+            "reference": "Observation/d3090ad0-1877-4fbc-a334-6b884777fb9c"
+          },
+          {
+            "reference": "Observation/8d1d3950-af6b-4734-bdb2-787706d48303"
+          },
+          {
+            "reference": "Observation/afbced4b-f41c-4619-85a8-49346f87bf3b"
+          },
+          {
+            "reference": "Observation/6f4b5f58-13fc-4670-84f5-738da36fc0cc"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/DiagnosticReport/03489a0f-b9da-4ca6-8b1b-4b84937dbe53",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "03489a0f-b9da-4ca6-8b1b-4b84937dbe53",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "LAB",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "0100 (Liver Function Tests)"
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "result": [
+          {
+            "reference": "Observation/b77a49cb-f443-4a90-a877-256cbcae53f7"
+          },
+          {
+            "reference": "Observation/799a879e-47f8-427c-a510-81a4e4fb9290"
+          },
+          {
+            "reference": "Observation/6833528f-5d67-49c9-bafb-c9b59f757e07"
+          },
+          {
+            "reference": "Observation/91cda3d9-eea9-433d-992d-f92d7af5f3f2"
+          },
+          {
+            "reference": "Observation/e50c36a6-c92d-436a-9e70-1fa1606ad53f"
+          },
+          {
+            "reference": "Observation/ce7bd7c1-c563-4fbe-a266-97ee85b3710d"
+          },
+          {
+            "reference": "Observation/580225f7-2af2-4d23-bae9-b1b97fb4ee34"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/DiagnosticReport/48f8279f-6f0f-4e5f-90ac-7d82a32f210b",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "48f8279f-6f0f-4e5f-90ac-7d82a32f210b",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "LAB",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "1080 (LIPIDS..........)"
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "result": [
+          {
+            "reference": "Observation/aca2f51d-23ed-459d-8ba0-e558f521ca87"
+          },
+          {
+            "reference": "Observation/0d576d22-a6df-47ec-93f4-c18f3d00622e"
+          },
+          {
+            "reference": "Observation/3fca955f-38eb-4013-8432-1e83f4e839df"
+          },
+          {
+            "reference": "Observation/df829a25-03e4-42e3-8455-30a1e9310f58"
+          },
+          {
+            "reference": "Observation/e518d1b5-3458-4bfa-ad9f-6ac5606d6e9f"
+          },
+          {
+            "reference": "Observation/fd38b7e4-af86-4e50-86aa-b87b169a78a7"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/0c4b96b7-ba7f-4d49-b561-d682d1144c41",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "0c4b96b7-ba7f-4d49-b561-d682d1144c41",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2276-4",
+              "display": "Ferritin [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 280,
+          "unit": "ug/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "ug/L"
+        },
+        "referenceRange": [
+          {
+            "text": "20-450"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/0b990e91-4528-4c5a-b993-fa8dc1ec88a6",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "0b990e91-4528-4c5a-b993-fa8dc1ec88a6",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2951-2",
+              "display": "Sodium [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 141,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "referenceRange": [
+          {
+            "text": "135-145"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/b66931ca-bbc8-44f2-801d-3e6928dac867",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "b66931ca-bbc8-44f2-801d-3e6928dac867",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "14682-9",
+              "display": "Creatinine [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 79,
+          "unit": "umol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "umol/L"
+        },
+        "referenceRange": [
+          {
+            "text": "60-105"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/bbddc5ad-4243-4be5-a3cd-e26c44e5bd48",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "bbddc5ad-4243-4be5-a3cd-e26c44e5bd48",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "3084-1",
+              "display": "Urate [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 0.43,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "H",
+                "display": "High"
+              }
+            ]
+          }
+        ],
+        "note": [
+          {
+            "text": "The urate target level for gout management is <0.36 mmol/L"
+          },
+          {
+            "text": "L"
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "0.23-0.42"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/492e691e-ce1c-4ad0-9cea-e8752dcb7062",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "492e691e-ce1c-4ad0-9cea-e8752dcb7062",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "62238-1",
+              "display": "Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (CKD-EPI)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 89,
+          "unit": "mL/min",
+          "system": "http://unitsofmeasure.org",
+          "code": "mL/min"
+        },
+        "referenceRange": [
+          {
+            "text": ">60"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/65d02e2a-4f9d-4cdf-a948-2003c754ade0",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "65d02e2a-4f9d-4cdf-a948-2003c754ade0",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2823-3",
+              "display": "Potassium [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 3.9,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "referenceRange": [
+          {
+            "text": "3.5-5.2"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/eb134877-37a7-41cc-b293-1978f21ce328",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "eb134877-37a7-41cc-b293-1978f21ce328",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "3084-1",
+              "display": "Urate [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2023-03-01T15:06:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 0.36,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "referenceRange": [
+          {
+            "text": "0.23-0.42"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/d795cc01-aa96-4780-9a1f-4dde41b4fd62",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "d795cc01-aa96-4780-9a1f-4dde41b4fd62",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "29265-6",
+              "display": "Calcium [Moles/volume] corrected for albumin in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 2.25,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "referenceRange": [
+          {
+            "text": "2.10-2.55"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/6363d9e1-56ab-4767-9fac-cd379fd714c8",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "6363d9e1-56ab-4767-9fac-cd379fd714c8",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "14879-1",
+              "display": "Phosphate [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 1.00,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "referenceRange": [
+          {
+            "text": "0.70-1.50"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/cb6bacf4-fe08-4f91-be06-b61bc19225b4",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "cb6bacf4-fe08-4f91-be06-b61bc19225b4",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2000-8",
+              "display": "Calcium [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 2.26,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "referenceRange": [
+          {
+            "text": "2.10-2.55"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/ba83a85a-75ee-4a83-bfbf-baf5a00b5b89",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "ba83a85a-75ee-4a83-bfbf-baf5a00b5b89",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "4170 (MCH)"
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T12:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 31,
+          "unit": "pg",
+          "system": "http://unitsofmeasure.org",
+          "code": "pg"
+        },
+        "referenceRange": [
+          {
+            "text": "27-33"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/10e337a2-143e-4257-b155-c960c6bff750",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "10e337a2-143e-4257-b155-c960c6bff750",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Hemoglobin [Mass/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T12:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 146,
+          "unit": "g/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/L"
+        },
+        "referenceRange": [
+          {
+            "text": "130-175"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/097a54c1-6dea-4e88-b995-289729d34845",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "097a54c1-6dea-4e88-b995-289729d34845",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "26484-6",
+              "display": "Monocytes [#/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T12:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 0.3,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        },
+        "referenceRange": [
+          {
+            "text": "0.2-1.0"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/78c906e9-3569-4fda-a272-8abca002bf38",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "78c906e9-3569-4fda-a272-8abca002bf38",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "26474-7",
+              "display": "Lymphocytes [#/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T12:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 1.5,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        },
+        "referenceRange": [
+          {
+            "text": "1.0-4.0"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/24464ad0-43fe-43df-968b-177416441a8b",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "24464ad0-43fe-43df-968b-177416441a8b",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "26444-0",
+              "display": "Basophils [#/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T12:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 0.1,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        },
+        "referenceRange": [
+          {
+            "text": "0-0.2"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/53bc6e0a-a5f8-402a-97e0-5c00a9f02bd2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "53bc6e0a-a5f8-402a-97e0-5c00a9f02bd2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "26449-9",
+              "display": "Eosinophils [#/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T12:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 0.2,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        },
+        "referenceRange": [
+          {
+            "text": "0.0-0.5"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/6e6451f9-b168-45f5-bca4-7a2e71e784ea",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "6e6451f9-b168-45f5-bca4-7a2e71e784ea",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "777-3",
+              "display": "Platelets [#/volume] in Blood by Automated count"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T12:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 209,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        },
+        "referenceRange": [
+          {
+            "text": "150-400"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/e949a1f9-1412-4651-8d52-b86d5b601e86",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "e949a1f9-1412-4651-8d52-b86d5b601e86",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "Leukocytes [#/volume] in Blood by Automated count"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T12:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 4.8,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        },
+        "referenceRange": [
+          {
+            "text": "4.0-11.0"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/b9ef4437-f48b-46c4-808d-ddc14e0ac742",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "b9ef4437-f48b-46c4-808d-ddc14e0ac742",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "4140 (HCT)"
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T12:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 0.43,
+          "unit": "L/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "L/L"
+        },
+        "referenceRange": [
+          {
+            "text": "0.40-0.52"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/03763af1-69a7-4505-9b3c-72ed8626731d",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "03763af1-69a7-4505-9b3c-72ed8626731d",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "30449-3",
+              "display": "Neutrophils.hypersegmented [#/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T12:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 2.7,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        },
+        "referenceRange": [
+          {
+            "text": "1.9-7.5"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/8d8b5125-d2d9-4bf8-bb14-634cdfab4f6b",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8d8b5125-d2d9-4bf8-bb14-634cdfab4f6b",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "787-2",
+              "display": "MCV [Entitic volume] by Automated count"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T12:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 92,
+          "unit": "fL",
+          "system": "http://unitsofmeasure.org",
+          "code": "fL"
+        },
+        "referenceRange": [
+          {
+            "text": "80-99"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/a8559d1e-a64b-4e24-b922-989a2a35bbd2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "a8559d1e-a64b-4e24-b922-989a2a35bbd2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "59261-8",
+              "display": "Hemoglobin A1c/Hemoglobin.total in Blood by IFCC protocol"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T12:35:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 32,
+          "unit": "mmol/mol",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/mol"
+        },
+        "note": [
+          {
+            "text": "(<41)  If used as a screening test, diabetes is virtually"
+          },
+          {
+            "text": "L"
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "0-40"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/7772da1a-ff8f-402c-8819-9ed8c53185f8",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "7772da1a-ff8f-402c-8819-9ed8c53185f8",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "14732-2",
+              "display": "Folate [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 10.2,
+          "unit": "nmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "nmol/L"
+        },
+        "referenceRange": [
+          {
+            "text": "7.0-45.0"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/d9c9c946-bf55-4756-b8db-5fb708d27600",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "d9c9c946-bf55-4756-b8db-5fb708d27600",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "14685-2",
+              "display": "Cobalamin (Vitamin B12) [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 208,
+          "unit": "pmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "pmol/L"
+        },
+        "referenceRange": [
+          {
+            "text": "110-650"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/6a0393ea-02c7-497f-bb79-5a19ddd58bef",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "6a0393ea-02c7-497f-bb79-5a19ddd58bef",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "3016-3",
+              "display": "Thyrotropin [Units/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 1.80,
+          "unit": "mU/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mU/L"
+        },
+        "referenceRange": [
+          {
+            "text": "0.3-5.0"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/526ed8b5-d6fc-416a-a6f6-bab8963c78df",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "526ed8b5-d6fc-416a-a6f6-bab8963c78df",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "32309-7",
+              "display": "Cholesterol.total/Cholesterol in HDL [Molar ratio] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2023-02-23T14:35:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 2.2,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "referenceRange": [
+          {
+            "text": "NA"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/f8aa1cc8-c840-461b-a080-eb313fac8b7b",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "f8aa1cc8-c840-461b-a080-eb313fac8b7b",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "14927-8",
+              "display": "Triglyceride [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2023-02-23T14:35:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 1.5,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "referenceRange": [
+          {
+            "text": "NA"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/d3090ad0-1877-4fbc-a334-6b884777fb9c",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "d3090ad0-1877-4fbc-a334-6b884777fb9c",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "49062-3",
+              "display": "Lipid risk factors [Finding]"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2023-02-23T14:35:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueString": "A combined CVD risk of which lipids is one component should be estimated to guide CVD risk management decisions. If lipid modifying medication is considered suggest checking first for treatable secondary causes of dyslipidaemia.",
+        "referenceRange": [
+          {
+            "text": "NA"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/8d1d3950-af6b-4734-bdb2-787706d48303",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8d1d3950-af6b-4734-bdb2-787706d48303",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "14646-4",
+              "display": "Cholesterol in HDL [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2023-02-23T14:35:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 1.38,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "referenceRange": [
+          {
+            "text": "NA"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/afbced4b-f41c-4619-85a8-49346f87bf3b",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "afbced4b-f41c-4619-85a8-49346f87bf3b",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "39469-2",
+              "display": "Cholesterol in LDL [Moles/volume] in Serum or Plasma by calculation"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2023-02-23T14:35:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 1.0,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "referenceRange": [
+          {
+            "text": "NA"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/6f4b5f58-13fc-4670-84f5-738da36fc0cc",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "6f4b5f58-13fc-4670-84f5-738da36fc0cc",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "14647-2",
+              "display": "Cholesterol [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2023-02-23T14:35:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 3.0,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "referenceRange": [
+          {
+            "text": "NA"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/b77a49cb-f443-4a90-a877-256cbcae53f7",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "b77a49cb-f443-4a90-a877-256cbcae53f7",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2324-2",
+              "display": "Gamma glutamyl transferase [Enzymatic activity/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 18,
+          "unit": "U/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "U/L"
+        },
+        "referenceRange": [
+          {
+            "text": "0-60"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/799a879e-47f8-427c-a510-81a4e4fb9290",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "799a879e-47f8-427c-a510-81a4e4fb9290",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1742-6",
+              "display": "Alanine aminotransferase [Enzymatic activity/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 16,
+          "unit": "U/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "U/L"
+        },
+        "referenceRange": [
+          {
+            "text": "0-55"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/6833528f-5d67-49c9-bafb-c9b59f757e07",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "6833528f-5d67-49c9-bafb-c9b59f757e07",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "10834-0",
+              "display": "Globulin [Mass/volume] in Serum by calculation"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 30,
+          "unit": "g/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/L"
+        },
+        "referenceRange": [
+          {
+            "text": "25-35"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/91cda3d9-eea9-433d-992d-f92d7af5f3f2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "91cda3d9-eea9-433d-992d-f92d7af5f3f2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6769-4",
+              "display": "Deprecated Alkaline phosphatase [Enzymatic activity/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 63,
+          "unit": "U/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "U/L"
+        },
+        "referenceRange": [
+          {
+            "text": "40-130"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/e50c36a6-c92d-436a-9e70-1fa1606ad53f",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "e50c36a6-c92d-436a-9e70-1fa1606ad53f",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "14631-6",
+              "display": "Bilirubin.total [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 9,
+          "unit": "umol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "umol/L"
+        },
+        "referenceRange": [
+          {
+            "text": "0-20"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/ce7bd7c1-c563-4fbe-a266-97ee85b3710d",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "ce7bd7c1-c563-4fbe-a266-97ee85b3710d",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1751-7",
+              "display": "Albumin [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 38,
+          "unit": "g/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/L"
+        },
+        "referenceRange": [
+          {
+            "text": "34-48"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/580225f7-2af2-4d23-bae9-b1b97fb4ee34",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "580225f7-2af2-4d23-bae9-b1b97fb4ee34",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2885-2",
+              "display": "Protein [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 68,
+          "unit": "g/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/L"
+        },
+        "referenceRange": [
+          {
+            "text": "60-80"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/aca2f51d-23ed-459d-8ba0-e558f521ca87",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "aca2f51d-23ed-459d-8ba0-e558f521ca87",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "14646-4",
+              "display": "Cholesterol in HDL [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 1.19,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "referenceRange": [
+          {
+            "text": "NA"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/0d576d22-a6df-47ec-93f4-c18f3d00622e",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "0d576d22-a6df-47ec-93f4-c18f3d00622e",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "32309-7",
+              "display": "Cholesterol.total/Cholesterol in HDL [Molar ratio] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 5.0,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "referenceRange": [
+          {
+            "text": "NA"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/3fca955f-38eb-4013-8432-1e83f4e839df",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "3fca955f-38eb-4013-8432-1e83f4e839df",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "39469-2",
+              "display": "Cholesterol in LDL [Moles/volume] in Serum or Plasma by calculation"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 4.1,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "referenceRange": [
+          {
+            "text": "NA"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/df829a25-03e4-42e3-8455-30a1e9310f58",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "df829a25-03e4-42e3-8455-30a1e9310f58",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "14647-2",
+              "display": "Cholesterol [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 5.9,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "referenceRange": [
+          {
+            "text": "NA"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/e518d1b5-3458-4bfa-ad9f-6ac5606d6e9f",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "e518d1b5-3458-4bfa-ad9f-6ac5606d6e9f",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "49062-3",
+              "display": "Lipid risk factors [Finding]"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueString": "A combined CVD risk of which lipids is one component should be estimated to guide CVD risk management decisions. If lipid modifying medication is considered suggest checking first for treatable secondary causes of dyslipidaemia.",
+        "referenceRange": [
+          {
+            "text": "NA"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/Observation/fd38b7e4-af86-4e50-86aa-b87b169a78a7",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "fd38b7e4-af86-4e50-86aa-b87b169a78a7",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "14927-8",
+              "display": "Triglyceride [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/NNJ9186"
+        },
+        "effectiveDateTime": "2022-10-20T13:05:00+00:00",
+        "performer": [
+          {
+            "reference": "PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e"
+          }
+        ],
+        "valueQuantity": {
+          "value": 1.5,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "referenceRange": [
+          {
+            "text": "NA"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://terminz.azurewebsites.net/fhir/PractitionerRole/e7122db5-706e-4745-9144-dde9a3e8c56e",
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "e7122db5-706e-4745-9144-dde9a3e8c56e",
+        "code": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "81464008",
+                "display": "Clinical pathologist"
+              }
+            ]
+          }
+        ]
+      }
     }
-  }]
+  ]
 }
-
-

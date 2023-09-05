@@ -33,14 +33,21 @@ class DocumentGeneratorUtils {
     section.entry.clear()
     addedResourcesByType[resourceType]?.distinctBy { it.idElement.toVersionless() }
       ?.forEach { addedResource ->
-        section.entry.add(Reference().setReference("${addedResource.idElement.toVersionless()}"))
+        val fullId = addedResource.idElement.toVersionless()
+        val baseId = addedResource.idElement.toVersionless().baseUrl
+        val id = if (baseId == null) {
+          fullId
+        } else {
+          fullId.toString().removePrefix(baseId)
+        }
+        section.entry.add(Reference().setReference(id.toString()))
       }
     return section
   }
 
   private fun getResourceText(resource: Resource): Narrative {
     val narrative = Narrative()
-    narrative.statusAsString = "generated"
+    // narrative.statusAsString = "generated"
     return narrative
   }
 
@@ -107,6 +114,7 @@ class DocumentGeneratorUtils {
           else -> "History of Past Illness"
         }
       }
+
       ResourceType.Medication -> "Medication"
       ResourceType.Immunization -> "Immunizations"
       ResourceType.Observation -> "Results"

@@ -3,10 +3,10 @@
   "type": "document",
   "entry": [
     {
-      "fullUrl": "urn:uuid:f9093a2c-9d69-471b-aa4a-d1c0cfb120c7",
+      "fullUrl": "urn:uuid:397108b5-3793-4921-9d91-865a7bab69ee",
       "resource": {
         "resourceType": "Composition",
-        "id": "f9093a2c-9d69-471b-aa4a-d1c0cfb120c7",
+        "id": "397108b5-3793-4921-9d91-865a7bab69ee",
         "status": "final",
         "type": {
           "coding": [
@@ -17,7 +17,7 @@
             }
           ]
         },
-        "date": "2023-09-01T10:58:39+01:00",
+        "date": "2023-09-04T22:48:17+01:00",
         "author": [
           {
             "reference": "Practitioner/12345"
@@ -26,13 +26,13 @@
         "title": "Patient Summary",
         "section": [
           {
-            "title": "Medication",
+            "title": "Immunizations",
             "code": {
               "coding": [
                 {
                   "system": "http://loinc.org",
-                  "code": "10160-0",
-                  "display": "History of Medication"
+                  "code": "11369-6",
+                  "display": "History of Immunizations"
                 }
               ]
             },
@@ -41,47 +41,10 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:8adc0999-9468-4ac9-9557-680fa133d626"
-              }
-            ]
-          },
-          {
-            "title": "History of Past Illness",
-            "code": {
-              "coding": [
-                {
-                  "system": "http://loinc.org",
-                  "code": "11450-4",
-                  "display": "Problem list Reported"
-                }
-              ]
-            },
-            "text": {
-              "status": "generated"
-            },
-            "entry": [
+                "reference": "https://terminz.azurewebsites.net/fhir/Immunization/3c61952a-5a18-4bba-bcf8-7a30ef5d3dab"
+              },
               {
-                "reference": "urn:uuid:c4597aa2-688a-401b-a658-70acc6de28c6"
-              }
-            ]
-          },
-          {
-            "title": "Results",
-            "code": {
-              "coding": [
-                {
-                  "system": "http://loinc.org",
-                  "code": "30954-2",
-                  "display": "Test Results"
-                }
-              ]
-            },
-            "text": {
-              "status": "generated"
-            },
-            "entry": [
-              {
-                "reference": "urn:uuid:b4916505-a06b-460c-9be8-011609282457"
+                "reference": "https://terminz.azurewebsites.net/fhir/Immunization/b80bebe5-3f3a-4158-9891-ba2d449a2475"
               }
             ]
           },
@@ -101,7 +64,7 @@
             },
             "entry": [
               {
-                "reference": "c01a5a96-8f8e-49c9-a1fe-6d0f3577f017"
+                "reference": "3413cacd-7494-4cc1-bf21-ea19918554ae"
               }
             ]
           },
@@ -121,10 +84,27 @@
             },
             "entry": [
               {
-                "reference": "urn:uuid:c4597aa2-688a-401b-a658-70acc6de28c6"
-              },
+                "reference": "90c7a50c-42af-4091-b063-e1a787c33e7f"
+              }
+            ]
+          },
+          {
+            "title": "Medication",
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "10160-0",
+                  "display": "History of Medication"
+                }
+              ]
+            },
+            "text": {
+              "status": "generated"
+            },
+            "entry": [
               {
-                "reference": "0d495867-b483-402d-bfea-c4754c3e6508"
+                "reference": "c08ed538-7808-4f66-8059-f88b1609bfc1"
               }
             ]
           }
@@ -132,51 +112,158 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:urn:uuid:8adc0999-9468-4ac9-9557-680fa133d626",
+      "fullUrl": "urn:uuid:3c61952a-5a18-4bba-bcf8-7a30ef5d3dab",
       "resource": {
-        "resourceType": "Medication",
-        "text": {
-          "status": "generated",
-          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Medication</b><a name=\"8adc0999-9468-4ac9-9557-680fa133d626\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Medication &quot;8adc0999-9468-4ac9-9557-680fa133d626&quot; </p></div><p><b>code</b>: Black Cohosh Extract herbal supplement <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#412588001 &quot;Cimicifuga racemosa extract (substance)&quot;; <a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-v3-WC.html\">WHO ATC</a>#G02CX04 &quot;Cimicifugae rhizoma&quot;)</span></p></div>"
+        "resourceType": "Immunization",
+        "id": "3c61952a-5a18-4bba-bcf8-7a30ef5d3dab",
+        "status": "completed",
+        "vaccineCode": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/cvx",
+              "code": "141",
+              "display": "Influenza, seasonal, injectable"
+            }
+          ]
         },
-        "code": {
+        "patient": {
+          "reference": "Patient/NNJ9186"
+        },
+        "occurrenceDateTime": "2023-04-12",
+        "lotNumber": "358899",
+        "site": {
           "coding": [
             {
               "system": "http://snomed.info/sct",
-              "code": "412588001",
-              "display": "Cimicifuga racemosa extract (substance)",
-              "_display": {
-                "extension": [
-                  {
-                    "url": "http://hl7.org/fhir/StructureDefinition/translation",
-                    "extension": [
-                      {
-                        "url": "lang",
-                        "valueCode": "nl-NL"
-                      },
-                      {
-                        "url": "content",
-                        "valueString": "Zwarte Cohosh Extract"
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            {
-              "system": "http://www.whocc.no/atc",
-              "code": "G02CX04",
-              "display": "Cimicifugae rhizoma"
+              "code": "16217661000119109",
+              "display": "Structure of right deltoid muscle"
             }
-          ],
-          "text": "Black Cohosh Extract herbal supplement"
+          ]
+        },
+        "route": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-RouteOfAdministration",
+              "code": "IM",
+              "display": "Injection, intramuscular"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "actor": {
+              "reference": "Organization/be5fc70e-210a-4648-85a8-ffc26d175c4d"
+            }
+          }
+        ],
+        "protocolApplied": [
+          {
+            "series": "1 (Over 65 years (Influenza))",
+            "doseNumberPositiveInt": 1
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b80bebe5-3f3a-4158-9891-ba2d449a2475",
+      "resource": {
+        "resourceType": "Immunization",
+        "id": "b80bebe5-3f3a-4158-9891-ba2d449a2475",
+        "status": "completed",
+        "vaccineCode": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/cvx",
+              "code": "141",
+              "display": "Influenza, seasonal, injectable"
+            }
+          ]
+        },
+        "patient": {
+          "reference": "Patient/NNJ9186"
+        },
+        "occurrenceDateTime": "2022-06-01",
+        "lotNumber": "P100421221",
+        "site": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "16217701000119102",
+              "display": "Structure of left deltoid muscle"
+            }
+          ]
+        },
+        "route": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-RouteOfAdministration",
+              "code": "IM",
+              "display": "Injection, intramuscular"
+            }
+          ]
+        },
+        "performer": [
+          {
+            "actor": {
+              "reference": "Organization/be5fc70e-210a-4648-85a8-ffc26d175c4d"
+            }
+          }
+        ],
+        "protocolApplied": [
+          {
+            "series": "1 (Over 65 years (Influenza))",
+            "doseNumberPositiveInt": 1
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3413cacd-7494-4cc1-bf21-ea19918554ae",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "3413cacd-7494-4cc1-bf21-ea19918554ae",
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/uv/ips/CodeSystem/absent-unknown-uv-ips",
+              "code": "no-allergy-info",
+              "display": "No information about allergies"
+            }
+          ]
         }
       }
     },
     {
-      "fullUrl": "urn:uuid:urn:uuid:c4597aa2-688a-401b-a658-70acc6de28c6",
+      "fullUrl": "urn:uuid:90c7a50c-42af-4091-b063-e1a787c33e7f",
       "resource": {
         "resourceType": "Condition",
-        "text": {
-          "status": "generated",
-          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Condition</b><a name=\"c4597aa2-688a-401b-a658-70acc6de28c6\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Condition &quot;c4597aa2-688a-401b-a658-70acc6de28c6&quot; </p></div><p><b>identifier</b>: id: 66d4a8c7-9081-43e0-a63f-489c2ae6edd6</p><p><b>clinicalStatus</b>: Remission <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/5.0.0/CodeSystem-condition-clinical.html\">Condition Clinical Status Codes</a>#remission)</span></p><p><b>verificationStatus</b>: Confirmed <span style=\"background: LightGoldenRodYellow; margin: 4px;
+        "id": "90c7a50c-42af-4091-b063-e1a787c33e7f",
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/uv/ips/CodeSystem/absent-unknown-uv-ips",
+              "code": "no-problem-info",
+              "display": "No information about problems"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c08ed538-7808-4f66-8059-f88b1609bfc1",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "c08ed538-7808-4f66-8059-f88b1609bfc1",
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/uv/ips/CodeSystem/absent-unknown-uv-ips",
+              "code": "no-medication-info",
+              "display": "No information about medications"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

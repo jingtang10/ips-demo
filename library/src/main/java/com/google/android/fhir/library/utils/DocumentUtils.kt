@@ -8,6 +8,7 @@ import org.hl7.fhir.r4.model.Bundle
 import org.hl7.fhir.r4.model.CodeableConcept
 import org.hl7.fhir.r4.model.Composition
 import org.hl7.fhir.r4.model.Condition
+import org.hl7.fhir.r4.model.Immunization
 import org.hl7.fhir.r4.model.Medication
 import org.hl7.fhir.r4.model.Observation
 import org.hl7.fhir.r4.model.Resource
@@ -78,10 +79,11 @@ class DocumentUtils {
 }
 fun Resource.hasCode() : Pair<CodeableConcept?, String?> {
   return when(this.resourceType) {
-    ResourceType.AllergyIntolerance -> Pair((this as AllergyIntolerance).code, this.clinicalStatus.coding[0].code)
-    ResourceType.Condition -> Pair((this as Condition).code, this.clinicalStatus.coding[0].code)
+    ResourceType.AllergyIntolerance -> Pair((this as AllergyIntolerance).code, this.clinicalStatus.coding.firstOrNull()?.code)
+    ResourceType.Condition -> Pair((this as Condition).code, this.clinicalStatus.coding.firstOrNull()?.code)
     ResourceType.Medication -> Pair((this as Medication).code, null)
     ResourceType.Observation -> Pair((this as Observation).code, null)
+    ResourceType.Immunization -> Pair((this as Immunization).vaccineCode, "")
     else -> Pair(null, null)
   }
 }

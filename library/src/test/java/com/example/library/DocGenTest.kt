@@ -3,6 +3,7 @@ package com.example.library
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
 import com.google.android.fhir.library.DocumentGenerator
+import com.google.android.fhir.library.SHLData
 import org.hl7.fhir.r4.model.AllergyIntolerance
 import org.hl7.fhir.r4.model.CodeableConcept
 import org.hl7.fhir.r4.model.Coding
@@ -14,12 +15,15 @@ import org.hl7.fhir.r4.model.Patient
 import org.hl7.fhir.r4.model.Reference
 import org.hl7.fhir.r4.model.Resource
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
+@RunWith(RobolectricTestRunner::class)
 class DocGenTest {
 
   val docGenerator = DocumentGenerator()
@@ -309,7 +313,7 @@ class DocGenTest {
     "      }\n" +
     "    }"
 
-  val list = listOf<Resource>(parser.parseResource(res1) as Resource, parser.parseResource(res2) as Resource, parser.parseResource(res3) as Resource, parser.parseResource(res4) as Resource, parser.parseResource(res5) as Resource)
+  val list = listOf<Resource>(parser.parseResource(res1) as Resource, parser.parseResource(res2) as Resource, parser.parseResource(res3) as Resource, parser.parseResource(res3) as Resource, parser.parseResource(res5) as Resource)
   fun createSampleResources(): List<Resource> {
     val resources = mutableListOf<Resource>()
 
@@ -375,7 +379,6 @@ class DocGenTest {
     )
     resources.add(medication)
 
-    // Add more resources here as needed...
     return resources
   }
 
@@ -384,5 +387,14 @@ class DocGenTest {
     // val doc = docGenerator.generateIPS(createSampleResources())
     val doc = docGenerator.generateIPS(list)
     println(parser.encodeResourceToString(doc.document))
+  }
+
+  @Test
+  fun testSHLData() {
+    // val doc = docGenerator.generateIPS(createSampleResources())
+    val doc = docGenerator.generateIPS(list)
+    val shlData = SHLData(doc)
+    shlData.label = "abc"
+    println(shlData.label)
   }
 }

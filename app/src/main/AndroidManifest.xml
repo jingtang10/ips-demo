@@ -49,13 +49,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.google.android.fhir.ipsapp.SelectResources"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.DEFAULT" />
-            </intent-filter>
-        </activity>
-
         <activity android:name="com.google.android.fhir.ipsapp.SelectIndividualResources"
             android:exported="true">
             <intent-filter>

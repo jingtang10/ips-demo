@@ -21,18 +21,16 @@ class SuccessfulScan : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.successfulscan)
 
-    // get shlData from previous activity and intialise the view model with it
-    val shlData = intent.getParcelableExtra("shlData", SHLData::class.java)
+    // get shlData from previous activity and initialise the view model with it
+    val shlData = intent.getSerializableExtra("shlData", SHLData::class.java)
     val viewModelFactory = SuccessfulScanViewModelFactory(shlData)
-    viewModel = ViewModelProvider(this, viewModelFactory).get(SuccessfulScanViewModel::class.java)
+    viewModel = ViewModelProvider(this, viewModelFactory)[SuccessfulScanViewModel::class.java]
 
 
     viewModel.constructSHL()
     // only display the passscode field if one is required
     val passcodeEditText = findViewById<EditText>(R.id.passcode)
-    val hasPasscode = viewModel.hasPasscode(shlData)
-    println(shlData)
-    println("has passcode $hasPasscode")
+    val hasPasscode = viewModel.hasPasscode()
     if (!hasPasscode) {
       passcodeEditText.visibility = View.INVISIBLE
     }
@@ -43,20 +41,12 @@ class SuccessfulScan : AppCompatActivity() {
       val recipientField = findViewById<EditText>(R.id.recipient).text.toString()
       val passcodeField = passcodeEditText.text.toString()
       lifecycleScope.launch {
-        fetchData(recipientField, passcodeField, hasPasscode)
+        val doc = viewModel.fetchData(recipientField, passcodeField, hasPasscode)
+        val i = Intent(this@SuccessfulScan, GetData::class.java)
+        i.putExtra("doc", doc as java.io.Serializable)
+        startActivity(i)
       }
     }
   }
 
-  private suspend fun fetchData(recipient: String, passcode: String, hasPasscode : Boolean) {
-    val doc = if (hasPasscode) {
-      viewModel.decodeSHLToDocument(recipient, passcode)
-    } else {
-      viewModel.decodeSHLToDocument(recipient)
-    }
-    // Handle the IPSDocument data here
-    val i = Intent(this@SuccessfulScan, GetData::class.java)
-    i.putExtra("doc", doc as java.io.Serializable)
-    startActivity(i)
-  }
 }
