@@ -26,9 +26,7 @@ class DocumentGeneratorUtils {
     section.text = getResourceText(resource)
 
     val resourceType = resource.resourceType.toString()
-    addedResourcesByType
-      .getOrPut(resourceType) { mutableListOf() }
-      .add(resource)
+    addedResourcesByType.getOrPut(resourceType) { mutableListOf() }.add(resource)
 
     section.entry.clear()
     addedResourcesByType[resourceType]?.distinctBy { it.idElement.toVersionless() }
@@ -51,50 +49,27 @@ class DocumentGeneratorUtils {
     return narrative
   }
 
-  private fun getResourceCode(resource: Resource): CodeableConcept {
+  fun createCoding(code: String, display: String, system: String = "http://loinc.org"): Coding {
     val coding = Coding()
-    coding.system = "http://loinc.org"
+    coding.code = code
+    coding.display = display
+    coding.system = system
+    return coding
+  }
+
+  private fun getResourceCode(resource: Resource): CodeableConcept {
     val codeableConcept = CodeableConcept()
-    codeableConcept.coding = listOf(coding)
-
-    return when (resource.resourceType) {
-      ResourceType.AllergyIntolerance -> {
-        coding.code = "48765-2"
-        coding.display = "Allergies and adverse reactions Document"
-        codeableConcept
+    codeableConcept.coding = listOf(
+      when (resource.resourceType) {
+        ResourceType.AllergyIntolerance -> createCoding("48765-2", "Allergies and adverse reactions Document")
+        ResourceType.Condition -> createCoding("11450-4", "Problem list Reported")
+        ResourceType.Medication -> createCoding("10160-0", "History of Medication")
+        ResourceType.Immunization -> createCoding("11369-6", "History of Immunizations")
+        ResourceType.Observation -> createCoding("30954-2", "Test Results")
+        else -> createCoding("12345", "Display Text", "http://your-coding-system-url.com")
       }
-
-      ResourceType.Condition -> {
-        coding.code = "11450-4"
-        coding.display = "Problem list Reported"
-        codeableConcept
-      }
-
-      ResourceType.Medication -> {
-        coding.code = "10160-0"
-        coding.display = "History of Medication"
-        codeableConcept
-      }
-
-      ResourceType.Immunization -> {
-        coding.code = "11369-6"
-        coding.display = "History of Immunizations"
-        codeableConcept
-      }
-
-      ResourceType.Observation -> {
-        coding.code = "30954-2"
-        coding.display = "Test Results"
-        codeableConcept
-      }
-
-      else -> {
-        coding.system = "http://your-coding-system-url.com"
-        coding.code = "12345"
-        coding.display = "Display Text"
-        codeableConcept
-      }
-    }
+    )
+    return codeableConcept
   }
 
   fun getResourceTitle(resource: Resource): String? {
@@ -119,7 +94,6 @@ class DocumentGeneratorUtils {
       ResourceType.Immunization -> "Immunizations"
       ResourceType.Observation -> "Results"
       else -> null
-      // "History of Past Illness"
       // "Plan of Treatment"
 
     }
@@ -128,45 +102,65 @@ class DocumentGeneratorUtils {
   fun checkSections(sections: MutableList<SectionComponent>): Pair<MutableList<SectionComponent>, MutableList<Resource>> {
     val missingSections = mutableListOf<SectionComponent>()
     val missingResources = mutableListOf<Resource>()
-    if (sections.find { it.title == "Allergies and Intolerances" } == null) {
-      val allergyIntolerance = AllergyIntolerance()
-      allergyIntolerance.id = UUID.randomUUID().toString()
-      allergyIntolerance.code = CodeableConcept().apply {
-        coding.add(Coding().apply {
-          system = "http://hl7.org/fhir/uv/ips/CodeSystem/absent-unknown-uv-ips"
-          code = "no-allergy-info"
-          display = "No information about allergies"
-        })
+
+    val sectionTitlesToCheck = listOf("Allergies and Intolerances", "Active Problems", "Medication")
+
+    for (sectionTitle in sectionTitlesToCheck) {
+      if (sections.none { it.title == sectionTitle }) {
+        val missingResource = createMissingResource(sectionTitle)
+        missingSections.add(createResourceSection(missingResource))
+        missingResources.add(missingResource)
       }
-      missingSections.add(createResourceSection(allergyIntolerance))
-      missingResources.add(allergyIntolerance)
     }
-    if (sections.find { it.title == "Active Problems" } == null) {
-      val condition = Condition()
-      condition.id = UUID.randomUUID().toString()
-      condition.code = CodeableConcept().apply {
-        coding.add(Coding().apply {
-          system = "http://hl7.org/fhir/uv/ips/CodeSystem/absent-unknown-uv-ips"
-          code = "no-problem-info"
-          display = "No information about problems"
-        })
-      }
-      missingSections.add(createResourceSection(condition))
-      missingResources.add(condition)
-    }
-    if (sections.find { it.title == "Medication" } == null) {
-      val medication = Medication()
-      medication.id = UUID.randomUUID().toString()
-      medication.code = CodeableConcept().apply {
-        coding.add(Coding().apply {
-          system = "http://hl7.org/fhir/uv/ips/CodeSystem/absent-unknown-uv-ips"
-          code = "no-medication-info"
-          display = "No information about medications"
-        })
-      }
-      missingSections.add(createResourceSection(medication))
-      missingResources.add(medication)
-    }
+
     return Pair(missingSections, missingResources)
+  }
+
+  private fun createMissingResource(sectionTitle: String): Resource {
+    val missingResource: Resource = when (sectionTitle) {
+      "Allergies and Intolerances" -> createMissingAllergyIntolerance()
+      "Active Problems" -> createMissingCondition()
+      else -> createMissingMedication()
+    }
+    return missingResource
+  }
+
+  private fun createMissingAllergyIntolerance(): Resource {
+    val allergyIntolerance = AllergyIntolerance()
+    allergyIntolerance.id = UUID.randomUUID().toString()
+    allergyIntolerance.code = CodeableConcept().apply {
+      coding.add(Coding().apply {
+        system = "http://hl7.org/fhir/uv/ips/CodeSystem/absent-unknown-uv-ips"
+        code = "no-allergy-info"
+        display = "No information about allergies"
+      })
+    }
+    return allergyIntolerance
+  }
+
+  private fun createMissingCondition(): Resource {
+    val condition = Condition()
+    condition.id = UUID.randomUUID().toString()
+    condition.code = CodeableConcept().apply {
+      coding.add(Coding().apply {
+        system = "http://hl7.org/fhir/uv/ips/CodeSystem/absent-unknown-uv-ips"
+        code = "no-problem-info"
+        display = "No information about problems"
+      })
+    }
+    return condition
+  }
+
+  private fun createMissingMedication(): Resource {
+    val medication = Medication()
+    medication.id = UUID.randomUUID().toString()
+    medication.code = CodeableConcept().apply {
+      coding.add(Coding().apply {
+        system = "http://hl7.org/fhir/uv/ips/CodeSystem/absent-unknown-uv-ips"
+        code = "no-medication-info"
+        display = "No information about medications"
+      })
+    }
+    return medication
   }
 }

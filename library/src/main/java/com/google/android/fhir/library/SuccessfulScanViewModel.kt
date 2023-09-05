@@ -8,9 +8,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class SuccessfulScanViewModel(shlData: SHLData?) : ViewModel() {
-  private val decoder = Decoder(shlData) // Initialize the decoder with null SHLData
 
-  // Function to decode SHL data and return IPSDocument
+  private val decoder = Decoder(shlData)
+
   @RequiresApi(Build.VERSION_CODES.O)
   suspend fun decodeSHLToDocument(recipient: String, passcode: String? = null): IPSDocument {
     return withContext(Dispatchers.IO) {
@@ -29,7 +29,6 @@ class SuccessfulScanViewModel(shlData: SHLData?) : ViewModel() {
     }
   }
 
-  // Function to check if SHLData has a passcode
   fun hasPasscode(): Boolean {
     return decoder.hasPasscode()
   }

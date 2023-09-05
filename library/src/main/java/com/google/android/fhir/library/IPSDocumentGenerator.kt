@@ -11,8 +11,6 @@ interface IPSDocumentGenerator {
 
   fun getDataFromDoc(doc : IPSDocument, selectedTitles : List<Title>) : Map<Title, List<String>>
 
-  fun generateIPS(existingDoc : IPSDocument, selectedResources : List<Resource>) : IPSDocument
-
   fun generateIPS(selectedResources : List<Resource>): IPSDocument
   fun generateTitleAdapter(bundle: IPSDocument): ArrayList<TitleItem>
   fun displayOptions(

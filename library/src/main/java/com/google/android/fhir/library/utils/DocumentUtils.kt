@@ -6,51 +6,35 @@ import ca.uhn.fhir.context.FhirVersionEnum
 import org.hl7.fhir.r4.model.AllergyIntolerance
 import org.hl7.fhir.r4.model.Bundle
 import org.hl7.fhir.r4.model.CodeableConcept
-import org.hl7.fhir.r4.model.Composition
 import org.hl7.fhir.r4.model.Condition
 import org.hl7.fhir.r4.model.Immunization
 import org.hl7.fhir.r4.model.Medication
 import org.hl7.fhir.r4.model.Observation
 import org.hl7.fhir.r4.model.Resource
-import org.hl7.fhir.r4.model.ResourceType
 
 class DocumentUtils {
 
   private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
 
-  fun getTitlesFromIpsDoc(doc: String): List<String> {
-    val bundle = parser.parseResource(doc) as Bundle
-    val composition =
-      bundle.entry.firstOrNull { it.resource.resourceType == ResourceType.Composition }?.resource as Composition
-    return composition.section.map { it.title }
-  }
-
   fun getDataFromDoc(
     doc: String,
     title: String,
-    map: MutableMap<String, ArrayList<Resource>>
+    map: MutableMap<String, ArrayList<Resource>>,
   ): MutableMap<String, ArrayList<Resource>> {
     val bundle = parser.parseResource(doc) as Bundle
-    val entryArray = bundle.entry.map { it.resource }
-    var resourceList = ArrayList<Resource>()
 
-    // Iterate through the entry array and filter based on criteria
-    entryArray.asSequence()
-      .filter { entry ->
-        val resourceType = entry.resourceType.toString()
+    val filteredResources = bundle.entry.map { it.resource }.filter { resource ->
+        val resourceType = resource.resourceType.toString()
         getSearchingCondition(title, resourceType)
       }
-      .forEach { element ->
-        val code = element.hasCode()
-        if (!((title == "History of Past Illness" && code.second.equals("active")) ||
-            ((title == "Active Problems" || title == "Allergies and Intolerances") && !code.second.equals("active")))) {
-          resourceList = (resourceList.takeIf { it.isNotEmpty() } ?: arrayListOf()).apply {
-            add(element)
-          }
-        }
-      }
-    map[title] = resourceList
+    val resourceList = filteredResources.filterNot { shouldExcludeResource(title, it) }
+    map[title] = ArrayList(resourceList)
     return map
+  }
+
+  private fun shouldExcludeResource(title: String, resource: Resource): Boolean {
+    val code = resource.hasCode().second
+    return (title == "History of Past Illness" && code == "active") || ((title == "Active Problems" || title == "Allergies and Intolerances") && code != "active")
   }
 
   private fun getSearchingCondition(resource: String, resourceType: String): Boolean {
@@ -77,13 +61,14 @@ class DocumentUtils {
     }
   }
 }
-fun Resource.hasCode() : Pair<CodeableConcept?, String?> {
-  return when(this.resourceType) {
-    ResourceType.AllergyIntolerance -> Pair((this as AllergyIntolerance).code, this.clinicalStatus.coding.firstOrNull()?.code)
-    ResourceType.Condition -> Pair((this as Condition).code, this.clinicalStatus.coding.firstOrNull()?.code)
-    ResourceType.Medication -> Pair((this as Medication).code, null)
-    ResourceType.Observation -> Pair((this as Observation).code, null)
-    ResourceType.Immunization -> Pair((this as Immunization).vaccineCode, "")
+
+fun Resource.hasCode(): Pair<CodeableConcept?, String?> {
+  return when (this) {
+    is AllergyIntolerance -> Pair(code, clinicalStatus.coding.firstOrNull()?.code)
+    is Condition -> Pair(code, clinicalStatus.coding.firstOrNull()?.code)
+    is Medication -> Pair(code, null)
+    is Observation -> Pair(code, null)
+    is Immunization -> Pair(vaccineCode, "")
     else -> Pair(null, null)
   }
 }

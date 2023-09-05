@@ -15,11 +15,10 @@ import java.io.IOException
 
 class Scanner(private val context: Context, private val surfaceHolder: SurfaceHolder) {
 
-  private val requestCodeCameraPermission = 1001
   private lateinit var cameraSource: CameraSource
   private lateinit var barcodeDetector: BarcodeDetector
-  private var scanCallback: ((SHLData) -> Unit)? = null
-  private var failCallback: ((Error) -> Unit)? = null
+  private var scanCallback: ((SHLData) -> Unit)? = {}
+  private var failCallback: ((Error) -> Unit)? = {}
 
   fun scan(callback: (SHLData) -> Unit, failCallback: (Error) -> Unit) {
     this.scanCallback = callback
@@ -52,13 +51,6 @@ class Scanner(private val context: Context, private val surfaceHolder: SurfaceHo
               Manifest.permission.CAMERA
             ) != PackageManager.PERMISSION_GRANTED
           ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return
           }
           cameraSource.start(holder)
