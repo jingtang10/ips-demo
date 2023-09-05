@@ -26,7 +26,7 @@ class Decoder(private val shlData: SHLData?) : SHLDecoder {
   @RequiresApi(Build.VERSION_CODES.O)
   override suspend fun decodeSHLToDocument(recipient: String): IPSDocument {
     constructShlObj()
-    val jsonData = "{\"recipient\":\"${recipient}\", \"embeddedLengthMax\":10}"
+    val jsonData = "{\"recipient\":\"${recipient}\"}"
     val bundle = postToServer(jsonData)
     return IPSDocument(bundle)
   }
