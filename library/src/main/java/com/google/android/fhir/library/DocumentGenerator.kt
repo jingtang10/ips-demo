@@ -42,13 +42,6 @@ class DocumentGenerator : IPSDocumentGenerator {
     TODO("Not yet implemented")
   }
 
-  override fun generateIPS(
-    existingDoc: IPSDocument,
-    selectedResources: List<Resource>,
-  ): IPSDocument {
-    TODO("Not yet implemented")
-  }
-
   override fun generateIPS(selectedResources: List<Resource>): IPSDocument {
     val bundle = Bundle()
     bundle.type = Bundle.BundleType.DOCUMENT

@@ -15,11 +15,10 @@ import java.io.IOException
 
 class Scanner(private val context: Context, private val surfaceHolder: SurfaceHolder) {
 
-  private val requestCodeCameraPermission = 1001
   private lateinit var cameraSource: CameraSource
   private lateinit var barcodeDetector: BarcodeDetector
-  private var scanCallback: ((SHLData) -> Unit)? = null
-  private var failCallback: ((Error) -> Unit)? = null
+  private var scanCallback: ((SHLData) -> Unit)? = {}
+  private var failCallback: ((Error) -> Unit)? = {}
 
   fun scan(callback: (SHLData) -> Unit, failCallback: (Error) -> Unit) {
     this.scanCallback = callback
