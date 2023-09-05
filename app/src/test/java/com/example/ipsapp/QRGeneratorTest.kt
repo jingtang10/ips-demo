@@ -1,8 +1,8 @@
 package com.example.ipsapp
 
 import com.example.ipsapp.fileExamples.file
-import com.example.ipsapp.utils.GenerateShlUtils
-import com.example.ipsapp.utils.ReadShlUtils
+import com.google.android.fhir.library.utils.GenerateShlUtils
+import com.google.android.fhir.library.utils.ReadShlUtils
 import com.google.gson.Gson
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert

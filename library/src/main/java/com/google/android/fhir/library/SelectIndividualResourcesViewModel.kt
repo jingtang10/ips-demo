@@ -6,17 +6,17 @@ import android.widget.LinearLayout
 import androidx.lifecycle.ViewModel
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
-import com.example.ipsapp.utils.DocumentUtils
-import com.example.ipsapp.utils.hasCode
+import com.google.android.fhir.library.utils.DocumentUtils
+import com.google.android.fhir.library.utils.hasCode
 import org.hl7.fhir.r4.model.Resource
 
 class SelectIndividualResourcesViewModel : ViewModel() {
   private var map = mutableMapOf<String, ArrayList<Resource>>()
   private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
-  val documentGenerator = DocumentGenerator()
+  private val documentGenerator = DocumentGenerator()
 
-  val checkBoxes = mutableListOf<CheckBox>()
-  val checkboxTitleMap = mutableMapOf<String, String>()
+  private val checkBoxes = mutableListOf<CheckBox>()
+  private val checkboxTitleMap = mutableMapOf<String, String>()
 
   fun initializeData(context: Context, containerLayout: LinearLayout) {
     val docUtils = DocumentUtils()

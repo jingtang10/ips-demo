@@ -49,7 +49,7 @@ class DocumentGeneratorUtils {
     return narrative
   }
 
-  fun createCoding(code: String, display: String, system: String = "http://loinc.org"): Coding {
+  private fun createCoding(code: String, display: String, system: String = "http://loinc.org"): Coding {
     val coding = Coding()
     coding.code = code
     coding.display = display

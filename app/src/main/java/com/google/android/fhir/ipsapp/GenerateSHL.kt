@@ -3,7 +3,7 @@ package com.google.android.fhir.ipsapp
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.ipsapp.utils.GenerateShlUtils
+import com.google.android.fhir.library.utils.GenerateShlUtils
 import com.google.android.fhir.library.SHLData
 
 

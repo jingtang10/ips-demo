@@ -21,7 +21,7 @@ class SelectIndividualResources : AppCompatActivity() {
 
     val containerLayout: LinearLayout = findViewById(R.id.containerLayout)
 
-    viewModel = ViewModelProvider(this).get(SelectIndividualResourcesViewModel::class.java)
+    viewModel = ViewModelProvider(this)[SelectIndividualResourcesViewModel::class.java]
     viewModel.initializeData(this, containerLayout)
 
 
