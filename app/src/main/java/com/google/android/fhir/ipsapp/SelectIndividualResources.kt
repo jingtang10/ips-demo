@@ -59,33 +59,8 @@ class SelectIndividualResources : Activity() {
         } ?: emptyList()
       }
 
-      println("output array $outputArray")
-
-      // val outputArray = selectedCheckedValuesWithTitles.mapNotNull { (title, value) ->
-      //   map[title]?.filter { obj ->
-      //     obj.hasCode().first?.coding?.any { it.display == value } == true
-      //   }
-      // }
-      //
-      // println("Selected values with titles: $selectedCheckedValuesWithTitles")
-      // println("Output array: $outputArray")
-
       val ipsDoc = documentGenerator.generateIPS(outputArray)
       val i = Intent(this@SelectIndividualResources, CreatePasscode::class.java)
-      // val stringArrayLists: ArrayList<ArrayList<String>> = ArrayList()
-      // for (jsonArrayList in outputArray) {
-      //   println(jsonArrayList)
-      //   val stringList = ArrayList<String>()
-      //   for (jsonObject in jsonArrayList) {
-      //     // Convert JSONObject to String and add it to the stringList
-      //     stringList.add(jsonObject.toString())
-      //   }
-      //   stringArrayLists.add(stringList)
-      // }
-      // val flattenedList: ArrayList<String> = ArrayList()
-      // for (innerList in stringArrayLists) {
-      //   flattenedList.addAll(innerList)
-      // }
       i.putExtra("ipsDoc", ipsDoc as Serializable)
       startActivity(i)
     }

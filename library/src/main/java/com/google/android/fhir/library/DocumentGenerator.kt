@@ -68,7 +68,6 @@ class DocumentGenerator : IPSDocumentGenerator {
         println("THIS IS THE MAP AFTER A FUNCTION $map")
 
         val resources = map[title.name]
-
         resources?.forEach { obj ->
           val code = obj.hasCode()
           val codingArray = code.first?.coding ?: emptyList()
