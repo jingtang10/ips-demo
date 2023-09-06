@@ -1,11 +1,15 @@
 package com.google.android.fhir.library.utils
 
+import java.util.Date
 import java.util.UUID
 import org.hl7.fhir.r4.model.AllergyIntolerance
+import org.hl7.fhir.r4.model.Bundle
 import org.hl7.fhir.r4.model.CodeableConcept
 import org.hl7.fhir.r4.model.Coding
+import org.hl7.fhir.r4.model.Composition
 import org.hl7.fhir.r4.model.Composition.SectionComponent
 import org.hl7.fhir.r4.model.Condition
+import org.hl7.fhir.r4.model.DateTimeType
 import org.hl7.fhir.r4.model.Medication
 import org.hl7.fhir.r4.model.Narrative
 import org.hl7.fhir.r4.model.Reference
@@ -26,9 +30,7 @@ class DocumentGeneratorUtils {
     section.text = getResourceText(resource)
 
     val resourceType = resource.resourceType.toString()
-    addedResourcesByType
-      .getOrPut(resourceType) { mutableListOf() }
-      .add(resource)
+    addedResourcesByType.getOrPut(resourceType) { mutableListOf() }.add(resource)
 
     section.entry.clear()
     addedResourcesByType[resourceType]?.distinctBy { it.idElement.toVersionless() }
@@ -107,6 +109,7 @@ class DocumentGeneratorUtils {
           else -> "History of Past Illness"
         }
       }
+
       ResourceType.Medication -> "Medication"
       ResourceType.Immunization -> "Immunizations"
       ResourceType.Observation -> "Results"
@@ -160,5 +163,77 @@ class DocumentGeneratorUtils {
       missingResources.add(medication)
     }
     return Pair(missingSections, missingResources)
+  }
+
+  fun createIPSComposition(): Composition {
+    // Create a Composition resource to represent the IPS document
+    val composition = Composition()
+    composition.id = UUID.randomUUID().toString()
+    composition.type = CodeableConcept().apply {
+      coding.add(Coding().apply {
+        system = "http://loinc.org"
+        code = "60591-5"
+        display = "Patient Summary Document"
+      })
+    }
+    // Set other properties of the Composition as needed
+    composition.title = "Patient Summary Document Title"
+    composition.status = Composition.CompositionStatus.FINAL
+
+    val currentDate = Date()
+    val currentDateTime = DateTimeType(currentDate)
+    composition.dateElement = currentDateTime
+    composition.title = "Patient Summary"
+    composition.author.add(Reference("Practitioner/12345"))
+    return composition
+  }
+
+  fun createIPSSections(selectedResources: List<Resource>): MutableList<SectionComponent> {
+    val sections = mutableListOf<SectionComponent>()
+    for (res in selectedResources) {
+      val section = createResourceSection(res)
+      val title = getResourceTitle(res)
+
+      // Check if a section with the same title already exists
+      val existingSection = sections.find { it.title == title }
+
+      if (existingSection != null) {
+        // Replace the existing section with the new one
+        sections.remove(existingSection)
+        sections.add(section)
+      } else {
+        // Add the new section to the list
+        sections.add(section)
+      }
+    }
+    return sections
+  }
+
+  fun addResourcesToDoc(
+    composition: Composition,
+    selectedResources: List<Resource>,
+    missingResources: List<Resource>,
+  ): Bundle {
+
+    val bundle = Bundle()
+    bundle.type = Bundle.BundleType.DOCUMENT
+    // Add the Composition to the bundle
+    bundle.addEntry(Bundle.BundleEntryComponent().apply {
+      resource = composition
+      fullUrl = "urn:uuid:${composition.idBase}"
+    })
+    for (res in selectedResources) {
+      bundle.addEntry(Bundle.BundleEntryComponent().apply {
+        resource = res
+        fullUrl = "urn:uuid:${res.idElement.idPart}"
+      })
+    }
+    for (res in missingResources) {
+      bundle.addEntry(Bundle.BundleEntryComponent().apply {
+        resource = res
+        fullUrl = "urn:uuid:${res.idElement.idPart}"
+      })
+    }
+    return bundle
   }
 }
