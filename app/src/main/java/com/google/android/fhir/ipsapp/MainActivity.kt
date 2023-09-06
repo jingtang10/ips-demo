@@ -2,6 +2,7 @@ package com.google.android.fhir.ipsapp
 
 
 import android.Manifest
+import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -36,7 +37,8 @@ class MainActivity : AppCompatActivity() {
 
         val generateQRButton = findViewById<Button>(R.id.generateQRButton)
         generateQRButton.setOnClickListener {
-            val i = Intent(this@MainActivity, SelectIndividualResources::class.java)
+            val i = Intent()
+            i.component = ComponentName(this@MainActivity, SelectIndividualResources::class.java)
             startActivity(i)
         }
     }

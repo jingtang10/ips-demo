@@ -1,4 +1,4 @@
-package com.example.ipsapp.utils
+package com.google.android.fhir.library.utils
 
 import android.content.Context
 import ca.uhn.fhir.context.FhirContext

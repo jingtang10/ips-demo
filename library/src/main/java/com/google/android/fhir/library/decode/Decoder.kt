@@ -4,7 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
-import com.example.ipsapp.utils.ReadShlUtils
+import com.google.android.fhir.library.utils.ReadShlUtils
 import com.google.android.fhir.library.IPSDocument
 import com.google.android.fhir.library.SHLData
 import com.google.android.fhir.library.SHLDecoder
@@ -124,7 +124,7 @@ class Decoder(private val shlData: SHLData?) : SHLDecoder {
   @RequiresApi(Build.VERSION_CODES.O)
   fun constructShlObj() {
     if (shlData?.fullLink != null) {
-      val extractedJson = readShlUtils.extractUrl(shlData.fullLink!!)
+      val extractedJson = readShlUtils.extractUrl(shlData.fullLink)
       val decodedJson = readShlUtils.decodeUrl(extractedJson)
       shlData.shl = extractedJson
       // this gets you the url needed for the POST request

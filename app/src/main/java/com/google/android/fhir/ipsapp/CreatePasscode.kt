@@ -1,6 +1,7 @@
 package com.google.android.fhir.ipsapp
 
 import android.app.Activity
+import android.content.ComponentName
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -34,8 +35,8 @@ class CreatePasscode : Activity() {
      They are empty strings if they haven't been inputted
     */
     submitResourcesButton.setOnClickListener {
-      val i = Intent(this@CreatePasscode, GenerateSHL::class.java)
-
+      val i = Intent()
+      i.component = ComponentName(this@CreatePasscode, GenerateSHL::class.java)
       val passcode = passcodeField.text.toString()
       shlData?.label = labelField.text.toString()
       shlData?.exp = if (checkboxDate.isChecked) {

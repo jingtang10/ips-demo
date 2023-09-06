@@ -1,6 +1,6 @@
 package com.example.ipsapp
 
-import com.example.ipsapp.utils.ReadShlUtils
+import com.google.android.fhir.library.utils.ReadShlUtils
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith

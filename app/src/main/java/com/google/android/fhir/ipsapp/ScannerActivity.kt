@@ -1,5 +1,6 @@
 package com.google.android.fhir.ipsapp
 
+import android.content.ComponentName
 import android.content.Intent
 import android.os.Bundle
 import android.view.SurfaceView
@@ -21,7 +22,8 @@ class ScannerActivity : AppCompatActivity() {
     scanner = Scanner(this, surfaceView.holder)
     scanner.scan(callback = { shlData ->
       // Handle successful scan result
-      val i = Intent(this@ScannerActivity, SuccessfulScan::class.java)
+      val i = Intent()
+      i.component = ComponentName(this@ScannerActivity, SuccessfulScan::class.java)
       i.putExtra("shlData", shlData as Serializable)
       startActivity(i)
     }, failCallback = { error ->

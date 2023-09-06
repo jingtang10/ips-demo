@@ -1,4 +1,4 @@
-package com.example.ipsapp.utils
+package com.google.android.fhir.library.utils
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -146,9 +146,9 @@ class GenerateShlUtils {
     qrView: ImageView,
     context: Context,
   ) {
-    val expirationDate = shlData.exp!!
-    val labelData = shlData.label!!
-    val bundle = shlData.ipsDoc!!.document
+    val expirationDate = shlData.exp
+    val labelData = shlData.label
+    val bundle = shlData.ipsDoc.document
     GlobalScope.launch(Dispatchers.IO) {
       val httpClient: CloseableHttpClient = HttpClients.createDefault()
       val httpPost = HttpPost("https://api.vaxx.link/api/shl")
@@ -203,8 +203,7 @@ class GenerateShlUtils {
       }
       println(shLinkPayload)
 
-      var data = ""
-      data = parser.encodeResourceToString(bundle)
+      val data: String = parser.encodeResourceToString(bundle)
       postPayload(data, manifestUrl, key, managementToken)
     }
   }

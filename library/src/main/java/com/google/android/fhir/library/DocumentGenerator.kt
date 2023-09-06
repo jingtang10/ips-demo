@@ -8,10 +8,10 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
-import com.example.ipsapp.utils.DocumentUtils
-import com.example.ipsapp.utils.hasCode
 import com.google.android.fhir.library.utils.DocumentGeneratorUtils
+import com.google.android.fhir.library.utils.DocumentUtils
 import com.google.android.fhir.library.utils.TitleAdapter.TitleItem
+import com.google.android.fhir.library.utils.hasCode
 import java.util.Date
 import java.util.UUID
 import org.hl7.fhir.r4.model.Bundle
@@ -31,7 +31,7 @@ class DocumentGenerator : IPSDocumentGenerator {
   override fun getTitlesFromDoc(doc: IPSDocument): List<Title> {
     val bundle = doc.document
     val composition =
-      bundle?.entry?.firstOrNull { it.resource.resourceType == ResourceType.Composition }?.resource as Composition
+      bundle.entry?.firstOrNull { it.resource.resourceType == ResourceType.Composition }?.resource as Composition
     return composition.section.map { Title(it.title, ArrayList()) }
   }
 
