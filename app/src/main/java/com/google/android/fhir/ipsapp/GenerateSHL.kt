@@ -3,8 +3,8 @@ package com.google.android.fhir.ipsapp
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.fhir.library.utils.GenerateShlUtils
 import com.google.android.fhir.library.SHLData
+import com.google.android.fhir.library.utils.GenerateShlUtils
 
 
 class GenerateSHL : AppCompatActivity() {
@@ -17,7 +17,6 @@ class GenerateSHL : AppCompatActivity() {
 
     val passcode: String = intent.getStringExtra("passcode").toString()
     val shlData = intent.getSerializableExtra("shlData", SHLData::class.java)
-
     val passcodeField = findViewById<TextView>(R.id.passcode)
     val expirationDateField = findViewById<TextView>(R.id.expirationDate)
     passcodeField.text = passcode

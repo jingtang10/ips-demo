@@ -16,8 +16,6 @@ import org.hl7.fhir.r4.model.Reference
 import org.hl7.fhir.r4.model.Resource
 import org.hl7.fhir.r4.model.ResourceType
 
-// import ca.uhn.fhir.m
-
 class DocumentGeneratorUtils {
 
   private val addedResourcesByType: MutableMap<String, MutableList<Resource>> = mutableMapOf()
@@ -53,7 +51,11 @@ class DocumentGeneratorUtils {
     return narrative
   }
 
-  private fun createCoding(code: String, display: String, system: String = "http://loinc.org"): Coding {
+  private fun createCoding(
+    code: String,
+    display: String,
+    system: String = "http://loinc.org",
+  ): Coding {
     val coding = Coding()
     coding.code = code
     coding.display = display
@@ -65,7 +67,10 @@ class DocumentGeneratorUtils {
     val codeableConcept = CodeableConcept()
     codeableConcept.coding = listOf(
       when (resource.resourceType) {
-        ResourceType.AllergyIntolerance -> createCoding("48765-2", "Allergies and adverse reactions Document")
+        ResourceType.AllergyIntolerance -> createCoding(
+          "48765-2", "Allergies and adverse reactions Document"
+        )
+
         ResourceType.Condition -> createCoding("11450-4", "Problem list Reported")
         ResourceType.Medication -> createCoding("10160-0", "History of Medication")
         ResourceType.Immunization -> createCoding("11369-6", "History of Immunizations")
@@ -167,6 +172,7 @@ class DocumentGeneratorUtils {
     }
     return medication
   }
+
   fun createIPSComposition(): Composition {
     // Create a Composition resource to represent the IPS document
     val composition = Composition()
@@ -224,13 +230,7 @@ class DocumentGeneratorUtils {
       resource = composition
       fullUrl = "urn:uuid:${composition.idBase}"
     })
-    for (res in selectedResources) {
-      bundle.addEntry(Bundle.BundleEntryComponent().apply {
-        resource = res
-        fullUrl = "urn:uuid:${res.idElement.idPart}"
-      })
-    }
-    for (res in missingResources) {
+    for (res in (selectedResources + missingResources)) {
       bundle.addEntry(Bundle.BundleEntryComponent().apply {
         resource = res
         fullUrl = "urn:uuid:${res.idElement.idPart}"

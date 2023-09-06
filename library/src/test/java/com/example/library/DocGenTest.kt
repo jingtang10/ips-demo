@@ -390,8 +390,7 @@ class DocGenTest {
   }
 
   @Test
-  fun testSHLData() {
-    // val doc = docGenerator.generateIPS(createSampleResources())
+  fun testSHLDataCanBeInitialised() {
     val doc = docGenerator.generateIPS(list)
     val shlData = SHLData(doc)
     shlData.label = "abc"

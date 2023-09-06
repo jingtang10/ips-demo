@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
 import com.google.android.fhir.library.IPSDocument
-import com.google.android.fhir.library.IPSRenderer
 
 
 class GetData : AppCompatActivity() {
@@ -30,7 +29,7 @@ class GetData : AppCompatActivity() {
 
     val doc = intent.getSerializableExtra("doc", IPSDocument::class.java)
     textView.text = parser.encodeResourceToString(doc?.document)
-    val ipsRenderer = IPSRenderer(doc)
+    // val ipsRenderer = IPSRenderer(doc)
     // ipsRenderer.render(this, immunizationTable, documentView)
 
   }

@@ -10,14 +10,7 @@ import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
 import com.google.android.fhir.library.utils.DocumentGeneratorUtils
 import com.google.android.fhir.library.utils.DocumentUtils
-import com.google.android.fhir.library.utils.TitleAdapter.TitleItem
 import com.google.android.fhir.library.utils.hasCode
-import java.util.Date
-import java.util.UUID
-import org.hl7.fhir.r4.model.Bundle
-import org.hl7.fhir.r4.model.CodeableConcept
-import org.hl7.fhir.r4.model.Coding
-
 import org.hl7.fhir.r4.model.Composition
 import org.hl7.fhir.r4.model.Resource
 import org.hl7.fhir.r4.model.ResourceType
