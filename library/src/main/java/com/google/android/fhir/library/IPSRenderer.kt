@@ -69,6 +69,13 @@ class IPSRenderer(val doc: IPSDocument?) {
           row.addView(horizontalScrollView)
           row.setBackgroundColor(Color.LTGRAY)
           immunizationTable.addView(row)
+          val separator = View(context)
+          separator.layoutParams = TableRow.LayoutParams(
+            TableRow.LayoutParams.MATCH_PARENT,
+            5 // Height of the separator line in pixels
+          )
+          separator.setBackgroundColor(Color.BLACK)
+          immunizationTable.addView(separator)
           immunizationSection.visibility = View.VISIBLE
         }
 
@@ -80,6 +87,13 @@ class IPSRenderer(val doc: IPSDocument?) {
             row.addView(allergyTextView)
             row.setBackgroundColor(Color.LTGRAY)
             allergiesTable.addView(row)
+            val separator = View(context)
+            separator.layoutParams = TableRow.LayoutParams(
+              TableRow.LayoutParams.MATCH_PARENT,
+              5 // Height of the separator line in pixels
+            )
+            separator.setBackgroundColor(Color.BLACK)
+            allergiesTable.addView(separator)
             allergiesSection.visibility = View.VISIBLE
           }
         }
@@ -96,18 +110,38 @@ class IPSRenderer(val doc: IPSDocument?) {
             row.addView(horizontalScrollView)
             row.setBackgroundColor(Color.LTGRAY)
             resultsTable.addView(row)
+            val separator = View(context)
+            separator.layoutParams = TableRow.LayoutParams(
+              TableRow.LayoutParams.MATCH_PARENT,
+              5 // Height of the separator line in pixels
+            )
+            separator.setBackgroundColor(Color.BLACK)
+            resultsTable.addView(separator)
             resultsSection.visibility = View.VISIBLE
           }
         }
 
         ResourceType.Medication -> {
-          val medication = (entry.resource as Medication).code.coding[0].display
+          val medication = (entry.resource as Medication).code.coding
+          val medicationDisplays = medication.joinToString("\n") { "${it.display} (${it.code})" }
+          val medicationSystems = medication.joinToString("\n") { it.system }
           // if ((entry.resource as AllergyIntolerance).clinicalStatus.coding.firstOrNull()?.code == "active") {
             val row = TableRow(context)
-            val medicationTextView = createTextView(context, medication)
+            val medicationTextView = createTextView(context, medicationDisplays)
+          val medicationSystemView = createTextView(context, medicationSystems)
+            medicationTextView.gravity = Gravity.START
+            medicationSystemView.gravity = Gravity.START
             row.addView(medicationTextView)
+            row.addView(medicationSystemView)
             row.setBackgroundColor(Color.LTGRAY)
             medicationTable.addView(row)
+            val separator = View(context)
+            separator.layoutParams = TableRow.LayoutParams(
+              TableRow.LayoutParams.MATCH_PARENT,
+              5 // Height of the separator line in pixels
+            )
+            separator.setBackgroundColor(Color.BLACK)
+            medicationTable.addView(separator)
             medicationSection.visibility = View.VISIBLE
           // }
         }
@@ -122,6 +156,13 @@ class IPSRenderer(val doc: IPSDocument?) {
               row.addView(horizontalScrollView)
               row.setBackgroundColor(Color.LTGRAY)
               problemsTable.addView(row)
+              val separator = View(context)
+              separator.layoutParams = TableRow.LayoutParams(
+                TableRow.LayoutParams.MATCH_PARENT,
+                5 // Height of the separator line in pixels
+              )
+              separator.setBackgroundColor(Color.BLACK)
+              problemsTable.addView(separator)
               problemSection.visibility = View.VISIBLE
             }
           }
