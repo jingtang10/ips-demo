@@ -18,6 +18,7 @@ import org.hl7.fhir.r4.model.ResourceType
 class DocumentGenerator : IPSDocumentGenerator {
 
   private val docGenUtils = DocumentGeneratorUtils()
+  val docUtils = DocumentUtils()
   private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
 
   override fun getTitlesFromDoc(doc: IPSDocument): List<Title> {
@@ -37,7 +38,6 @@ class DocumentGenerator : IPSDocumentGenerator {
   override fun generateIPS(selectedResources: List<Resource>): IPSDocument {
     val composition = docGenUtils.createIPSComposition()
     val sections = docGenUtils.createIPSSections(selectedResources)
-
     val (missingSections, missingResources) = docGenUtils.checkSections(sections)
     sections.addAll(missingSections)
     composition.section = sections
@@ -54,8 +54,6 @@ class DocumentGenerator : IPSDocumentGenerator {
     containerLayout: LinearLayout,
     map: MutableMap<String, ArrayList<Resource>>,
   ) {
-    val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
-    val docUtils = DocumentUtils()
     val layoutInflater = LayoutInflater.from(context)
     for (title in bundle?.titles!!) {
       if (title.name != null) {
