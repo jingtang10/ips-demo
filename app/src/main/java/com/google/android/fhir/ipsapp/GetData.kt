@@ -1,6 +1,8 @@
 package com.google.android.fhir.ipsapp
 
 import android.os.Bundle
+import android.view.View
+import android.widget.LinearLayout
 import android.widget.TableLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -25,12 +27,24 @@ class GetData : AppCompatActivity() {
     val medicationTable = findViewById<TableLayout>(R.id.medicationTable)
     val problemsTable = findViewById<TableLayout>(R.id.problemsTable)
 
+    val allergiesSection = findViewById<LinearLayout>(R.id.allergiesSection)
+    val problemSection = findViewById<LinearLayout>(R.id.problemSection)
+    val medicationSection = findViewById<LinearLayout>(R.id.medicationSection)
+    val immunizationSection = findViewById<LinearLayout>(R.id.immunizationSection)
+    val resultsSection = findViewById<LinearLayout>(R.id.resultsSection)
+
+    allergiesSection.visibility = View.GONE
+    problemSection.visibility = View.GONE
+    medicationSection.visibility = View.GONE
+    immunizationSection.visibility = View.GONE
+    resultsSection.visibility = View.GONE
+
     // textView.movementMethod = ScrollingMovementMethod()
 
     val doc = intent.getSerializableExtra("doc", IPSDocument::class.java)
     // textView.text = parser.encodeResourceToString(doc?.document)
     val ipsRenderer = IPSRenderer(doc)
-    ipsRenderer.render(this, immunizationTable, allergiesTable, resultsTable, documentView, medicationTable, problemsTable)
+    ipsRenderer.render(this, immunizationTable, allergiesTable, resultsTable, documentView, medicationTable, problemsTable, allergiesSection, problemSection, medicationSection, immunizationSection, resultsSection)
 
   }
 

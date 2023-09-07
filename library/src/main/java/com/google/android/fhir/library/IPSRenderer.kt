@@ -3,7 +3,9 @@ package com.google.android.fhir.library
 import android.content.Context
 import android.graphics.Color
 import android.view.Gravity
+import android.view.View
 import android.widget.HorizontalScrollView
+import android.widget.LinearLayout
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -41,7 +43,12 @@ class IPSRenderer(val doc: IPSDocument?) {
     resultsTable: TableLayout,
     documentView: TextView,
     medicationTable: TableLayout,
-    problemsTable: TableLayout
+    problemsTable: TableLayout,
+    allergiesSection: LinearLayout,
+    problemSection: LinearLayout,
+    medicationSection: LinearLayout,
+    immunizationSection: LinearLayout,
+    resultsSection: LinearLayout
   ) {
     val entries = doc?.document?.entry
     entries?.firstOrNull()?.let { firstEntry ->
@@ -62,6 +69,7 @@ class IPSRenderer(val doc: IPSDocument?) {
           row.addView(horizontalScrollView)
           row.setBackgroundColor(Color.LTGRAY)
           immunizationTable.addView(row)
+          immunizationSection.visibility = View.VISIBLE
         }
 
         ResourceType.AllergyIntolerance -> {
@@ -72,6 +80,7 @@ class IPSRenderer(val doc: IPSDocument?) {
             row.addView(allergyTextView)
             row.setBackgroundColor(Color.LTGRAY)
             allergiesTable.addView(row)
+            allergiesSection.visibility = View.VISIBLE
           }
         }
 
@@ -87,6 +96,7 @@ class IPSRenderer(val doc: IPSDocument?) {
             row.addView(horizontalScrollView)
             row.setBackgroundColor(Color.LTGRAY)
             resultsTable.addView(row)
+            resultsSection.visibility = View.VISIBLE
           }
         }
 
@@ -98,6 +108,7 @@ class IPSRenderer(val doc: IPSDocument?) {
             row.addView(medicationTextView)
             row.setBackgroundColor(Color.LTGRAY)
             medicationTable.addView(row)
+            medicationSection.visibility = View.VISIBLE
           // }
         }
 
@@ -111,6 +122,7 @@ class IPSRenderer(val doc: IPSDocument?) {
               row.addView(horizontalScrollView)
               row.setBackgroundColor(Color.LTGRAY)
               problemsTable.addView(row)
+              problemSection.visibility = View.VISIBLE
             }
           }
         }
@@ -118,32 +130,21 @@ class IPSRenderer(val doc: IPSDocument?) {
         else -> {}
       }
     }
-    val immunizationGap = TableRow(context)
-    immunizationGap.layoutParams = TableRow.LayoutParams(
-      TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT
-    )
-    immunizationGap.minimumHeight = 30 // Set the desired gap height here
-    immunizationTable.addView(immunizationGap)
+    addGapToTable(immunizationTable, 30)
+    addGapToTable(allergiesTable, 30)
+    addGapToTable(problemsTable, 30)
+    addGapToTable(resultsTable, 30)
+    addGapToTable(medicationTable, 30)
+  }
 
-    val allergiesGap = TableRow(context)
-    allergiesGap.layoutParams = TableRow.LayoutParams(
-      TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT
+  private fun addGapToTable(table: TableLayout, gapHeight: Int) {
+    val gapRow = TableRow(table.context)
+    val params = TableRow.LayoutParams(
+      TableRow.LayoutParams.MATCH_PARENT,
+      TableRow.LayoutParams.WRAP_CONTENT
     )
-    allergiesGap.minimumHeight = 30 // Set the desired gap height here
-    allergiesTable.addView(allergiesGap)
-
-    val resultsGap = TableRow(context)
-    resultsGap.layoutParams = TableRow.LayoutParams(
-      TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT
-    )
-    resultsGap.minimumHeight = 30 // Set the desired gap height here
-    resultsTable.addView(resultsGap)
-
-    val medicationGap = TableRow(context)
-    medicationGap.layoutParams = TableRow.LayoutParams(
-      TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT
-    )
-    medicationGap.minimumHeight = 30 // Set the desired gap height here
-    medicationTable.addView(medicationGap)
+    gapRow.layoutParams = params
+    gapRow.minimumHeight = gapHeight
+    table.addView(gapRow)
   }
 }
