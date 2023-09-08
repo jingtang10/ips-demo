@@ -48,7 +48,7 @@ class IPSRenderer(val doc: IPSDocument?) {
     problemSection: LinearLayout,
     medicationSection: LinearLayout,
     immunizationSection: LinearLayout,
-    resultsSection: LinearLayout
+    resultsSection: LinearLayout,
   ) {
     val entries = doc?.document?.entry
     entries?.firstOrNull()?.let { firstEntry ->
@@ -71,8 +71,7 @@ class IPSRenderer(val doc: IPSDocument?) {
           immunizationTable.addView(row)
           val separator = View(context)
           separator.layoutParams = TableRow.LayoutParams(
-            TableRow.LayoutParams.MATCH_PARENT,
-            5 // Height of the separator line in pixels
+            TableRow.LayoutParams.MATCH_PARENT, 5 // Height of the separator line in pixels
           )
           separator.setBackgroundColor(Color.BLACK)
           immunizationTable.addView(separator)
@@ -80,17 +79,21 @@ class IPSRenderer(val doc: IPSDocument?) {
         }
 
         ResourceType.AllergyIntolerance -> {
-          val allergy = (entry.resource as AllergyIntolerance).code.coding[0].display
-          if ((entry.resource as AllergyIntolerance).clinicalStatus.coding.firstOrNull()?.code == "active") {
+          val allergyEntry = (entry.resource as AllergyIntolerance)
+          val allergy = allergyEntry.code.coding[0].display
+          if (allergyEntry.clinicalStatus.coding.firstOrNull()?.code == "active") {
+            val categories = allergyEntry.category.joinToString(" - ") { it.valueAsString }
+            val allergyText =
+              "${allergyEntry.type.name} - $categories - Criticality: ${allergyEntry.criticality.name}\n$allergy"
             val row = TableRow(context)
-            val allergyTextView = createTextView(context, allergy)
+            val allergyTextView = createTextView(context, allergyText)
+            allergyTextView.gravity = Gravity.START
             row.addView(allergyTextView)
             row.setBackgroundColor(Color.LTGRAY)
             allergiesTable.addView(row)
             val separator = View(context)
             separator.layoutParams = TableRow.LayoutParams(
-              TableRow.LayoutParams.MATCH_PARENT,
-              5 // Height of the separator line in pixels
+              TableRow.LayoutParams.MATCH_PARENT, 5 // Height of the separator line in pixels
             )
             separator.setBackgroundColor(Color.BLACK)
             allergiesTable.addView(separator)
@@ -112,8 +115,7 @@ class IPSRenderer(val doc: IPSDocument?) {
             resultsTable.addView(row)
             val separator = View(context)
             separator.layoutParams = TableRow.LayoutParams(
-              TableRow.LayoutParams.MATCH_PARENT,
-              5 // Height of the separator line in pixels
+              TableRow.LayoutParams.MATCH_PARENT, 5 // Height of the separator line in pixels
             )
             separator.setBackgroundColor(Color.BLACK)
             resultsTable.addView(separator)
@@ -123,43 +125,39 @@ class IPSRenderer(val doc: IPSDocument?) {
 
         ResourceType.Medication -> {
           val medication = (entry.resource as Medication).code.coding
-          val medicationDisplays = medication.joinToString("\n") { "${it.display} (${it.code})" }
-          val medicationSystems = medication.joinToString("\n") { it.system }
-          // if ((entry.resource as AllergyIntolerance).clinicalStatus.coding.firstOrNull()?.code == "active") {
-            val row = TableRow(context)
-            val medicationTextView = createTextView(context, medicationDisplays)
-          val medicationSystemView = createTextView(context, medicationSystems)
-            medicationTextView.gravity = Gravity.START
-            medicationSystemView.gravity = Gravity.START
-            row.addView(medicationTextView)
-            row.addView(medicationSystemView)
-            row.setBackgroundColor(Color.LTGRAY)
-            medicationTable.addView(row)
-            val separator = View(context)
-            separator.layoutParams = TableRow.LayoutParams(
-              TableRow.LayoutParams.MATCH_PARENT,
-              5 // Height of the separator line in pixels
-            )
-            separator.setBackgroundColor(Color.BLACK)
-            medicationTable.addView(separator)
-            medicationSection.visibility = View.VISIBLE
+          val medicationDisplays =
+            medication.joinToString("\n") { "${it.display} (${it.code}) (${it.system})" }
+          val row = TableRow(context)
+          val medicationTextView = createTextView(context, medicationDisplays)
+          medicationTextView.gravity = Gravity.START
+          row.addView(medicationTextView)
+          row.setBackgroundColor(Color.LTGRAY)
+          medicationTable.addView(row)
+          val separator = View(context)
+          separator.layoutParams = TableRow.LayoutParams(
+            TableRow.LayoutParams.MATCH_PARENT, 5 // Height of the separator line in pixels
+          )
+          separator.setBackgroundColor(Color.BLACK)
+          medicationTable.addView(separator)
+          medicationSection.visibility = View.VISIBLE
           // }
         }
 
         ResourceType.Condition -> {
-          val problem = (entry.resource as Condition).code.coding.firstOrNull()?.display
+          val problem = (entry.resource as Condition).code.coding
           if ((entry.resource as Condition).clinicalStatus.coding.firstOrNull()?.code == "active") {
             if (problem != null) {
+              val conditionDisplay = problem.joinToString("\n") { "${it.display} (${it.code}) (${it.system})" }
               val row = TableRow(context)
-              val problemTextView = createTextView(context, problem)
+              val problemTextView = createTextView(context, conditionDisplay)
+              problemTextView.gravity = Gravity.START
               val horizontalScrollView = createHorizontalScrollView(context, problemTextView)
               row.addView(horizontalScrollView)
               row.setBackgroundColor(Color.LTGRAY)
               problemsTable.addView(row)
               val separator = View(context)
               separator.layoutParams = TableRow.LayoutParams(
-                TableRow.LayoutParams.MATCH_PARENT,
-                5 // Height of the separator line in pixels
+                TableRow.LayoutParams.MATCH_PARENT, 5 // Height of the separator line in pixels
               )
               separator.setBackgroundColor(Color.BLACK)
               problemsTable.addView(separator)
@@ -181,8 +179,7 @@ class IPSRenderer(val doc: IPSDocument?) {
   private fun addGapToTable(table: TableLayout, gapHeight: Int) {
     val gapRow = TableRow(table.context)
     val params = TableRow.LayoutParams(
-      TableRow.LayoutParams.MATCH_PARENT,
-      TableRow.LayoutParams.WRAP_CONTENT
+      TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT
     )
     gapRow.layoutParams = params
     gapRow.minimumHeight = gapHeight

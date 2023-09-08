@@ -38,14 +38,6 @@
           android:id="@+id/allergiesSection"
           android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:text="Allergies and Intolerances"
-            android:textColor="#000000"
-            android:textSize="24sp" />
-
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -62,14 +54,16 @@
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:padding="8dp"
+                  android:textColor="#000000"
+                  android:textSize="24sp"
                   android:gravity="left"
-                  android:text="Crticality" />
+                  android:text="Allergies and Intolerances" />
               <TextView
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:padding="8dp"
                   android:gravity="left"
-                  android:text="Allergy" />
+                  android:text="" />
             </TableRow>
             <View
                 android:layout_width="match_parent"
@@ -84,14 +78,6 @@
           android:layout_height="wrap_content"
           android:id="@+id/problemSection"
           android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:text="Active Problems"
-            android:textColor="#000000"
-            android:textSize="24sp" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -109,7 +95,9 @@
                   android:layout_height="wrap_content"
                   android:padding="8dp"
                   android:gravity="left"
-                  android:text="Name" />
+                  android:text="Active Problems"
+                  android:textColor="#000000"
+                  android:textSize="24sp" />
 
               <TextView
                   android:layout_width="match_parent"
@@ -132,14 +120,6 @@
           android:id="@+id/medicationSection"
           android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:text="Medications"
-            android:textColor="#000000"
-            android:textSize="24sp" />
-
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -157,14 +137,16 @@
                   android:layout_weight="1"
                   android:padding="8dp"
                   android:gravity="left"
-                  android:text="Name" />
+                  android:text="Medications"
+                  android:textColor="#000000"
+                  android:textSize="24sp" />
 
               <TextView
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:padding="8dp"
                   android:gravity="left"
-                  android:text="System" />
+                  android:text="" />
             </TableRow>
             <View
                 android:layout_width="match_parent"
@@ -179,14 +161,6 @@
           android:layout_height="wrap_content"
           android:id="@+id/immunizationSection"
           android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:text="Immunizations"
-            android:textColor="#000000"
-            android:textSize="24sp" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -204,13 +178,15 @@
                   android:layout_height="wrap_content"
                   android:padding="8dp"
                   android:gravity="left"
-                  android:text="Date" />
+                  android:text="Immunizations"
+                  android:textColor="#000000"
+                  android:textSize="24sp" />
               <TextView
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:padding="8dp"
                   android:gravity="left"
-                  android:text="Vaccine" />
+                  android:text="" />
             </TableRow>
             <View
                 android:layout_width="match_parent"
@@ -225,14 +201,6 @@
           android:layout_height="wrap_content"
           android:id="@+id/resultsSection"
           android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:text="Results"
-            android:textColor="#000000"
-            android:textSize="24sp" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -250,13 +218,15 @@
                   android:layout_height="wrap_content"
                   android:padding="8dp"
                   android:gravity="left"
-                  android:text="Date" />
+                  android:text="Results"
+                  android:textColor="#000000"
+                  android:textSize="24sp" />
               <TextView
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:padding="8dp"
                   android:gravity="left"
-                  android:text="Name" />
+                  android:text="" />
             </TableRow>
             <View
                 android:layout_width="match_parent"
