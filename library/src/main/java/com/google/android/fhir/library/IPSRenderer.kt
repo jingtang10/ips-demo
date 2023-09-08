@@ -102,14 +102,24 @@ class IPSRenderer(val doc: IPSDocument?) {
         }
 
         ResourceType.Observation -> {
-          val date = (entry.resource as Observation).effectiveDateTimeType.valueAsString
-          val resultName = (entry.resource as Observation).code.coding.firstOrNull()?.display
+          val observation = entry.resource as Observation
+          val date = observation.effectiveDateTimeType.valueAsString
+          val resultName = observation.code.coding.firstOrNull()?.display
+          val value = if (observation.hasValueCodeableConcept()) {
+            observation.valueCodeableConcept.coding.firstOrNull()?.display
+          } else {
+            "${observation.valueQuantity.value}${observation.valueQuantity.unit}"
+          }
+          val category =
+            (entry.resource as Observation).category.firstOrNull()?.coding?.firstOrNull()?.code
           if (resultName != null) {
             val row = TableRow(context)
-            val dateTextView = createTextView(context, date)
-            val resultNameTextView = createTextView(context, resultName)
+            val resultsDisplay =
+              "Name: $resultName \nDate/Time: $date \nValue: $value\nCategory: $category"
+            val resultNameTextView = createTextView(context, resultsDisplay)
+            resultNameTextView.gravity = Gravity.START
             val horizontalScrollView = createHorizontalScrollView(context, resultNameTextView)
-            row.addView(dateTextView)
+            // row.addView(dateTextView)
             row.addView(horizontalScrollView)
             row.setBackgroundColor(Color.LTGRAY)
             resultsTable.addView(row)
@@ -147,7 +157,8 @@ class IPSRenderer(val doc: IPSDocument?) {
           val problem = (entry.resource as Condition).code.coding
           if ((entry.resource as Condition).clinicalStatus.coding.firstOrNull()?.code == "active") {
             if (problem != null) {
-              val conditionDisplay = problem.joinToString("\n") { "${it.display} (${it.code}) (${it.system})" }
+              val conditionDisplay =
+                problem.joinToString("\n") { "${it.display} (${it.code}) (${it.system})" }
               val row = TableRow(context)
               val problemTextView = createTextView(context, conditionDisplay)
               problemTextView.gravity = Gravity.START
