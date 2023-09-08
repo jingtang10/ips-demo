@@ -12,6 +12,9 @@ import com.google.android.fhir.library.utils.DocumentGeneratorUtils
 import com.google.android.fhir.library.utils.DocumentUtils
 import com.google.android.fhir.library.utils.hasCode
 import org.hl7.fhir.r4.model.Composition
+import org.hl7.fhir.r4.model.Observation
+import org.hl7.fhir.r4.model.Organization
+import org.hl7.fhir.r4.model.Reference
 import org.hl7.fhir.r4.model.Resource
 import org.hl7.fhir.r4.model.ResourceType
 
@@ -39,11 +42,42 @@ class DocumentGenerator : IPSDocumentGenerator {
     val composition = docGenUtils.createIPSComposition()
     val sections = docGenUtils.createIPSSections(selectedResources)
     val (missingSections, missingResources) = docGenUtils.checkSections(sections)
+    val referenced = mutableListOf<Resource>()
+
+    selectedResources.forEach { resource ->
+      // Check if the resource is of type Observation and has performer references
+        val references = findReferences(resource)
+        referenced.addAll(references)
+    }
     sections.addAll(missingSections)
     composition.section = sections
-    val bundle = docGenUtils.addResourcesToDoc(composition, selectedResources, missingResources)
+    val bundle = docGenUtils.addResourcesToDoc(composition, selectedResources + referenced, missingResources)
     println(parser.encodeResourceToString(bundle))
     return IPSDocument(bundle)
+  }
+
+  private fun findReferences(resource: Resource): List<Resource> {
+    val organizationReferences = mutableListOf<Resource>()
+
+    // Check if the resource type is Observation and if it has a performer reference
+    if (resource is Observation) {
+      val performerReferences = (resource as Observation).performer
+      performerReferences.forEach { performerReference ->
+        if (performerReference.reference.isNotBlank()) {
+          val organization = createOrganizationFromReference(performerReference)
+          organizationReferences.add(organization)
+        }
+      }
+      // }
+    }
+    return organizationReferences
+  }
+
+  private fun createOrganizationFromReference(reference: Reference): Organization {
+    val organization = Organization()
+    organization.id = reference.reference
+    organization.name = "Unknown Organization"
+    return organization
   }
 
   override fun displayOptions(

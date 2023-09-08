@@ -119,13 +119,12 @@ class IPSRenderer(val doc: IPSDocument?) {
             val resultNameTextView = createTextView(context, resultsDisplay)
             resultNameTextView.gravity = Gravity.START
             val horizontalScrollView = createHorizontalScrollView(context, resultNameTextView)
-            // row.addView(dateTextView)
             row.addView(horizontalScrollView)
             row.setBackgroundColor(Color.LTGRAY)
             resultsTable.addView(row)
             val separator = View(context)
             separator.layoutParams = TableRow.LayoutParams(
-              TableRow.LayoutParams.MATCH_PARENT, 5 // Height of the separator line in pixels
+              TableRow.LayoutParams.MATCH_PARENT, 5
             )
             separator.setBackgroundColor(Color.BLACK)
             resultsTable.addView(separator)

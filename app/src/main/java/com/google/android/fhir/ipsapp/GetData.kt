@@ -6,6 +6,8 @@ import android.widget.LinearLayout
 import android.widget.TableLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import ca.uhn.fhir.context.FhirContext
+import ca.uhn.fhir.context.FhirVersionEnum
 import com.google.android.fhir.library.IPSDocument
 import com.google.android.fhir.library.IPSRenderer
 
@@ -38,11 +40,12 @@ class GetData : AppCompatActivity() {
     medicationSection.visibility = View.GONE
     immunizationSection.visibility = View.GONE
     resultsSection.visibility = View.GONE
-
     // textView.movementMethod = ScrollingMovementMethod()
 
     val doc = intent.getSerializableExtra("doc", IPSDocument::class.java)
     // textView.text = parser.encodeResourceToString(doc?.document)
+    val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
+    patientView.text = parser.encodeResourceToString(doc?.document)
     val ipsRenderer = IPSRenderer(doc)
     ipsRenderer.render(this, immunizationTable, allergiesTable, resultsTable, documentView, medicationTable, problemsTable, allergiesSection, problemSection, medicationSection, immunizationSection, resultsSection)
 
