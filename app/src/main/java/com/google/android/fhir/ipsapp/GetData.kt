@@ -21,8 +21,8 @@ class GetData : AppCompatActivity() {
     setContentView(R.layout.get_data)
     // val textView = findViewById<TextView>(R.id.textView)
 
-    val patientView = findViewById<TextView>(R.id.patient)
-    val documentView = findViewById<TextView>(R.id.document)
+    val patientTable = findViewById<TableLayout>(R.id.patientTable)
+    val documentTable = findViewById<TableLayout>(R.id.documentTable)
     val immunizationTable = findViewById<TableLayout>(R.id.immunizationTable)
     val allergiesTable = findViewById<TableLayout>(R.id.allergiesTable)
     val resultsTable = findViewById<TableLayout>(R.id.resultsTable)
@@ -45,9 +45,9 @@ class GetData : AppCompatActivity() {
     val doc = intent.getSerializableExtra("doc", IPSDocument::class.java)
     // textView.text = parser.encodeResourceToString(doc?.document)
     val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
-    patientView.text = parser.encodeResourceToString(doc?.document)
+    // patientView.text = parser.encodeResourceToString(doc?.document)
     val ipsRenderer = IPSRenderer(doc)
-    ipsRenderer.render(this, immunizationTable, allergiesTable, resultsTable, documentView, medicationTable, problemsTable, allergiesSection, problemSection, medicationSection, immunizationSection, resultsSection)
+    ipsRenderer.render(this, immunizationTable, allergiesTable, resultsTable, medicationTable, problemsTable, allergiesSection, problemSection, medicationSection, immunizationSection, resultsSection, patientTable, documentTable)
 
   }
 

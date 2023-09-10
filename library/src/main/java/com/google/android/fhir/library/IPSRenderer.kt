@@ -15,6 +15,7 @@ import org.hl7.fhir.r4.model.Condition
 import org.hl7.fhir.r4.model.Immunization
 import org.hl7.fhir.r4.model.Medication
 import org.hl7.fhir.r4.model.Observation
+import org.hl7.fhir.r4.model.Patient
 import org.hl7.fhir.r4.model.ResourceType
 
 class IPSRenderer(val doc: IPSDocument?) {
@@ -41,7 +42,6 @@ class IPSRenderer(val doc: IPSDocument?) {
     immunizationTable: TableLayout,
     allergiesTable: TableLayout,
     resultsTable: TableLayout,
-    documentView: TextView,
     medicationTable: TableLayout,
     problemsTable: TableLayout,
     allergiesSection: LinearLayout,
@@ -49,11 +49,26 @@ class IPSRenderer(val doc: IPSDocument?) {
     medicationSection: LinearLayout,
     immunizationSection: LinearLayout,
     resultsSection: LinearLayout,
+    patientTable: TableLayout,
+    documentTable: TableLayout
   ) {
     val entries = doc?.document?.entry
     entries?.firstOrNull()?.let { firstEntry ->
       if (firstEntry.resource.resourceType == ResourceType.Composition) {
-        documentView.text = "Summary Date: \n${(firstEntry.resource as Composition).date}"
+        val row = TableRow(context)
+        val documentText = "Summary Date: ${(firstEntry.resource as Composition).dateElement.value}"
+        val docHorizontalTextView = createTextView(context, documentText)
+        docHorizontalTextView.gravity = Gravity.START
+        val docScrollView = createHorizontalScrollView(context, docHorizontalTextView)
+        row.addView(docScrollView)
+        row.setBackgroundColor(Color.LTGRAY)
+        documentTable.addView(row)
+        val separator = View(context)
+        separator.layoutParams = TableRow.LayoutParams(
+          TableRow.LayoutParams.MATCH_PARENT, 5 // Height of the separator line in pixels
+        )
+        separator.setBackgroundColor(Color.BLACK)
+        documentTable.addView(separator)
       }
     }
     entries?.forEach { entry ->
@@ -76,6 +91,24 @@ class IPSRenderer(val doc: IPSDocument?) {
           separator.setBackgroundColor(Color.BLACK)
           immunizationTable.addView(separator)
           immunizationSection.visibility = View.VISIBLE
+        }
+
+        ResourceType.Patient -> {
+          val patient = (entry.resource as Patient)
+          val patientText = "Name: ${patient.name.first().givenAsSingleString} ${patient.name.first().family} \nBirth Date: ${patient.birthDateElement.valueAsString}"
+          val row = TableRow(context)
+          val patientTextView = createTextView(context, patientText)
+          patientTextView.gravity = Gravity.START
+          val patientScrollView = createHorizontalScrollView(context, patientTextView)
+          row.addView(patientScrollView)
+          row.setBackgroundColor(Color.LTGRAY)
+          patientTable.addView(row)
+          val separator = View(context)
+          separator.layoutParams = TableRow.LayoutParams(
+            TableRow.LayoutParams.MATCH_PARENT, 5 // Height of the separator line in pixels
+          )
+          separator.setBackgroundColor(Color.BLACK)
+          patientTable.addView(separator)
         }
 
         ResourceType.AllergyIntolerance -> {
@@ -184,6 +217,8 @@ class IPSRenderer(val doc: IPSDocument?) {
     addGapToTable(problemsTable, 30)
     addGapToTable(resultsTable, 30)
     addGapToTable(medicationTable, 30)
+    addGapToTable(patientTable, 30)
+    addGapToTable(documentTable, 30)
   }
 
   private fun addGapToTable(table: TableLayout, gapHeight: Int) {

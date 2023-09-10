@@ -89,30 +89,37 @@ class DocumentGenerator : IPSDocumentGenerator {
     map: MutableMap<String, ArrayList<Resource>>,
   ) {
     val layoutInflater = LayoutInflater.from(context)
+
     for (title in bundle?.titles!!) {
       if (title.name != null) {
-        val headingView =
-          layoutInflater.inflate(R.layout.heading_item, containerLayout, false) as RelativeLayout
-        val headingText = headingView.findViewById<TextView>(R.id.headingText)
-        headingText.text = title.name
-        containerLayout.addView(headingView)
-
         map += docUtils.getDataFromDoc(parser.encodeResourceToString(bundle.document), title.name!!, map)
-
         val resources = map[title.name]
-        resources?.forEach { obj ->
+
+        val codingArrayNotEmpty = resources?.any { obj ->
           val code = obj.hasCode()
           val codingArray = code.first?.coding ?: emptyList()
+          !codingArray.isNullOrEmpty()
+        } ?: false
 
-          codingArray.firstOrNull { it.hasDisplay() }?.let { codingElement ->
-            val displayValue = codingElement.display
+        if (codingArrayNotEmpty) {
+          val headingView = layoutInflater.inflate(R.layout.heading_item, containerLayout, false) as RelativeLayout
+          val headingText = headingView.findViewById<TextView>(R.id.headingText)
+          headingText.text = title.name
+          containerLayout.addView(headingView)
 
-            val checkBoxItem =
-              layoutInflater.inflate(R.layout.checkbox_item, containerLayout, false) as CheckBox
-            checkBoxItem.text = displayValue
-            containerLayout.addView(checkBoxItem)
-            checkboxTitleMap[displayValue] = title.name.toString()
-            checkBoxes.add(checkBoxItem)
+          resources?.forEach { obj ->
+            val code = obj.hasCode()
+            val codingArray = code.first?.coding ?: emptyList()
+
+            codingArray.firstOrNull { it.hasDisplay() }?.let { codingElement ->
+              val displayValue = codingElement.display
+
+              val checkBoxItem = layoutInflater.inflate(R.layout.checkbox_item, containerLayout, false) as CheckBox
+              checkBoxItem.text = displayValue
+              containerLayout.addView(checkBoxItem)
+              checkboxTitleMap[displayValue] = title.name.toString()
+              checkBoxes.add(checkBoxItem)
+            }
           }
         }
       }

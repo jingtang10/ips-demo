@@ -227,7 +227,7 @@ class DocGenTest {
     "      \"clinicalStatus\" : {\n" +
     "        \"coding\" : [{\n" +
     "          \"system\" : \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n" +
-    "          \"code\" : \"active\"\n" +
+    "          \"code\" : \"activ\"\n" +
     "        }]\n" +
     "      },\n" +
     "      \"verificationStatus\" : {\n" +
@@ -334,7 +334,6 @@ class DocGenTest {
         .setCode("12345")
         .setDisplay("Example Observation")
     )
-    // observation.valueQuantity = Quantity().setValue(42.0).setUnit("mmHg")
     resources.add(observation)
 
     // Create an AllergyIntolerance resource
@@ -350,7 +349,6 @@ class DocGenTest {
     // allergy.category =
     allergy.patient = Reference(patient) // Link the allergy to the patient
     allergy.criticality = AllergyIntolerance.AllergyIntoleranceCriticality.HIGH
-    // allergy.category = listOf(Enumeration(AllergyIntolerance.AllergyIntoleranceCategory.FOOD))
     resources.add(allergy)
 
     val allergy2 = AllergyIntolerance()
