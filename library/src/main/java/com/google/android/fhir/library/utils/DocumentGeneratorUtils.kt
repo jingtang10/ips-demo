@@ -75,6 +75,8 @@ class DocumentGeneratorUtils {
         ResourceType.Medication -> createCoding("10160-0", "History of Medication")
         ResourceType.Immunization -> createCoding("11369-6", "History of Immunizations")
         ResourceType.Observation -> createCoding("30954-2", "Test Results")
+        ResourceType.DiagnosticReport -> createCoding("", "Diagnostic Report")
+        ResourceType.Device -> createCoding("", "Medical Devices")
         else -> createCoding("12345", "Display Text", "http://your-coding-system-url.com")
       }
     )

@@ -114,10 +114,12 @@ class IPSRenderer(val doc: IPSDocument?) {
         ResourceType.AllergyIntolerance -> {
           val allergyEntry = (entry.resource as AllergyIntolerance)
           val allergy = allergyEntry.code.coding[0].display
-          if (allergyEntry.clinicalStatus.coding.firstOrNull()?.code == "active") {
+          val code = allergyEntry.clinicalStatus.coding.firstOrNull()?.code
+          println(code)
+          if (code == "active" || allergyEntry.code.coding[0].code == "no-allergy-info") {
             val categories = allergyEntry.category.joinToString(" - ") { it.valueAsString }
             val allergyText =
-              "${allergyEntry.type.name} - $categories - Criticality: ${allergyEntry.criticality.name}\n$allergy"
+              "${allergyEntry.type?.name ?: ""} - $categories - Criticality: ${allergyEntry.criticality?.name ?: "undefined"}\n$allergy"
             val row = TableRow(context)
             val allergyTextView = createTextView(context, allergyText)
             allergyTextView.gravity = Gravity.START
@@ -168,7 +170,7 @@ class IPSRenderer(val doc: IPSDocument?) {
         ResourceType.Medication -> {
           val medication = (entry.resource as Medication).code.coding
           val medicationDisplays =
-            medication.joinToString("\n") { "${it.display} (${it.code}) (${it.system})" }
+            medication.joinToString("\n") { "${it.display} (${it.code}) \n(${it.system})" }
           val row = TableRow(context)
           val medicationTextView = createTextView(context, medicationDisplays)
           medicationTextView.gravity = Gravity.START
@@ -187,10 +189,10 @@ class IPSRenderer(val doc: IPSDocument?) {
 
         ResourceType.Condition -> {
           val problem = (entry.resource as Condition).code.coding
-          if ((entry.resource as Condition).clinicalStatus.coding.firstOrNull()?.code == "active") {
+          if ((entry.resource as Condition).clinicalStatus.coding.firstOrNull()?.code == "active" || problem[0].code == "no-problem-info") {
             if (problem != null) {
               val conditionDisplay =
-                problem.joinToString("\n") { "${it.display} (${it.code}) (${it.system})" }
+                problem.joinToString("\n") { "${it.display} (${it.code}) \n(${it.system})" }
               val row = TableRow(context)
               val problemTextView = createTextView(context, conditionDisplay)
               problemTextView.gravity = Gravity.START
