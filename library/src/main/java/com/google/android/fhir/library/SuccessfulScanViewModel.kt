@@ -12,7 +12,7 @@ class SuccessfulScanViewModel(shlData: SHLData?) : ViewModel() {
   private val decoder = Decoder(shlData)
 
   @RequiresApi(Build.VERSION_CODES.O)
-  suspend fun decodeSHLToDocument(recipient: String, passcode: String? = null): IPSDocument {
+  suspend fun decodeSHLToDocument(recipient: String, passcode: String? = null): IPSDocument? {
     return withContext(Dispatchers.IO) {
       if (passcode != null) {
         decoder.decodeSHLToDocument(recipient, passcode)
@@ -23,7 +23,7 @@ class SuccessfulScanViewModel(shlData: SHLData?) : ViewModel() {
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
-  suspend fun decodeSHLToDocument(recipient: String): IPSDocument {
+  suspend fun decodeSHLToDocument(recipient: String): IPSDocument? {
     return withContext(Dispatchers.IO) {
       decoder.decodeSHLToDocument(recipient)
     }
@@ -43,7 +43,7 @@ class SuccessfulScanViewModel(shlData: SHLData?) : ViewModel() {
     recipient: String,
     passcode: String,
     hasPasscode: Boolean,
-  ): IPSDocument {
+  ): IPSDocument? {
     val doc = if (hasPasscode) {
       decodeSHLToDocument(recipient, passcode)
     } else {

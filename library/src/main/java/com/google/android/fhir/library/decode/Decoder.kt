@@ -24,19 +24,27 @@ class Decoder(private val shlData: SHLData?) : SHLDecoder {
   private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
 
   @RequiresApi(Build.VERSION_CODES.O)
-  override suspend fun decodeSHLToDocument(recipient: String): IPSDocument {
+  override suspend fun decodeSHLToDocument(recipient: String): IPSDocument? {
     constructShlObj()
     val jsonData = "{\"recipient\":\"${recipient}\"}"
     val bundle = postToServer(jsonData)
-    return IPSDocument(bundle)
+    if (bundle != null) {
+      return IPSDocument(bundle)
+    } else {
+      return null
+    }
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
-  override suspend fun decodeSHLToDocument(recipient: String, passcode: String): IPSDocument {
+  override suspend fun decodeSHLToDocument(recipient: String, passcode: String): IPSDocument? {
     constructShlObj()
     val jsonData = "{\"passcode\":\"${passcode}\", \"recipient\":\"${recipient}\"}"
     val bundle = postToServer(jsonData)
-    return IPSDocument(bundle)
+    if (bundle != null) {
+      return IPSDocument(bundle)
+    } else {
+      return null
+    }
   }
 
   override fun storeDocument(doc: IPSDocument) {
@@ -53,29 +61,33 @@ class Decoder(private val shlData: SHLData?) : SHLDecoder {
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
-  private suspend fun postToServer(jsonData: String): Bundle = coroutineScope {
-    val httpClient: CloseableHttpClient = HttpClients.createDefault()
-    val httpPost = HttpPost(shlData?.manifestUrl)
-    httpPost.addHeader("Content-Type", "application/smart-health-card")
-    val entity = StringEntity(jsonData)
-    httpPost.entity = entity
+  private suspend fun postToServer(jsonData: String): Bundle? = coroutineScope {
+    try {
+      val httpClient: CloseableHttpClient = HttpClients.createDefault()
+      val httpPost = HttpPost(shlData?.manifestUrl)
+      httpPost.addHeader("Content-Type", "application/smart-health-card")
+      val entity = StringEntity(jsonData)
+      httpPost.entity = entity
 
-    val response = httpClient.execute(httpPost)
-    val responseBody = EntityUtils.toString(response.entity, StandardCharsets.UTF_8)
-    httpClient.close()
+      val response = httpClient.execute(httpPost)
+      val responseBody = EntityUtils.toString(response.entity, StandardCharsets.UTF_8)
+      httpClient.close()
 
-    val jsonObject = JSONObject(responseBody)
-    val embeddedArray = jsonObject.getJSONArray("files").let { jsonArray ->
-      (0 until jsonArray.length()).mapNotNull { i ->
-        val fileObject = jsonArray.getJSONObject(i)
-        if (fileObject.has("embedded")) {
-          fileObject.getString("embedded")
-        } else {
-          fileObject.getString("location").let { readShlUtils.getRequest(it) }
-        }
-      }.toTypedArray()
+      val jsonObject = JSONObject(responseBody)
+      val embeddedArray = jsonObject.getJSONArray("files").let { jsonArray ->
+        (0 until jsonArray.length()).mapNotNull { i ->
+          val fileObject = jsonArray.getJSONObject(i)
+          if (fileObject.has("embedded")) {
+            fileObject.getString("embedded")
+          } else {
+            fileObject.getString("location").let { readShlUtils.getRequest(it) }
+          }
+        }.toTypedArray()
+      }
+      return@coroutineScope decodeEmbeddedArray(embeddedArray)
+    } catch (e: Exception) {
+      return@coroutineScope null // Return the exception as an error result
     }
-    return@coroutineScope decodeEmbeddedArray(embeddedArray)
   }
 
   @RequiresApi(Build.VERSION_CODES.O)

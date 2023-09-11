@@ -8,12 +8,16 @@ import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
 import com.google.android.fhir.library.utils.DocumentUtils
 import com.google.android.fhir.library.utils.hasCode
+import org.hl7.fhir.r4.model.Patient
 import org.hl7.fhir.r4.model.Resource
+import org.hl7.fhir.r4.model.ResourceType
 
 class SelectIndividualResourcesViewModel : ViewModel() {
   private var map = mutableMapOf<String, ArrayList<Resource>>()
   private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
   private val documentGenerator = DocumentGenerator()
+
+  private lateinit var patient: Resource
 
   private val checkBoxes = mutableListOf<CheckBox>()
   private val checkboxTitleMap = mutableMapOf<String, String>()
@@ -23,6 +27,9 @@ class SelectIndividualResourcesViewModel : ViewModel() {
     val doc = docUtils.readFileFromAssets(context, "immunizationBundle.json")
     val ipsDoc = IPSDocument(parser.parseResource(doc) as org.hl7.fhir.r4.model.Bundle)
     ipsDoc.titles = ArrayList(documentGenerator.getTitlesFromDoc(ipsDoc))
+    patient =
+      ipsDoc.document.entry.firstOrNull { it.resource.resourceType == ResourceType.Patient }?.resource
+        ?: Patient()
 
     documentGenerator.displayOptions(
       context, ipsDoc, checkBoxes, checkboxTitleMap, containerLayout, map
@@ -41,7 +48,7 @@ class SelectIndividualResourcesViewModel : ViewModel() {
       map[title]?.filter { obj ->
         obj.hasCode().first?.coding?.any { it.display == value } == true
       } ?: emptyList()
-    }
+    } + patient
     return documentGenerator.generateIPS(outputArray)
   }
 }
