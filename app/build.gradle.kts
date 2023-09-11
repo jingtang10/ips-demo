@@ -8,11 +8,20 @@ android {
 
   buildFeatures {
     viewBinding = true
+    compose = true
+  }
+
+  composeOptions {
+    kotlinCompilerExtensionVersion = "1.4.1"
+  }
+
+  kotlinOptions {
+    jvmTarget = "17"
   }
 
   namespace = "com.google.android.fhir.ipsapp"
   namespace = "com.google.android.fhir.ipsapp"
-  compileSdk = 33
+  compileSdk = 34
 
   defaultConfig {
     applicationId = "com.google.android.fhir.ipsapp"
@@ -33,9 +42,6 @@ android {
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
-  }
-  kotlinOptions {
-    jvmTarget = "17"
   }
 
   packagingOptions {
@@ -67,11 +73,18 @@ dependencies {
   implementation("com.nimbusds:nimbus-jose-jwt:9.31")
   implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.9")
   implementation("com.google.gms:google-services:4.3.10")
+  implementation("androidx.compose.ui:ui-android:1.5.1")
 
   testImplementation("junit:junit:4.13.2")
   testImplementation("org.robolectric:robolectric:4.7.3")
   androidTestImplementation("androidx.test.ext:junit:1.1.5")
   androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+  // implementation ("androidx.compose.ui:compose-view:1.0.4")
+  implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2") // or the latest version
+  implementation("androidx.activity:activity-compose:1.7.2") // or the latest version
+  implementation("androidx.compose.ui:ui:1.5.1") // or the latest version
+  implementation("androidx.compose.ui:ui-tooling:1.5.1")
 
   implementation(project(":library"))
 }

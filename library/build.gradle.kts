@@ -7,6 +7,15 @@ android {
 
   buildFeatures {
     viewBinding = true
+    compose = true
+  }
+
+  composeOptions {
+    kotlinCompilerExtensionVersion = "1.4.1"
+  }
+
+  kotlinOptions {
+    jvmTarget = "1.8"
   }
 
   packagingOptions {
@@ -34,9 +43,6 @@ android {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
   }
-  kotlinOptions {
-    jvmTarget = "1.8"
-  }
 }
 
 dependencies {
@@ -57,4 +63,7 @@ dependencies {
   // implementation("ca.uhn.hapi.fhir:hapi-fhir-jpaserver-model:1.0.0")
 
   implementation("com.google.android.fhir:engine:0.1.0-beta03")
+
+  implementation("androidx.compose.material3:material3:1.1.1")
+  implementation("androidx.compose.material3:material3-window-size-class:1.1.1")
 }

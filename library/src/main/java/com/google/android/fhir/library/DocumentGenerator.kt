@@ -6,6 +6,22 @@ import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
 import com.google.android.fhir.library.utils.DocumentGeneratorUtils
@@ -46,12 +62,13 @@ class DocumentGenerator : IPSDocumentGenerator {
 
     selectedResources.forEach { resource ->
       // Check if the resource is of type Observation and has performer references
-        val references = findReferences(resource)
-        referenced.addAll(references)
+      val references = findReferences(resource)
+      referenced.addAll(references)
     }
     sections.addAll(missingSections)
     composition.section = sections
-    val bundle = docGenUtils.addResourcesToDoc(composition, selectedResources + referenced, missingResources)
+    val bundle =
+      docGenUtils.addResourcesToDoc(composition, selectedResources + referenced, missingResources)
     println(parser.encodeResourceToString(bundle))
     return IPSDocument(bundle)
   }
@@ -92,7 +109,9 @@ class DocumentGenerator : IPSDocumentGenerator {
 
     for (title in bundle?.titles!!) {
       if (title.name != null) {
-        map += docUtils.getDataFromDoc(parser.encodeResourceToString(bundle.document), title.name!!, map)
+        map += docUtils.getDataFromDoc(
+          parser.encodeResourceToString(bundle.document), title.name!!, map
+        )
         val resources = map[title.name]
 
         val codingArrayNotEmpty = resources?.any { obj ->
@@ -102,7 +121,8 @@ class DocumentGenerator : IPSDocumentGenerator {
         } ?: false
 
         if (codingArrayNotEmpty) {
-          val headingView = layoutInflater.inflate(R.layout.heading_item, containerLayout, false) as RelativeLayout
+          val headingView =
+            layoutInflater.inflate(R.layout.heading_item, containerLayout, false) as RelativeLayout
           val headingText = headingView.findViewById<TextView>(R.id.headingText)
           headingText.text = title.name
           containerLayout.addView(headingView)
@@ -114,7 +134,8 @@ class DocumentGenerator : IPSDocumentGenerator {
             codingArray.firstOrNull { it.hasDisplay() }?.let { codingElement ->
               val displayValue = codingElement.display
 
-              val checkBoxItem = layoutInflater.inflate(R.layout.checkbox_item, containerLayout, false) as CheckBox
+              val checkBoxItem =
+                layoutInflater.inflate(R.layout.checkbox_item, containerLayout, false) as CheckBox
               checkBoxItem.text = displayValue
               containerLayout.addView(checkBoxItem)
               checkboxTitleMap[displayValue] = title.name.toString()
@@ -122,6 +143,82 @@ class DocumentGenerator : IPSDocumentGenerator {
             }
           }
         }
+      }
+    }
+  }
+
+  @Composable
+  fun DisplayOptions2(
+    context: Context,
+    bundle: IPSDocument?,
+    checkBoxes: MutableList<CheckBox>,
+    checkboxTitleMap: MutableMap<String, String>,
+    map: MutableMap<String, ArrayList<Resource>>,
+    onButtonClick: () -> Unit,
+    checkboxStates: SnapshotStateList<Boolean>,
+  ) {
+    val layoutInflater = LayoutInflater.from(context)
+
+    Column(
+      modifier = Modifier.verticalScroll(rememberScrollState()) // Enable vertical scrolling
+    ) {
+
+      for (title in bundle?.titles ?: emptyList()) {
+        if (title.name != null) {
+          map += docUtils.getDataFromDoc(
+            parser.encodeResourceToString(bundle?.document), title.name!!, map
+          )
+          val resources = map[title.name]
+
+          val codingArrayNotEmpty = resources?.any { obj ->
+            val code = obj.hasCode()
+            val codingArray = code.first?.coding ?: emptyList()
+            !codingArray.isNullOrEmpty()
+          } ?: false
+
+          if (codingArrayNotEmpty) {
+            Column {
+              Text(text = title.name!!, modifier = Modifier.padding(16.dp))
+              resources?.forEachIndexed { index, obj ->
+                val code = obj.hasCode()
+                val codingArray = code.first?.coding ?: emptyList()
+
+                codingArray.firstOrNull { it.hasDisplay() }?.let { codingElement ->
+                  val displayValue = codingElement.display
+
+                  val isChecked = remember { mutableStateOf(checkboxStates.getOrNull(index) ?: false) }
+
+                  Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(16.dp)
+                  ) {
+                    Checkbox(
+                      checked = isChecked.value,
+                      onCheckedChange = { newCheckedValue ->
+                        isChecked.value = newCheckedValue
+                        // Add the checked checkbox to the list
+                        if (newCheckedValue) {
+                          checkBoxes.add(CheckBox(context)) // Replace 'context' with your actual context
+                        }
+                        // checkboxStates[index] = newCheckedValue
+                      },
+                    )
+                    Text(text = displayValue, modifier = Modifier.padding(start = 8.dp))
+                  }
+                  checkboxTitleMap[displayValue] = title.name.toString()
+                }
+              }
+            }
+          }
+        }
+      }
+      Button(
+        onClick = { onButtonClick() },
+        modifier = Modifier
+          .fillMaxWidth()
+          .padding(16.dp)
+      ) {
+        Text(text = "Click Me")
       }
     }
   }
