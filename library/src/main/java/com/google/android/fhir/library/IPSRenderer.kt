@@ -4,11 +4,10 @@ import android.content.Context
 import android.graphics.Color
 import android.view.Gravity
 import android.view.View
-import android.widget.HorizontalScrollView
-import android.widget.LinearLayout
-import android.widget.TableLayout
-import android.widget.TableRow
-import android.widget.TextView
+import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.textview.MaterialTextView
 import org.hl7.fhir.r4.model.AllergyIntolerance
 import org.hl7.fhir.r4.model.Composition
 import org.hl7.fhir.r4.model.Condition
@@ -18,119 +17,69 @@ import org.hl7.fhir.r4.model.Observation
 import org.hl7.fhir.r4.model.Patient
 import org.hl7.fhir.r4.model.ResourceType
 
-class IPSRenderer(val doc: IPSDocument?) {
+class IPSRenderer(private val context: Context, private val parentView: ViewGroup) {
 
-  private fun createTextView(context: Context, text: String): TextView {
-    return TextView(context).apply {
-      this.text = text
-      setPadding(8, 8, 8, 8)
-      gravity = Gravity.CENTER
-    }
-  }
-
-  private fun createHorizontalScrollView(
-    context: Context,
-    textView: TextView,
-  ): HorizontalScrollView {
-    return HorizontalScrollView(context).apply {
-      addView(textView)
-    }
-  }
-
-  fun render(
-    context: Context,
-    immunizationTable: TableLayout,
-    allergiesTable: TableLayout,
-    resultsTable: TableLayout,
-    medicationTable: TableLayout,
-    problemsTable: TableLayout,
-    allergiesSection: LinearLayout,
-    problemSection: LinearLayout,
-    medicationSection: LinearLayout,
-    immunizationSection: LinearLayout,
-    resultsSection: LinearLayout,
-    patientTable: TableLayout,
-    documentTable: TableLayout
-  ) {
+  fun renderData(doc: IPSDocument) {
+    val immunizationTable: MaterialCardView = parentView.findViewById(R.id.immunizationTable)
+    val allergiesTable: MaterialCardView = parentView.findViewById(R.id.allergiesTable)
+    val resultsTable: MaterialCardView = parentView.findViewById(com.google.android.fhir.library.R.id.resultsTable)
+    val medicationTable: MaterialCardView = parentView.findViewById(com.google.android.fhir.library.R.id.medicationTable)
+    val problemsTable: MaterialCardView = parentView.findViewById(com.google.android.fhir.library.R.id.problemsTable)
+    val allergiesSection: MaterialCardView = parentView.findViewById(com.google.android.fhir.library.R.id.allergiesSection)
+    val problemSection: MaterialCardView = parentView.findViewById(com.google.android.fhir.library.R.id.problemSection)
+    val medicationSection: MaterialCardView = parentView.findViewById(com.google.android.fhir.library.R.id.medicationSection)
+    val immunizationSection: MaterialCardView = parentView.findViewById(com.google.android.fhir.library.R.id.immunizationSection)
+    val resultsSection: MaterialCardView = parentView.findViewById(com.google.android.fhir.library.R.id.resultsSection)
+    val patientTable: MaterialCardView = parentView.findViewById(com.google.android.fhir.library.R.id.patientTable)
+    val documentTable: MaterialCardView = parentView.findViewById(com.google.android.fhir.library.R.id.documentTable)
     val entries = doc?.document?.entry
+
+    var hasImmunizationData = false
+    var hasAllergiesData = false
+    var hasResultsData = false
+    var hasMedicationData = false
+    var hasProblemsData = false
+
     entries?.firstOrNull()?.let { firstEntry ->
       if (firstEntry.resource.resourceType == ResourceType.Composition) {
-        val row = TableRow(context)
         val documentText = "Summary Date: ${(firstEntry.resource as Composition).dateElement.value}"
         val docHorizontalTextView = createTextView(context, documentText)
-        docHorizontalTextView.gravity = Gravity.START
-        val docScrollView = createHorizontalScrollView(context, docHorizontalTextView)
-        row.addView(docScrollView)
-        row.setBackgroundColor(Color.LTGRAY)
-        documentTable.addView(row)
-        val separator = View(context)
-        separator.layoutParams = TableRow.LayoutParams(
-          TableRow.LayoutParams.MATCH_PARENT, 5 // Height of the separator line in pixels
-        )
-        separator.setBackgroundColor(Color.BLACK)
-        documentTable.addView(separator)
+        docHorizontalTextView.textAlignment = View.TEXT_ALIGNMENT_VIEW_START
+        addCardViewToTable(documentTable, docHorizontalTextView)
       }
     }
+
     entries?.forEach { entry ->
       when (entry.resource.resourceType) {
         ResourceType.Immunization -> {
           val date = (entry.resource as Immunization).occurrenceDateTimeType.valueAsString
           val vaccine = (entry.resource as Immunization).vaccineCode.coding[0].display
-          val row = TableRow(context)
           val dateTextView = createTextView(context, date)
           val vaccineHorizontalTextView = createTextView(context, vaccine)
-          val horizontalScrollView = createHorizontalScrollView(context, vaccineHorizontalTextView)
-          row.addView(dateTextView)
-          row.addView(horizontalScrollView)
-          row.setBackgroundColor(Color.LTGRAY)
-          immunizationTable.addView(row)
-          val separator = View(context)
-          separator.layoutParams = TableRow.LayoutParams(
-            TableRow.LayoutParams.MATCH_PARENT, 5 // Height of the separator line in pixels
-          )
-          separator.setBackgroundColor(Color.BLACK)
-          immunizationTable.addView(separator)
-          immunizationSection.visibility = View.VISIBLE
+          addCardViewToTable(immunizationTable, dateTextView)
+          addCardViewToTable(immunizationTable, vaccineHorizontalTextView)
+          hasImmunizationData = true
         }
 
         ResourceType.Patient -> {
           val patient = (entry.resource as Patient)
-          val patientText = "Name: ${patient.name.first().givenAsSingleString} ${patient.name.first().family} \nBirth Date: ${patient.birthDateElement.valueAsString}"
-          val row = TableRow(context)
+          val patientText =
+            "Name: ${patient.name.first().givenAsSingleString} ${patient.name.first().family} \nBirth Date: ${patient.birthDateElement.valueAsString}"
           val patientTextView = createTextView(context, patientText)
-          patientTextView.gravity = Gravity.START
-          val patientScrollView = createHorizontalScrollView(context, patientTextView)
-          row.addView(patientScrollView)
-          row.setBackgroundColor(Color.LTGRAY)
-          patientTable.addView(row)
-          val separator = View(context)
-          separator.layoutParams = TableRow.LayoutParams(
-            TableRow.LayoutParams.MATCH_PARENT, 5 // Height of the separator line in pixels
-          )
-          separator.setBackgroundColor(Color.BLACK)
-          patientTable.addView(separator)
+          addCardViewToTable(patientTable, patientTextView)
         }
 
         ResourceType.AllergyIntolerance -> {
           val allergyEntry = (entry.resource as AllergyIntolerance)
           val allergy = allergyEntry.code.coding[0].display
           if (allergyEntry.clinicalStatus.coding.firstOrNull()?.code == "active") {
-            val categories = allergyEntry.category.joinToString(" - ") { it.valueAsString }
+            val categories =
+              allergyEntry.category.joinToString(" - ") { it.valueAsString }
             val allergyText =
               "${allergyEntry.type.name} - $categories - Criticality: ${allergyEntry.criticality.name}\n$allergy"
-            val row = TableRow(context)
             val allergyTextView = createTextView(context, allergyText)
-            allergyTextView.gravity = Gravity.START
-            row.addView(allergyTextView)
-            row.setBackgroundColor(Color.LTGRAY)
-            allergiesTable.addView(row)
-            val separator = View(context)
-            separator.layoutParams = TableRow.LayoutParams(
-              TableRow.LayoutParams.MATCH_PARENT, 5 // Height of the separator line in pixels
-            )
-            separator.setBackgroundColor(Color.BLACK)
-            allergiesTable.addView(separator)
-            allergiesSection.visibility = View.VISIBLE
+            addCardViewToTable(allergiesTable, allergyTextView)
+            hasAllergiesData = true
           }
         }
 
@@ -146,22 +95,11 @@ class IPSRenderer(val doc: IPSDocument?) {
           val category =
             (entry.resource as Observation).category.firstOrNull()?.coding?.firstOrNull()?.code
           if (resultName != null) {
-            val row = TableRow(context)
             val resultsDisplay =
               "Name: $resultName \nDate/Time: $date \nValue: $value\nCategory: $category"
             val resultNameTextView = createTextView(context, resultsDisplay)
-            resultNameTextView.gravity = Gravity.START
-            val horizontalScrollView = createHorizontalScrollView(context, resultNameTextView)
-            row.addView(horizontalScrollView)
-            row.setBackgroundColor(Color.LTGRAY)
-            resultsTable.addView(row)
-            val separator = View(context)
-            separator.layoutParams = TableRow.LayoutParams(
-              TableRow.LayoutParams.MATCH_PARENT, 5
-            )
-            separator.setBackgroundColor(Color.BLACK)
-            resultsTable.addView(separator)
-            resultsSection.visibility = View.VISIBLE
+            addCardViewToTable(resultsTable, resultNameTextView)
+            hasResultsData = true
           }
         }
 
@@ -169,20 +107,9 @@ class IPSRenderer(val doc: IPSDocument?) {
           val medication = (entry.resource as Medication).code.coding
           val medicationDisplays =
             medication.joinToString("\n") { "${it.display} (${it.code}) (${it.system})" }
-          val row = TableRow(context)
           val medicationTextView = createTextView(context, medicationDisplays)
-          medicationTextView.gravity = Gravity.START
-          row.addView(medicationTextView)
-          row.setBackgroundColor(Color.LTGRAY)
-          medicationTable.addView(row)
-          val separator = View(context)
-          separator.layoutParams = TableRow.LayoutParams(
-            TableRow.LayoutParams.MATCH_PARENT, 5 // Height of the separator line in pixels
-          )
-          separator.setBackgroundColor(Color.BLACK)
-          medicationTable.addView(separator)
-          medicationSection.visibility = View.VISIBLE
-          // }
+          addCardViewToTable(medicationTable, medicationTextView)
+          hasMedicationData = true
         }
 
         ResourceType.Condition -> {
@@ -191,43 +118,57 @@ class IPSRenderer(val doc: IPSDocument?) {
             if (problem != null) {
               val conditionDisplay =
                 problem.joinToString("\n") { "${it.display} (${it.code}) (${it.system})" }
-              val row = TableRow(context)
               val problemTextView = createTextView(context, conditionDisplay)
-              problemTextView.gravity = Gravity.START
-              val horizontalScrollView = createHorizontalScrollView(context, problemTextView)
-              row.addView(horizontalScrollView)
-              row.setBackgroundColor(Color.LTGRAY)
-              problemsTable.addView(row)
-              val separator = View(context)
-              separator.layoutParams = TableRow.LayoutParams(
-                TableRow.LayoutParams.MATCH_PARENT, 5 // Height of the separator line in pixels
-              )
-              separator.setBackgroundColor(Color.BLACK)
-              problemsTable.addView(separator)
-              problemSection.visibility = View.VISIBLE
+              addCardViewToTable(problemsTable, problemTextView)
+             hasProblemsData = true
             }
           }
         }
 
-        else -> {}
+        else -> {
+        }
       }
     }
-    addGapToTable(immunizationTable, 30)
-    addGapToTable(allergiesTable, 30)
-    addGapToTable(problemsTable, 30)
-    addGapToTable(resultsTable, 30)
-    addGapToTable(medicationTable, 30)
-    addGapToTable(patientTable, 30)
-    addGapToTable(documentTable, 30)
+
+    immunizationTable.visibility = if (hasImmunizationData) View.VISIBLE else View.GONE
+    allergiesTable.visibility = if (hasAllergiesData) View.VISIBLE else View.GONE
+    resultsTable.visibility = if (hasResultsData) View.VISIBLE else View.GONE
+    medicationTable.visibility = if (hasMedicationData) View.VISIBLE else View.GONE
+    problemsTable.visibility = if (hasProblemsData) View.VISIBLE else View.GONE
+
+    addGapToCardView(immunizationTable, 30)
+    addGapToCardView(allergiesTable, 30)
+    addGapToCardView(problemsTable, 30)
+    addGapToCardView(resultsTable, 30)
+    addGapToCardView(medicationTable, 30)
+    addGapToCardView(patientTable, 30)
+    addGapToCardView(documentTable, 30)
   }
 
-  private fun addGapToTable(table: TableLayout, gapHeight: Int) {
-    val gapRow = TableRow(table.context)
-    val params = TableRow.LayoutParams(
-      TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT
-    )
-    gapRow.layoutParams = params
-    gapRow.minimumHeight = gapHeight
-    table.addView(gapRow)
+  private fun createTextView(context: Context, text: String): MaterialTextView {
+    return MaterialTextView(context).apply {
+      this.text = text
+      layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+      setPadding(8, 8, 8, 8)
+      gravity = Gravity.CENTER
+    }
+  }
+
+  private fun addCardViewToTable(table: MaterialCardView, view: View) {
+    val cardView = MaterialCardView(context)
+    cardView.strokeWidth = 2
+    cardView.strokeColor = Color.BLACK
+    cardView.addView(view)
+    // cardView.radius = resources.getDimension(R.dimen.card_corner_radius)
+    cardView.isClickable = true
+    cardView.isFocusable = true
+    table.addView(cardView)
+  }
+
+  private fun addGapToCardView(table: MaterialCardView, gapHeight: Int) {
+    val gapView = View(context)
+    val params = LayoutParams(LayoutParams.MATCH_PARENT, gapHeight)
+    gapView.layoutParams = params
+    table.addView(gapView)
   }
 }
