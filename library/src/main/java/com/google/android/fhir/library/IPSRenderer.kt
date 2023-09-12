@@ -50,7 +50,7 @@ class IPSRenderer(val doc: IPSDocument?) {
     immunizationSection: LinearLayout,
     resultsSection: LinearLayout,
     patientTable: TableLayout,
-    documentTable: TableLayout
+    documentTable: TableLayout,
   ) {
     val entries = doc?.document?.entry
     entries?.firstOrNull()?.let { firstEntry ->
@@ -95,7 +95,8 @@ class IPSRenderer(val doc: IPSDocument?) {
 
         ResourceType.Patient -> {
           val patient = (entry.resource as Patient)
-          val patientText = "Name: ${patient.name.first().givenAsSingleString} ${patient.name.first().family} \nBirth Date: ${patient.birthDateElement.valueAsString}"
+          val patientText =
+            "Name: ${patient.name.first().givenAsSingleString} ${patient.name.first().family} \nBirth Date: ${patient.birthDateElement.valueAsString}"
           val row = TableRow(context)
           val patientTextView = createTextView(context, patientText)
           patientTextView.gravity = Gravity.START
@@ -119,7 +120,7 @@ class IPSRenderer(val doc: IPSDocument?) {
           if (code == "active" || allergyEntry.code.coding[0].code == "no-allergy-info") {
             val categories = allergyEntry.category.joinToString(" - ") { it.valueAsString }
             val allergyText =
-              "${allergyEntry.type?.name ?: ""} - $categories - Criticality: ${allergyEntry.criticality?.name ?: "undefined"}\n$allergy"
+              "${allergyEntry.type?.name ?: ""} - $categories - Criticality: ${allergyEntry.criticality?.name ?: "undefined"}\n$allergy (${allergyEntry.code.coding[0].code})"
             val row = TableRow(context)
             val allergyTextView = createTextView(context, allergyText)
             allergyTextView.gravity = Gravity.START
@@ -170,7 +171,7 @@ class IPSRenderer(val doc: IPSDocument?) {
         ResourceType.Medication -> {
           val medication = (entry.resource as Medication).code.coding
           val medicationDisplays =
-            medication.joinToString("\n") { "${it.display} (${it.code}) \n(${it.system})" }
+            medication.joinToString("\n") { "${it.display} (${it.code}) (${it.system})" }
           val row = TableRow(context)
           val medicationTextView = createTextView(context, medicationDisplays)
           medicationTextView.gravity = Gravity.START
