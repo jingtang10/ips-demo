@@ -20,7 +20,7 @@ class DocumentGeneratorUtils {
 
   private val addedResourcesByType: MutableMap<String, MutableList<Resource>> = mutableMapOf()
 
-  fun createResourceSection(resource: Resource): SectionComponent {
+  private fun createResourceSection(resource: Resource): SectionComponent {
     val section = SectionComponent()
 
     section.title = getResourceTitle(resource)
