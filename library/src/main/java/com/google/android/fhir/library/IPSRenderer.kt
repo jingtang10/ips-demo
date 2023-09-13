@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import org.hl7.fhir.r4.model.AllergyIntolerance
 import org.hl7.fhir.r4.model.Composition
 import org.hl7.fhir.r4.model.Condition
@@ -47,20 +48,29 @@ class IPSRenderer(val doc: IPSDocument?) {
   }
 
   fun render(
-    context: Context,
-    immunizationTable: TableLayout,
-    allergiesTable: TableLayout,
-    resultsTable: TableLayout,
-    medicationTable: TableLayout,
-    problemsTable: TableLayout,
-    allergiesSection: LinearLayout,
-    problemSection: LinearLayout,
-    medicationSection: LinearLayout,
-    immunizationSection: LinearLayout,
-    resultsSection: LinearLayout,
-    patientTable: TableLayout,
-    documentTable: TableLayout,
-  ) {
+    context: Context
+    ) {
+
+    val patientTable = (context as AppCompatActivity).findViewById<TableLayout>(R.id.patientTable)
+    val documentTable = context.findViewById<TableLayout>(R.id.documentTable)
+    val immunizationTable = context.findViewById<TableLayout>(R.id.immunizationTable)
+    val allergiesTable = context.findViewById<TableLayout>(R.id.allergiesTable)
+    val resultsTable = context.findViewById<TableLayout>(R.id.resultsTable)
+    val medicationTable = context.findViewById<TableLayout>(R.id.medicationTable)
+    val problemsTable = context.findViewById<TableLayout>(R.id.problemsTable)
+
+    val allergiesSection = context.findViewById<LinearLayout>(R.id.allergiesSection)
+    val problemSection = context.findViewById<LinearLayout>(R.id.problemSection)
+    val medicationSection = context.findViewById<LinearLayout>(R.id.medicationSection)
+    val immunizationSection = context.findViewById<LinearLayout>(R.id.immunizationSection)
+    val resultsSection = context.findViewById<LinearLayout>(R.id.resultsSection)
+
+    allergiesSection.visibility = View.GONE
+    problemSection.visibility = View.GONE
+    medicationSection.visibility = View.GONE
+    immunizationSection.visibility = View.GONE
+    resultsSection.visibility = View.GONE
+
     val entries = doc?.document?.entry
     entries?.firstOrNull()?.let { firstEntry ->
       if (firstEntry.resource.resourceType == ResourceType.Composition) {
@@ -178,7 +188,7 @@ class IPSRenderer(val doc: IPSDocument?) {
 
   private fun createRowWithTextViewAndScrollView(
     context: Context,
-    text: String
+    text: String,
   ): TableRow {
     val row = TableRow(context)
     val textView = createTextView(context, text)

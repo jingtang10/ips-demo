@@ -21,7 +21,7 @@ import org.hl7.fhir.r4.model.ResourceType
 class DocumentGenerator : IPSDocumentGenerator {
 
   private val docGenUtils = DocumentGeneratorUtils()
-  val docUtils = DocumentUtils()
+  private val docUtils = DocumentUtils()
   private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
 
   override fun getTitlesFromDoc(doc: IPSDocument): List<Title> {
@@ -68,7 +68,6 @@ class DocumentGenerator : IPSDocumentGenerator {
           organizationReferences.add(organization)
         }
       }
-      // }
     }
     return organizationReferences
   }

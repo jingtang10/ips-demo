@@ -1,9 +1,23 @@
 com.google.android.fhir.library
 anim scanner_animation
 drawable smart_logo
+id allergiesSection
+id allergiesTable
 id checkBox
+id documentTable
 id headingText
+id immunizationSection
+id immunizationTable
+id medicationSection
+id medicationTable
+id patientTable
+id problemSection
+id problemsTable
+id resultsSection
+id resultsTable
+id scrollView
 id titleTextView
 layout checkbox_item
+layout get_data
 layout heading_item
 layout item_title_checkbox

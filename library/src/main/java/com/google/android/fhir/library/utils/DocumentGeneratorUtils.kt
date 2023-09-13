@@ -11,7 +11,6 @@ import org.hl7.fhir.r4.model.Composition.SectionComponent
 import org.hl7.fhir.r4.model.Condition
 import org.hl7.fhir.r4.model.DateTimeType
 import org.hl7.fhir.r4.model.Medication
-import org.hl7.fhir.r4.model.Narrative
 import org.hl7.fhir.r4.model.Reference
 import org.hl7.fhir.r4.model.Resource
 import org.hl7.fhir.r4.model.ResourceType
@@ -25,7 +24,6 @@ class DocumentGeneratorUtils {
 
     section.title = getResourceTitle(resource)
     section.code = getResourceCode(resource)
-    section.text = getResourceText(resource)
 
     val resourceType = resource.resourceType.toString()
     addedResourcesByType.getOrPut(resourceType) { mutableListOf() }.add(resource)
@@ -43,12 +41,6 @@ class DocumentGeneratorUtils {
         section.entry.add(Reference().setReference(id.toString()))
       }
     return section
-  }
-
-  private fun getResourceText(resource: Resource): Narrative {
-    val narrative = Narrative()
-    // narrative.statusAsString = "generated"
-    return narrative
   }
 
   private fun createCoding(
@@ -83,7 +75,7 @@ class DocumentGeneratorUtils {
     return codeableConcept
   }
 
-  fun getResourceTitle(resource: Resource): String? {
+  private fun getResourceTitle(resource: Resource): String? {
     return when (resource.resourceType) {
       ResourceType.AllergyIntolerance -> {
         val allergy = resource as AllergyIntolerance
