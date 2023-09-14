@@ -4,9 +4,9 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
-import com.google.android.fhir.library.IPSDocument
-import com.google.android.fhir.library.SHLData
-import com.google.android.fhir.library.SHLDecoder
+import com.google.android.fhir.library.dataClasses.IPSDocument
+import com.google.android.fhir.library.dataClasses.SHLData
+import com.google.android.fhir.library.interfaces.SHLDecoder
 import com.google.android.fhir.library.utils.ReadShlUtils
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.HttpPost
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.entity.StringEntity

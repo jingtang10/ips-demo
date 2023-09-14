@@ -1,8 +1,10 @@
-package com.google.android.fhir.library
+package com.google.android.fhir.library.interfaces
 
 import android.content.Context
 import android.widget.CheckBox
 import android.widget.LinearLayout
+import com.google.android.fhir.library.dataClasses.IPSDocument
+import com.google.android.fhir.library.dataClasses.Title
 import org.hl7.fhir.r4.model.Resource
 
 interface IPSDocumentGenerator {

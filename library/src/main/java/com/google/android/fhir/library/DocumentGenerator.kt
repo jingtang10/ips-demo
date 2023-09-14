@@ -8,6 +8,9 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
+import com.google.android.fhir.library.dataClasses.IPSDocument
+import com.google.android.fhir.library.interfaces.IPSDocumentGenerator
+import com.google.android.fhir.library.dataClasses.Title
 import com.google.android.fhir.library.utils.DocumentGeneratorUtils
 import com.google.android.fhir.library.utils.DocumentUtils
 import com.google.android.fhir.library.utils.hasCode
@@ -97,7 +100,7 @@ class DocumentGenerator : IPSDocumentGenerator {
         val codingArrayNotEmpty = resources?.any { obj ->
           val code = obj.hasCode()
           val codingArray = code.first?.coding ?: emptyList()
-          !codingArray.isNullOrEmpty()
+          codingArray.isNotEmpty()
         } ?: false
 
         if (codingArrayNotEmpty) {

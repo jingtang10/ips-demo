@@ -7,7 +7,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.fhir.library.SHLData
+import com.google.android.fhir.library.dataClasses.SHLData
 import com.google.android.fhir.library.SelectIndividualResourcesViewModel
 import java.io.Serializable
 

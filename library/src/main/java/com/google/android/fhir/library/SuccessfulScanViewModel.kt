@@ -3,6 +3,8 @@ package com.google.android.fhir.library
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
+import com.google.android.fhir.library.dataClasses.IPSDocument
+import com.google.android.fhir.library.dataClasses.SHLData
 import com.google.android.fhir.library.decode.Decoder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

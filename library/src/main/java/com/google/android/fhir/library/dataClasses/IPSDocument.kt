@@ -1,4 +1,4 @@
-package com.google.android.fhir.library
+package com.google.android.fhir.library.dataClasses
 
 import java.io.Serializable
 import org.hl7.fhir.r4.model.Bundle

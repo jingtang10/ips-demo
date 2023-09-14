@@ -35,7 +35,6 @@ class QRGeneratorUtils {
     val logoDrawable = ContextCompat.getDrawable(context, R.drawable.smart_logo)
     val logoAspectRatio =
       logoDrawable!!.intrinsicWidth.toFloat() / logoDrawable.intrinsicHeight.toFloat()
-
     val width = qrCodeBitmap.width
     val logoWidth = (width * logoScale).toInt()
     val logoHeight = (logoWidth / logoAspectRatio).toInt()

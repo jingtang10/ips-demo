@@ -2,6 +2,7 @@ package com.google.android.fhir.library
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.fhir.library.dataClasses.SHLData
 
 class SuccessfulScanViewModelFactory(private val shlData: SHLData?) : ViewModelProvider.Factory {
   override fun <T : ViewModel> create(modelClass: Class<T>): T {
