@@ -42,7 +42,6 @@ class GenerateShlUtils {
     val httpClient: CloseableHttpClient = HttpClients.createDefault()
     val httpPost = HttpPost("https://api.vaxx.link/api/shl")
     httpPost.addHeader("Content-Type", "application/json")
-
     val jsonData = "{}"
     val entity = StringEntity(jsonData)
 
@@ -67,7 +66,6 @@ class GenerateShlUtils {
     val jweObj = JWEObject(header, Payload(data))
     val decodedKey = Base64.getUrlDecoder().decode(key)
     val encrypter = DirectEncrypter(decodedKey)
-
     jweObj.encrypt(encrypter)
     return jweObj.serialize()
   }
@@ -119,9 +117,11 @@ class GenerateShlUtils {
       val manifestUrl = "https://api.vaxx.link/api/shl/${jsonPostRes.getString("id")}"
       val key = generateRandomKey()
       val managementToken = jsonPostRes.getString("managementToken")
-      val exp = if (expirationDate.isNotEmpty()) dateStringToEpochSeconds(expirationDate).toString() else ""
+      val exp =
+        if (expirationDate.isNotEmpty()) dateStringToEpochSeconds(expirationDate).toString() else ""
 
-      val shLinkPayload = constructSHLinkPayload(manifestUrl, labelData, getKeyFlags(passcode), key, exp)
+      val shLinkPayload =
+        constructSHLinkPayload(manifestUrl, labelData, getKeyFlags(passcode), key, exp)
       val shLink = "https://demo.vaxx.link/viewer#shlink:/$shLinkPayload"
 
       val qrCodeBitmap = generateQRCode(context, shLink)
@@ -135,15 +135,12 @@ class GenerateShlUtils {
   private fun doPostRequest(httpClient: CloseableHttpClient, passcode: String): JSONObject {
     val httpPost = HttpPost("https://api.vaxx.link/api/shl")
     httpPost.addHeader("Content-Type", "application/json")
-
     val jsonData: String = if (passcode.isNotEmpty()) "{\"passcode\" : \"$passcode\"}" else "{}"
     val entity = StringEntity(jsonData)
     httpPost.entity = entity
-
     val response = httpClient.execute(httpPost)
     val responseBody = EntityUtils.toString(response.entity, StandardCharsets.UTF_8)
     httpClient.close()
-
     return JSONObject(responseBody)
   }
 
@@ -164,7 +161,6 @@ class GenerateShlUtils {
     return qrGeneratorUtils.overlayLogoOnQRCode(qrCodeBitmap, logoBitmap)
   }
 
-
   @RequiresApi(Build.VERSION_CODES.O)
   private fun constructSHLinkPayload(
     manifestUrl: String,
@@ -173,20 +169,13 @@ class GenerateShlUtils {
     key: String,
     exp: String?,
   ): String {
-    val payloadObject = JSONObject()
-    payloadObject.put("url", manifestUrl)
-    payloadObject.put("key", key)
-    payloadObject.put("flag", flags)
-
-    if (label != "") {
-      payloadObject.put("label", label)
-    }
-
-    if (exp != "") {
-      payloadObject.put("exp", exp)
-    }
-
-    val jsonPayload = payloadObject.toString()
-    return base64UrlEncode(jsonPayload)
+    val payloadObject = JSONObject().apply {
+      put("url", manifestUrl)
+      put("key", key)
+      flags?.let { put("flag", it) }
+      label?.takeIf { it.isNotEmpty() }?.let { put("label", it) }
+      exp?.takeIf { it.isNotEmpty() }?.let { put("exp", it) }
+    }.toString()
+    return base64UrlEncode(payloadObject)
   }
 }
