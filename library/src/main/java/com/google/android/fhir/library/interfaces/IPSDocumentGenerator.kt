@@ -10,7 +10,7 @@ import org.hl7.fhir.r4.model.Resource
 interface IPSDocumentGenerator {
   fun getTitlesFromDoc(doc : IPSDocument) : List<Title>
 
-  fun getDataFromDoc(doc : IPSDocument, selectedTitles : List<Title>) : Map<Title, List<String>>
+  fun getDataFromDoc(doc : IPSDocument) : Map<Title, List<Resource>>
 
   fun generateIPS(selectedResources : List<Resource>): IPSDocument
 
@@ -19,8 +19,7 @@ interface IPSDocumentGenerator {
     bundle: IPSDocument?,
     checkBoxes: MutableList<CheckBox>,
     checkboxTitleMap: MutableMap<String, String>,
-    containerLayout: LinearLayout,
-    map: MutableMap<String, ArrayList<Resource>>,
-  )
+    containerLayout: LinearLayout
+  ): Map<Title, List<Resource>>
 
 }

@@ -17,11 +17,10 @@ class DocumentUtils {
   private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
 
   fun getDataFromDoc(
-    doc: String,
+    bundle: Bundle,
     title: String,
     map: MutableMap<String, ArrayList<Resource>>,
   ): MutableMap<String, ArrayList<Resource>> {
-    val bundle = parser.parseResource(doc) as Bundle
 
     val filteredResources = bundle.entry.map { it.resource }.filter { resource ->
         val resourceType = resource.resourceType.toString()
@@ -32,12 +31,12 @@ class DocumentUtils {
     return map
   }
 
-  private fun shouldExcludeResource(title: String, resource: Resource): Boolean {
+  fun shouldExcludeResource(title: String, resource: Resource): Boolean {
     val code = resource.hasCode().second
     return (title == "History of Past Illness" && code == "active") || ((title == "Active Problems" || title == "Allergies and Intolerances") && code != "active")
   }
 
-  private fun getSearchingCondition(resource: String, resourceType: String): Boolean {
+  fun getSearchingCondition(resource: String, resourceType: String): Boolean {
     return when (resource) {
       "Allergies and Intolerances" -> resourceType == "AllergyIntolerance"
       "Medication" -> resourceType == "Medication"
