@@ -19,9 +19,7 @@ class SelectIndividualResourcesViewModel : ViewModel() {
   private var map = mapOf<Title, List<Resource>>()
   private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
   private val documentGenerator = DocumentGenerator()
-
   private lateinit var patient: Resource
-
   private val checkBoxes = mutableListOf<CheckBox>()
   private val checkboxTitleMap = mutableMapOf<String, String>()
 
@@ -40,18 +38,17 @@ class SelectIndividualResourcesViewModel : ViewModel() {
   }
 
   fun generateIPSDocument(): IPSDocument {
-    // Generate IPS document based on selected values
     val selectedValues = checkBoxes.filter { it.isChecked }.map { checkBox ->
       val title = Title(checkboxTitleMap[checkBox.text.toString()])
       val value = checkBox.text.toString()
       Pair(title, value)
     }
-
     val outputArray = selectedValues.flatMap { (title, value) ->
       map[title]?.filter { obj ->
         obj.hasCode().first?.coding?.any { it.display == value } == true
       } ?: emptyList()
     } + patient
+
     return documentGenerator.generateIPS(outputArray)
   }
 }
