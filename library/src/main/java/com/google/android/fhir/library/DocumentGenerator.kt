@@ -9,8 +9,8 @@ import android.widget.TextView
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
 import com.google.android.fhir.library.dataClasses.IPSDocument
-import com.google.android.fhir.library.interfaces.IPSDocumentGenerator
 import com.google.android.fhir.library.dataClasses.Title
+import com.google.android.fhir.library.interfaces.IPSDocumentGenerator
 import com.google.android.fhir.library.utils.DocumentGeneratorUtils
 import com.google.android.fhir.library.utils.DocumentUtils
 import com.google.android.fhir.library.utils.hasCode
@@ -48,7 +48,6 @@ class DocumentGenerator : IPSDocumentGenerator {
     val referenced = mutableListOf<Resource>()
 
     selectedResources.forEach { resource ->
-      // Check if the resource is of type Observation and has performer references
         val references = findReferences(resource)
         referenced.addAll(references)
     }
@@ -61,10 +60,8 @@ class DocumentGenerator : IPSDocumentGenerator {
 
   private fun findReferences(resource: Resource): List<Resource> {
     val organizationReferences = mutableListOf<Resource>()
-
-    // Check if the resource type is Observation and if it has a performer reference
     if (resource is Observation) {
-      val performerReferences = (resource as Observation).performer
+      val performerReferences = resource.performer
       performerReferences.forEach { performerReference ->
         if (performerReference.reference.isNotBlank()) {
           val organization = createOrganizationFromReference(performerReference)
