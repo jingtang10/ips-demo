@@ -6,8 +6,10 @@ import android.widget.LinearLayout
 import androidx.lifecycle.ViewModel
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
+import com.google.android.fhir.library.dataClasses.IPSDocument
 import com.google.android.fhir.library.utils.DocumentUtils
 import com.google.android.fhir.library.utils.hasCode
+import org.hl7.fhir.r4.model.Bundle
 import org.hl7.fhir.r4.model.Patient
 import org.hl7.fhir.r4.model.Resource
 import org.hl7.fhir.r4.model.ResourceType
@@ -25,7 +27,7 @@ class SelectIndividualResourcesViewModel : ViewModel() {
   fun initializeData(context: Context, containerLayout: LinearLayout) {
     val docUtils = DocumentUtils()
     val doc = docUtils.readFileFromAssets(context, "immunizationBundle.json")
-    val ipsDoc = IPSDocument(parser.parseResource(doc) as org.hl7.fhir.r4.model.Bundle)
+    val ipsDoc = IPSDocument(parser.parseResource(doc) as Bundle)
     ipsDoc.titles = ArrayList(documentGenerator.getTitlesFromDoc(ipsDoc))
     patient =
       ipsDoc.document.entry.firstOrNull { it.resource.resourceType == ResourceType.Patient }?.resource

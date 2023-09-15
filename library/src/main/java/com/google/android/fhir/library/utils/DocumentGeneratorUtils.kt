@@ -11,7 +11,6 @@ import org.hl7.fhir.r4.model.Composition.SectionComponent
 import org.hl7.fhir.r4.model.Condition
 import org.hl7.fhir.r4.model.DateTimeType
 import org.hl7.fhir.r4.model.Medication
-import org.hl7.fhir.r4.model.Narrative
 import org.hl7.fhir.r4.model.Reference
 import org.hl7.fhir.r4.model.Resource
 import org.hl7.fhir.r4.model.ResourceType
@@ -20,12 +19,11 @@ class DocumentGeneratorUtils {
 
   private val addedResourcesByType: MutableMap<String, MutableList<Resource>> = mutableMapOf()
 
-  fun createResourceSection(resource: Resource): SectionComponent {
+  private fun createResourceSection(resource: Resource): SectionComponent {
     val section = SectionComponent()
 
     section.title = getResourceTitle(resource)
     section.code = getResourceCode(resource)
-    section.text = getResourceText(resource)
 
     val resourceType = resource.resourceType.toString()
     addedResourcesByType.getOrPut(resourceType) { mutableListOf() }.add(resource)
@@ -43,12 +41,6 @@ class DocumentGeneratorUtils {
         section.entry.add(Reference().setReference(id.toString()))
       }
     return section
-  }
-
-  private fun getResourceText(resource: Resource): Narrative {
-    val narrative = Narrative()
-    // narrative.statusAsString = "generated"
-    return narrative
   }
 
   private fun createCoding(
@@ -75,13 +67,15 @@ class DocumentGeneratorUtils {
         ResourceType.Medication -> createCoding("10160-0", "History of Medication")
         ResourceType.Immunization -> createCoding("11369-6", "History of Immunizations")
         ResourceType.Observation -> createCoding("30954-2", "Test Results")
+        ResourceType.DiagnosticReport -> createCoding("", "Diagnostic Report")
+        ResourceType.Device -> createCoding("", "Medical Devices")
         else -> createCoding("12345", "Display Text", "http://your-coding-system-url.com")
       }
     )
     return codeableConcept
   }
 
-  fun getResourceTitle(resource: Resource): String? {
+  private fun getResourceTitle(resource: Resource): String? {
     return when (resource.resourceType) {
       ResourceType.AllergyIntolerance -> {
         val allergy = resource as AllergyIntolerance

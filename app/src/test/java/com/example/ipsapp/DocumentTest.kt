@@ -6,7 +6,7 @@ import com.example.ipsapp.fileExamples.file
 import com.example.ipsapp.fileExamples.generated
 import com.example.ipsapp.fileExamples.immunizationBundleString
 import com.google.android.fhir.library.DocumentGenerator
-import com.google.android.fhir.library.IPSDocument
+import com.google.android.fhir.library.dataClasses.IPSDocument
 import org.hl7.fhir.r4.model.Bundle
 import org.junit.Assert.assertEquals
 import org.junit.Test

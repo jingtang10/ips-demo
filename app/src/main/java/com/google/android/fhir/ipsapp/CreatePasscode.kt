@@ -8,7 +8,7 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.DatePicker
 import android.widget.EditText
-import com.google.android.fhir.library.SHLData
+import com.google.android.fhir.library.dataClasses.SHLData
 import java.io.Serializable
 import java.util.Calendar
 

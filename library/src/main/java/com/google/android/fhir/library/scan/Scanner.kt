@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.view.SurfaceHolder
 import androidx.core.app.ActivityCompat
-import com.google.android.fhir.library.SHLData
+import com.google.android.fhir.library.dataClasses.SHLData
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.Detector.Detections

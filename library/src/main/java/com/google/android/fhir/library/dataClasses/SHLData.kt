@@ -1,4 +1,4 @@
-package com.google.android.fhir.library
+package com.google.android.fhir.library.dataClasses
 
 import java.io.Serializable
 
@@ -17,6 +17,6 @@ data class SHLData(
 
   constructor() : this("", "", "", "", "", "", "", "", "", IPSDocument())
   constructor(fullLink : String) : this(fullLink, "",  "", "", "", "", "", "", "", IPSDocument())
-  constructor(doc : IPSDocument) : this("", "",  "", "", "", "", "", "", "", doc)
+  constructor(doc : IPSDocument) : this("", "", "", "", "", "", "", "", "", doc)
 
 }

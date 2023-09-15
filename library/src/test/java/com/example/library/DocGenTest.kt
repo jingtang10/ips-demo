@@ -3,7 +3,7 @@ package com.example.library
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
 import com.google.android.fhir.library.DocumentGenerator
-import com.google.android.fhir.library.SHLData
+import com.google.android.fhir.library.dataClasses.SHLData
 import org.hl7.fhir.r4.model.AllergyIntolerance
 import org.hl7.fhir.r4.model.CodeableConcept
 import org.hl7.fhir.r4.model.Coding
