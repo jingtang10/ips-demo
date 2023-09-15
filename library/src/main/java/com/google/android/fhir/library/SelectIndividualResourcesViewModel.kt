@@ -23,13 +23,13 @@ class SelectIndividualResourcesViewModel : ViewModel() {
   private val checkBoxes = mutableListOf<CheckBox>()
   private val checkboxTitleMap = mutableMapOf<String, String>()
 
-  fun initializeData(context: Context, containerLayout: LinearLayout) {
+  fun initializeData(context: Context, containerLayout: LinearLayout, bundle : Bundle) {
     val docUtils = DocumentUtils()
     val doc = docUtils.readFileFromAssets(context, "immunizationBundle.json")
     val ipsDoc = IPSDocument(parser.parseResource(doc) as Bundle)
     ipsDoc.titles = ArrayList(documentGenerator.getTitlesFromDoc(ipsDoc))
     patient =
-      ipsDoc.document.entry.firstOrNull { it.resource.resourceType == ResourceType.Patient }?.resource
+      bundle.entry.firstOrNull { it.resource.resourceType == ResourceType.Patient }?.resource
         ?: Patient()
 
     map = documentGenerator.displayOptions(

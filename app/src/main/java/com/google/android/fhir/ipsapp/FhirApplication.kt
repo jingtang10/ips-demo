@@ -13,7 +13,7 @@ import com.google.android.fhir.sync.remote.HttpLogger
 
 class FhirApplication : Application() {
 
-  private val fhirEngine: FhirEngine by lazy { FhirEngineProvider.getInstance(this) }
+  private val fhirEngine: FhirEngine by lazy { constructFhirEngine() }
 
   override fun onCreate() {
     super.onCreate()

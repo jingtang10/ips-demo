@@ -7,9 +7,14 @@ import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.google.android.fhir.library.SelectIndividualResourcesViewModel
 import com.google.android.fhir.library.dataClasses.SHLData
+import com.google.android.fhir.search.StringFilterModifier
+import com.google.android.fhir.search.search
 import java.io.Serializable
+import kotlinx.coroutines.launch
+import org.hl7.fhir.r4.model.Patient
 
 class SelectIndividualResources : AppCompatActivity() {
 
@@ -18,8 +23,25 @@ class SelectIndividualResources : AppCompatActivity() {
     setContentView(R.layout.select_individual_resources)
 
     val containerLayout: LinearLayout = findViewById(R.id.containerLayout)
-    val viewModel = ViewModelProvider(this)[SelectIndividualResourcesViewModel::class.java]
-    viewModel.initializeData(this, containerLayout)
+    val viewModel =
+      ViewModelProvider(this@SelectIndividualResources)[SelectIndividualResourcesViewModel::class.java]
+
+    lifecycleScope.launch {
+      val fhirEngine = FhirApplication.fhirEngine(application)
+
+      // triggerOneTimeSync()
+
+      val patientBundlesFromWakefield = fhirEngine.search<org.hl7.fhir.r4.model.Bundle> {
+        filter(Patient.ADDRESS_CITY, {
+          modifier = StringFilterModifier.CONTAINS
+          value = "Wakefield"
+        })
+      }
+      println(patientBundlesFromWakefield.size)
+      val a = patientBundlesFromWakefield.firstOrNull()
+      val bundle = a as org.hl7.fhir.r4.model.Bundle
+      viewModel.initializeData(this@SelectIndividualResources, containerLayout, bundle)
+    }
 
 
     val submitButton = findViewById<Button>(R.id.goToCreatePasscode)
