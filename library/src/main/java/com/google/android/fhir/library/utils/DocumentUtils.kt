@@ -1,10 +1,7 @@
 package com.google.android.fhir.library.utils
 
 import android.content.Context
-import ca.uhn.fhir.context.FhirContext
-import ca.uhn.fhir.context.FhirVersionEnum
 import org.hl7.fhir.r4.model.AllergyIntolerance
-import org.hl7.fhir.r4.model.Bundle
 import org.hl7.fhir.r4.model.CodeableConcept
 import org.hl7.fhir.r4.model.Condition
 import org.hl7.fhir.r4.model.Immunization
@@ -13,23 +10,6 @@ import org.hl7.fhir.r4.model.Observation
 import org.hl7.fhir.r4.model.Resource
 
 class DocumentUtils {
-
-  private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
-
-  fun getDataFromDoc(
-    bundle: Bundle,
-    title: String,
-    map: MutableMap<String, ArrayList<Resource>>,
-  ): MutableMap<String, ArrayList<Resource>> {
-
-    val filteredResources = bundle.entry.map { it.resource }.filter { resource ->
-        val resourceType = resource.resourceType.toString()
-        getSearchingCondition(title, resourceType)
-      }
-    val resourceList = filteredResources.filterNot { shouldExcludeResource(title, it) }
-    map[title] = ArrayList(resourceList)
-    return map
-  }
 
   fun shouldExcludeResource(title: String, resource: Resource): Boolean {
     val code = resource.hasCode().second
