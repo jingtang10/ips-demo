@@ -9,8 +9,8 @@ import android.widget.TextView
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
 import com.google.android.fhir.library.dataClasses.IPSDocument
-import com.google.android.fhir.library.interfaces.IPSDocumentGenerator
 import com.google.android.fhir.library.dataClasses.Title
+import com.google.android.fhir.library.interfaces.IPSDocumentGenerator
 import com.google.android.fhir.library.utils.DocumentGeneratorUtils
 import com.google.android.fhir.library.utils.DocumentUtils
 import com.google.android.fhir.library.utils.hasCode
@@ -34,11 +34,19 @@ class DocumentGenerator : IPSDocumentGenerator {
     return composition.section.map { Title(it.title, ArrayList()) }
   }
 
-  override fun getDataFromDoc(
-    doc: IPSDocument,
-    selectedTitles: List<Title>,
-  ): Map<Title, List<String>> {
-    TODO("Not yet implemented")
+  override fun getDataFromDoc(doc: IPSDocument): Map<Title, List<Resource>> {
+    val bundle = doc.document
+    val map: MutableMap<Title, List<Resource>> = mutableMapOf()
+    for (title in doc.titles) {
+      val filteredResources = bundle.entry.map { it.resource }.filter { resource ->
+        val resourceType = resource.resourceType.toString()
+        docUtils.getSearchingCondition(title.name!!, resourceType)
+      }
+      val resourceList =
+        filteredResources.filterNot { docUtils.shouldExcludeResource(title.name!!, it) }
+      map[title] = ArrayList(resourceList)
+    }
+    return map
   }
 
   override fun generateIPS(selectedResources: List<Resource>): IPSDocument {
@@ -48,23 +56,21 @@ class DocumentGenerator : IPSDocumentGenerator {
     val referenced = mutableListOf<Resource>()
 
     selectedResources.forEach { resource ->
-      // Check if the resource is of type Observation and has performer references
-        val references = findReferences(resource)
-        referenced.addAll(references)
+      val references = findReferences(resource)
+      referenced.addAll(references)
     }
     sections.addAll(missingSections)
     composition.section = sections
-    val bundle = docGenUtils.addResourcesToDoc(composition, selectedResources + referenced, missingResources)
+    val bundle =
+      docGenUtils.addResourcesToDoc(composition, selectedResources + referenced, missingResources)
     println(parser.encodeResourceToString(bundle))
     return IPSDocument(bundle)
   }
 
   private fun findReferences(resource: Resource): List<Resource> {
     val organizationReferences = mutableListOf<Resource>()
-
-    // Check if the resource type is Observation and if it has a performer reference
     if (resource is Observation) {
-      val performerReferences = (resource as Observation).performer
+      val performerReferences = resource.performer
       performerReferences.forEach { performerReference ->
         if (performerReference.reference.isNotBlank()) {
           val organization = createOrganizationFromReference(performerReference)
@@ -88,43 +94,43 @@ class DocumentGenerator : IPSDocumentGenerator {
     checkBoxes: MutableList<CheckBox>,
     checkboxTitleMap: MutableMap<String, String>,
     containerLayout: LinearLayout,
-    map: MutableMap<String, ArrayList<Resource>>,
-  ) {
+  ) : Map<Title, List<Resource>> {
     val layoutInflater = LayoutInflater.from(context)
+    val map = getDataFromDoc(bundle!!)
 
-    for (title in bundle?.titles!!) {
-      if (title.name != null) {
-        map += docUtils.getDataFromDoc(parser.encodeResourceToString(bundle.document), title.name!!, map)
-        val resources = map[title.name]
+    for (title in bundle.titles) {
 
-        val codingArrayNotEmpty = resources?.any { obj ->
+      val resources = map[title]
+
+      val codingArrayNotEmpty = resources?.any { obj ->
+        val code = obj.hasCode()
+        val codingArray = code.first?.coding ?: emptyList()
+        codingArray.isNotEmpty()
+      } ?: false
+
+      if (codingArrayNotEmpty) {
+        val headingView =
+          layoutInflater.inflate(R.layout.heading_item, containerLayout, false) as RelativeLayout
+        val headingText = headingView.findViewById<TextView>(R.id.headingText)
+        headingText.text = title.name
+        containerLayout.addView(headingView)
+
+        resources?.forEach { obj ->
           val code = obj.hasCode()
           val codingArray = code.first?.coding ?: emptyList()
-          codingArray.isNotEmpty()
-        } ?: false
 
-        if (codingArrayNotEmpty) {
-          val headingView = layoutInflater.inflate(R.layout.heading_item, containerLayout, false) as RelativeLayout
-          val headingText = headingView.findViewById<TextView>(R.id.headingText)
-          headingText.text = title.name
-          containerLayout.addView(headingView)
-
-          resources?.forEach { obj ->
-            val code = obj.hasCode()
-            val codingArray = code.first?.coding ?: emptyList()
-
-            codingArray.firstOrNull { it.hasDisplay() }?.let { codingElement ->
-              val displayValue = codingElement.display
-
-              val checkBoxItem = layoutInflater.inflate(R.layout.checkbox_item, containerLayout, false) as CheckBox
-              checkBoxItem.text = displayValue
-              containerLayout.addView(checkBoxItem)
-              checkboxTitleMap[displayValue] = title.name.toString()
-              checkBoxes.add(checkBoxItem)
-            }
+          codingArray.firstOrNull { it.hasDisplay() }?.let { codingElement ->
+            val displayValue = codingElement.display
+            val checkBoxItem =
+              layoutInflater.inflate(R.layout.checkbox_item, containerLayout, false) as CheckBox
+            checkBoxItem.text = displayValue
+            containerLayout.addView(checkBoxItem)
+            checkboxTitleMap[displayValue] = title.name.toString()
+            checkBoxes.add(checkBoxItem)
           }
         }
       }
     }
+    return map
   }
 }

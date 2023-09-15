@@ -2,8 +2,8 @@ package com.google.android.fhir.ipsapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.fhir.library.dataClasses.IPSDocument
 import com.google.android.fhir.library.IPSRenderer
+import com.google.android.fhir.library.dataClasses.IPSDocument
 
 
 class GetData : AppCompatActivity() {
@@ -13,7 +13,6 @@ class GetData : AppCompatActivity() {
     val doc = intent.getSerializableExtra("doc", IPSDocument::class.java)
     val ipsRenderer = IPSRenderer(doc)
     ipsRenderer.render(this)
-
   }
 
 }

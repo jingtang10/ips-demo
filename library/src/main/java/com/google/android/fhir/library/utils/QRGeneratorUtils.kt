@@ -46,10 +46,16 @@ class QRGeneratorUtils {
     val centerX = (qrCodeBitmap.width - logoBitmap.width) / 2
     val centerY = (qrCodeBitmap.height - logoBitmap.height) / 2
 
+    val backgroundBitmap =
+      Bitmap.createBitmap(logoBitmap.width, logoBitmap.height, Bitmap.Config.RGB_565)
+    backgroundBitmap.eraseColor(Color.WHITE)
+
+    val canvas = Canvas(backgroundBitmap)
+    canvas.drawBitmap(logoBitmap, 0f, 0f, null)
+
     val finalBitmap = Bitmap.createBitmap(qrCodeBitmap)
     val finalCanvas = Canvas(finalBitmap)
-    finalCanvas.drawColor(Color.WHITE)
-    finalCanvas.drawBitmap(logoBitmap, centerX.toFloat(), centerY.toFloat(), null)
+    finalCanvas.drawBitmap(backgroundBitmap, centerX.toFloat(), centerY.toFloat(), null)
 
     return finalBitmap
   }
