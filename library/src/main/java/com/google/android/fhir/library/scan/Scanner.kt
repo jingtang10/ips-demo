@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.view.SurfaceHolder
 import androidx.core.app.ActivityCompat
 import com.google.android.fhir.library.dataClasses.SHLData
+import com.google.android.fhir.library.interfaces.SHLScanner
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.Detector.Detections
@@ -13,69 +14,45 @@ import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
 import java.io.IOException
 
-class Scanner(private val context: Context, private val surfaceHolder: SurfaceHolder) {
+class Scanner(private val context: Context, private val surfaceHolder: SurfaceHolder) : SHLScanner {
 
   private lateinit var cameraSource: CameraSource
   private lateinit var barcodeDetector: BarcodeDetector
-  private var scanCallback: ((SHLData) -> Unit)? = {}
-  private var failCallback: ((Error) -> Unit)? = {}
+  private var scanCallback: ((SHLData) -> Unit)? = null
+  private var failCallback: ((Error) -> Unit)? = null
 
-  fun scan(callback: (SHLData) -> Unit, failCallback: (Error) -> Unit) {
+  override fun scanSHLQRCode(callback: (SHLData) -> Unit, failCallback: (Error) -> Unit) {
     this.scanCallback = callback
     this.failCallback = failCallback
 
-    if (hasCameraPermission()) {
-      setup()
-    } else {
+    if (!hasCameraPermission()) {
       val error = Error("Camera permission not granted")
       failCallback.invoke(error)
+    } else {
+      setup()
     }
   }
 
+  override fun stopScan() {
+    cameraSource.stop()
+  }
+
   private fun setup() {
-    barcodeDetector = BarcodeDetector.Builder(context)
-      .setBarcodeFormats(Barcode.ALL_FORMATS)
-      .build()
+    barcodeDetector = createBarcodeDetector()
+    cameraSource = createCameraSource(barcodeDetector)
+    surfaceHolder.addCallback(createSurfaceCallback())
+    barcodeDetector.setProcessor(createBarcodeProcessor())
+  }
 
-    cameraSource = CameraSource.Builder(context, barcodeDetector)
-      .setRequestedPreviewSize(1920, 1080)
-      .setAutoFocusEnabled(true)
-      .build()
-
-    surfaceHolder.addCallback(object : SurfaceHolder.Callback {
-      override fun surfaceCreated(holder: SurfaceHolder) {
-        try {
-          // Start preview after 1s delay
-          if (ActivityCompat.checkSelfPermission(
-              context,
-              Manifest.permission.CAMERA
-            ) != PackageManager.PERMISSION_GRANTED
-          ) {
-            return
-          }
-          cameraSource.start(holder)
-        } catch (e: IOException) {
-          e.printStackTrace()
-          failCallback?.invoke(Error("Failed to start camera"))
-        }
-      }
-
-      override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
-        // Not needed for this example
-      }
-
-      override fun surfaceDestroyed(holder: SurfaceHolder) {
-        cameraSource.stop()
-      }
-    })
-
-    barcodeDetector.setProcessor(object : Detector.Processor<Barcode> {
+  private fun createBarcodeProcessor(): Detector.Processor<Barcode> {
+    return object : Detector.Processor<Barcode> {
       override fun release() {
-        // Scanner has been closed
+        return
       }
-      var scanSucceeded = false
-      override fun receiveDetections(detections: Detections<Barcode>) {
 
+      private var scanSucceeded = false
+
+      override fun receiveDetections(detections: Detections<Barcode>) {
         if (scanSucceeded) {
           return
         }
@@ -88,11 +65,50 @@ class Scanner(private val context: Context, private val surfaceHolder: SurfaceHo
           scanSucceeded = true
         }
       }
-    })
+    }
   }
 
-  private fun stopScanning() {
-    cameraSource.stop()
+  private fun createBarcodeDetector(): BarcodeDetector {
+    return BarcodeDetector.Builder(context).setBarcodeFormats(Barcode.ALL_FORMATS).build()
+  }
+
+  private fun createCameraSource(barcodeDetector: BarcodeDetector): CameraSource {
+    return CameraSource.Builder(context, barcodeDetector).setRequestedPreviewSize(1920, 1080)
+      .setAutoFocusEnabled(true).build()
+  }
+
+  private fun createSurfaceCallback(): SurfaceHolder.Callback {
+    return object : SurfaceHolder.Callback {
+      override fun surfaceCreated(holder: SurfaceHolder) {
+        startCameraPreview(holder)
+      }
+
+      override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+        return
+      }
+
+      override fun surfaceDestroyed(holder: SurfaceHolder) {
+        stopScan()
+      }
+    }
+  }
+
+  private fun startCameraPreview(holder: SurfaceHolder) {
+    try {
+      if (hasCameraPermission()) {
+        if (ActivityCompat.checkSelfPermission(
+            context,
+            Manifest.permission.CAMERA
+          ) != PackageManager.PERMISSION_GRANTED
+        ) {
+          return
+        }
+        cameraSource.start(holder)
+      }
+    } catch (e: IOException) {
+      e.printStackTrace()
+      failCallback?.invoke(Error("Failed to start camera"))
+    }
   }
 
   private fun hasCameraPermission(): Boolean {
@@ -100,7 +116,7 @@ class Scanner(private val context: Context, private val surfaceHolder: SurfaceHo
   }
 
   fun release() {
-    stopScanning()
+    stopScan()
     cameraSource.release()
     barcodeDetector.release()
   }

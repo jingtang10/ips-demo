@@ -20,7 +20,7 @@ class ScannerActivity : AppCompatActivity() {
 
     // Initialize the scanner and call scan
     scanner = Scanner(this, surfaceView.holder)
-    scanner.scan(callback = { shlData ->
+    scanner.scanSHLQRCode(callback = { shlData ->
       // Handle successful scan result
       val i = Intent()
       i.component = ComponentName(this@ScannerActivity, SuccessfulScan::class.java)
