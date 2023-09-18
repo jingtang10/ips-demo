@@ -4,7 +4,6 @@ import android.content.ComponentName
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.fhir.library.SelectIndividualResourcesViewModel
@@ -15,14 +14,12 @@ class SelectIndividualResources : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.select_individual_resources)
-
-    val containerLayout: LinearLayout = findViewById(R.id.containerLayout)
+    setContentView(com.google.android.fhir.library.R.layout.select_individual_resources)
     val viewModel = ViewModelProvider(this)[SelectIndividualResourcesViewModel::class.java]
-    viewModel.initializeData(this, containerLayout)
+    viewModel.initializeData(this)
 
 
-    val submitButton = findViewById<Button>(R.id.goToCreatePasscode)
+    val submitButton = findViewById<Button>(com.google.android.fhir.library.R.id.goToCreatePasscode)
     submitButton.setOnClickListener {
       val ipsDoc = viewModel.generateIPSDocument()
       val shlData = SHLData(ipsDoc)

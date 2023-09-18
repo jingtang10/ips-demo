@@ -6,6 +6,7 @@ import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
 import com.google.android.fhir.library.dataClasses.IPSDocument
@@ -93,10 +94,10 @@ class DocumentGenerator : IPSDocumentGenerator {
     bundle: IPSDocument?,
     checkBoxes: MutableList<CheckBox>,
     checkboxTitleMap: MutableMap<String, String>,
-    containerLayout: LinearLayout,
   ) : Map<Title, List<Resource>> {
     val layoutInflater = LayoutInflater.from(context)
     val map = getDataFromDoc(bundle!!)
+    val containerLayout = (context as AppCompatActivity).findViewById<LinearLayout>(R.id.containerLayout)
 
     for (title in bundle.titles) {
 

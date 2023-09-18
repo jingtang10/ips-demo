@@ -2,7 +2,6 @@ package com.google.android.fhir.library
 
 import android.content.Context
 import android.widget.CheckBox
-import android.widget.LinearLayout
 import androidx.lifecycle.ViewModel
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
@@ -23,7 +22,7 @@ class SelectIndividualResourcesViewModel : ViewModel() {
   private val checkBoxes = mutableListOf<CheckBox>()
   private val checkboxTitleMap = mutableMapOf<String, String>()
 
-  fun initializeData(context: Context, containerLayout: LinearLayout) {
+  fun initializeData(context: Context) {
     val docUtils = DocumentUtils()
     val doc = docUtils.readFileFromAssets(context, "immunizationBundle.json")
     val ipsDoc = IPSDocument(parser.parseResource(doc) as Bundle)
@@ -33,7 +32,7 @@ class SelectIndividualResourcesViewModel : ViewModel() {
         ?: Patient()
 
     map = documentGenerator.displayOptions(
-      context, ipsDoc, checkBoxes, checkboxTitleMap, containerLayout
+      context, ipsDoc, checkBoxes, checkboxTitleMap
     )
   }
 
