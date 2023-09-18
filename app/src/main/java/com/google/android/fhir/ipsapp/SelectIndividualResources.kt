@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.google.android.fhir.library.FhirApplication
 import com.google.android.fhir.library.SelectIndividualResourcesViewModel
 import com.google.android.fhir.library.dataClasses.SHLData
 import com.google.android.fhir.search.StringFilterModifier

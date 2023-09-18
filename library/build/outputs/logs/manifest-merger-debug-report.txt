@@ -1,7 +1,7 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /usr/local/google/home/hugomilosz/repos/IpsApp/library/src/main/AndroidManifest.xml:2:1-5:12
-INJECTED from /usr/local/google/home/hugomilosz/repos/IpsApp/library/src/main/AndroidManifest.xml:2:1-5:12
+ADDED from /usr/local/google/home/hugomilosz/repos/IpsApp/library/src/main/AndroidManifest.xml:2:1-7:12
+INJECTED from /usr/local/google/home/hugomilosz/repos/IpsApp/library/src/main/AndroidManifest.xml:2:1-7:12
 	package
 		INJECTED from /usr/local/google/home/hugomilosz/repos/IpsApp/library/src/main/AndroidManifest.xml
 	xmlns:android
@@ -10,6 +10,10 @@ uses-permission#android.permission.CAMERA
 ADDED from /usr/local/google/home/hugomilosz/repos/IpsApp/library/src/main/AndroidManifest.xml:4:3-63
 	android:name
 		ADDED from /usr/local/google/home/hugomilosz/repos/IpsApp/library/src/main/AndroidManifest.xml:4:20-60
+application
+ADDED from /usr/local/google/home/hugomilosz/repos/IpsApp/library/src/main/AndroidManifest.xml:5:3-6:39
+	android:name
+		ADDED from /usr/local/google/home/hugomilosz/repos/IpsApp/library/src/main/AndroidManifest.xml:6:5-36
 uses-sdk
 INJECTED from /usr/local/google/home/hugomilosz/repos/IpsApp/library/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /usr/local/google/home/hugomilosz/repos/IpsApp/library/src/main/AndroidManifest.xml

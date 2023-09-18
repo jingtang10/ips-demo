@@ -1,4 +1,4 @@
-package com.google.android.fhir.ipsapp
+package com.google.android.fhir.library
 
 import android.app.Application
 import android.content.Context
