@@ -105,7 +105,7 @@ class DocumentGeneratorUtils {
     return codeableConcept
   }
 
-  private fun getResourceTitle(resource: Resource): String? {
+  fun getResourceTitle(resource: Resource): String? {
     return when (resource.resourceType) {
       ResourceType.AllergyIntolerance -> {
         val allergy = resource as AllergyIntolerance

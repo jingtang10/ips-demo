@@ -7,9 +7,11 @@ import com.example.ipsapp.fileExamples.generated
 import com.example.ipsapp.fileExamples.immunizationBundleString
 import com.google.android.fhir.library.DocumentGenerator
 import com.google.android.fhir.library.dataClasses.IPSDocument
+import com.google.android.fhir.library.utils.DocumentGeneratorUtils
 import com.google.android.fhir.library.utils.DocumentUtils
 import org.hl7.fhir.r4.model.AllergyIntolerance
 import org.hl7.fhir.r4.model.Bundle
+import org.hl7.fhir.r4.model.Coding
 import org.hl7.fhir.r4.model.Condition
 import org.hl7.fhir.r4.model.Immunization
 import org.hl7.fhir.r4.model.Medication
@@ -27,6 +29,7 @@ class DocumentTest {
 
   private val docGenerator = DocumentGenerator()
   private val docUtils = DocumentUtils()
+  private val docGenUtils = DocumentGeneratorUtils()
   private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
 
   private val fileBundle = parser.parseResource(file) as Bundle
@@ -104,5 +107,44 @@ class DocumentTest {
     assert(bundle.entry.any { it.resource.resourceType == ResourceType.Immunization })
   }
 
+  @Test
+  fun activeAllergyReturnsCorrectTitle() {
+    val allergy = AllergyIntolerance()
+    allergy.clinicalStatus.coding.add(Coding().apply {
+      code = "active"
+    })
+    val title = docGenUtils.getResourceTitle(allergy)
+    assertEquals(title, "Allergies and Intolerances")
+  }
+
+  @Test
+  fun pastAllergyReturnsCorrectTitle() {
+    val allergy = AllergyIntolerance()
+    allergy.clinicalStatus.coding.add(Coding().apply {
+      code = "remission"
+    })
+    val title = docGenUtils.getResourceTitle(allergy)
+    assertEquals(title, "History of Past Illness")
+  }
+
+  @Test
+  fun activeProblemReturnsCorrectTitle() {
+    val problem = Condition()
+    problem.clinicalStatus.coding.add(Coding().apply {
+      code = "active"
+    })
+    val title = docGenUtils.getResourceTitle(problem)
+    assertEquals(title, "Active Problems")
+  }
+
+  @Test
+  fun pastProblemReturnsCorrectTitle() {
+    val problem = Condition()
+    problem.clinicalStatus.coding.add(Coding().apply {
+      code = "remission"
+    })
+    val title = docGenUtils.getResourceTitle(problem)
+    assertEquals(title, "History of Past Illness")
+  }
 
 }
