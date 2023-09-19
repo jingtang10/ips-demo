@@ -21,20 +21,25 @@ class Scanner(private val context: Context, private val surfaceHolder: SurfaceHo
   private var scanCallback: ((SHLData) -> Unit)? = null
   private var failCallback: ((Error) -> Unit)? = null
 
-  override fun scanSHLQRCode(callback: (SHLData) -> Unit, failCallback: (Error) -> Unit) {
-    this.scanCallback = callback
-    this.failCallback = failCallback
+  private var scannedData: SHLData? = null
 
-    if (!hasCameraPermission()) {
+  override fun scanSHLQRCode(): SHLData? {
+    return if (!hasCameraPermission()) {
       val error = Error("Camera permission not granted")
-      failCallback.invoke(error)
+      failCallback?.invoke(error)
+      null
     } else {
       setup()
+      scannedData
     }
   }
 
-  override fun stopScan() {
-    cameraSource.stop()
+  override fun onScanSuccess(callback: (SHLData) -> Unit) {
+    this.scanCallback = callback
+  }
+
+  override fun onScanFail(callback: (Error) -> Unit) {
+    this.failCallback = callback
   }
 
   private fun setup() {
@@ -61,6 +66,7 @@ class Scanner(private val context: Context, private val surfaceHolder: SurfaceHo
         if (barcodes.size() == 1) {
           val scannedValue = barcodes.valueAt(0).rawValue
           val shlData = SHLData(scannedValue)
+          scannedData = shlData // Store the scanned data
           scanCallback?.invoke(shlData)
           scanSucceeded = true
         }
@@ -73,8 +79,10 @@ class Scanner(private val context: Context, private val surfaceHolder: SurfaceHo
   }
 
   private fun createCameraSource(barcodeDetector: BarcodeDetector): CameraSource {
-    return CameraSource.Builder(context, barcodeDetector).setRequestedPreviewSize(1920, 1080)
-      .setAutoFocusEnabled(true).build()
+    return CameraSource.Builder(context, barcodeDetector)
+      .setRequestedPreviewSize(1920, 1080)
+      .setAutoFocusEnabled(true)
+      .build()
   }
 
   private fun createSurfaceCallback(): SurfaceHolder.Callback {
@@ -88,7 +96,7 @@ class Scanner(private val context: Context, private val surfaceHolder: SurfaceHo
       }
 
       override fun surfaceDestroyed(holder: SurfaceHolder) {
-        stopScan()
+        cameraSource.stop()
       }
     }
   }
@@ -116,7 +124,7 @@ class Scanner(private val context: Context, private val surfaceHolder: SurfaceHo
   }
 
   fun release() {
-    stopScan()
+    cameraSource.stop()
     cameraSource.release()
     barcodeDetector.release()
   }
