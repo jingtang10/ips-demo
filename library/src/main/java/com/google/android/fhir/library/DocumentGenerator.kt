@@ -11,23 +11,14 @@ import com.google.android.fhir.library.dataClasses.Title
 import com.google.android.fhir.library.interfaces.IPSDocumentGenerator
 import com.google.android.fhir.library.utils.DocumentGeneratorUtils
 import com.google.android.fhir.library.utils.DocumentUtils
-import org.hl7.fhir.r4.model.Composition
 import org.hl7.fhir.r4.model.Observation
 import org.hl7.fhir.r4.model.Resource
-import org.hl7.fhir.r4.model.ResourceType
 
 class DocumentGenerator : IPSDocumentGenerator {
 
   private val docGenUtils = DocumentGeneratorUtils()
   private val docUtils = DocumentUtils()
   private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
-
-  override fun getTitlesFromDoc(doc: IPSDocument): List<Title> {
-    val bundle = doc.document
-    val composition =
-      bundle.entry?.firstOrNull { it.resource.resourceType == ResourceType.Composition }?.resource as Composition
-    return composition.section.map { Title(it.title, ArrayList()) }
-  }
 
   override fun getDataFromDoc(doc: IPSDocument): List<Title> {
     val bundle = doc.document
@@ -82,7 +73,7 @@ class DocumentGenerator : IPSDocumentGenerator {
     checkBoxes: MutableList<CheckBox>,
     checkboxTitleMap: MutableMap<String, String>
   ): List<Title> {
-    bundle.titles = getTitlesFromDoc(bundle) as ArrayList<Title>
+    docUtils.getSectionsFromDoc(bundle)
     val containerLayout = (context as AppCompatActivity).findViewById<LinearLayout>(R.id.containerLayout)
 
     return getDataFromDoc(bundle).filter { title ->
