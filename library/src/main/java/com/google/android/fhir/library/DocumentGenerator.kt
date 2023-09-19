@@ -1,11 +1,8 @@
 package com.google.android.fhir.library
 
 import android.content.Context
-import android.view.LayoutInflater
 import android.widget.CheckBox
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
@@ -16,8 +13,6 @@ import com.google.android.fhir.library.utils.DocumentGeneratorUtils
 import com.google.android.fhir.library.utils.DocumentUtils
 import org.hl7.fhir.r4.model.Composition
 import org.hl7.fhir.r4.model.Observation
-import org.hl7.fhir.r4.model.Organization
-import org.hl7.fhir.r4.model.Reference
 import org.hl7.fhir.r4.model.Resource
 import org.hl7.fhir.r4.model.ResourceType
 
@@ -73,19 +68,12 @@ class DocumentGenerator : IPSDocumentGenerator {
       val performerReferences = resource.performer
       performerReferences.forEach { performerReference ->
         if (performerReference.reference.isNotBlank()) {
-          val organization = createOrganizationFromReference(performerReference)
+          val organization = docGenUtils.createOrganizationFromReference(performerReference)
           organizationReferences.add(organization)
         }
       }
     }
     return organizationReferences
-  }
-
-  private fun createOrganizationFromReference(reference: Reference): Organization {
-    val organization = Organization()
-    organization.id = reference.reference
-    organization.name = "Unknown Organization"
-    return organization
   }
 
   override fun displayOptions(
@@ -99,12 +87,12 @@ class DocumentGenerator : IPSDocumentGenerator {
     for (title in bundle.titles) {
       val resources = map[title]
       if (resources?.any { docUtils.getCodings(it)?.isNotEmpty() == true } == true) {
-        val headingView = createHeadingView(context, title.name, containerLayout)
+        val headingView = docGenUtils.createHeadingView(context, title.name, containerLayout)
         containerLayout.addView(headingView)
         resources.forEach { obj ->
           docUtils.getCodings(obj)?.firstOrNull { it.hasDisplay() }?.let { codingElement ->
             val displayValue = codingElement.display
-            val checkBoxItem = createCheckBox(context, displayValue, containerLayout)
+            val checkBoxItem = docGenUtils.createCheckBox(context, displayValue, containerLayout)
             containerLayout.addView(checkBoxItem)
             checkboxTitleMap[displayValue] = title.name
             checkBoxes.add(checkBoxItem)
@@ -113,21 +101,6 @@ class DocumentGenerator : IPSDocumentGenerator {
       }
     }
     return map
-  }
-
-  private fun createHeadingView(context: Context, titleName: String, containerLayout: LinearLayout): RelativeLayout {
-    val layoutInflater = LayoutInflater.from(context)
-    val headingView = layoutInflater.inflate(R.layout.heading_item, containerLayout,false) as RelativeLayout
-    val headingText = headingView.findViewById<TextView>(R.id.headingText)
-    headingText.text = titleName
-    return headingView
-  }
-
-  private fun createCheckBox(context: Context, text: String, containerLayout: LinearLayout): CheckBox {
-    val layoutInflater = LayoutInflater.from(context)
-    val checkBoxItem = layoutInflater.inflate(R.layout.checkbox_item, containerLayout,false) as CheckBox
-    checkBoxItem.text = text
-    return checkBoxItem
   }
 
 }
