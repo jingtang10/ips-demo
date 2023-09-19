@@ -190,21 +190,18 @@ class DocumentGeneratorUtils {
     return composition
   }
 
+  /* Check if a section with the same title already exists.
+      Replace the existing section if it does, otherwise, create a new creation */
   fun createIPSSections(selectedResources: List<Resource>): MutableList<SectionComponent> {
     val sections = mutableListOf<SectionComponent>()
     for (res in selectedResources) {
       val section = createResourceSection(res)
       val title = getResourceTitle(res)
-
-      // Check if a section with the same title already exists
       val existingSection = sections.find { it.title == title }
-
       if (existingSection != null) {
-        // Replace the existing section with the new one
         sections.remove(existingSection)
         sections.add(section)
       } else {
-        // Add the new section to the list
         sections.add(section)
       }
     }

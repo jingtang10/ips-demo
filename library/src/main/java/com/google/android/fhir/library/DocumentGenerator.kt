@@ -14,7 +14,6 @@ import com.google.android.fhir.library.dataClasses.Title
 import com.google.android.fhir.library.interfaces.IPSDocumentGenerator
 import com.google.android.fhir.library.utils.DocumentGeneratorUtils
 import com.google.android.fhir.library.utils.DocumentUtils
-import com.google.android.fhir.library.utils.hasCode
 import org.hl7.fhir.r4.model.Composition
 import org.hl7.fhir.r4.model.Observation
 import org.hl7.fhir.r4.model.Organization
@@ -41,10 +40,10 @@ class DocumentGenerator : IPSDocumentGenerator {
     for (title in doc.titles) {
       val filteredResources = bundle.entry.map { it.resource }.filter { resource ->
         val resourceType = resource.resourceType.toString()
-        docUtils.getSearchingCondition(title.name!!, resourceType)
+        docUtils.getSearchingCondition(title.name, resourceType)
       }
       val resourceList =
-        filteredResources.filterNot { docUtils.shouldExcludeResource(title.name!!, it) }
+        filteredResources.filterNot { docUtils.shouldExcludeResource(title.name, it) }
       map[title] = ArrayList(resourceList)
     }
     return map
@@ -91,42 +90,23 @@ class DocumentGenerator : IPSDocumentGenerator {
 
   override fun displayOptions(
     context: Context,
-    bundle: IPSDocument?,
+    bundle: IPSDocument,
     checkBoxes: MutableList<CheckBox>,
     checkboxTitleMap: MutableMap<String, String>,
-  ) : Map<Title, List<Resource>> {
-    val layoutInflater = LayoutInflater.from(context)
-    val map = getDataFromDoc(bundle!!)
+  ): Map<Title, List<Resource>> {
+    val map = getDataFromDoc(bundle)
     val containerLayout = (context as AppCompatActivity).findViewById<LinearLayout>(R.id.containerLayout)
-
     for (title in bundle.titles) {
-
       val resources = map[title]
-
-      val codingArrayNotEmpty = resources?.any { obj ->
-        val code = obj.hasCode()
-        val codingArray = code.first?.coding ?: emptyList()
-        codingArray.isNotEmpty()
-      } ?: false
-
-      if (codingArrayNotEmpty) {
-        val headingView =
-          layoutInflater.inflate(R.layout.heading_item, containerLayout, false) as RelativeLayout
-        val headingText = headingView.findViewById<TextView>(R.id.headingText)
-        headingText.text = title.name
+      if (resources?.any { docUtils.getCodings(it)?.isNotEmpty() == true } == true) {
+        val headingView = createHeadingView(context, title.name, containerLayout)
         containerLayout.addView(headingView)
-
-        resources?.forEach { obj ->
-          val code = obj.hasCode()
-          val codingArray = code.first?.coding ?: emptyList()
-
-          codingArray.firstOrNull { it.hasDisplay() }?.let { codingElement ->
+        resources.forEach { obj ->
+          docUtils.getCodings(obj)?.firstOrNull { it.hasDisplay() }?.let { codingElement ->
             val displayValue = codingElement.display
-            val checkBoxItem =
-              layoutInflater.inflate(R.layout.checkbox_item, containerLayout, false) as CheckBox
-            checkBoxItem.text = displayValue
+            val checkBoxItem = createCheckBox(context, displayValue, containerLayout)
             containerLayout.addView(checkBoxItem)
-            checkboxTitleMap[displayValue] = title.name.toString()
+            checkboxTitleMap[displayValue] = title.name
             checkBoxes.add(checkBoxItem)
           }
         }
@@ -134,4 +114,20 @@ class DocumentGenerator : IPSDocumentGenerator {
     }
     return map
   }
+
+  private fun createHeadingView(context: Context, titleName: String, containerLayout: LinearLayout): RelativeLayout {
+    val layoutInflater = LayoutInflater.from(context)
+    val headingView = layoutInflater.inflate(R.layout.heading_item, containerLayout,false) as RelativeLayout
+    val headingText = headingView.findViewById<TextView>(R.id.headingText)
+    headingText.text = titleName
+    return headingView
+  }
+
+  private fun createCheckBox(context: Context, text: String, containerLayout: LinearLayout): CheckBox {
+    val layoutInflater = LayoutInflater.from(context)
+    val checkBoxItem = layoutInflater.inflate(R.layout.checkbox_item, containerLayout,false) as CheckBox
+    checkBoxItem.text = text
+    return checkBoxItem
+  }
+
 }

@@ -30,7 +30,6 @@ class SelectIndividualResourcesViewModel : ViewModel() {
     patient =
       ipsDoc.document.entry.firstOrNull { it.resource.resourceType == ResourceType.Patient }?.resource
         ?: Patient()
-
     map = documentGenerator.displayOptions(
       context, ipsDoc, checkBoxes, checkboxTitleMap
     )
@@ -38,9 +37,9 @@ class SelectIndividualResourcesViewModel : ViewModel() {
 
   fun generateIPSDocument(): IPSDocument {
     val selectedValues = checkBoxes.filter { it.isChecked }.map { checkBox ->
-      val title = Title(checkboxTitleMap[checkBox.text.toString()])
-      val value = checkBox.text.toString()
-      Pair(title, value)
+      val text = checkBox.text.toString()
+      val name = checkboxTitleMap[text] ?: ""
+      Pair(Title(name), text)
     }
     val outputArray = selectedValues.flatMap { (title, value) ->
       map[title]?.filter { obj ->
