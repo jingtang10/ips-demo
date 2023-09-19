@@ -4,8 +4,11 @@ anim scanner_animation
 drawable smart_logo
 id allergiesSection
 id allergiesTable
+id button
 id checkBox
+id containerLayout
 id documentTable
+id goToCreatePasscode
 id headingText
 id immunizationSection
 id immunizationTable
@@ -17,8 +20,10 @@ id problemsTable
 id resultsSection
 id resultsTable
 id scrollView
+id text
 id titleTextView
 layout checkbox_item
 layout get_data
 layout heading_item
 layout item_title_checkbox
+layout select_individual_resources

@@ -24,26 +24,13 @@ class Decoder(private val shlData: SHLData?) : SHLDecoder {
   private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
 
   @RequiresApi(Build.VERSION_CODES.O)
-  override suspend fun decodeSHLToDocument(recipient: String): IPSDocument? {
+  override suspend fun decodeSHLToDocument(jsonBody: String): IPSDocument? {
     constructShlObj()
-    val jsonData = "{\"recipient\":\"${recipient}\"}"
-    val bundle = postToServer(jsonData)
-    if (bundle != null) {
-      return IPSDocument(bundle)
+    val bundle = postToServer(jsonBody)
+    return if (bundle != null) {
+      IPSDocument(bundle)
     } else {
-      return null
-    }
-  }
-
-  @RequiresApi(Build.VERSION_CODES.O)
-  override suspend fun decodeSHLToDocument(recipient: String, passcode: String): IPSDocument? {
-    constructShlObj()
-    val jsonData = "{\"passcode\":\"${passcode}\", \"recipient\":\"${recipient}\"}"
-    val bundle = postToServer(jsonData)
-    if (bundle != null) {
-      return IPSDocument(bundle)
-    } else {
-      return null
+      null
     }
   }
 
