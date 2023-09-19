@@ -21,13 +21,10 @@ class DocumentUtils {
     return when (resource) {
       "Allergies and Intolerances" -> resourceType == "AllergyIntolerance"
       "Medication" -> resourceType == "Medication"
-      "Active Problems" -> resourceType == "Condition"
+      "Active Problems", "History of Past Illness" -> resourceType == "Condition"
       "Immunizations" -> resourceType == "Immunization"
       "Results" -> resourceType == "Observation"
-
-      "History of Past Illness" -> resourceType == "Condition" // inside div
       "Plan of Treatment" -> false // inside div
-
       // titles have to change
       "procedure history" -> false
       "medical devices" -> false
