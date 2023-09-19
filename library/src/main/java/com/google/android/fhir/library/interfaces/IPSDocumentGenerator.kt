@@ -7,6 +7,8 @@ import com.google.android.fhir.library.dataClasses.Title
 import org.hl7.fhir.r4.model.Resource
 
 interface IPSDocumentGenerator {
+
+  /* Returns a list of all the titles of the sections present in an IPS document */
   fun getTitlesFromDoc(doc: IPSDocument): List<Title>
 
   /* Returns a map of all the sections in the document to the list of resources listed under that section */

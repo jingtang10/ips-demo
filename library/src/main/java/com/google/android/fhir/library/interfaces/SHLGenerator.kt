@@ -4,6 +4,7 @@ import android.content.Context
 import com.google.android.fhir.library.dataClasses.SHLData
 
 interface SHLGenerator {
+
   /* Should generateKey be part of this interface or should it just be in utils? */
   fun generateKey() : String
 
