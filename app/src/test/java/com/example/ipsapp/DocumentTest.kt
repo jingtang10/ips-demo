@@ -3,7 +3,6 @@ package com.example.ipsapp
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
 import com.example.ipsapp.fileExamples.file
-import com.example.ipsapp.fileExamples.generated
 import com.example.ipsapp.fileExamples.immunizationBundleString
 import com.google.android.fhir.library.DocumentGenerator
 import com.google.android.fhir.library.dataClasses.IPSDocument
@@ -34,7 +33,6 @@ class DocumentTest {
 
   private val fileBundle = parser.parseResource(file) as Bundle
   private val immunizationBundle = parser.parseResource(immunizationBundleString) as Bundle
-  private val generatedBundle = parser.parseResource(generated) as Bundle
 
   @Test
   fun getTitlesFromMinBundleDoc() {

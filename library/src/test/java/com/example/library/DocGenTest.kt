@@ -26,7 +26,7 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class DocGenTest {
 
-  val docGenerator = DocumentGenerator()
+  private val docGenerator = DocumentGenerator()
   private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
 
   val res1 = "{\n" +
@@ -382,7 +382,6 @@ class DocGenTest {
 
   @Test
   fun testDocGen() {
-    // val doc = docGenerator.generateIPS(createSampleResources())
     val doc = docGenerator.generateIPS(list)
     println(parser.encodeResourceToString(doc.document))
   }
