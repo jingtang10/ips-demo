@@ -7,6 +7,7 @@ import com.example.ipsapp.fileExamples.generated
 import com.example.ipsapp.fileExamples.immunizationBundleString
 import com.google.android.fhir.library.DocumentGenerator
 import com.google.android.fhir.library.dataClasses.IPSDocument
+import com.google.android.fhir.library.dataClasses.Title
 import org.hl7.fhir.r4.model.Bundle
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -39,31 +40,20 @@ class DocumentTest {
   }
 
   @Test
-  fun getTitlesFromGeneratedDoc() {
-    val list = docGenerator.getTitlesFromDoc(IPSDocument(generatedBundle))
-    assertEquals(3, list.size)
+  fun mapCanBeCreatedWithDataForEachTitle() {
+    val doc = IPSDocument(fileBundle)
+    doc.titles = docGenerator.getTitlesFromDoc(doc) as ArrayList<Title>
+    val map = docGenerator.getDataFromDoc(doc)
+    println(map)
   }
 
-  // @Test
-  // fun mapCanBeCreatedWithDataForEachTitle() {
-  //   val map = mutableMapOf<Title, ArrayList<Resource>>()
-  //   val doc = IPSDocument(fileBundle)
-  //   val list = docGenerator.getTitlesFromDoc(IPSDocument(fileBundle))
-  //   for (item in list) {
-  //     docGenerator.getDataFromDoc(doc, item)
-  //   }
-  //   println(map)
-  // }
-  //
-  // @Test
-  // fun mapCanBeCreatedWithDataForEachTitleInImmunization() {
-  //   val map = mutableMapOf<String, ArrayList<Resource>>()
-  //   val list = docUtils.getTitlesFromIpsDoc(immunizationBundle)
-  //   for (item in list) {
-  //     docUtils.getDataFromDoc(immunizationBundle, item, map)
-  //   }
-  //   println(map)
-  // }
+  @Test
+  fun mapCanBeCreatedWithDataForEachTitleInImmunization() {
+    val doc = IPSDocument(immunizationBundle)
+    doc.titles = docGenerator.getTitlesFromDoc(doc) as ArrayList<Title>
+    val map = docGenerator.getDataFromDoc(doc)
+    println(map)
+  }
   //
   // @Test
   // fun mapCanBeCreatedWithDataForEachTitleInGenerated() {

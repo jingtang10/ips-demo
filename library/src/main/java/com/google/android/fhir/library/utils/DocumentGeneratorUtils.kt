@@ -243,7 +243,6 @@ class DocumentGeneratorUtils {
     selectedResources: List<Resource>,
     missingResources: List<Resource>,
   ): Bundle {
-
     val bundle = Bundle()
     bundle.type = Bundle.BundleType.DOCUMENT
     // Add the Composition to the bundle
