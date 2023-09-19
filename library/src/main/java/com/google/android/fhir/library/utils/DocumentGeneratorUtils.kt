@@ -1,5 +1,12 @@
 package com.google.android.fhir.library.utils
 
+import android.content.Context
+import android.view.LayoutInflater
+import android.widget.CheckBox
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.TextView
+import com.google.android.fhir.library.R
 import java.util.Date
 import java.util.UUID
 import org.hl7.fhir.r4.model.AllergyIntolerance
@@ -11,6 +18,7 @@ import org.hl7.fhir.r4.model.Composition.SectionComponent
 import org.hl7.fhir.r4.model.Condition
 import org.hl7.fhir.r4.model.DateTimeType
 import org.hl7.fhir.r4.model.Medication
+import org.hl7.fhir.r4.model.Organization
 import org.hl7.fhir.r4.model.Reference
 import org.hl7.fhir.r4.model.Resource
 import org.hl7.fhir.r4.model.ResourceType
@@ -41,6 +49,28 @@ class DocumentGeneratorUtils {
         section.entry.add(Reference().setReference(id.toString()))
       }
     return section
+  }
+
+  fun createOrganizationFromReference(reference: Reference): Organization {
+    val organization = Organization()
+    organization.id = reference.reference
+    organization.name = "Unknown Organization"
+    return organization
+  }
+
+  fun createHeadingView(context: Context, titleName: String, containerLayout: LinearLayout): RelativeLayout {
+    val layoutInflater = LayoutInflater.from(context)
+    val headingView = layoutInflater.inflate(R.layout.heading_item, containerLayout, false) as RelativeLayout
+    val headingText = headingView.findViewById<TextView>(R.id.headingText)
+    headingText.text = titleName
+    return headingView
+  }
+
+  fun createCheckBox(context: Context, text: String, containerLayout: LinearLayout): CheckBox {
+    val layoutInflater = LayoutInflater.from(context)
+    val checkBoxItem = layoutInflater.inflate(R.layout.checkbox_item, containerLayout, false) as CheckBox
+    checkBoxItem.text = text
+    return checkBoxItem
   }
 
   private fun createCoding(
@@ -190,21 +220,18 @@ class DocumentGeneratorUtils {
     return composition
   }
 
+  /* Check if a section with the same title already exists.
+      Replace the existing section if it does, otherwise, create a new creation */
   fun createIPSSections(selectedResources: List<Resource>): MutableList<SectionComponent> {
     val sections = mutableListOf<SectionComponent>()
     for (res in selectedResources) {
       val section = createResourceSection(res)
       val title = getResourceTitle(res)
-
-      // Check if a section with the same title already exists
       val existingSection = sections.find { it.title == title }
-
       if (existingSection != null) {
-        // Replace the existing section with the new one
         sections.remove(existingSection)
         sections.add(section)
       } else {
-        // Add the new section to the list
         sections.add(section)
       }
     }

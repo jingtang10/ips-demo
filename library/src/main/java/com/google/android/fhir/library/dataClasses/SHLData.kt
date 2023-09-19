@@ -9,14 +9,13 @@ data class SHLData(
   var key: String,
   var label: String,
   var flag: String,
-  var passcode: String,
   var exp: String,
   var v: String,
   var ipsDoc: IPSDocument
 ) : Serializable {
 
-  constructor() : this("", "", "", "", "", "", "", "", "", IPSDocument())
-  constructor(fullLink : String) : this(fullLink, "",  "", "", "", "", "", "", "", IPSDocument())
-  constructor(doc : IPSDocument) : this("", "", "", "", "", "", "", "", "", doc)
+  constructor() : this("", "", "", "", "", "", "", "", IPSDocument())
+  constructor(fullLink : String) : this(fullLink, "",  "", "", "", "", "", "", IPSDocument())
+  constructor(doc : IPSDocument) : this("", "", "", "", "", "", "", "", doc)
 
 }

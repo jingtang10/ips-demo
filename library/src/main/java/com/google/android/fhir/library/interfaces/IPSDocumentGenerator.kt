@@ -20,7 +20,7 @@ interface IPSDocumentGenerator {
   /* Renders an IPS document for an android device */
   fun displayOptions(
     context: Context,
-    bundle: IPSDocument?,
+    bundle: IPSDocument,
     checkBoxes: MutableList<CheckBox>,
     checkboxTitleMap: MutableMap<String, String>
   ): Map<Title, List<Resource>>
