@@ -21,7 +21,7 @@ interface IPSDocumentGenerator {
   fun displayOptions(
     context: Context,
     bundle: IPSDocument,
-    checkBoxes: MutableList<CheckBox>,
+    checkboxes: MutableList<CheckBox>,
     checkboxTitleMap: MutableMap<String, String>
   ): List<Title>
 

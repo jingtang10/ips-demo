@@ -23,14 +23,18 @@ class Scanner(private val context: Context, private val surfaceHolder: SurfaceHo
 
   private var scannedData: SHLData? = null
 
-  override fun scanSHLQRCode(): SHLData? {
-    return if (!hasCameraPermission()) {
+  override fun scanSHLQRCode(callback: (SHLData?) -> Unit) {
+    if (!hasCameraPermission()) {
       val error = Error("Camera permission not granted")
       failCallback?.invoke(error)
-      null
+      callback(null)
     } else {
       setup()
-      scannedData
+      // Set the scanCallback to handle the result
+      scanCallback = { shlData ->
+        // Handle the result here if needed
+        callback(shlData)
+      }
     }
   }
 
@@ -47,6 +51,7 @@ class Scanner(private val context: Context, private val surfaceHolder: SurfaceHo
     cameraSource = createCameraSource(barcodeDetector)
     surfaceHolder.addCallback(createSurfaceCallback())
     barcodeDetector.setProcessor(createBarcodeProcessor())
+    println("FINISHED SETUP")
   }
 
   private fun createBarcodeProcessor(): Detector.Processor<Barcode> {
@@ -66,7 +71,7 @@ class Scanner(private val context: Context, private val surfaceHolder: SurfaceHo
         if (barcodes.size() == 1) {
           val scannedValue = barcodes.valueAt(0).rawValue
           val shlData = SHLData(scannedValue)
-          scannedData = shlData // Store the scanned data
+          scannedData = shlData
           scanCallback?.invoke(shlData)
           scanSucceeded = true
         }

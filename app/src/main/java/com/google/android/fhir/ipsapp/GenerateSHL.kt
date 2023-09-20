@@ -24,11 +24,11 @@ class GenerateSHL : AppCompatActivity() {
     expirationDateField.text = shlData?.exp
 
     if (shlData?.ipsDoc?.document != null) {
-      val bitmap = linkGenerator.generateSHL(
-        this, shlData, passcode
-      )
       val view = findViewById<ImageView>(R.id.qrCode)
-      view.setImageBitmap(bitmap)
+      linkGenerator.generateSHL(
+        this, shlData, passcode, view
+      )
+      // view.setImageBitmap(bitmap)
     }
   }
 }
