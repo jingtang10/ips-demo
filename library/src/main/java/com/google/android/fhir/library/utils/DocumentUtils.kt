@@ -1,16 +1,27 @@
 package com.google.android.fhir.library.utils
 
 import android.content.Context
+import com.google.android.fhir.library.dataClasses.IPSDocument
+import com.google.android.fhir.library.dataClasses.Title
 import org.hl7.fhir.r4.model.AllergyIntolerance
 import org.hl7.fhir.r4.model.CodeableConcept
 import org.hl7.fhir.r4.model.Coding
+import org.hl7.fhir.r4.model.Composition
 import org.hl7.fhir.r4.model.Condition
 import org.hl7.fhir.r4.model.Immunization
 import org.hl7.fhir.r4.model.Medication
 import org.hl7.fhir.r4.model.Observation
 import org.hl7.fhir.r4.model.Resource
+import org.hl7.fhir.r4.model.ResourceType
 
 class DocumentUtils {
+
+  fun getSectionsFromDoc(doc: IPSDocument) {
+    val bundle = doc.document
+    val composition =
+      bundle.entry?.firstOrNull { it.resource.resourceType == ResourceType.Composition }?.resource as Composition
+    doc.titles = composition.section.map { Title(it.title, ArrayList()) } as ArrayList<Title>
+  }
 
   fun shouldExcludeResource(title: String, resource: Resource): Boolean {
     val code = resource.hasCode().second

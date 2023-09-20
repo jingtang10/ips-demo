@@ -15,7 +15,7 @@ import org.hl7.fhir.r4.model.Resource
 import org.hl7.fhir.r4.model.ResourceType
 
 class SelectIndividualResourcesViewModel : ViewModel() {
-  private var map = mapOf<Title, List<Resource>>()
+  private var selectedTitles = listOf<Title>()
   private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
   private val documentGenerator = DocumentGenerator()
   private lateinit var patient: Resource
@@ -26,13 +26,11 @@ class SelectIndividualResourcesViewModel : ViewModel() {
     val docUtils = DocumentUtils()
     val doc = docUtils.readFileFromAssets(context, "immunizationBundle.json")
     val ipsDoc = IPSDocument(parser.parseResource(doc) as Bundle)
-    ipsDoc.titles = ArrayList(documentGenerator.getTitlesFromDoc(ipsDoc))
+
+    selectedTitles = documentGenerator.displayOptions(context, ipsDoc, checkBoxes, checkboxTitleMap)
     patient =
       ipsDoc.document.entry.firstOrNull { it.resource.resourceType == ResourceType.Patient }?.resource
         ?: Patient()
-    map = documentGenerator.displayOptions(
-      context, ipsDoc, checkBoxes, checkboxTitleMap
-    )
   }
 
   fun generateIPSDocument(): IPSDocument {
@@ -41,12 +39,16 @@ class SelectIndividualResourcesViewModel : ViewModel() {
       val name = checkboxTitleMap[text] ?: ""
       Pair(Title(name), text)
     }
+
     val outputArray = selectedValues.flatMap { (title, value) ->
-      map[title]?.filter { obj ->
-        obj.hasCode().first?.coding?.any { it.display == value } == true
-      } ?: emptyList()
+      title.let { selectedTitle ->
+        selectedTitles.find { it.name == selectedTitle.name }?.dataEntries?.filter { obj ->
+          obj.hasCode().first?.coding?.firstOrNull { it.hasDisplay() && it.display == value } != null
+        } ?: emptyList()
+      }
     } + patient
 
     return documentGenerator.generateIPS(outputArray)
   }
+
 }

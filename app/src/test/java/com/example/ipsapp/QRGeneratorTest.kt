@@ -29,6 +29,12 @@ class QRGeneratorTest {
   }
 
   @Test
+  fun randomKeysCanBeGenerated() {
+    val key = generateShlUtils.generateRandomKey()
+    assert(key.length == 44)
+  }
+
+  @Test
   fun canConvertFilesIntoJweTokens() {
     val encryptionKey = generateShlUtils.generateRandomKey()
     val contentJson = Gson().toJson(file)

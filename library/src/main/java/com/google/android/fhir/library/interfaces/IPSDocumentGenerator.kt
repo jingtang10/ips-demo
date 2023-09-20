@@ -8,11 +8,11 @@ import org.hl7.fhir.r4.model.Resource
 
 interface IPSDocumentGenerator {
 
-  /* Returns a list of all the titles of the sections present in an IPS document */
-  fun getTitlesFromDoc(doc: IPSDocument): List<Title>
+  // /* Returns a list of all the titles of the sections present in an IPS document */
+  // fun getTitlesFromDoc(doc: IPSDocument)
 
   /* Returns a map of all the sections in the document to the list of resources listed under that section */
-  fun getDataFromDoc(doc: IPSDocument): Map<Title, List<Resource>>
+  fun getDataFromDoc(doc: IPSDocument): List<Title>
 
   /* Generates a new IPS document given a list of patient-selected resources */
   fun generateIPS(selectedResources: List<Resource>): IPSDocument
@@ -23,6 +23,6 @@ interface IPSDocumentGenerator {
     bundle: IPSDocument,
     checkBoxes: MutableList<CheckBox>,
     checkboxTitleMap: MutableMap<String, String>
-  ): Map<Title, List<Resource>>
+  ): List<Title>
 
 }

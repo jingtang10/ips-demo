@@ -11,10 +11,8 @@ import com.google.android.fhir.library.dataClasses.Title
 import com.google.android.fhir.library.interfaces.IPSDocumentGenerator
 import com.google.android.fhir.library.utils.DocumentGeneratorUtils
 import com.google.android.fhir.library.utils.DocumentUtils
-import org.hl7.fhir.r4.model.Composition
 import org.hl7.fhir.r4.model.Observation
 import org.hl7.fhir.r4.model.Resource
-import org.hl7.fhir.r4.model.ResourceType
 
 class DocumentGenerator : IPSDocumentGenerator {
 
@@ -22,26 +20,19 @@ class DocumentGenerator : IPSDocumentGenerator {
   private val docUtils = DocumentUtils()
   private val parser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
 
-  override fun getTitlesFromDoc(doc: IPSDocument): List<Title> {
+  override fun getDataFromDoc(doc: IPSDocument): List<Title> {
     val bundle = doc.document
-    val composition =
-      bundle.entry?.firstOrNull { it.resource.resourceType == ResourceType.Composition }?.resource as Composition
-    return composition.section.map { Title(it.title, ArrayList()) }
-  }
 
-  override fun getDataFromDoc(doc: IPSDocument): Map<Title, List<Resource>> {
-    val bundle = doc.document
-    val map: MutableMap<Title, List<Resource>> = mutableMapOf()
     for (title in doc.titles) {
       val filteredResources = bundle.entry.map { it.resource }.filter { resource ->
         val resourceType = resource.resourceType.toString()
         docUtils.getSearchingCondition(title.name, resourceType)
       }
-      val resourceList =
-        filteredResources.filterNot { docUtils.shouldExcludeResource(title.name, it) }
-      map[title] = ArrayList(resourceList)
+      val resourceList = filteredResources.filterNot { docUtils.shouldExcludeResource(title.name, it) }
+      val existingTitle = doc.titles.find { it.name == title.name }
+      existingTitle?.dataEntries?.addAll(resourceList)
     }
-    return map
+    return doc.titles
   }
 
   override fun generateIPS(selectedResources: List<Resource>): IPSDocument {
@@ -80,27 +71,29 @@ class DocumentGenerator : IPSDocumentGenerator {
     context: Context,
     bundle: IPSDocument,
     checkBoxes: MutableList<CheckBox>,
-    checkboxTitleMap: MutableMap<String, String>,
-  ): Map<Title, List<Resource>> {
-    val map = getDataFromDoc(bundle)
+    checkboxTitleMap: MutableMap<String, String>
+  ): List<Title> {
+    docUtils.getSectionsFromDoc(bundle)
     val containerLayout = (context as AppCompatActivity).findViewById<LinearLayout>(R.id.containerLayout)
-    for (title in bundle.titles) {
-      val resources = map[title]
-      if (resources?.any { docUtils.getCodings(it)?.isNotEmpty() == true } == true) {
-        val headingView = docGenUtils.createHeadingView(context, title.name, containerLayout)
-        containerLayout.addView(headingView)
-        resources.forEach { obj ->
-          docUtils.getCodings(obj)?.firstOrNull { it.hasDisplay() }?.let { codingElement ->
-            val displayValue = codingElement.display
-            val checkBoxItem = docGenUtils.createCheckBox(context, displayValue, containerLayout)
-            containerLayout.addView(checkBoxItem)
-            checkboxTitleMap[displayValue] = title.name
-            checkBoxes.add(checkBoxItem)
-          }
+
+    return getDataFromDoc(bundle).filter { title ->
+      title.dataEntries.any { docUtils.getCodings(it)?.isNotEmpty() == true }
+    }.map { title ->
+      val headingView = docGenUtils.createHeadingView(context, title.name, containerLayout)
+      containerLayout.addView(headingView)
+
+      title.dataEntries.forEach { obj ->
+        docUtils.getCodings(obj)?.firstOrNull { it.hasDisplay() }?.let { codingElement ->
+          val displayValue = codingElement.display
+          val checkBoxItem = docGenUtils.createCheckBox(context, displayValue, containerLayout)
+          containerLayout.addView(checkBoxItem)
+          checkboxTitleMap[displayValue] = title.name
+          checkBoxes.add(checkBoxItem)
         }
       }
+      title
     }
-    return map
   }
+
 
 }

@@ -1,15 +1,16 @@
 package com.google.android.fhir.ipsapp
 
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.fhir.library.LinkGenerator
 import com.google.android.fhir.library.dataClasses.SHLData
-import com.google.android.fhir.library.utils.GenerateShlUtils
 
 
 class GenerateSHL : AppCompatActivity() {
 
-  private val generateShlUtils = GenerateShlUtils()
+  private val linkGenerator = LinkGenerator()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -23,12 +24,11 @@ class GenerateSHL : AppCompatActivity() {
     expirationDateField.text = shlData?.exp
 
     if (shlData?.ipsDoc?.document != null) {
-      generateShlUtils.generatePayload(
-        passcode,
-        shlData,
-        findViewById(R.id.qrCode),
-        this
+      val bitmap = linkGenerator.generateSHL(
+        this, shlData, passcode
       )
+      val view = findViewById<ImageView>(R.id.qrCode)
+      view.setImageBitmap(bitmap)
     }
   }
 }

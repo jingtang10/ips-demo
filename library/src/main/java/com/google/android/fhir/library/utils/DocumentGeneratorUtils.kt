@@ -27,6 +27,7 @@ class DocumentGeneratorUtils {
 
   private val addedResourcesByType: MutableMap<String, MutableList<Resource>> = mutableMapOf()
 
+  /* Create a section in the IPS composition for a given resource */
   private fun createResourceSection(resource: Resource): SectionComponent {
     val section = SectionComponent()
 
@@ -85,6 +86,7 @@ class DocumentGeneratorUtils {
     return coding
   }
 
+  /* Create coding for a section in the IPS composition for a given resource */
   private fun getResourceCode(resource: Resource): CodeableConcept {
     val codeableConcept = CodeableConcept()
     codeableConcept.coding = listOf(
@@ -105,7 +107,8 @@ class DocumentGeneratorUtils {
     return codeableConcept
   }
 
-  private fun getResourceTitle(resource: Resource): String? {
+  /* Get the section title for a given resource */
+  fun getResourceTitle(resource: Resource): String? {
     return when (resource.resourceType) {
       ResourceType.AllergyIntolerance -> {
         val allergy = resource as AllergyIntolerance
@@ -132,6 +135,7 @@ class DocumentGeneratorUtils {
     }
   }
 
+  /* Check all the required sections are present in the document */
   fun checkSections(sections: MutableList<SectionComponent>): Pair<MutableList<SectionComponent>, MutableList<Resource>> {
     val missingSections = mutableListOf<SectionComponent>()
     val missingResources = mutableListOf<Resource>()
@@ -243,7 +247,6 @@ class DocumentGeneratorUtils {
     selectedResources: List<Resource>,
     missingResources: List<Resource>,
   ): Bundle {
-
     val bundle = Bundle()
     bundle.type = Bundle.BundleType.DOCUMENT
     // Add the Composition to the bundle
