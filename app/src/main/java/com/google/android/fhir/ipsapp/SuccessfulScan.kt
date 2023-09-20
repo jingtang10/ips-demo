@@ -6,13 +6,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.google.android.fhir.library.dataClasses.SHLData
 import com.google.android.fhir.library.SuccessfulScanViewModel
 import com.google.android.fhir.library.SuccessfulScanViewModelFactory
+import com.google.android.fhir.library.dataClasses.SHLData
 import kotlinx.coroutines.launch
 
 class SuccessfulScan : AppCompatActivity() {
@@ -44,14 +43,6 @@ class SuccessfulScan : AppCompatActivity() {
       val passcodeField = passcodeEditText.text.toString()
       lifecycleScope.launch {
         val doc = viewModel.fetchData(recipientField, passcodeField, hasPasscode)
-        if (doc == null) {
-          runOnUiThread {
-            Toast.makeText(
-              this@SuccessfulScan, "Incorrect passcode", Toast.LENGTH_SHORT
-            ).show()
-          }
-          return@launch
-        }
         val i = Intent()
         i.component = ComponentName(this@SuccessfulScan, GetData::class.java)
         i.putExtra("doc", doc as java.io.Serializable)

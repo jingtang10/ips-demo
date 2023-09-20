@@ -4,6 +4,8 @@ import java.io.Serializable
 import org.hl7.fhir.r4.model.Bundle
 import org.hl7.fhir.r4.model.Patient
 
+/* A data class object which stores an IPS document, the patient it relates to, and a list of
+`  titles present in the document */
 data class IPSDocument(
   var document : Bundle,
   var titles : ArrayList<Title>,

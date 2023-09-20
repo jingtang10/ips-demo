@@ -2,6 +2,8 @@ package com.google.android.fhir.library.dataClasses
 
 import java.io.Serializable
 
+/* This data class holds all the information stored in a SHL.
+   If the P flag is present, a passcode is needed to decode the data */
 data class SHLData(
   var fullLink: String,
   var shl: String,
