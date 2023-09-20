@@ -26,7 +26,7 @@ class IPSRenderer(val doc: IPSDocument?) {
     return TextView(context).apply {
       this.text = text
       setPadding(8, 8, 8, 8)
-      gravity = Gravity.CENTER
+      gravity = Gravity.START
     }
   }
 
