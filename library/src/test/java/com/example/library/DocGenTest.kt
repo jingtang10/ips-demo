@@ -4,7 +4,9 @@ import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
 import com.google.android.fhir.library.DocumentGenerator
 import com.google.android.fhir.library.dataClasses.SHLData
+import org.hl7.fhir.r4.model.Bundle.BundleType
 import org.hl7.fhir.r4.model.Resource
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -310,6 +312,7 @@ class DocGenTest {
   fun testDocGen() {
     val doc = docGenerator.generateIPS(list)
     println(parser.encodeResourceToString(doc.document))
+    assertEquals(doc.document.type, BundleType.DOCUMENT)
   }
 
   @Test
@@ -317,6 +320,6 @@ class DocGenTest {
     val doc = docGenerator.generateIPS(list)
     val shlData = SHLData(doc)
     shlData.label = "abc"
-    println(shlData.label)
+    assertEquals(shlData.label, "abc")
   }
 }

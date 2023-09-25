@@ -13,22 +13,7 @@ class SuccessfulScanViewModel(shlData: SHLData?) : ViewModel() {
 
   private val decoder = Decoder(shlData)
 
-  @RequiresApi(Build.VERSION_CODES.O)
-  suspend fun decodeSHLToDocument(jsonBody: String): IPSDocument? {
-    return withContext(Dispatchers.IO) {
-      decoder.decodeSHLToDocument(jsonBody)
-    }
-  }
-
-  fun hasPasscode(): Boolean {
-    return decoder.hasPasscode()
-  }
-
-  @RequiresApi(Build.VERSION_CODES.O)
-  fun constructSHL() {
-    decoder.constructShlObj()
-  }
-
+  /* Form the JSON request body */
   @RequiresApi(Build.VERSION_CODES.O)
   suspend fun fetchData(
     recipient: String,
@@ -41,6 +26,25 @@ class SuccessfulScanViewModel(shlData: SHLData?) : ViewModel() {
       "{\"recipient\":\"${recipient}\"}"
     }
     return decodeSHLToDocument(jsonBody)
+  }
+
+  /* Post the JSON request body and decode the response into an IPSDocument object */
+  @RequiresApi(Build.VERSION_CODES.O)
+  suspend fun decodeSHLToDocument(jsonBody: String): IPSDocument? {
+    return withContext(Dispatchers.IO) {
+      decoder.decodeSHLToDocument(jsonBody)
+    }
+  }
+
+  /* Returns true if the SHL requires a passcode to read */
+  fun hasPasscode(): Boolean {
+    return decoder.hasPasscode()
+  }
+
+  /* Fill in the fields in the SHLData object */
+  @RequiresApi(Build.VERSION_CODES.O)
+  fun constructSHL() {
+    decoder.constructShlObj()
   }
 
 }

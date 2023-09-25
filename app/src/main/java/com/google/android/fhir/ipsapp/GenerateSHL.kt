@@ -28,7 +28,6 @@ class GenerateSHL : AppCompatActivity() {
       linkGenerator.generateSHL(
         this, shlData, passcode, view
       )
-      // view.setImageBitmap(bitmap)
     }
   }
 }

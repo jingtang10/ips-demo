@@ -13,7 +13,7 @@ import java.util.Base64
 
 class LinkGenerator : SHLGenerator {
 
-  val generateShlUtils = GenerateShlUtils()
+  private val generateShlUtils = GenerateShlUtils()
 
   @RequiresApi(Build.VERSION_CODES.O)
   override fun generateKey(): String {

@@ -52,7 +52,7 @@ class CreatePasscode : Activity() {
       startActivity(i)
     }
 
-    // Set the initial state of the DatePicker based on the Checkbox state
+    /* Set the initial state of the DatePicker based on the Checkbox state */
     datePicker.isEnabled = checkboxDate.isChecked
     checkboxDate.setOnCheckedChangeListener { _, isChecked ->
       datePicker.isEnabled = isChecked

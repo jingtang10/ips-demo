@@ -18,23 +18,14 @@ class ScannerActivity : AppCompatActivity() {
 
     val surfaceView = findViewById<SurfaceView>(R.id.cameraSurfaceView)
 
-    // Initialize the scanner and call scan
+    /* Initialize the scanner and call scan */
     scanner = Scanner(this, surfaceView.holder)
     scanner.scanSHLQRCode(callback = { shlData ->
-      // Handle successful scan result
       val i = Intent()
       i.component = ComponentName(this@ScannerActivity, SuccessfulScan::class.java)
       i.putExtra("shlData", shlData as Serializable)
       startActivity(i)
     })
-
-    // val shlData = scanner.scanSHLQRCode()
-    // if (shlData != null) {
-    //   val i = Intent()
-    //   i.component = ComponentName(this@ScannerActivity, SuccessfulScan::class.java)
-    //   i.putExtra("shlData", shlData as Serializable)
-    //   startActivity(i)
-    // }
   }
 
   // Release scanner resources when the activity is destroyed
