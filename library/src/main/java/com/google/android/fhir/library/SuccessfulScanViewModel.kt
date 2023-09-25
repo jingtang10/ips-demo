@@ -1,6 +1,8 @@
 package com.google.android.fhir.library
 
 import android.os.Build
+import android.view.View
+import android.widget.EditText
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import com.google.android.fhir.library.dataClasses.IPSDocument
@@ -17,10 +19,9 @@ class SuccessfulScanViewModel(shlData: SHLData?) : ViewModel() {
   @RequiresApi(Build.VERSION_CODES.O)
   suspend fun fetchData(
     recipient: String,
-    passcode: String,
-    hasPasscode: Boolean,
+    passcode: String
   ): IPSDocument? {
-    val jsonBody = if (hasPasscode) {
+    val jsonBody = if (hasPasscode()) {
       "{\"passcode\":\"${passcode}\", \"recipient\":\"${recipient}\"}"
     } else {
       "{\"recipient\":\"${recipient}\"}"
@@ -37,7 +38,7 @@ class SuccessfulScanViewModel(shlData: SHLData?) : ViewModel() {
   }
 
   /* Returns true if the SHL requires a passcode to read */
-  fun hasPasscode(): Boolean {
+  private fun hasPasscode(): Boolean {
     return decoder.hasPasscode()
   }
 
@@ -45,6 +46,13 @@ class SuccessfulScanViewModel(shlData: SHLData?) : ViewModel() {
   @RequiresApi(Build.VERSION_CODES.O)
   fun constructSHL() {
     decoder.constructShlObj()
+  }
+
+  /* Hides the passcode field if no passcode is required for the SHL */
+  fun togglePasscodeFieldView(passcodeEditText: EditText) {
+    if (!hasPasscode()) {
+      passcodeEditText.visibility = View.INVISIBLE
+    }
   }
 
 }
