@@ -5,7 +5,7 @@ import com.google.android.fhir.library.dataClasses.SHLData
 interface SHLScanner {
 
   /* Scans a SHL and returns an initialised SHLData object */
-  fun scanSHLQRCode() : SHLData?
+  fun scanSHLQRCode(callback: (SHLData?) -> Unit)
 
   /* Handles a successful scan */
   fun onScanSuccess(callback : (SHLData) -> Unit)

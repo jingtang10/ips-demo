@@ -3,6 +3,9 @@ package com.google.android.fhir.library.utils
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
+import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
@@ -101,7 +104,7 @@ class GenerateShlUtils {
     passcode: String,
     shlData: SHLData,
     context: Context,
-    callback: (Bitmap?) -> Unit,
+    qrView: ImageView
   ) {
     val expirationDate = shlData.exp
     val labelData = shlData.label
@@ -123,10 +126,18 @@ class GenerateShlUtils {
       val shLink = "https://demo.vaxx.link/viewer#shlink:/$shLinkPayload"
 
       qrCodeBitmap = generateQRCode(context, shLink)
+      updateImageViewOnMainThread(qrView, qrCodeBitmap!!)
 
       val data: String = parser.encodeResourceToString(bundle)
       postPayload(data, manifestUrl, key, managementToken)
-      callback(qrCodeBitmap)
+
+    }
+  }
+
+  private fun updateImageViewOnMainThread(qrView: ImageView, qrCodeBitmap: Bitmap) {
+    val handler = Handler(Looper.getMainLooper())
+    handler.post {
+      qrView.setImageBitmap(qrCodeBitmap)
     }
   }
 

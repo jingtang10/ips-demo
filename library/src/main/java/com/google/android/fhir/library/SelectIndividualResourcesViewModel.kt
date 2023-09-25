@@ -22,6 +22,7 @@ class SelectIndividualResourcesViewModel : ViewModel() {
   private val checkBoxes = mutableListOf<CheckBox>()
   private val checkboxTitleMap = mutableMapOf<String, String>()
 
+  /* Get the FHIR resources and display them as checkboxes for the patient to select */
   fun initializeData(context: Context) {
     val docUtils = DocumentUtils()
     val doc = docUtils.readFileFromAssets(context, "immunizationBundle.json")
@@ -33,6 +34,8 @@ class SelectIndividualResourcesViewModel : ViewModel() {
         ?: Patient()
   }
 
+  /* Filter through the selected checkboxes and generate an IPS document
+     using the patient-selected resources */
   fun generateIPSDocument(): IPSDocument {
     val selectedValues = checkBoxes.filter { it.isChecked }.map { checkBox ->
       val text = checkBox.text.toString()

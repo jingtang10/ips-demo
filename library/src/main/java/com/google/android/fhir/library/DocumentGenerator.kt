@@ -70,7 +70,7 @@ class DocumentGenerator : IPSDocumentGenerator {
   override fun displayOptions(
     context: Context,
     bundle: IPSDocument,
-    checkBoxes: MutableList<CheckBox>,
+    checkboxes: MutableList<CheckBox>,
     checkboxTitleMap: MutableMap<String, String>
   ): List<Title> {
     docUtils.getSectionsFromDoc(bundle)
@@ -88,7 +88,7 @@ class DocumentGenerator : IPSDocumentGenerator {
           val checkBoxItem = docGenUtils.createCheckBox(context, displayValue, containerLayout)
           containerLayout.addView(checkBoxItem)
           checkboxTitleMap[displayValue] = title.name
-          checkBoxes.add(checkBoxItem)
+          checkboxes.add(checkBoxItem)
         }
       }
       title
