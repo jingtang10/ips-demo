@@ -23,10 +23,10 @@ class SelectIndividualResourcesViewModel : ViewModel() {
   private val checkboxTitleMap = mutableMapOf<String, String>()
 
   /* Get the FHIR resources and display them as checkboxes for the patient to select */
-  fun initializeData(context: Context) {
+  fun initializeData(context: Context, file: String) {
     val docUtils = DocumentUtils()
-    val doc = docUtils.readFileFromAssets(context, "immunizationBundle.json")
-    val ipsDoc = IPSDocument(parser.parseResource(doc) as Bundle)
+    // val doc = docUtils.readFileFromAssets(context, "immunizationBundle.json")
+    val ipsDoc = IPSDocument(parser.parseResource(file) as Bundle)
 
     selectedTitles = documentGenerator.displayOptions(context, ipsDoc, checkBoxes, checkboxTitleMap)
     patient =
