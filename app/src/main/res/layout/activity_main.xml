@@ -1,16 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8" ?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context="com.google.android.fhir.demoIPS.MainActivity"
+>
 
     <Button
         android:id="@+id/scanQRButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="@string/scan_qr" />
+        android:text="Scan SHL"
+    />
 
     <Button
         android:id="@+id/generateQRButton"
@@ -18,5 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_below="@+id/scanQRButton"
-        android:text="@string/generate_qr" />
+        android:text="Generate SHL"
+    />
 </RelativeLayout>

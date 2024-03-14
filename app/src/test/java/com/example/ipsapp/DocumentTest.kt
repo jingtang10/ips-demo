@@ -2,8 +2,8 @@ package com.example.ipsapp
 
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
-import com.example.ipsapp.fileExamples.file
-import com.example.ipsapp.fileExamples.immunizationBundleString
+import com.google.android.fhir.ipsapp.file
+import com.google.android.fhir.ipsapp.immunizationBundleString
 import com.google.android.fhir.library.DocumentGenerator
 import com.google.android.fhir.library.dataClasses.IPSDocument
 import com.google.android.fhir.library.utils.DocumentGeneratorUtils

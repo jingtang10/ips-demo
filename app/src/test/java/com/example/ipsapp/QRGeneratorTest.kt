@@ -1,6 +1,6 @@
 package com.example.ipsapp
 
-import com.example.ipsapp.fileExamples.file
+import com.google.android.fhir.ipsapp.file
 import com.google.android.fhir.library.utils.GenerateShlUtils
 import com.google.android.fhir.library.utils.ReadShlUtils
 import com.google.gson.Gson

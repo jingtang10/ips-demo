@@ -1,12 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-feature android:name="android.hardware.camera" />
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
+        android:name="com.google.android.fhir.ipsapp.FhirApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -14,13 +10,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.IpsApp"
-        tools:targetApi="31">
+        android:theme="@style/Theme.IpsApp">
 
-        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
-
-        <activity android:name="com.google.android.fhir.ipsapp.MainActivity"
-            android:exported="true">
+        <activity
+            android:name="com.google.android.fhir.ipsapp.MainActivity"
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,48 +23,60 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.google.android.fhir.ipsapp.SuccessfulScan"
-            android:exported="true">
+        <activity
+            android:name="com.google.android.fhir.ipsapp.SelectIndividualResources"
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <activity android:name="com.google.android.fhir.ipsapp.ScannerActivity"
-            android:exported="true">
+        <activity
+            android:name="com.google.android.fhir.ipsapp.CreatePasscode"
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <activity android:name="com.google.android.fhir.ipsapp.GetData"
-            android:exported="true">
+        <activity
+            android:name="com.google.android.fhir.ipsapp.GenerateSHL"
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <activity android:name="com.google.android.fhir.ipsapp.SelectIndividualResources"
-            android:exported="true">
+        <activity
+            android:name="com.google.android.fhir.ipsapp.ScannerActivity"
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <activity android:name="com.google.android.fhir.ipsapp.CreatePasscode"
-            android:exported="true">
+        <activity
+            android:name="com.google.android.fhir.ipsapp.SuccessfulScan"
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <activity android:name="com.google.android.fhir.ipsapp.GenerateSHL"
-            android:exported="true">
+        <activity
+            android:name="com.google.android.fhir.ipsapp.GetData"
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
         </activity>
 
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

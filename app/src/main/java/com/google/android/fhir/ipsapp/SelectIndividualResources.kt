@@ -1,54 +1,59 @@
+/*
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.google.android.fhir.ipsapp
 
-import android.app.Activity
 import android.content.ComponentName
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.fhir.library.SelectIndividualResourcesViewModel
-import com.google.android.fhir.library.dataClasses.SHLData
+import com.google.android.fhir.document.generate.SelectIndividualResourcesViewModel
+import com.google.android.fhir.document.generate.SHLinkGenerationData
 import java.io.Serializable
 
 class SelectIndividualResources : AppCompatActivity() {
 
-  private val pickFileLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-    if (result.resultCode == Activity.RESULT_OK) {
-      val data: Intent? = result.data
-      data?.data?.let { fileUri ->
-        contentResolver.openInputStream(fileUri)?.use { inputStream ->
-          val jsonString = inputStream.bufferedReader().use { it.readText() }
-          initialiseViewModel(jsonString)
-        }
-      }
-    }
-  }
-
-  private fun initialiseViewModel(jsonString: String) {
+  @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+  private fun initialiseViewModel() {
     val viewModel = ViewModelProvider(this)[SelectIndividualResourcesViewModel::class.java]
-    viewModel.initializeData(this, jsonString)
 
+    viewModel.initializeData(this, FhirApplication.fhirEngine(this))
 
-    val submitButton = findViewById<Button>(com.google.android.fhir.library.R.id.goToCreatePasscode)
+    val submitButton = findViewById<Button>(R.id.goToCreatePasscode)
     submitButton.setOnClickListener {
       val ipsDoc = viewModel.generateIPSDocument()
-      val shlData = SHLData(ipsDoc)
+      val shlData = SHLinkGenerationData("", null, ipsDoc)
       val i = Intent()
-      i.component = ComponentName(this@SelectIndividualResources, CreatePasscode::class.java)
+      i.component = ComponentName(this, CreatePasscode::class.java)
       i.putExtra("shlData", shlData as Serializable)
       startActivity(i)
     }
   }
 
+  @RequiresApi(Build.VERSION_CODES.TIRAMISU)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(com.google.android.fhir.library.R.layout.select_individual_resources)
+    setContentView(R.layout.select_individual_resources)
     val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
     intent.addCategory(Intent.CATEGORY_OPENABLE)
     intent.type = "application/json"
-    pickFileLauncher.launch(intent)
-
+    initialiseViewModel()
   }
 }
