@@ -88,7 +88,8 @@ class SHLinkDecoderImpl(
     try {
       val response =
         retrofitSHLService.getFilesFromManifest(
-          shLinkScanData.manifestUrl.substringAfterLast("api.vaxx.link/"),
+          //          shLinkScanData.manifestUrl.substringAfterLast("api.vaxx.link/"),
+          shLinkScanData.manifestUrl.substringAfterLast("share-links/"),
           requestBody,
         )
 
@@ -125,20 +126,26 @@ class SHLinkDecoderImpl(
         (0 until jsonArray.length())
           .mapNotNull { i ->
             val fileObject = jsonArray.getJSONObject(i)
-            if (fileObject.has("embedded")) {
-              fileObject.getString("embedded")
-            } else {
-              fileObject.getString("location").let {
-                val responseFromLocation =
-                  retrofitSHLService.getFromLocation("file/${it.substringAfterLast("/")}")
-                val responseBodyFromLocation = responseFromLocation.body()?.string()
-                if (!responseBodyFromLocation.isNullOrBlank()) {
-                  responseBodyFromLocation
-                } else {
-                  throw (IllegalArgumentException("No data found at the given location"))
-                }
+            //            if (fileObject.has("embedded")) {
+            //              fileObject.getString("embedded")
+            //            } else {
+            fileObject.getString("location").let {
+              //                val responseFromLocation =
+              //                  retrofitSHLService.getFromLocation("file/${it.substringAfterLast("/")}")
+
+              val responseFromLocation =
+                retrofitSHLService.getFromLocation(it.substringAfterLast("share-links/"))
+
+              val responseBodyFromLocation = responseFromLocation.body()?.string()
+              print("AAAAAAAAAAAAAAAAA")
+              println(responseBodyFromLocation)
+              if (!responseBodyFromLocation.isNullOrBlank()) {
+                responseBodyFromLocation
+              } else {
+                throw (IllegalArgumentException("No data found at the given location"))
               }
             }
+            //            }
           }
           .toTypedArray()
       }
@@ -158,19 +165,23 @@ class SHLinkDecoderImpl(
   ): Bundle {
     var healthData = ""
     for (element in embeddedArray) {
-      val decodedShc = shLinkScanData.key.let { readSHLinkUtils.decodeShc(element, it) }
-      if (decodedShc != "") {
-        val toDecode = readSHLinkUtils.extractVerifiableCredential(decodedShc)
-        if (toDecode.isEmpty()) {
-          healthData = decodedShc
-          break
+      if (shLinkScanData.key.isNotEmpty()) {
+        val decodedShc = shLinkScanData.key.let { readSHLinkUtils.decodeShc(element, it) }
+        if (decodedShc != "") {
+          val toDecode = readSHLinkUtils.extractVerifiableCredential(decodedShc)
+          if (toDecode.isEmpty()) {
+            healthData = decodedShc
+            break
+          }
+          val document =
+            JSONObject(readSHLinkUtils.decodeAndDecompressPayload(toDecode))
+              .getJSONObject("vc")
+              .getJSONObject("credentialSubject")
+              .getJSONObject("fhirBundle")
+          return parser.parseResource(document.toString()) as Bundle
         }
-        val document =
-          JSONObject(readSHLinkUtils.decodeAndDecompressPayload(toDecode))
-            .getJSONObject("vc")
-            .getJSONObject("credentialSubject")
-            .getJSONObject("fhirBundle")
-        return parser.parseResource(document.toString()) as Bundle
+      } else {
+        healthData = element
       }
     }
     return parser.parseResource(healthData) as Bundle

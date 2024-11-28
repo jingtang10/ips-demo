@@ -44,7 +44,8 @@ class SuccessfulScan : AppCompatActivity() {
 
     val decoder = SHLinkDecoderImpl(
       ReadSHLinkUtils,
-      RetrofitSHLService.Builder("https://api.vaxx.link/", NetworkConfiguration()).build()
+      //      RetrofitSHLService.Builder("https://api.vaxx.link/", NetworkConfiguration()).build()?
+      RetrofitSHLService.Builder("https://smart-health-links-portal.kenya-hie.jembi.cloud/api/v1/share-links/", NetworkConfiguration()).build()
     )
 
     /* only display the passscode field if one is required */
